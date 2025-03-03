@@ -5,6 +5,8 @@ import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.Drivetrain;
 
 @Logged
@@ -12,6 +14,8 @@ public class State extends SubsystemBase {
   public static DriverState currentDriverState;
   public static RobotState currentRobotState;
 
+  @NotLogged
+  RobotContainer RC;
   @NotLogged
   Drivetrain drivetrain;
   @NotLogged
@@ -21,12 +25,13 @@ public class State extends SubsystemBase {
 
   /** Creates a new StateMachine. */
   // TODO: ADD NEW SUBSYSTEMS WHEN CREATED!!!!
-  public State(Drivetrain drivetrain, CommandXboxController controller) {
+  public State(RobotContainer RC) {
     currentRobotState = RobotState.NONE;
     currentDriverState = DriverState.MANUAL;
 
-    this.drivetrain = drivetrain;
-    this.controller = controller;
+    this.RC = RC;
+    this.drivetrain = RC.getDrivetrain();
+    this.controller = RC.getController();
   }
 
   public void setDriverState(DriverState driverState) {

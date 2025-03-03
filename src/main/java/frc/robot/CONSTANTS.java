@@ -374,10 +374,13 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_ALGA_HIGH = Units.Inches.of(40);
 
         public static final Distance HEIGHT_BARGE = Units.Inches.of(54);
+        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
         public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(55);
+
+        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.8);
 
         // TODO: }] Tune End here~
 
@@ -393,6 +396,12 @@ public final class CONSTANTS {
          * Zero position (yk could slide around a bit~~~i pray it's zero)
          */
         public static final Distance ZEROED_POS = Units.Meters.of(0);
+
+        /**
+         * The velocity that the motor goes at once it has zeroed (and can no longer
+         * continue in that direction)
+         */
+        public static final AngularVelocity ZEROED_VELOCITY = Units.RotationsPerSecond.of(0.2);
 
         // TODO: fix this time
         public static final Time ZEROED_TIME = Units.Seconds.of(2);

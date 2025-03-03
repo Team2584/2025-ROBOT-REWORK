@@ -341,8 +341,69 @@ public final class CONSTANTS {
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeWelded);
 
-        public static String camera0Name = "limelight-zero";
-        public static String camera1Name = "limelight-one";
+        // TODO: change these names on limelight config :))) pls do or it wont work
+        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-front", "limelight-back" };
+
+        /**
+         * <p>
+         * Pose estimator standard deviation for vision data
+         * <p>
+         * <b>Units:</b> Meters
+         */
+        public static final double MEGA_TAG2_STD_DEVS_POSITION = 0.7;
+
+        /**
+         * <p>
+         * Pose estimator standard deviation for vision data (not actually used XD)
+         * </p>
+         * <b>Units:</b> Radians
+         */
+        public static final double MEGA_TAG2_STD_DEVS_HEADING = 9999999;
+
+        /**
+         * <p>
+         * Pose estimator standard deviation for vision data
+         * </p>
+         * <b>Units:</b> Meters
+         */
+        public static final double MEGA_TAG1_STD_DEVS_POSITION = 0.3;
+
+        public static final double MEGA_TAG1_STD_DEVS_HEADING = 0.1;
+        /**
+         * <p>
+         * Maximum rate of rotation before we begin rejecting pose updates
+         * </p>
+         */
+        public static final AngularVelocity MAX_ANGULAR_VELOCITY = Units.DegreesPerSecond.of(720);
+
+        /**
+         * The area that one tag (if its the only tag in the update) needs to exceed
+         * before being accepted
+         */
+        public static final double AREA_THRESHOLD = 0.05;
+
+        // TODO: get these numbers so it looks clean
+        // Position values of our limelights : THIS ISN'T USED IN CODE, ONLY IN THE
+        // LIMELIGHT CONFIG
+        public static class LIMELIGHT_FRONT {
+            public static final Distance LL_FORWARD = Units.Meters.of(0);
+            public static final Distance LL_RIGHT = Units.Meters.of(0);
+            public static final Distance LL_UP = Units.Meters.of(0);
+
+            public static final Angle LL_ROLL = Units.Degrees.of(0);
+            public static final Angle LL_PITCH = Units.Degrees.of(0);
+            public static final Angle LL_YAW = Units.Degrees.of(0);
+        }
+
+        public static class LIMELIGHT_BACK {
+            public static final Distance LL_FORWARD = Units.Meters.of(0);
+            public static final Distance LL_RIGHT = Units.Meters.of(0);
+            public static final Distance LL_UP = Units.Meters.of(0);
+
+            public static final Angle LL_ROLL = Units.Degrees.of(0);
+            public static final Angle LL_PITCH = Units.Degrees.of(0);
+            public static final Angle LL_YAW = Units.Degrees.of(0);
+        }
     }
 
     public static class CONSTANTS_USBCAM {

@@ -6,6 +6,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import java.util.List;
 
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -29,6 +30,7 @@ import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 import frc.robot.CONSTANTS.CONSTANTS_VISION;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.subsystems.State;
+import frc.robot.subsystems.State.DriverState;
 
 @Logged
 public class Drivetrain extends Swerve {
@@ -42,8 +44,8 @@ public class Drivetrain extends Swerve {
         super(
                 CONSTANTS_DRIVETRAIN.SWERVE_CONSTANTS,
                 CONSTANTS_DRIVETRAIN.MODULES,
-                CONSTANTS_DRIVETRAIN.WHEELBASE,
-                CONSTANTS_DRIVETRAIN.TRACK_WIDTH,
+                CONSTANTS_DRIVETRAIN.WHEEL_DISTANCE_LENGTH,
+                CONSTANTS_DRIVETRAIN.WHEEL_DISTANCE_WIDTH,
                 CONSTANTS_PORTS.CAN_BUS_NAME,
                 CONSTANTS_PORTS.PIGEON_CAN,
                 CONSTANTS_DRIVETRAIN.MIN_STEER_PERCENT,
@@ -63,7 +65,7 @@ public class Drivetrain extends Swerve {
                 CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID,
                 CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_PID,
                 CONSTANTS_DRIVETRAIN.AUTO.ROBOT_CONFIG,
-                () -> constField.isRedAlliance(),
+                () -> CONSTANTS_FIELD.isRedAlliance(),
                 Robot.isSimulation());
     }
 
@@ -125,7 +127,7 @@ public class Drivetrain extends Swerve {
         desiredAlignmentPose = desiredPose;
         // TODO: This might run better if instead of 0, we use
         // *********************************
-        // constDrivetrain.TELEOP_AUTO_ALIGN.DESIRED_AUTO_ALIGN_SPEED.in(Units.MetersPerSecond);.
+        // CONSTANTS_FIELD.TELEOP_AUTO_ALIGN.DESIRED_AUTO_ALIGN_SPEED.in(Units.MetersPerSecond);.
         // I dont know why. it might though
         return CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.TELEOP_AUTO_ALIGN_CONTROLLER.calculate(getPose(), desiredPose, 0,
                 desiredPose.getRotation());
@@ -208,7 +210,7 @@ public class Drivetrain extends Swerve {
             AngularVelocity rVelocity, double elevatorMultiplier, boolean isOpenLoop, Distance maxAutoDriveDistance,
             DriverState driving, DriverState rotating, State subStateMachine) {
 
-        int redAllianceMultiplier = constField.isRedAlliance() ? -1 : 1;
+        int redAllianceMultiplier = CONSTANTS_FIELD.isRedAlliance() ? -1 : 1;
 
         // Rotational-only auto-align
         drive(
@@ -246,7 +248,7 @@ public class Drivetrain extends Swerve {
             subStateMachine.setDriverState(driving);
 
             // Speed limit based on elevator height
-            LinearVelocity linearSpeedLimit = CONSTANTS_DRIVETRAIN.OBSERVED_DRIVE_SPEED.times(elevatorMultiplier);
+            LinearVelocity linearSpeedLimit = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.times(elevatorMultiplier);
             AngularVelocity angularSpeedLimit = CONSTANTS_DRIVETRAIN.TURN_SPEED.times(elevatorMultiplier);
 
             if (!RobotState.isAutonomous()) {
@@ -285,6 +287,7 @@ public class Drivetrain extends Swerve {
                 .lte(CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.AT_POINT_TOLERANCE);
     }
 
+    @NotLogged
     public Boolean isAligned() {
         return (desiredAlignmentPose.getTranslation().getDistance(
                 getPose().getTranslation()) <= CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.AUTO_ALIGNMENT_TOLERANCE

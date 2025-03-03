@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -11,8 +12,11 @@ public class State extends SubsystemBase {
   public static DriverState currentDriverState;
   public static RobotState currentRobotState;
 
+  @NotLogged
   Drivetrain drivetrain;
+  @NotLogged
   CommandXboxController controller;
+  @NotLogged
   Joystick ButtonBoard;
 
   /** Creates a new StateMachine. */

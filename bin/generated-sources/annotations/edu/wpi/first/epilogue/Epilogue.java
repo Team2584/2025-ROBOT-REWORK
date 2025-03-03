@@ -5,7 +5,7 @@ import static edu.wpi.first.units.Units.Seconds;
 import edu.wpi.first.hal.FRCNetComm;
 import edu.wpi.first.hal.HAL;
 
-import frc.robot.subsystems.StateLogger;
+import frc.robot.subsystems.ElevatorLogger;
 
 public final class Epilogue {
   static {
@@ -17,7 +17,7 @@ public final class Epilogue {
 
   private static final EpilogueConfiguration config = new EpilogueConfiguration();
 
-  public static final StateLogger stateLogger = new StateLogger();
+  public static final ElevatorLogger elevatorLogger = new ElevatorLogger();
 
   public static void configure(java.util.function.Consumer<EpilogueConfiguration> configurator) {
     configurator.accept(config);

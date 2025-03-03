@@ -11,9 +11,11 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -37,6 +39,8 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.units.measure.Mass;
+import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.swerve.SwerveConstants;
@@ -79,6 +83,7 @@ public final class CONSTANTS {
         // Elevator
         public static final int ELEVATOR_LEFT_CAN = 21;
         public static final int ELEVATOR_RIGHT_CAN = 20;
+        public static final int ELEVATOR_LIMIT_CHANNEL = 9;
 
         // Wrist
         public static final int WRIST_CAN = 16;
@@ -213,7 +218,6 @@ public final class CONSTANTS {
             CANCODER_CONFIG.MagnetSensor.SensorDirection = CANCODER_INVERT;
         }
 
-        public static final double GOVERNOR = 0.7; // drivetrain speed limiter
         public static final double MIN_STEER_PERCENT = 0.01;
         public static final double SLOW_MODE_GOVERNOR = 0.5; // slow mode speed limiter
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
@@ -313,6 +317,85 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_ELEVATOR {
+        public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
+        public static final double ELEVATOR_GEAR_RATIO = 8.571;
+
+        public static TalonFXConfiguration ELEVATOR_CONFIG = new TalonFXConfiguration();
+        static {
+            ELEVATOR_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ELEVATOR_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(62).in(Units.Inches);
+            ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
+                    .in(Units.Inches);
+
+            ELEVATOR_CONFIG.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+            // Elevator motors will provide feedback in INCHES the carriage has moved
+            // TODO: check this number
+            ELEVATOR_CONFIG.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
+
+            ELEVATOR_CONFIG.Slot0.kG = 0.3; // Volts to overcome gravity
+            ELEVATOR_CONFIG.Slot0.kS = 0.4; // Volts to overcome static friction
+            ELEVATOR_CONFIG.Slot0.kV = 0.001; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG.Slot0.kP = 0.5;
+            ELEVATOR_CONFIG.Slot0.kI = 0.0;
+            ELEVATOR_CONFIG.Slot0.kD = 0.0;
+            ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+
+            ELEVATOR_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 400;
+            ELEVATOR_CONFIG.MotionMagic.MotionMagicAcceleration = 1100;
+            ELEVATOR_CONFIG.MotionMagic.MotionMagicExpo_kV = 0.12;
+
+            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 30;
+            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLimit = 60;
+            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLowerTime = 1;
+
+        }
+
+        public static TalonFXConfiguration COAST_MODE_CONFIGURATION = new TalonFXConfiguration();
+        static {
+            COAST_MODE_CONFIGURATION.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+            COAST_MODE_CONFIGURATION.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        }
+
+        // TODO: Retune these numbers ~~~
+        // Preset Heights
+        public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
+        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
+        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
+
+        public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
+        public static final Distance HEIGHT_ALGA_LOW = Units.Inches.of(23);
+        public static final Distance HEIGHT_ALGA_HIGH = Units.Inches.of(40);
+
+        public static final Distance HEIGHT_BARGE = Units.Inches.of(54);
+
+        // Physical Constants
+        public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
+        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(55);
+
+        // TODO: }] Tune End here~
+
+        public static final AngularVelocity MANUAL_ZEROING_START_VELOCITY = Units.RotationsPerSecond.of(5);
+        public static final AngularVelocity MANUAL_ZEROING_DELTA_VELOCITY = Units.RotationsPerSecond.of(5);
+
+        /**
+         * Voltage given to motor when it's zeroing
+         */
+        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-1);
+
+        /**
+         * Zero position (yk could slide around a bit~~~i pray it's zero)
+         */
+        public static final Distance ZEROED_POS = Units.Meters.of(0);
+
+        // TODO: fix this time
+        public static final Time ZEROED_TIME = Units.Seconds.of(2);
 
     }
 

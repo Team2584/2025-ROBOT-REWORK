@@ -17,11 +17,11 @@ public class State extends SubsystemBase {
   @NotLogged
   RobotContainer RC;
   @NotLogged
-  Drivetrain drivetrain;
-  @NotLogged
   CommandXboxController controller;
   @NotLogged
   Joystick ButtonBoard;
+  @NotLogged
+  Drivetrain drivetrain;
 
   /** Creates a new StateMachine. */
   // TODO: ADD NEW SUBSYSTEMS WHEN CREATED!!!!

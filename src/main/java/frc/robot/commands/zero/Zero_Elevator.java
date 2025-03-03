@@ -4,6 +4,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.subsystems.Elevator;
 
@@ -13,8 +14,8 @@ public class Zero_Elevator extends Command {
     Time zeroingTimestamp;
     boolean isZero = false;
 
-    public Zero_Elevator(Elevator elevator) {
-        this.elevator = elevator;
+    public Zero_Elevator(RobotContainer RC) {
+        this.elevator = RC.getElevator();
 
         addRequirements(elevator);
     }
@@ -32,7 +33,7 @@ public class Zero_Elevator extends Command {
     public void execute() {
         elevator.setVoltage(CONSTANTS_ELEVATOR.ZEROING_VOLTAGE);
 
-        if (elevator.getZeroLimit()){
+        if (elevator.getZeroLimit()) {
             isZero = true;
         }
     }

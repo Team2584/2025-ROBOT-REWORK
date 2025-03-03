@@ -104,7 +104,8 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_CONTROLLER {
-
+        // TODO: Maybe add joystick deadband later
+        public static final boolean SILENCE_JOYSTICK_WARNINGS = true;
     }
 
     public static class CONSTANTS_DRIVETRAIN {
@@ -406,6 +407,7 @@ public final class CONSTANTS {
         // TODO: fix this time
         public static final Time ZEROED_TIME = Units.Seconds.of(2);
 
+        public static final Time ZEROING_TIMEOUT = Units.Seconds.of(3);
     }
 
     public static class CONSTANTS_WRIST {

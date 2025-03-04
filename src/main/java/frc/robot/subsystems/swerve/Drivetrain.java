@@ -309,42 +309,25 @@ public class Drivetrain extends Swerve {
     public void periodic() {
         super.periodic();
 
-        /*
-         * for (Module mod : modules) {
-         * SmartDashboard.putNumber("Drivetrain/Module " + mod.moduleNumber +
-         * "/Desired Speed (FPS)",
-         * Units.Feet.convertFrom(Math.abs(getDesiredModuleStates()[mod.moduleNumber].
-         * speedMetersPerSecond),
-         * Units.Meters));
-         * SmartDashboard.putNumber("Drivetrain/Module " + mod.moduleNumber +
-         * "/Actual Speed (FPS)",
-         * Units.Feet.convertFrom(Math.abs(getActualModuleStates()[mod.moduleNumber].
-         * speedMetersPerSecond),
-         * Units.Meters));
-         * 
-         * SmartDashboard.putNumber("Drivetrain/Module " + mod.moduleNumber +
-         * "/Desired Angle (Degrees)",
-         * Math.abs(getDesiredModuleStates()[mod.moduleNumber].angle.getDegrees()));
-         * SmartDashboard.putNumber("Drivetrain/Module " + mod.moduleNumber +
-         * "/Actual Angle (Degrees)",
-         * Math.abs(getActualModuleStates()[mod.moduleNumber].angle.getDegrees()));
-         * 
-         * SmartDashboard.putNumber(
-         * "Drivetrain/Module " + mod.moduleNumber +
-         * "/Offset Absolute Encoder Angle (Rotations)",
-         * mod.getAbsoluteEncoder());
-         * SmartDashboard.putNumber(
-         * "Drivetrain/Module " + mod.moduleNumber +
-         * "/Absolute Encoder Raw Value (Rotations)",
-         * mod.getRawAbsoluteEncoder());
-         * }
-         */
-
         field.setRobotPose(getPose());
         desiredModuleStates = getDesiredModuleStates();
         actualModuleStates = getActualModuleStates();
 
         SmartDashboard.putData(field);
         SmartDashboard.putNumber("Drivetrain/Rotation", getRotationMeasure().in(Units.Degrees));
+
+        for (Module mod : CONSTANTS_DRIVETRAIN.MODULES) {
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/rawAbsoluteEncoder",
+                    (mod.getRawAbsoluteEncoder()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderOffset",
+                    (mod.getAbsoluteEncoderOffset()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderConv",
+                    (mod.getAbsoluteEncoder()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Desired Angle (Degrees)",
+                    Math.abs(getDesiredModuleStates()[mod.getModuleNumber()].angle.getDegrees()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Actual Angle (Degrees)",
+                    Math.abs(getActualModuleStates()[mod.getModuleNumber()].angle.getDegrees()));
+
+        }
     }
 }

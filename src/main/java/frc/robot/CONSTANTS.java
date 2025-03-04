@@ -113,9 +113,9 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
         // public static final LinearVelocity MAX_DRIVE_SPEED =
-        // Units.MetersPerSecond.of(0.5);
+        // Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(0.5);
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
         // Inverted states

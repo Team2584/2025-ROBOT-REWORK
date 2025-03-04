@@ -150,6 +150,10 @@ public class Module extends SubsystemBase {
         return absoluteEncoder.getAbsolutePosition().getValueAsDouble();
     }
 
+    public int getModuleNumber() {
+        return moduleNumber;
+    }
+
     /**
      * Get the current position, with the offset applied, of the module's absolute
      * encoder. This value should match the physical angle of the module's wheel.
@@ -161,6 +165,10 @@ public class Module extends SubsystemBase {
         rotations -= absoluteEncoderOffset;
 
         return rotations;
+    }
+
+    public double getAbsoluteEncoderOffset() {
+        return absoluteEncoderOffset;
     }
 
     /**

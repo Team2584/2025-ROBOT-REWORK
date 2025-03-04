@@ -134,10 +134,10 @@ public final class CONSTANTS {
 
         // Encoder offsets (check raw values when all wheel are aligned in the same
         // direction)
-        public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = 0.137939453125;
-        public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = -0.498046875;
-        public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.245849609375;
-        public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = 0.040771484375;
+        public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.1389;
+        public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = 0.4995;
+        public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
+        public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.04223;
 
         public static final InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
@@ -213,7 +213,7 @@ public final class CONSTANTS {
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
 
         // One spin per second (for teleop)
-        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(20);
+        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(60);
 
         /**
          * <p>

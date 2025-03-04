@@ -397,6 +397,7 @@ public class Swerve extends SubsystemBase {
 	 *         rotation.getDegrees)
 	 */
 	private Rotation2d getGyroRotation() {
+		/*
 		if (isSimulation && lastDesiredStates != null) {
 			simAngle += swerveKinematics.toChassisSpeeds(lastDesiredStates).omegaRadiansPerSecond * timeFromLastUpdate;
 
@@ -408,6 +409,8 @@ public class Swerve extends SubsystemBase {
 		}
 		double yaw = pigeon.getYaw().getValueAsDouble() % 360;
 		return (yaw < 0) ? Rotation2d.fromDegrees(yaw + 360) : Rotation2d.fromDegrees(yaw);
+		*/
+		return Rotation2d.fromDegrees(pigeon.getYaw().getValueAsDouble());
 	}
 
 	/**

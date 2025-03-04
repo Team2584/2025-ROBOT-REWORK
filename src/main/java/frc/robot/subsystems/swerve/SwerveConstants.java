@@ -38,6 +38,6 @@ public class SwerveConstants {
          * Preset Constants for a 2584 module's for 2025
          */
         public static final SwerveConstants L1 = new SwerveConstants(STEER_GEAR_RATIO, WHEEL_CIRCUMFERENCE,
-                5.6, Units.feetToMeters(18));
+                5.6, Units.feetToMeters(17.5));
     }
 }

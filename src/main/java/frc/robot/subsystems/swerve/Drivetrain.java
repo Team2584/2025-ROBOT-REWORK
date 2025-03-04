@@ -321,6 +321,8 @@ public class Drivetrain extends Swerve {
                     (mod.getRawAbsoluteEncoder()));
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderOffset",
                     (mod.getAbsoluteEncoderOffset()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/plsbeZero",
+                (mod.getRawAbsoluteEncoder()-mod.getAbsoluteEncoderOffset()));
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderConv",
                     (mod.getAbsoluteEncoder()));
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Desired Angle (Degrees)",

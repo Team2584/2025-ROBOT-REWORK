@@ -102,6 +102,7 @@ public class Module extends SubsystemBase {
 
         driveMotor = new TalonFX(driveMotorID, CANBusName);
         steerMotor = new TalonFX(steerMotorID, CANBusName);
+        
         driveMotorControllerClosed = new VelocityDutyCycle(0);
         driveMotorControllerOpen = new DutyCycleOut(0);
         steerMotorController = new PositionVoltage(0);

@@ -121,7 +121,7 @@ public class Elevator extends SubsystemBase {
 
     public void setPosition(Distance height) {
         m_Leader_Right.setControl(motionRequest.withPosition(height.in(Units.Inches)));
-        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
+        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false));
         lastDesiredPosition = height;
     }
 
@@ -132,7 +132,7 @@ public class Elevator extends SubsystemBase {
 
     public void setVoltage(Voltage voltage) {
         m_Leader_Right.setControl(voltageRequest.withOutput(voltage));
-        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
+        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false));
     }
 
     public void resetSensorPosition(Distance setpoint) {

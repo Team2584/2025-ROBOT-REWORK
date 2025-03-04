@@ -3,8 +3,8 @@ package frc.robot.subsystems.swerve;
 import edu.wpi.first.math.util.Units;
 
 public class SwerveConstants {
-    private static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(3.8) * Math.PI;
-    private static final double STEER_GEAR_RATIO = 150.0 / 7.0;
+    private static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(2) * Math.PI;
+    private static final double STEER_GEAR_RATIO = 13.371428571428572;
     public double steerGearRatio;
     public double wheelCircumference;
     public double driveGearRatio;
@@ -37,7 +37,9 @@ public class SwerveConstants {
         /**
          * Preset Constants for a 2584 module's for 2025
          */
-        public static final SwerveConstants L1 = new SwerveConstants(STEER_GEAR_RATIO, WHEEL_CIRCUMFERENCE,
-                5.6, Units.feetToMeters(17.5));
+
+        // public static final SwerveConstants L1 = new
+        // SwerveConstants(STEER_GEAR_RATIO, WHEEL_CIRCUMFERENCE,
+        // 5.6, Units.feetToMeters(17.5));
     }
 }

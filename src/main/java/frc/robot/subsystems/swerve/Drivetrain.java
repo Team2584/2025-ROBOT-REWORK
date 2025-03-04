@@ -207,6 +207,8 @@ public class Drivetrain extends Swerve {
     public void drive(ChassisSpeeds chassisSpeeds, boolean isOpenLoop) {
         SwerveModuleState[] desiredModuleStates = swerveKinematics
                 .toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
+        // SwerveModuleState[] desiredModuleStates =
+        // swerveKinematics.toSwerveModuleStates(chassisSpeeds);
         setModuleStates(desiredModuleStates, isOpenLoop);
     }
 
@@ -322,13 +324,17 @@ public class Drivetrain extends Swerve {
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderOffset",
                     (mod.getAbsoluteEncoderOffset()));
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/plsbeZero",
-                (mod.getRawAbsoluteEncoder()-mod.getAbsoluteEncoderOffset()));
+                    (mod.getRawAbsoluteEncoder() - mod.getAbsoluteEncoderOffset()));
             SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/absoluteEncoderConv",
                     (mod.getAbsoluteEncoder()));
-            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Desired Angle (Degrees)",
-                    Math.abs(getDesiredModuleStates()[mod.getModuleNumber()].angle.getDegrees()));
-            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Actual Angle (Degrees)",
-                    Math.abs(getActualModuleStates()[mod.getModuleNumber()].angle.getDegrees()));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Angle Desired (Degrees)",
+                    getDesiredModuleStates()[mod.getModuleNumber()].angle.getDegrees());
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Angle Actual (Degrees)",
+                    getActualModuleStates()[mod.getModuleNumber()].angle.getDegrees());
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Actual Speed (m.s)",
+                    Math.abs(getActualModuleStates()[mod.getModuleNumber()].speedMetersPerSecond));
+            SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/SteerPos",
+                    mod.steerMotor.getPosition().getValueAsDouble());
 
         }
     }

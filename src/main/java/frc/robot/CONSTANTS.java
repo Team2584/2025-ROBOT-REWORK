@@ -115,7 +115,7 @@ public final class CONSTANTS {
 
         // public static final LinearVelocity MAX_DRIVE_SPEED =
         // Units.MetersPerSecond.of(5.33);
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(0.5);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
         // Inverted states
@@ -144,7 +144,12 @@ public final class CONSTANTS {
         public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
         public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
 
-        public static final SwerveConstants SWERVE_CONSTANTS = SwerveConstants.KRAKEN.L1;
+        private static final double kDriveGearRatio = 5.6;
+        private static final double kSteerGearRatio = 13.371428571428572;
+
+        public static final SwerveConstants SWERVE_CONSTANTS = new SwerveConstants(
+                CONSTANTS_DRIVETRAIN.kSteerGearRatio, CONSTANTS_DRIVETRAIN.WHEEL_CIRCUMFERENCE,
+                5.6, edu.wpi.first.math.util.Units.feetToMeters(17.5));
 
         /*
          * Physically measured from center to center of the wheels
@@ -213,7 +218,7 @@ public final class CONSTANTS {
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
 
         // One spin per second (for teleop)
-        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(60);
+        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(360);
 
         /**
          * <p>

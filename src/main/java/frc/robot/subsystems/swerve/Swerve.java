@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swerve;
 
+import static edu.wpi.first.units.Units.Rotation;
+
 import java.util.HashMap;
 import java.util.function.BooleanSupplier;
 
@@ -144,7 +146,8 @@ public class Swerve extends SubsystemBase {
 		field = new Field2d();
 
 		// Location of all modules in the WPILib robot coordinate system
-		swerveKinematics = new SwerveDriveKinematics(new Translation2d(wheelbase / 2.0, trackWidth / 2.0),
+		swerveKinematics = new SwerveDriveKinematics(
+				new Translation2d(wheelbase / 2.0, trackWidth / 2.0),
 				new Translation2d(wheelbase / 2.0, -trackWidth / 2.0),
 				new Translation2d(-wheelbase / 2.0, trackWidth / 2.0),
 				new Translation2d(-wheelbase / 2.0, -trackWidth / 2.0));
@@ -397,9 +400,10 @@ public class Swerve extends SubsystemBase {
 	 *         rotation.getDegrees)
 	 */
 	private Rotation2d getGyroRotation() {
-		/*
+
 		if (isSimulation && lastDesiredStates != null) {
-			simAngle += swerveKinematics.toChassisSpeeds(lastDesiredStates).omegaRadiansPerSecond * timeFromLastUpdate;
+			simAngle += swerveKinematics.toChassisSpeeds(lastDesiredStates).omegaRadiansPerSecond *
+					timeFromLastUpdate;
 
 			// Wrap to +- 1 rotation
 			simAngle = simAngle % (2 * Math.PI);
@@ -409,8 +413,6 @@ public class Swerve extends SubsystemBase {
 		}
 		double yaw = pigeon.getYaw().getValueAsDouble() % 360;
 		return (yaw < 0) ? Rotation2d.fromDegrees(yaw + 360) : Rotation2d.fromDegrees(yaw);
-		*/
-		return Rotation2d.fromDegrees(pigeon.getYaw().getValueAsDouble());
 	}
 
 	/**
@@ -465,7 +467,8 @@ public class Swerve extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("PigeonYaw", pigeon.getYaw().getValueAsDouble());
+		SmartDashboard.putNumber("PigeonYaw", getGyroRotation().getDegrees());
+		// SmartDashboard.putData(swervePoseEstimator);
 		updateTimer();
 		updatePoseEstimator();
 	}

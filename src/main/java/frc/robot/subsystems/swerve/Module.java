@@ -102,7 +102,7 @@ public class Module extends SubsystemBase {
 
         driveMotor = new TalonFX(driveMotorID, CANBusName);
         steerMotor = new TalonFX(steerMotorID, CANBusName);
-        
+
         driveMotorControllerClosed = new VelocityDutyCycle(0);
         driveMotorControllerOpen = new DutyCycleOut(0);
         steerMotorController = new PositionVoltage(0);
@@ -275,9 +275,10 @@ public class Module extends SubsystemBase {
 
         // If the requested speed is lower than a relevant steering speed,
         // don't turn the motor. Set it to whatever it's previous angle was.
-        if (Math.abs(state.speedMetersPerSecond) < (minimumSteerSpeedPercent * maxModuleSpeedMeters) && !steerInPlace) {
-            return;
-        }
+        // if (Math.abs(state.speedMetersPerSecond) < (minimumSteerSpeedPercent *
+        // maxModuleSpeedMeters) && !steerInPlace) {
+        // return;
+        // }
 
         steerMotorController.Position = rotation;
         steerMotor.setControl(steerMotorController);

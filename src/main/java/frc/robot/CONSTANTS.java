@@ -113,7 +113,9 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.5);
+        // public static final LinearVelocity MAX_DRIVE_SPEED =
+        // Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(0.5);
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
         // Inverted states
@@ -137,33 +139,12 @@ public final class CONSTANTS {
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.245849609375;
         public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = 0.040771484375;
 
+        public static InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
+        public static InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
+        public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
+
         public static final SwerveConstants SWERVE_CONSTANTS = SwerveConstants.KRAKEN.L1;
-
-        public static Module[] MODULES = new Module[] {
-                // Front Left
-                new Module(0, SWERVE_CONSTANTS, CONSTANTS_PORTS.FRONT_LEFT_DRIVE_CAN,
-                        CONSTANTS_PORTS.FRONT_LEFT_STEER_CAN,
-                        CONSTANTS_PORTS.FRONT_LEFT_ABSOLUTE_ENCODER_CAN,
-                        CONSTANTS_DRIVETRAIN.FRONT_LEFT_ABS_ENCODER_OFFSET, CONSTANTS_PORTS.CAN_BUS_NAME),
-
-                // Front Right
-                new Module(1, SWERVE_CONSTANTS, CONSTANTS_PORTS.FRONT_RIGHT_DRIVE_CAN,
-                        CONSTANTS_PORTS.FRONT_RIGHT_STEER_CAN,
-                        CONSTANTS_PORTS.FRONT_RIGHT_ABSOLUTE_ENCODER_CAN,
-                        CONSTANTS_DRIVETRAIN.FRONT_RIGHT_ABS_ENCODER_OFFSET, CONSTANTS_PORTS.CAN_BUS_NAME),
-
-                // Back Left
-                new Module(2, SWERVE_CONSTANTS, CONSTANTS_PORTS.BACK_LEFT_DRIVE_CAN,
-                        CONSTANTS_PORTS.BACK_LEFT_STEER_CAN,
-                        CONSTANTS_PORTS.BACK_LEFT_ABSOLUTE_ENCODER_CAN,
-                        CONSTANTS_DRIVETRAIN.BACK_LEFT_ABS_ENCODER_OFFSET, CONSTANTS_PORTS.CAN_BUS_NAME),
-
-                // Back Right
-                new Module(3, SWERVE_CONSTANTS, CONSTANTS_PORTS.BACK_RIGHT_DRIVE_CAN,
-                        CONSTANTS_PORTS.BACK_RIGHT_STEER_CAN,
-                        CONSTANTS_PORTS.BACK_RIGHT_ABSOLUTE_ENCODER_CAN,
-                        CONSTANTS_DRIVETRAIN.BACK_RIGHT_ABS_ENCODER_OFFSET, CONSTANTS_PORTS.CAN_BUS_NAME),
-        };
 
         /*
          * Physically measured from center to center of the wheels
@@ -186,27 +167,35 @@ public final class CONSTANTS {
         public static final double DRIVE_KA = 0;
         public static final double DRIVE_KV = (1 / MAX_DRIVE_SPEED.in(Units.MetersPerSecond));
 
-        public static final InvertedValue DRIVE_MOTOR_INVERT = InvertedValue.CounterClockwise_Positive;
-        public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
-        public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
         public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
         public static final NeutralModeValue STEER_NEUTRAL_MODE = NeutralModeValue.Coast;
         public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(80);
 
-        public static TalonFXConfiguration DRIVE_CONFIG = new TalonFXConfiguration();
+        public static TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
+        public static TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
+
         public static TalonFXConfiguration STEER_CONFIG = new TalonFXConfiguration();
         public static CANcoderConfiguration CANCODER_CONFIG = new CANcoderConfiguration();
 
         static {
             // Passed into drive constructor
-            DRIVE_CONFIG.Slot0.kP = DRIVE_P;
-            DRIVE_CONFIG.Slot0.kI = DRIVE_I;
-            DRIVE_CONFIG.Slot0.kD = DRIVE_D;
-            DRIVE_CONFIG.MotorOutput.Inverted = DRIVE_MOTOR_INVERT;
-            DRIVE_CONFIG.MotorOutput.NeutralMode = DRIVE_NEUTRAL_MODE;
-            DRIVE_CONFIG.Feedback.SensorToMechanismRatio = SWERVE_CONSTANTS.driveGearRatio;
-            DRIVE_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = false;
-            DRIVE_CONFIG.CurrentLimits.SupplyCurrentLimit = DRIVE_CURRENT_LIMIT.in(Units.Amps);
+            DRIVE_LEFT_CONFIG.Slot0.kP = DRIVE_P;
+            DRIVE_LEFT_CONFIG.Slot0.kI = DRIVE_I;
+            DRIVE_LEFT_CONFIG.Slot0.kD = DRIVE_D;
+            DRIVE_LEFT_CONFIG.MotorOutput.Inverted = INVERSION_LEFT;
+            DRIVE_LEFT_CONFIG.MotorOutput.NeutralMode = DRIVE_NEUTRAL_MODE;
+            DRIVE_LEFT_CONFIG.Feedback.SensorToMechanismRatio = SWERVE_CONSTANTS.driveGearRatio;
+            DRIVE_LEFT_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = false;
+            DRIVE_LEFT_CONFIG.CurrentLimits.SupplyCurrentLimit = DRIVE_CURRENT_LIMIT.in(Units.Amps);
+
+            DRIVE_RIGHT_CONFIG.Slot0.kP = DRIVE_P;
+            DRIVE_RIGHT_CONFIG.Slot0.kI = DRIVE_I;
+            DRIVE_RIGHT_CONFIG.Slot0.kD = DRIVE_D;
+            DRIVE_RIGHT_CONFIG.MotorOutput.Inverted = INVERSION_RIGHT;
+            DRIVE_RIGHT_CONFIG.MotorOutput.NeutralMode = DRIVE_NEUTRAL_MODE;
+            DRIVE_RIGHT_CONFIG.Feedback.SensorToMechanismRatio = SWERVE_CONSTANTS.driveGearRatio;
+            DRIVE_RIGHT_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = false;
+            DRIVE_RIGHT_CONFIG.CurrentLimits.SupplyCurrentLimit = DRIVE_CURRENT_LIMIT.in(Units.Amps);
 
             STEER_CONFIG.Slot0.kP = STEER_P;
             STEER_CONFIG.Slot0.kI = STEER_I;
@@ -241,6 +230,40 @@ public final class CONSTANTS {
          * <b>Units:</b> Radians
          */
         public static final double MEASUREMENT_STD_DEV_HEADING = Units.Radians.convertFrom(5, Units.Degrees);
+
+        public static Module[] MODULES = new Module[] {
+                // Front Left
+                new Module(0, SWERVE_CONSTANTS, CONSTANTS_PORTS.FRONT_LEFT_DRIVE_CAN,
+                        CONSTANTS_PORTS.FRONT_LEFT_STEER_CAN,
+                        CONSTANTS_PORTS.FRONT_LEFT_ABSOLUTE_ENCODER_CAN,
+                        CONSTANTS_DRIVETRAIN.FRONT_LEFT_ABS_ENCODER_OFFSET, CONSTANTS_DRIVETRAIN.INVERSION_LEFT,
+                        CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG,
+                        CONSTANTS_PORTS.CAN_BUS_NAME),
+
+                // Front Right
+                new Module(1, SWERVE_CONSTANTS, CONSTANTS_PORTS.FRONT_RIGHT_DRIVE_CAN,
+                        CONSTANTS_PORTS.FRONT_RIGHT_STEER_CAN,
+                        CONSTANTS_PORTS.FRONT_RIGHT_ABSOLUTE_ENCODER_CAN,
+                        CONSTANTS_DRIVETRAIN.FRONT_RIGHT_ABS_ENCODER_OFFSET, CONSTANTS_DRIVETRAIN.INVERSION_RIGHT,
+                        CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG,
+                        CONSTANTS_PORTS.CAN_BUS_NAME),
+
+                // Back Left
+                new Module(2, SWERVE_CONSTANTS, CONSTANTS_PORTS.BACK_LEFT_DRIVE_CAN,
+                        CONSTANTS_PORTS.BACK_LEFT_STEER_CAN,
+                        CONSTANTS_PORTS.BACK_LEFT_ABSOLUTE_ENCODER_CAN,
+                        CONSTANTS_DRIVETRAIN.BACK_LEFT_ABS_ENCODER_OFFSET, CONSTANTS_DRIVETRAIN.INVERSION_LEFT,
+                        CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG,
+                        CONSTANTS_PORTS.CAN_BUS_NAME),
+
+                // Back Right
+                new Module(3, SWERVE_CONSTANTS, CONSTANTS_PORTS.BACK_RIGHT_DRIVE_CAN,
+                        CONSTANTS_PORTS.BACK_RIGHT_STEER_CAN,
+                        CONSTANTS_PORTS.BACK_RIGHT_ABSOLUTE_ENCODER_CAN,
+                        CONSTANTS_DRIVETRAIN.BACK_RIGHT_ABS_ENCODER_OFFSET, CONSTANTS_DRIVETRAIN.INVERSION_RIGHT,
+                        CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG,
+                        CONSTANTS_PORTS.CAN_BUS_NAME),
+        };
 
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem

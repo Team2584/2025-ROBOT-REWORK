@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 
 public class Swerve extends SubsystemBase {
 	public Module[] modules;
@@ -132,7 +133,8 @@ public class Swerve extends SubsystemBase {
 	 */
 	public Swerve(SwerveConstants swerveConstants, Module[] modules, double wheelbase,
 			double trackWidth, String CANBusName, int pigeonCANId, double minimumSteerPercent,
-			InvertedValue driveInversion, InvertedValue steerInversion, SensorDirectionValue cancoderInversion,
+			InvertedValue driveLeftInversion, InvertedValue driveRightInversion, InvertedValue steerInversion,
+			SensorDirectionValue cancoderInversion,
 			NeutralModeValue driveNeutralMode, NeutralModeValue steerNeutralMode, Matrix<N3, N1> stateStdDevs,
 			Matrix<N3, N1> visionStdDevs, PIDConstants autoDrivePID, PIDConstants autoSteerPID, RobotConfig robotConfig,
 			BooleanSupplier autoFlipPaths, boolean isSimulation) {
@@ -164,12 +166,14 @@ public class Swerve extends SubsystemBase {
 		Module.CANBusName = CANBusName;
 		Module.minimumSteerSpeedPercent = minimumSteerPercent;
 
-		Module.driveInversion = driveInversion;
 		Module.driveNeutralMode = driveNeutralMode;
 
-		Module.steerInversion = steerInversion;
 		Module.steerNeutralMode = steerNeutralMode;
-		Module.cancoderInversion = cancoderInversion;
+		
+		modules[0].driveInversion = driveLeftInversion;
+		modules[2].driveInversion = driveLeftInversion;
+		modules[1].driveInversion = driveRightInversion;
+		modules[3].driveInversion = driveRightInversion;
 
 		pigeon = new Pigeon2(pigeonCANId, CANBusName);
 

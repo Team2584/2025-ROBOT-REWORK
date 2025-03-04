@@ -32,7 +32,7 @@ public class Module extends SubsystemBase {
     public int moduleNumber;
 
     // Static definitions
-    public static TalonFXConfiguration driveConfiguration;
+    public TalonFXConfiguration driveConfiguration;
     public static TalonFXConfiguration steerConfiguration;
     public static CANcoderConfiguration cancoderConfiguration;
 
@@ -43,9 +43,12 @@ public class Module extends SubsystemBase {
     // Static definitions
     public static NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
     public static NeutralModeValue steerNeutralMode = NeutralModeValue.Coast;
-    public static InvertedValue driveInversion = InvertedValue.CounterClockwise_Positive;
-    public static InvertedValue steerInversion = InvertedValue.Clockwise_Positive;
-    public static SensorDirectionValue cancoderInversion = SensorDirectionValue.CounterClockwise_Positive;
+    // public InvertedValue driveInversion = InvertedValue.CounterClockwise_Positive;
+    // public InvertedValue steerInversion = InvertedValue.Clockwise_Positive;
+    // public SensorDirectionValue cancoderInversion = SensorDirectionValue.CounterClockwise_Positive;
+    public static InvertedValue steerInversion;
+    public static SensorDirectionValue cancoderInversion;
+    public InvertedValue driveInversion;
     public static String CANBusName;
     public static double minimumSteerSpeedPercent = 0.01;
 
@@ -87,11 +90,13 @@ public class Module extends SubsystemBase {
      *                              encoder value.
      */
     public Module(int moduleNumber, SwerveConstants SCC, int driveMotorID, int steerMotorID, int absoluteEncoderID,
-            double absoluteEncoderOffset, String CANBusName) {
+            double absoluteEncoderOffset, InvertedValue driveInversion, TalonFXConfiguration driveConfiguration, String CANBusName) {
 
         simTimer.start();
         this.CANBusName = CANBusName;
         this.moduleNumber = moduleNumber;
+        this.driveInversion = driveInversion;
+
 
         driveMotor = new TalonFX(driveMotorID, CANBusName);
         steerMotor = new TalonFX(steerMotorID, CANBusName);
@@ -107,7 +112,7 @@ public class Module extends SubsystemBase {
         wheelCircumference = SCC.wheelCircumference;
         maxModuleSpeedMeters = SCC.maxSpeedMeters;
 
-        driveConfiguration = new TalonFXConfiguration();
+        this.driveConfiguration = driveConfiguration;
         steerConfiguration = new TalonFXConfiguration();
         cancoderConfiguration = new CANcoderConfiguration();
     }

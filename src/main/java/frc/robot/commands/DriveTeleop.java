@@ -24,7 +24,7 @@ import frc.robot.subsystems.swerve.Drivetrain;
 
 public class DriveTeleop extends Command {
   State state;
-  frc.robot.subsystems.swerve.Drivetrain drivetrain;
+  Drivetrain drivetrain;
   DoubleSupplier xAxis, yAxis, rotationAxis;
   BooleanSupplier slowMode, leftReef, rightReef, coralStationLeft, coralStationRight, processor;
   Elevator elevator;

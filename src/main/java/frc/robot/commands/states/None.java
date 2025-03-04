@@ -7,16 +7,16 @@ import frc.robot.subsystems.*;
 
 // TODO: UPDATE FOR ALL SUBSYSTEMS
 public class None extends Command {
-    State globalStateMachine;
+    State globalState;
 
-    public None(State subStateMachine) {
-        globalStateMachine = subStateMachine;
-        addRequirements(globalStateMachine);
+    public None(State state) {
+        globalState = state;
+        addRequirements(globalState);
     }
 
     @Override
     public void initialize() {
-        globalStateMachine.setRobotState(State.RobotState.NONE);
+        globalState.setRobotState(State.RobotState.NONE);
     }
 
     @Override

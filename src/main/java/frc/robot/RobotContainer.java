@@ -21,6 +21,7 @@ import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
+import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.RobotState;
@@ -36,6 +37,7 @@ public class RobotContainer {
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
+  private final Algae algae = new Algae();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -67,10 +69,15 @@ public class RobotContainer {
     return this.elevator;
   }
 
+  public Algae getAlgae() {
+    return this.algae;
+  }
+
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
       new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)))
       .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).withName("ZeroSubsystems");
+      //TODO: add wrist zeroing CMD
 
   // Map buttons to trigger variables
   @NotLogged

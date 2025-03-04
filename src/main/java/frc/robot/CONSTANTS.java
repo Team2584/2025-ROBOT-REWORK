@@ -29,6 +29,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -85,12 +86,10 @@ public final class CONSTANTS {
         public static final int ELEVATOR_RIGHT_CAN = 20;
         public static final int ELEVATOR_LIMIT_CHANNEL = 9;
 
-        // Wrist
-        public static final int WRIST_CAN = 16;
-        public static final int WRIST_ENCODER_CAN = 25;
-
         // Algae
-        public static final int ALGAE_CAN = 17;
+        public static final int ALGAE_WRIST_CAN = 16;
+        public static final int ALGAE_WRIST_ENCODER_CAN = 25;
+        public static final int ALGAE_CLAW_CAN = 17;
 
         // Coral
         public static final int CORAL_CAN = 23;
@@ -433,12 +432,105 @@ public final class CONSTANTS {
         public static final Time ZEROING_TIMEOUT = Units.Seconds.of(3);
     }
 
-    public static class CONSTANTS_WRIST {
-
-    }
-
     public static class CONSTANTS_ALGAE {
+        public static final double WRIST_GEAR_RATIO = 279.27;
 
+        public static final double ALGAE_INTAKE_SPEED = -0.4; //check this
+        public static final double ALGAE_OUTTAKE_SPEED = 0.5; //check this
+
+        public static final Angle INTAKE_DEADZONE_DISTANCE = Units.Degrees.of(1); // check this
+        /**
+         * The velocity that the motor goes at once it has zeroed (and can no longer
+         * continue in that direction)
+         */
+        public static final AngularVelocity ZEROED_VELOCITY = Units.RotationsPerSecond.of(-0.25); //check this
+
+        public static final Angle MAX_POS = Units.Degrees.of(20); // TODO: VERY IMPORTANT TUNE THIS
+        public static final Angle MIN_POS = Units.Degrees.of(-80); // TODO: VERY IMPORTANT TUNE THIS
+
+        public static final Angle ZEROED_MANUAL_POS = Units.Degrees.of(0); // TODO: VERY IMPORTANT TUNE THIS
+        public static final Angle ZEROED_AUTO_POS = Units.Degrees.of(0); // TODO: VERY IMPORTANT TUNE THIS
+
+        /**
+         * The elapsed time required to consider the motor as zeroed
+         */
+        public static final Time ZEROED_TIME = Units.Seconds.of(1); // TODO: tune this
+
+        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(1); // TODO: tune this
+
+        public static final double HOLD_ALGAE_INTAKE_VOLTAGE = 1;
+        public static final TalonFXConfiguration ALGAE_CLAW_CONFIG = new TalonFXConfiguration();
+        public static final TalonFXConfiguration ALGAE_WRIST_CONFIG = new TalonFXConfiguration();
+        static {
+        ALGAE_CLAW_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        ALGAE_CLAW_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        ALGAE_WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        ALGAE_WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+        // ask mahdi about this stuff
+        ALGAE_CLAW_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+        ALGAE_CLAW_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 30;
+        ALGAE_CLAW_CONFIG.CurrentLimits.SupplyCurrentLimit = 60;
+        ALGAE_CLAW_CONFIG.CurrentLimits.SupplyCurrentLowerTime = 0.5;
+
+        // dis is gud
+        ALGAE_WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+        ALGAE_WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POS.in(Units.Rotations);
+        ALGAE_WRIST_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+        ALGAE_WRIST_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POS.in(Units.Rotations);
+
+        ALGAE_WRIST_CONFIG.Feedback.SensorToMechanismRatio = WRIST_GEAR_RATIO;
+
+        // TODO: TUNE ALL YIPEEE
+        ALGAE_WRIST_CONFIG.Slot0.kS = 0.3;
+        ALGAE_WRIST_CONFIG.Slot0.kV = 0.3;
+        ALGAE_WRIST_CONFIG.Slot0.kA = 0.01;
+        ALGAE_WRIST_CONFIG.Slot0.kP = 60;
+        ALGAE_WRIST_CONFIG.Slot0.kI = 0.0;
+        ALGAE_WRIST_CONFIG.Slot0.kD = 0.8;
+        ALGAE_WRIST_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+        ALGAE_WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+
+        ALGAE_WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 40;
+        ALGAE_WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
+
+        // ask mahdi about this stuff
+        ALGAE_WRIST_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+        ALGAE_WRIST_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 30;
+        ALGAE_WRIST_CONFIG.CurrentLimits.SupplyCurrentLimit = 45;
+        ALGAE_WRIST_CONFIG.CurrentLimits.SupplyCurrentLowerTime = 0.5;
+        }
+
+        public static final Distance REQUIRED_ALGAE_DISTANCE = Units.Inches.of(2); //???
+
+        public static final AngularVelocity ALGAE_INTAKE_HAS_GP_VELOCITY = Units.RotationsPerSecond.of(2102 / 60); // TODO: FIXXXXXX is wrong
+
+        public static final Current ALGAE_INTAKE_HAS_GP_CURRENT = Units.Amps.of(18);
+
+        public static final Angle ALGAE_INTAKE_LOW_WRIST_POSTION = Units.Degrees.of(20); // done?
+        public static final Angle ALGAE_INTAKE_HIGH_WRIST_POSTION = Units.Degrees.of(20); // done?
+
+        public static final Angle ALGAE_INTAKE_GROUND_WRIST_POSITION = Units.Degrees.of(-60); // this is wrong
+        public static final Angle CORAL_ONLY = Units.Degrees.of(-68); // done?
+        public static final Angle PREP_ALGAE_ZERO_WRIST_POSITION = Units.Degrees.of(-60); // done?
+        public static final Angle PREP_NET_WRIST_POSITION = Units.Degrees.of(-60); // done?
+        public static final Angle PREP_PROCESSOR_WRIST_POSITION = Units.Degrees.of(-60); // this is wrong
+        public static final Angle PREP_PROCESSOR_WRIST_POSITION_WITH_CORAL = Units.Degrees.of(-60);
+        public static final Angle EJECT_ALGAE_PIVOT_POSITION = Units.Degrees.of(15);
+
+        public static final Angle CLIMB_DEPLOY_POSITION = Units.Degrees.of(-60); // this is wrong
+
+        public static final Time ZEROING_TIMEOUT = Units.Seconds.of(3); // this is wrong
+
+        public static final AngularVelocity MANUAL_ZEROING_START_VELOCITY = Units.RotationsPerSecond.of(5); // this is wrong
+        public static final AngularVelocity MANUAL_ZEROING_DELTA_VELOCITY = Units.RotationsPerSecond.of(5); // this is wrong
+
+        public static final Transform3d ALGAE_INTAKE_TO_ALGAE = new Transform3d( // idk what this is
+            Units.Meters.convertFrom(450, Units.Millimeters), 0,
+            Units.Meters.convertFrom(-9, Units.Inches),
+            Rotation3d.kZero);
+
+        public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
     }
 
     public static class CONSTANTS_CORAL {

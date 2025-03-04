@@ -104,7 +104,7 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_CONTROLLER {
-        // TODO: Maybe add joystick deadband later
+        public static final double CONTROLLER_DEADZONE = 0.1;
         public static final boolean SILENCE_JOYSTICK_WARNINGS = true;
     }
 
@@ -113,9 +113,9 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
         // public static final LinearVelocity MAX_DRIVE_SPEED =
-        // Units.MetersPerSecond.of(5.33);
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(0.5);
+        // Units.MetersPerSecond.of(0.5);
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
         // Inverted states
@@ -139,8 +139,8 @@ public final class CONSTANTS {
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.245849609375;
         public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = 0.040771484375;
 
-        public static InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
-        public static InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
+        public static final InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
         public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
         public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
 
@@ -171,11 +171,11 @@ public final class CONSTANTS {
         public static final NeutralModeValue STEER_NEUTRAL_MODE = NeutralModeValue.Coast;
         public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(80);
 
-        public static TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
-        public static TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
+        public static final TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
+        public static final TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
 
-        public static TalonFXConfiguration STEER_CONFIG = new TalonFXConfiguration();
-        public static CANcoderConfiguration CANCODER_CONFIG = new CANcoderConfiguration();
+        public static final TalonFXConfiguration STEER_CONFIG = new TalonFXConfiguration();
+        public static final CANcoderConfiguration CANCODER_CONFIG = new CANcoderConfiguration();
 
         static {
             // Passed into drive constructor
@@ -213,7 +213,7 @@ public final class CONSTANTS {
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
 
         // One spin per second (for teleop)
-        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(360);
+        public static final AngularVelocity TURN_SPEED = Units.DegreesPerSecond.of(20);
 
         /**
          * <p>

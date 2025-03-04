@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,6 +31,9 @@ import frc.robot.subsystems.swerve.Drivetrain;
 public class RobotContainer {
   @NotLogged
   private final CommandXboxController controller = new CommandXboxController(CONSTANTS_PORTS.CONTROLLER_PORT);
+  // This is for home testing lol (i dont have xbox controller :(
+  // private final CommandPS4Controller controller = new
+  // CommandPS4Controller(CONSTANTS_PORTS.CONTROLLER_PORT);
   @NotLogged
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
@@ -92,9 +96,16 @@ public class RobotContainer {
   private final JoystickButton blue1 = new JoystickButton(getButtonBoard(), 8);
 
   // Buttons
-  public Trigger slowModeTrigger = new Trigger(() -> getController().a().getAsBoolean());
-  public Trigger leftReefTrigger = new Trigger(() -> getController().b().getAsBoolean());
-  public Trigger rightReefTrigger = new Trigger(() -> getController().y().getAsBoolean());
+  // public Trigger slowModeTrigger = new Trigger(() ->
+  // getController().a().getAsBoolean());
+  // public Trigger leftReefTrigger = new Trigger(() ->
+  // getController().b().getAsBoolean());
+  // public Trigger rightReefTrigger = new Trigger(() ->
+  // getController().y().getAsBoolean());
+
+  public Trigger slowModeTrigger = new Trigger(() -> getController().y().getAsBoolean());
+  public Trigger leftReefTrigger = new Trigger(() -> getController().x().getAsBoolean());
+  public Trigger rightReefTrigger = new Trigger(() -> getController().b().getAsBoolean());
 
   public Trigger rightCoralStationTrigger = new Trigger(() -> blue4.getAsBoolean());
   public Trigger leftCoralStationTrigger = new Trigger(() -> blue3.getAsBoolean());

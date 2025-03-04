@@ -43,9 +43,11 @@ public class Module extends SubsystemBase {
     // Static definitions
     public static NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
     public static NeutralModeValue steerNeutralMode = NeutralModeValue.Coast;
-    // public InvertedValue driveInversion = InvertedValue.CounterClockwise_Positive;
+    // public InvertedValue driveInversion =
+    // InvertedValue.CounterClockwise_Positive;
     // public InvertedValue steerInversion = InvertedValue.Clockwise_Positive;
-    // public SensorDirectionValue cancoderInversion = SensorDirectionValue.CounterClockwise_Positive;
+    // public SensorDirectionValue cancoderInversion =
+    // SensorDirectionValue.CounterClockwise_Positive;
     public static InvertedValue steerInversion;
     public static SensorDirectionValue cancoderInversion;
     public InvertedValue driveInversion;
@@ -90,13 +92,13 @@ public class Module extends SubsystemBase {
      *                              encoder value.
      */
     public Module(int moduleNumber, SwerveConstants SCC, int driveMotorID, int steerMotorID, int absoluteEncoderID,
-            double absoluteEncoderOffset, InvertedValue driveInversion, TalonFXConfiguration driveConfiguration, String CANBusName) {
+            double absoluteEncoderOffset, InvertedValue driveInversion, TalonFXConfiguration driveConfiguration,
+            String CANBusName) {
 
         simTimer.start();
         this.CANBusName = CANBusName;
         this.moduleNumber = moduleNumber;
         this.driveInversion = driveInversion;
-
 
         driveMotor = new TalonFX(driveMotorID, CANBusName);
         steerMotor = new TalonFX(steerMotorID, CANBusName);

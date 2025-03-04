@@ -27,6 +27,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
@@ -169,11 +170,14 @@ public class Swerve extends SubsystemBase {
 		Module.driveNeutralMode = driveNeutralMode;
 
 		Module.steerNeutralMode = steerNeutralMode;
-		
-		modules[0].driveInversion = driveLeftInversion;
-		modules[2].driveInversion = driveLeftInversion;
-		modules[1].driveInversion = driveRightInversion;
-		modules[3].driveInversion = driveRightInversion;
+
+		Module.steerInversion = steerInversion;
+		Module.cancoderInversion = cancoderInversion;
+
+		// modules[0].driveInversion = driveLeftInversion;
+		// modules[2].driveInversion = driveLeftInversion;
+		// modules[1].driveInversion = driveRightInversion;
+		// modules[3].driveInversion = driveRightInversion;
 
 		pigeon = new Pigeon2(pigeonCANId, CANBusName);
 
@@ -458,6 +462,7 @@ public class Swerve extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		SmartDashboard.putNumber("PigeonYaw", pigeon.getYaw().getValueAsDouble());
 		updateTimer();
 		updatePoseEstimator();
 	}

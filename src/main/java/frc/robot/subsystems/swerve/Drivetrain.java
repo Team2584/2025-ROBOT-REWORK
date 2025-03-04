@@ -72,10 +72,10 @@ public class Drivetrain extends Swerve {
 
     @Override
     public void configure() {
-        modules[0].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG;
-        modules[2].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG;
-        modules[1].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG;
-        modules[3].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG;
+        CONSTANTS_DRIVETRAIN.MODULES[0].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG;
+        CONSTANTS_DRIVETRAIN.MODULES[2].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_LEFT_CONFIG;
+        CONSTANTS_DRIVETRAIN.MODULES[1].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG;
+        CONSTANTS_DRIVETRAIN.MODULES[3].driveConfiguration = CONSTANTS_DRIVETRAIN.DRIVE_RIGHT_CONFIG;
 
         Module.steerConfiguration = CONSTANTS_DRIVETRAIN.STEER_CONFIG;
         Module.cancoderConfiguration = CONSTANTS_DRIVETRAIN.CANCODER_CONFIG;

@@ -1,5 +1,8 @@
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.DegreesPerSecond;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -11,9 +14,11 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CONSTANTS;
 import frc.robot.RobotContainer;
+import frc.robot.CONSTANTS.CONSTANTS_CONTROLLER;
 import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_FIELD;
@@ -93,11 +98,25 @@ public class DriveTeleop extends Command {
         * CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(Units.MetersPerSecond) * elevatorHeightMultiplier;
 
     // -- Velocities --
-    LinearVelocity xVelocity = Units.MetersPerSecond.of(xAxis.getAsDouble() * transMultiplier);
-    LinearVelocity yVelocity = Units.MetersPerSecond.of(-yAxis.getAsDouble() * transMultiplier);
+    double LVxDouble = (Math.abs(xAxis.getAsDouble()) < CONSTANTS_CONTROLLER.CONTROLLER_DEADZONE)
+        ? 0
+        : -xAxis.getAsDouble();
+
+    double LVyDouble = (Math.abs(yAxis.getAsDouble()) < CONSTANTS_CONTROLLER.CONTROLLER_DEADZONE)
+        ? 0
+        : -yAxis.getAsDouble();
+
+    double LVrDouble = (Math.abs(rotationAxis.getAsDouble()) < CONSTANTS_CONTROLLER.CONTROLLER_DEADZONE)
+        ? 0
+        : -rotationAxis.getAsDouble();
+
+    LinearVelocity xVelocity = Units.MetersPerSecond.of(LVxDouble * transMultiplier);
+    LinearVelocity yVelocity = Units.MetersPerSecond.of(LVyDouble * transMultiplier);
     AngularVelocity rVelocity = Units.RadiansPerSecond
-        .of(-rotationAxis.getAsDouble() * CONSTANTS_DRIVETRAIN.TURN_SPEED.in(Units.RadiansPerSecond)
+        .of(LVrDouble * CONSTANTS_DRIVETRAIN.TURN_SPEED.in(Units.RadiansPerSecond)
             * elevatorHeightMultiplier);
+
+    SmartDashboard.putNumber("DriveTeleop/rVelocityRAD", rVelocity.in(RadiansPerSecond));
 
     // -- Controlling --
     if (leftReef.getAsBoolean() || rightReef.getAsBoolean()) {

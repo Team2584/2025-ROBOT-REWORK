@@ -15,6 +15,8 @@ public class StateLogger extends ClassSpecificLogger<State> {
     if (Epilogue.shouldLog(Logged.Importance.DEBUG)) {
       backend.log("getDriverState", object.getDriverState());
       backend.log("getRobotState", object.getRobotState());
+      Epilogue.drivetrainLogger.tryUpdate(backend.getNested("getDrivetrain"), object.getDrivetrain(), Epilogue.getConfig().errorHandler);
+      Epilogue.elevatorLogger.tryUpdate(backend.getNested("getElevator"), object.getElevator(), Epilogue.getConfig().errorHandler);
     }
   }
 }

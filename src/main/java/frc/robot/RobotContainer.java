@@ -44,6 +44,13 @@ public class RobotContainer {
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+  Command TRY_NONE = Commands.deferredProxy(() -> state.tryState(RobotState.NONE));
+  Command TRY_CORAL_ZERO = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_ZERO));
+  Command TRY_CORAL_L1 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L1));
+  Command TRY_CORAL_L2 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L2));
+  Command TRY_CORAL_L3 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L3));
+  Command TRY_CORAL_L4 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L4));
+
   @NotLogged
   Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
   String SELECTED_AUTO_PREP_MAP_NAME = "none"; // only used for logging
@@ -126,7 +133,8 @@ public class RobotContainer {
   }
 
   private void configureController(CommandXboxController joystick) {
-
+    joystick.leftBumper().onTrue(TRY_CORAL_L4).onFalse(TRY_NONE);
+    joystick.rightBumper().onTrue(TRY_CORAL_L1).onFalse(TRY_NONE);
   }
 
   private void configureButtonBoard(Joystick buttonBoard) {

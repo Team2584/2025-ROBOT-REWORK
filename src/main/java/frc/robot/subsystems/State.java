@@ -9,7 +9,11 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
+import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.commands.states.None;
+import frc.robot.commands.states.prep_coral.PrepCoralLvl;
+import frc.robot.commands.states.prep_coral.PrepCoralZero;
 import frc.robot.subsystems.swerve.Drivetrain;
 
 @Logged
@@ -56,6 +60,14 @@ public class State extends SubsystemBase {
     return currentRobotState;
   }
 
+  public Drivetrain getDrivetrain() {
+    return drivetrain;
+  }
+
+  public Elevator getElevator() {
+    return elevator;
+  }
+
   public Command tryState(RobotState desiredState) {
     switch (desiredState) {
 
@@ -67,11 +79,11 @@ public class State extends SubsystemBase {
           // case HAS_ALGAE:
           // case HAS_CORAL_AND_ALGAE:
 
-          // case PREP_CORAL_ZERO:
-          // case PREP_CORAL_L1:
-          // case PREP_CORAL_L2:
-          // case PREP_CORAL_L3:
-          // case PREP_CORAL_L4:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L1:
+          case PREP_CORAL_L2:
+          case PREP_CORAL_L3:
+          case PREP_CORAL_L4:
           // case PREP_CORAL_ZERO_WITH_ALGAE:
           // case PREP_CORAL_L1_WITH_ALGAE:
           // case PREP_CORAL_L2_WITH_ALGAE:
@@ -139,23 +151,25 @@ public class State extends SubsystemBase {
       // Prep Coral Only
       case PREP_CORAL_ZERO:
         switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            //TODO
+            return new PrepCoralZero(RC);
         }
         break;
       
       case PREP_CORAL_L1:
         switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            //TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L1);
         }
         break;
       
@@ -166,29 +180,31 @@ public class State extends SubsystemBase {
           case PREP_CORAL_L1:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            //TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L2);
         }
         break;
       
       case PREP_CORAL_L3:
         switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L4:
-            //TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L3);
         }
         break;
 
       case PREP_CORAL_L4:
         switch(currentRobotState) {
+          case NONE: //NUKE THIS ASAP
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
-            //TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4);
         }
         break;
       

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -22,6 +23,7 @@ import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
+import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.RobotState;
@@ -40,6 +42,7 @@ public class RobotContainer {
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
+  private final Coral coral = new Coral();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -50,6 +53,8 @@ public class RobotContainer {
   Command TRY_CORAL_L2 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L2));
   Command TRY_CORAL_L3 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L3));
   Command TRY_CORAL_L4 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L4));
+  Command TRY_SCORE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_CORAL));
+  Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
 
   @NotLogged
   Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
@@ -76,6 +81,10 @@ public class RobotContainer {
 
   public Elevator getElevator() {
     return this.elevator;
+  }
+
+  public Coral getCoral() {
+    return this.coral;
   }
 
   // TODO: add other subsystems to this command
@@ -133,8 +142,11 @@ public class RobotContainer {
   }
 
   private void configureController(CommandXboxController joystick) {
-    joystick.leftBumper().onTrue(TRY_CORAL_L4).onFalse(TRY_NONE);
-    joystick.rightBumper().onTrue(TRY_CORAL_L1).onFalse(TRY_NONE);
+    redL4.onTrue(TRY_CORAL_L4);
+    redL3.onTrue(TRY_CORAL_L3);
+    redL2.onTrue(TRY_CORAL_L2);
+    redL1.onTrue(TRY_CORAL_L1);
+
   }
 
   private void configureButtonBoard(Joystick buttonBoard) {

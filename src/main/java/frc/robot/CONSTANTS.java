@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CANrangeConfiguration;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -365,13 +367,13 @@ public final class CONSTANTS {
             // TODO: check this number
             ELEVATOR_CONFIG.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
-            ELEVATOR_CONFIG.Slot0.kG = 0.4; // Volts to overcome gravity
+            ELEVATOR_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             ELEVATOR_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
-            ELEVATOR_CONFIG.Slot0.kV = 0.002; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
             ELEVATOR_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            ELEVATOR_CONFIG.Slot0.kP = 10;
+            ELEVATOR_CONFIG.Slot0.kP = 12;
             ELEVATOR_CONFIG.Slot0.kI = 0.0;
-            ELEVATOR_CONFIG.Slot0.kD = 0.0;
+            ELEVATOR_CONFIG.Slot0.kD = 0.01;
             ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
 
             ELEVATOR_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 600;
@@ -409,7 +411,7 @@ public final class CONSTANTS {
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
         public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(55);
 
-        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.8);
+        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(5);
 
         // TODO: }] Tune End here~
 
@@ -447,7 +449,29 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_CORAL {
+        public static TalonFXConfiguration CORAL_CONFIG = new TalonFXConfiguration();
+        static {
+            CORAL_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
+            Slot0Configs slot0 = CORAL_CONFIG.Slot0;
+            slot0.kS = 0;
+            slot0.kV = 0.1;
+            slot0.kA = 0.01;
+            slot0.kP = 8;
+            slot0.kI = 0;
+            slot0.kD = 0;
+        }
+
+        public static CANrangeConfiguration CORAL_SENSOR_CONFIG = new CANrangeConfiguration();
+
+        public static final Distance INDEXED_CORAL_DISTANCE = Units.Inches.of(2);
+
+        public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
+
+        public static final double CORAL_OUTTAKE_SPEED = 0.375;
+        public static final double CORAL_L1_OUTTAKE_SPEED = 0.375;
+        public static final double CORAL_L4_OUTTAKE_SPEED = 0.375;
     }
 
     public static class CONSTANTS_RAMP {

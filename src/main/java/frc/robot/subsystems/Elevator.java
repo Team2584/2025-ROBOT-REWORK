@@ -74,9 +74,10 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean isAtSpecificSetpoint(Distance setpoint) {
-        return (getElevatorPosition()
-                .compareTo(setpoint.minus(CONSTANTS.CONSTANTS_ELEVATOR.DEADZONE_DISTANCE)) > 0) &&
-                getElevatorPosition().compareTo(setpoint.plus(CONSTANTS.CONSTANTS_ELEVATOR.DEADZONE_DISTANCE)) < 0;
+        Distance currentPosition = getElevatorPosition();
+        Distance lowerBound = setpoint.minus(CONSTANTS.CONSTANTS_ELEVATOR.DEADZONE_DISTANCE);
+        Distance upperBound = setpoint.plus(CONSTANTS.CONSTANTS_ELEVATOR.DEADZONE_DISTANCE);
+        return currentPosition.compareTo(lowerBound) >= 0 && currentPosition.compareTo(upperBound) <= 0;
     }
 
     public boolean isAtAnyCoralScoringPosition() {

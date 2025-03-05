@@ -11,7 +11,9 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
+import frc.robot.commands.states.HasCoral;
 import frc.robot.commands.states.None;
+import frc.robot.commands.states.action.ScoreCoral;
 import frc.robot.commands.states.prep_coral.PrepCoralLvl;
 import frc.robot.commands.states.prep_coral.PrepCoralZero;
 import frc.robot.subsystems.swerve.Drivetrain;
@@ -114,16 +116,17 @@ public class State extends SubsystemBase {
           case INTAKE_ALGAE_GROUND_WITH_CORAL:
           case INTAKE_ALGAE_REEF_WITH_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
-            return new None(this);
+            return new None(RC);
           //TODO: climb states
         }
         break;
 
       case HAS_CORAL:
         switch (currentRobotState) {
+          case NONE: //TEMP REMOVE ME
           case INTAKE_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
-            //TODO
+            return new HasCoral(RC);
         }
         break;
       
@@ -398,7 +401,7 @@ public class State extends SubsystemBase {
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            //TODO
+            return new ScoreCoral(RC, RobotState.NONE);
         }
         break;
       

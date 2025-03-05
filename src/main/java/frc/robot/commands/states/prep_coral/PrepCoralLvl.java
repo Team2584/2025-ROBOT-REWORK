@@ -18,8 +18,6 @@ public class PrepCoralLvl extends Command {
         globalState = RC.getState();
         globalElevator = RC.getElevator();
         globalDistance = height;
-        addRequirements(globalState);
-        addRequirements(globalElevator);
     }
 
     @Override

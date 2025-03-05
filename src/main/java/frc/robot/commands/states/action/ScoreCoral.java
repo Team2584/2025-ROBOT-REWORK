@@ -32,7 +32,7 @@ public class ScoreCoral extends SequentialCommandGroup {
   
           // Shoot coral when elevator is at the right position
           //Commands.waitUntil(() -> globalElevator.isAtSetPoint()),
-          Commands.runOnce(() -> globalCoral.setCoralOuttake(getCoralOuttakeSpeed())),
+          Commands.runOnce(() -> globalCoral.setCoralMotor(getCoralOuttakeSpeed())),
   
           // Start ze timer
           Commands.waitSeconds(CONSTANTS_CORAL.CORAL_SCORE_TIME.in(Units.Seconds)),

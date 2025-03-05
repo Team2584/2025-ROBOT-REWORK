@@ -27,7 +27,7 @@ public class Coral extends SubsystemBase {
         coralSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_CONFIG);
     }
 
-    public void setCoralOuttake(double speed) {
+    public void setCoralMotor(double speed) {
         coralMotor.set(speed);
     }
 

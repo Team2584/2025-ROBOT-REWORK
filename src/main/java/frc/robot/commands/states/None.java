@@ -22,7 +22,7 @@ public class None extends Command {
     public void initialize() {
         globalState.setRobotState(State.RobotState.NONE);
         globalElevator.setPosition(Units.Inches.of(2));
-        globalCoral.setCoralOuttake(0);
+        globalCoral.setCoralMotor(0);
     }
 
     @Override

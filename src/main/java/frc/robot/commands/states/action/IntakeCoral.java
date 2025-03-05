@@ -18,14 +18,14 @@ public class IntakeCoral extends Command {
 
     public void initialize() {
         globalState.setRobotState(RobotState.INTAKE_CORAL);
-        globalCoral.setCoralOuttake(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
+        globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
     }
 
     public void execute() {
     }
 
     public void end(boolean interrupted) {
-        globalCoral.setCoralOuttake(0);
+        globalCoral.setCoralMotor(0);
         globalState.tryState(RobotState.HAS_CORAL);
     }
 

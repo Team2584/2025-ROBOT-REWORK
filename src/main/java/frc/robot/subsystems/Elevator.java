@@ -55,7 +55,7 @@ public class Elevator extends SubsystemBase {
 
         m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
 
-        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
+        // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
     }
 
     public Distance getLastDesiredPosition() {
@@ -120,8 +120,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setPosition(Distance height) {
-        m_Leader_Right.setControl(motionRequest.withPosition(height.in(Units.Inches)));
-        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false));
+        m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
+        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
         lastDesiredPosition = height;
     }
 
@@ -132,7 +132,7 @@ public class Elevator extends SubsystemBase {
 
     public void setVoltage(Voltage voltage) {
         m_Leader_Right.setControl(voltageRequest.withOutput(voltage));
-        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false));
+        m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
     }
 
     public void resetSensorPosition(Distance setpoint) {
@@ -146,5 +146,11 @@ public class Elevator extends SubsystemBase {
 
         m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
         m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
+    }
+    private double rotationsToInches(double rotations) {
+        return rotations * (Math.PI * CONSTANTS_ELEVATOR.ELEVATOR_PULLEY_PITCH_DIAMETER.in(Inches));
+      }
+    private double inchesToRotations(double heightInches) {
+        return (heightInches / (Math.PI * CONSTANTS_ELEVATOR.ELEVATOR_PULLEY_PITCH_DIAMETER.in(Inches)));
     }
 }

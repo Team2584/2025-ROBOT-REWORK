@@ -9,7 +9,11 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
+import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.commands.states.None;
+import frc.robot.commands.states.prep_coral.PrepCoralLvl;
+import frc.robot.commands.states.prep_coral.PrepCoralZero;
 import frc.robot.subsystems.swerve.Drivetrain;
 
 @Logged
@@ -56,6 +60,14 @@ public class State extends SubsystemBase {
     return currentRobotState;
   }
 
+  public Drivetrain getDrivetrain() {
+    return drivetrain;
+  }
+
+  public Elevator getElevator() {
+    return elevator;
+  }
+
   public Command tryState(RobotState desiredState) {
     switch (desiredState) {
 
@@ -67,11 +79,11 @@ public class State extends SubsystemBase {
           // case HAS_ALGAE:
           // case HAS_CORAL_AND_ALGAE:
 
-          // case PREP_CORAL_ZERO:
-          // case PREP_CORAL_L1:
-          // case PREP_CORAL_L2:
-          // case PREP_CORAL_L3:
-          // case PREP_CORAL_L4:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L1:
+          case PREP_CORAL_L2:
+          case PREP_CORAL_L3:
+          case PREP_CORAL_L4:
           // case PREP_CORAL_ZERO_WITH_ALGAE:
           // case PREP_CORAL_L1_WITH_ALGAE:
           // case PREP_CORAL_L2_WITH_ALGAE:
@@ -88,7 +100,7 @@ public class State extends SubsystemBase {
           // case PREP_ALGAE_INTAKE_HIGH_WITH_CORAL:
           // case PREP_ALGAE_ZERO_WITH_CORAL:
           // case PREP_ALGAE_BARGE_WITH_CORAL:
-          // case PREP_ALGAE_PROCESSOR_WITH_CORAL:
+          // case PREP_ALGAE_PROCESSOR_WITH_CORAL:           
 
           case INTAKE_CORAL:
           case EJECT_CORAL:
@@ -103,7 +115,7 @@ public class State extends SubsystemBase {
           case INTAKE_ALGAE_REEF_WITH_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
             return new None(this);
-          // TODO: climb states
+          //TODO: climb states
         }
         break;
 
@@ -111,17 +123,17 @@ public class State extends SubsystemBase {
         switch (currentRobotState) {
           case INTAKE_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case HAS_ALGAE:
         switch (desiredState) {
           case INTAKE_ALGAE_GROUND:
           case INTAKE_ALGAE_REEF:
           case EJECT_CORAL_WITH_ALGAE:
           case SCORE_CORAL_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
 
@@ -130,231 +142,235 @@ public class State extends SubsystemBase {
           case INTAKE_CORAL_WITH_ALGAE:
           case INTAKE_ALGAE_GROUND_WITH_CORAL:
           case INTAKE_ALGAE_REEF_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       // --- Prep States ---
 
       // Prep Coral Only
       case PREP_CORAL_ZERO:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            // TODO
+            return new PrepCoralZero(RC);
         }
         break;
-
+      
       case PREP_CORAL_L1:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            // TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L1);
         }
         break;
-
+      
       case PREP_CORAL_L2:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            // TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L2);
         }
         break;
-
+      
       case PREP_CORAL_L3:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
+          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L4:
-            // TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L3);
         }
         break;
 
       case PREP_CORAL_L4:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
+          case NONE: //NUKE THIS ASAP
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
-            // TODO
+            return new PrepCoralLvl(RC, CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4);
         }
         break;
-
+      
       // Prep Coral w/Algae
       case PREP_CORAL_ZERO_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L1_WITH_ALGAE:
           case PREP_CORAL_L3_WITH_ALGAE:
           case PREP_CORAL_L4_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_CORAL_L1_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L2_WITH_ALGAE:
           case PREP_CORAL_L3_WITH_ALGAE:
           case PREP_CORAL_L4_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_CORAL_L2_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L1_WITH_ALGAE:
           case PREP_CORAL_L3_WITH_ALGAE:
           case PREP_CORAL_L4_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_CORAL_L3_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L1_WITH_ALGAE:
           case PREP_CORAL_L2_WITH_ALGAE:
           case PREP_CORAL_L4_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
 
       case PREP_CORAL_L4_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L1_WITH_ALGAE:
           case PREP_CORAL_L2_WITH_ALGAE:
           case PREP_CORAL_L3_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+        
       // Prep Algae Only
       case PREP_ALGAE_INTAKE_GROUND:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
           case PREP_ALGAE_INTAKE_LOW:
           case PREP_ALGAE_INTAKE_HIGH:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_INTAKE_LOW:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
           case PREP_ALGAE_INTAKE_GROUND:
           case PREP_ALGAE_INTAKE_HIGH:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_INTAKE_HIGH:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
           case PREP_ALGAE_INTAKE_GROUND:
           case PREP_ALGAE_INTAKE_LOW:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_ZERO:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_ALGAE:
           case PREP_ALGAE_BARGE:
           case PREP_ALGAE_PROCESSOR:
-            // TODO
+            //TODO
         }
         break;
 
       case PREP_ALGAE_BARGE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_ALGAE:
           case PREP_ALGAE_ZERO:
           case PREP_ALGAE_PROCESSOR:
-            // TODO
+            //TODO
         }
         break;
 
       case PREP_ALGAE_PROCESSOR:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_ALGAE:
           case PREP_ALGAE_ZERO:
           case PREP_ALGAE_BARGE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       // Prep Algae w/Coral
       case PREP_ALGAE_INTAKE_GROUND_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
           case PREP_ALGAE_INTAKE_LOW_WITH_CORAL:
           case PREP_ALGAE_INTAKE_HIGH_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_INTAKE_LOW_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
           case PREP_ALGAE_INTAKE_GROUND_WITH_CORAL:
           case PREP_ALGAE_INTAKE_HIGH_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_INTAKE_HIGH_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
           case PREP_ALGAE_INTAKE_GROUND_WITH_CORAL:
           case PREP_ALGAE_INTAKE_LOW_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case PREP_ALGAE_ZERO_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_ALGAE_BARGE_WITH_CORAL:
           case PREP_ALGAE_PROCESSOR_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
 
       case PREP_ALGAE_BARGE_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_ALGAE_ZERO_WITH_CORAL:
           case PREP_ALGAE_PROCESSOR_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
 
       case PREP_ALGAE_PROCESSOR_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
           case PREP_ALGAE_ZERO_WITH_CORAL:
           case PREP_ALGAE_BARGE_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
 
@@ -362,99 +378,99 @@ public class State extends SubsystemBase {
 
       // Actions Coral
       case INTAKE_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case EJECT_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case SCORE_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case INTAKE_CORAL_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case EJECT_CORAL_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL_AND_ALGAE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case SCORE_CORAL_WITH_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case PREP_CORAL_ZERO_WITH_ALGAE:
           case PREP_CORAL_L1_WITH_ALGAE:
           case PREP_CORAL_L2_WITH_ALGAE:
           case PREP_CORAL_L3_WITH_ALGAE:
           case PREP_CORAL_L4_WITH_ALGAE:
-            // TODO
+            //TODO
         }
         break;
 
       // Actions Algae
       case INTAKE_ALGAE_GROUND:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case INTAKE_ALGAE_REEF:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case NONE:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case SCORE_ALGAE:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case PREP_ALGAE_ZERO:
           case PREP_ALGAE_BARGE:
           case PREP_ALGAE_PROCESSOR:
-            // TODO
+            //TODO
         }
         break;
 
       case INTAKE_ALGAE_GROUND_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case INTAKE_ALGAE_REEF_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case HAS_CORAL:
-            // TODO
+            //TODO
         }
         break;
-
+      
       case SCORE_ALGAE_WITH_CORAL:
-        switch (currentRobotState) {
+        switch(currentRobotState) {
           case PREP_ALGAE_ZERO_WITH_CORAL:
           case PREP_ALGAE_BARGE_WITH_CORAL:
           case PREP_ALGAE_PROCESSOR_WITH_CORAL:
-            // TODO
+            //TODO
         }
         break;
     }
@@ -482,10 +498,12 @@ public class State extends SubsystemBase {
    */
   public static enum RobotState {
 
-    //
+  
+
+    // 
     // --- INTERMEDIARY STATES ---
     //
-
+    
     // Hold 0 Elements
     NONE,
 
@@ -495,6 +513,8 @@ public class State extends SubsystemBase {
 
     // Hold 2 Elements
     HAS_CORAL_AND_ALGAE,
+
+
 
     //
     // --- PREP STATES ---
@@ -532,7 +552,9 @@ public class State extends SubsystemBase {
     PREP_ALGAE_BARGE_WITH_CORAL,
     PREP_ALGAE_PROCESSOR_WITH_CORAL,
 
-    //
+
+
+    // 
     // --- ACTION STATES ---
     //
 
@@ -552,7 +574,7 @@ public class State extends SubsystemBase {
     INTAKE_ALGAE_REEF_WITH_CORAL,
     SCORE_ALGAE_WITH_CORAL
 
-    // TODO: climb states
+    //TODO: climb states
   }
 
   @Override

@@ -97,6 +97,7 @@ public final class CONSTANTS {
         // Coral
         public static final int CORAL_CAN = 23;
         public static final int CORAL_SENSOR_CAN = 26;
+        public static final int CORAL_ELEVATOR_SENSOR_CHANNEL = 0;
 
         // Climb
         public static final int CLIMB_CAN = 15;
@@ -472,6 +473,8 @@ public final class CONSTANTS {
         public static final double CORAL_OUTTAKE_SPEED = 0.375;
         public static final double CORAL_L1_OUTTAKE_SPEED = 0.375;
         public static final double CORAL_L4_OUTTAKE_SPEED = 0.375;
+
+        public static final double CORAL_INTAKE_SPEED = 0.2;
     }
 
     public static class CONSTANTS_RAMP {

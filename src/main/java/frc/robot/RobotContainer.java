@@ -55,6 +55,7 @@ public class RobotContainer {
   Command TRY_CORAL_L4 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L4));
   Command TRY_SCORE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_CORAL));
   Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
+  Command TRY_INTAKE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_CORAL));
 
   @NotLogged
   Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
@@ -142,15 +143,23 @@ public class RobotContainer {
   }
 
   private void configureController(CommandXboxController joystick) {
-    redL4.onTrue(TRY_CORAL_L4);
-    redL3.onTrue(TRY_CORAL_L3);
-    redL2.onTrue(TRY_CORAL_L2);
-    redL1.onTrue(TRY_CORAL_L1);
+    // redL4.onTrue(TRY_CORAL_L4);
+    // redL3.onTrue(TRY_CORAL_L3);
+    // redL2.onTrue(TRY_CORAL_L2);
+    // redL1.onTrue(TRY_CORAL_L1);
+
+    redL1.onTrue(TRY_INTAKE_CORAL);
 
   }
 
   private void configureButtonBoard(Joystick buttonBoard) {
 
+  }
+
+  public void checkForCoral() {
+    if (coral.coralLoaded()) {
+      state.setRobotState(RobotState.HAS_CORAL);
+    }
   }
 
   public Command getAutonomousCommand() {

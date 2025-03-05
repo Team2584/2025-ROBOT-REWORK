@@ -13,6 +13,7 @@ import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.commands.states.HasCoral;
 import frc.robot.commands.states.None;
+import frc.robot.commands.states.action.IntakeCoral;
 import frc.robot.commands.states.action.ScoreCoral;
 import frc.robot.commands.states.prep_coral.PrepCoralLvl;
 import frc.robot.commands.states.prep_coral.PrepCoralZero;
@@ -105,10 +106,8 @@ public class State extends SubsystemBase {
           // case PREP_ALGAE_PROCESSOR_WITH_CORAL:           
 
           case INTAKE_CORAL:
-          case EJECT_CORAL:
           case SCORE_CORAL:
           case INTAKE_CORAL_WITH_ALGAE:
-          case EJECT_CORAL_WITH_ALGAE:
           case SCORE_CORAL_WITH_ALGAE:
           case INTAKE_ALGAE_GROUND:
           case INTAKE_ALGAE_REEF:
@@ -134,7 +133,6 @@ public class State extends SubsystemBase {
         switch (desiredState) {
           case INTAKE_ALGAE_GROUND:
           case INTAKE_ALGAE_REEF:
-          case EJECT_CORAL_WITH_ALGAE:
           case SCORE_CORAL_WITH_ALGAE:
             //TODO
         }
@@ -383,14 +381,7 @@ public class State extends SubsystemBase {
       case INTAKE_CORAL:
         switch(currentRobotState) {
           case NONE:
-            //TODO
-        }
-        break;
-      
-      case EJECT_CORAL:
-        switch(currentRobotState) {
-          case HAS_CORAL:
-            //TODO
+            return new IntakeCoral(RC);
         }
         break;
       
@@ -408,13 +399,6 @@ public class State extends SubsystemBase {
       case INTAKE_CORAL_WITH_ALGAE:
         switch(currentRobotState) {
           case HAS_ALGAE:
-            //TODO
-        }
-        break;
-      
-      case EJECT_CORAL_WITH_ALGAE:
-        switch(currentRobotState) {
-          case HAS_CORAL_AND_ALGAE:
             //TODO
         }
         break;
@@ -563,10 +547,8 @@ public class State extends SubsystemBase {
 
     // Actions Coral
     INTAKE_CORAL,
-    EJECT_CORAL,
     SCORE_CORAL,
     INTAKE_CORAL_WITH_ALGAE,
-    EJECT_CORAL_WITH_ALGAE,
     SCORE_CORAL_WITH_ALGAE,
 
     // Actions Algae

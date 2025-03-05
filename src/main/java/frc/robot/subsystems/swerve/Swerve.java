@@ -194,6 +194,8 @@ public class Swerve extends SubsystemBase {
 	}
 
 	public void configure() {
+		pigeon.setYaw(0);
+		
 		for (Module mod : modules) {
 			mod.configure();
 		}

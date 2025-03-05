@@ -347,7 +347,7 @@ public final class CONSTANTS {
 
     public static class CONSTANTS_ELEVATOR {
         public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
-        public static final double ELEVATOR_GEAR_RATIO = 8.571;
+        public static final double ELEVATOR_GEAR_RATIO = 8.571; // we may change our elevator ratio
 
         public static TalonFXConfiguration ELEVATOR_CONFIG = new TalonFXConfiguration();
         static {
@@ -362,7 +362,7 @@ public final class CONSTANTS {
 
             ELEVATOR_CONFIG.Slot0.GravityType = GravityTypeValue.Elevator_Static;
             // Elevator motors will provide feedback in INCHES the carriage has moved
-            // TODO: check this number
+
             ELEVATOR_CONFIG.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
             ELEVATOR_CONFIG.Slot0.kG = 0.4; // Volts to overcome gravity
@@ -419,7 +419,7 @@ public final class CONSTANTS {
         /**
          * Voltage given to motor when it's zeroing
          */
-        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-1);
+        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-1.5);
 
         /**
          * Zero position (yk could slide around a bit~~~i pray it's zero)
@@ -432,8 +432,7 @@ public final class CONSTANTS {
          */
         public static final AngularVelocity ZEROED_VELOCITY = Units.RotationsPerSecond.of(0.2);
 
-        // TODO: fix this time
-        public static final Time ZEROED_TIME = Units.Seconds.of(2);
+        public static final Time ZEROED_TIME = Units.Seconds.of(1.2);
 
         public static final Time ZEROING_TIMEOUT = Units.Seconds.of(3);
     }
@@ -451,11 +450,60 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_RAMP {
+        // 45:1 ratio
+        public static final double RAMP_UP_VELOCITY = 1;
+        public static final double RAMP_DOWN_VELOCITY = -1;
+        public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
+        public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
+        // TODO: find the real numbers for these
+        public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
+        public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
+
+        public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.1);
+
+        static {
+            RAMP_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+            RAMP_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+
+            RAMP_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
+            RAMP_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+            RAMP_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
+        }
     }
 
     public static class CONSTANTS_CLIMB {
+        // 75 : 1 Climber ratio
+        public static final double CLIMBER_DEPLOYING_VELOCITY = 1;
+        public static final double CLIMBER_RETRACT_VELOCITY = -0.8;
 
+        public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration();
+        // TODO: find the real numbers for these
+        // The climber is zero generally in the same spot when setup (allow for
+        // tolerance)
+        public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
+        public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
+
+        public static Angle POSITION_TOLERANCE = Units.Rotations.of(9);
+
+        static {
+            CLIMBER_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+            CLIMBER_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+            CLIMBER_CONFIG.CurrentLimits.SupplyCurrentLimit = 85;
+            CLIMBER_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 60;
+
+            CLIMBER_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
+        }
     }
 
     public static class CONSTANTS_VISION {

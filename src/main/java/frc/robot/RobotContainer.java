@@ -22,7 +22,9 @@ import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.RobotState;
 import frc.robot.subsystems.swerve.Drivetrain;
@@ -40,6 +42,8 @@ public class RobotContainer {
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
+  private final Climber climber = new Climber();
+  private final Ramp ramp = new Ramp();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -76,6 +80,14 @@ public class RobotContainer {
 
   public Elevator getElevator() {
     return this.elevator;
+  }
+
+  public Climber getClimber() {
+    return this.climber;
+  }
+
+  public Ramp getRamp() {
+    return this.ramp;
   }
 
   // TODO: add other subsystems to this command

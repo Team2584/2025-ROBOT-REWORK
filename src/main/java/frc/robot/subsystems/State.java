@@ -111,16 +111,48 @@ public class State extends SubsystemBase {
         break;
 
       case PREP_CORAL_L1:
-        return new PrepCoralLvl1(RC);
+        switch (currentRobotState) {
+          case HAS_CORAL:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L2:
+          case PREP_CORAL_L3:
+          case PREP_CORAL_L4:
+            return new PrepCoralLvl1(RC);
+        }
+        break;
 
       case PREP_CORAL_L2:
-        return new PrepCoralLvl2(RC);
+        switch (currentRobotState) {
+          case HAS_CORAL:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L1:
+          case PREP_CORAL_L3:
+          case PREP_CORAL_L4:
+            return new PrepCoralLvl2(RC);
+        }
+        break;
 
       case PREP_CORAL_L3:
-        return new PrepCoralLvl3(RC);
+        switch (currentRobotState) {
+          case HAS_CORAL:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L1:
+          case PREP_CORAL_L2:
+          case PREP_CORAL_L4:
+            return new PrepCoralLvl3(RC);
+        }
+        break;
 
       case PREP_CORAL_L4:
-        return new PrepCoralLvl4(RC);
+        switch (currentRobotState) {
+          case HAS_CORAL:
+          case PREP_CORAL_ZERO:
+          case PREP_CORAL_L1:
+          case PREP_CORAL_L2:
+          case PREP_CORAL_L3:
+            return new PrepCoralLvl4(RC);
+        }
+        break;
 
       // Prep Coral w/Algae
       case PREP_CORAL_ZERO_WITH_ALGAE:

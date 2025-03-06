@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -22,7 +23,11 @@ import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
+<<<<<<< HEAD
 import frc.robot.subsystems.Climber;
+=======
+import frc.robot.subsystems.Coral;
+>>>>>>> origin/coralTest
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
@@ -40,9 +45,13 @@ public class RobotContainer {
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
+<<<<<<< HEAD
   private final Climber climber = new Climber();
   private final Ramp ramp = new Ramp();
   private final Wrist wrist = new Wrist();
+=======
+  private final Coral coral = new Coral();
+>>>>>>> origin/coralTest
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -53,6 +62,9 @@ public class RobotContainer {
   Command TRY_CORAL_L2 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L2));
   Command TRY_CORAL_L3 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L3));
   Command TRY_CORAL_L4 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L4));
+  Command TRY_SCORE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_CORAL));
+  Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
+  Command TRY_INTAKE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_CORAL));
 
   @NotLogged
   Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
@@ -81,6 +93,7 @@ public class RobotContainer {
     return this.elevator;
   }
 
+<<<<<<< HEAD
   public Climber getClimber() {
     return this.climber;
   }
@@ -91,6 +104,10 @@ public class RobotContainer {
 
   public Wrist getWrist() {
     return this.wrist;
+=======
+  public Coral getCoral() {
+    return this.coral;
+>>>>>>> origin/coralTest
   }
 
   // TODO: add other subsystems to this command
@@ -138,15 +155,28 @@ public class RobotContainer {
 
     configureController(getController());
     configureButtonBoard(getButtonBoard());
+    checkForCoral();
   }
 
   private void configureController(CommandXboxController joystick) {
-    joystick.leftBumper().onTrue(TRY_CORAL_L4).onFalse(TRY_NONE);
-    joystick.rightBumper().onTrue(TRY_CORAL_L1).onFalse(TRY_NONE);
+    // redL4.onTrue(TRY_CORAL_L4);
+    // redL3.onTrue(TRY_CORAL_L3);
+    // redL2.onTrue(TRY_CORAL_L2);
+    // redL1.onTrue(TRY_CORAL_L1);
+
+    redL1.onTrue(TRY_INTAKE_CORAL);
+    blue1.onTrue(TRY_SCORE_CORAL);
+
   }
 
   private void configureButtonBoard(Joystick buttonBoard) {
 
+  }
+
+  public void checkForCoral() {
+    if (coral.coralLoaded()) {
+      state.setRobotState(RobotState.HAS_CORAL);
+    }
   }
 
   public Command getAutonomousCommand() {

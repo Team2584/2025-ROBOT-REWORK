@@ -8,6 +8,7 @@ import frc.robot.subsystems.*;
 
 // TODO: UPDATE FOR ALL SUBSYSTEMS
 public class None extends Command {
+<<<<<<< HEAD
     State state;
     Climber climber;
     Ramp ramp;
@@ -18,13 +19,29 @@ public class None extends Command {
         this.ramp = RC.getRamp();
 
         addRequirements(state);
+=======
+    State globalState;
+    Elevator globalElevator;
+    Coral globalCoral;
+
+    public None(RobotContainer RC) {
+        globalState = RC.getState();
+        globalElevator = RC.getElevator();
+        globalCoral = RC.getCoral();
+>>>>>>> origin/coralTest
     }
 
     @Override
     public void initialize() {
+<<<<<<< HEAD
         state.setRobotState(State.RobotState.NONE);
         climber.setClimberMotorVelocity(0);
         ramp.setRampMotorVelocity(0);
+=======
+        globalState.setRobotState(State.RobotState.NONE);
+        //globalElevator.setPosition(Units.Inches.of(2));
+        globalCoral.setCoralMotor(0);
+>>>>>>> origin/coralTest
     }
 
     @Override

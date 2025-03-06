@@ -469,8 +469,15 @@ public class Swerve extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		Field2d tField = new Field2d();
+		tField.setRobotPose(swervePoseEstimator.getEstimatedPosition());
+		SmartDashboard.putData(tField);
+
 		SmartDashboard.putNumber("PigeonYaw", getGyroRotation().getDegrees());
-		// SmartDashboard.putData(swervePoseEstimator);
+		SmartDashboard.putNumber("SwervePoseEstimator/x", swervePoseEstimator.getEstimatedPosition().getX());
+		SmartDashboard.putNumber("SwervePoseEstimator/y", swervePoseEstimator.getEstimatedPosition().getY());
+		SmartDashboard.putNumber("SwervePoseEstimator/r", swervePoseEstimator.getEstimatedPosition().getRotation().getDegrees());
+
 		updateTimer();
 		updatePoseEstimator();
 	}

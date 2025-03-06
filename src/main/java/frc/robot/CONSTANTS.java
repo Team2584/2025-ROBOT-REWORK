@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -116,7 +117,8 @@ public final class CONSTANTS {
 
         // public static final LinearVelocity MAX_DRIVE_SPEED =
         // Units.MetersPerSecond.of(5.33);
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(1);
+
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
         // Inverted states
@@ -138,7 +140,7 @@ public final class CONSTANTS {
         public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.1389;
         public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = 0.4995;
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
-        public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.04223;
+        public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.0327;
 
         public static final InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
@@ -150,7 +152,7 @@ public final class CONSTANTS {
 
         public static final SwerveConstants SWERVE_CONSTANTS = new SwerveConstants(
                 CONSTANTS_DRIVETRAIN.kSteerGearRatio, CONSTANTS_DRIVETRAIN.WHEEL_CIRCUMFERENCE,
-                5.6, edu.wpi.first.math.util.Units.feetToMeters(17.5));
+                CONSTANTS_DRIVETRAIN.kDriveGearRatio, edu.wpi.first.math.util.Units.feetToMeters(17.5));
 
         /*
          * Physically measured from center to center of the wheels
@@ -167,7 +169,7 @@ public final class CONSTANTS {
 
         public static final double STEER_P = 100;
         public static final double STEER_I = 0.0;
-        public static final double STEER_D = 0.14414076246334312;
+        public static final double STEER_D = 0.15;
 
         public static final double DRIVE_KS = 0;
         public static final double DRIVE_KA = 0;
@@ -235,7 +237,7 @@ public final class CONSTANTS {
          * </p>
          * <b>Units:</b> Radians
          */
-        public static final double MEASUREMENT_STD_DEV_HEADING = Units.Radians.convertFrom(5, Units.Degrees);
+        public static final double MEASUREMENT_STD_DEV_HEADING = Units.Radians.convertFrom(4, Units.Degrees);
 
         public static Module[] MODULES = new Module[] {
                 // Front Left
@@ -328,9 +330,9 @@ public final class CONSTANTS {
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
                     3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
                             Math.pow(TURN_SPEED.in(Units.DegreesPerSecond), 2)));
-            public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(1);
+            public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(3);
 
-            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(1);
+            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.8);
 
             static {
                 PID_TRANSLATION.setTolerance(AT_POINT_TOLERANCE.in(Units.Meters));
@@ -439,7 +441,49 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_WRIST {
+        public static final double WRIST_GEAR_RATIO = 279.27;
+        public static final TalonFXConfiguration WRIST_CONFIG = new TalonFXConfiguration();
 
+        // TODO: check
+        public static final Angle MAX_POS = Units.Degrees.of(32);
+        public static final Angle MIN_POS = Units.Degrees.of(-70);
+
+        static {
+            WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+            WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+            WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POS.in(Units.Rotations);
+            WRIST_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+            WRIST_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POS.in(Units.Rotations);
+
+            WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
+            WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+            WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO;
+            // WRIST_CONFIG.Feedback.SensorToMechanismRatio = WRIST_GEAR_RATIO;
+
+            WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
+            WRIST_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
+            WRIST_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            WRIST_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            WRIST_CONFIG.Slot0.kP = 50;
+            WRIST_CONFIG.Slot0.kI = 0.0;
+            WRIST_CONFIG.Slot0.kD = 0.00;
+
+            WRIST_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+            WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+
+            WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 60;
+            WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
+        }
+        public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(30);
+        public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(20);
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(-68);
+        public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(-60);
+        public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
+        // TODO: add processor scoring angle
+
+        public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
     }
 
     public static class CONSTANTS_ALGAE {

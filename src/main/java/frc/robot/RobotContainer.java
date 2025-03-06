@@ -26,6 +26,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
+import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.RobotState;
 import frc.robot.subsystems.swerve.Drivetrain;
 
@@ -41,6 +42,7 @@ public class RobotContainer {
   private final Elevator elevator = new Elevator();
   private final Climber climber = new Climber();
   private final Ramp ramp = new Ramp();
+  private final Wrist wrist = new Wrist();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -85,6 +87,10 @@ public class RobotContainer {
 
   public Ramp getRamp() {
     return this.ramp;
+  }
+
+  public Wrist getWrist() {
+    return this.wrist;
   }
 
   // TODO: add other subsystems to this command

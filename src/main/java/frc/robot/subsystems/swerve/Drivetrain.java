@@ -315,7 +315,7 @@ public class Drivetrain extends Swerve {
         desiredModuleStates = getDesiredModuleStates();
         actualModuleStates = getActualModuleStates();
 
-        SmartDashboard.putData(field);
+        // SmartDashboard.putData(field);
         SmartDashboard.putNumber("Drivetrain/Rotation", getRotationMeasure().in(Units.Degrees));
 
         for (Module mod : CONSTANTS_DRIVETRAIN.MODULES) {

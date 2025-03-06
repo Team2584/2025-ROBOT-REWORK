@@ -19,7 +19,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
 @Logged
 public class Climber extends SubsystemBase {
-    TalonFX m_climb;
+    private TalonFX m_climb;
 
     private Angle lastTargetPosition;
 
@@ -31,7 +31,8 @@ public class Climber extends SubsystemBase {
         m_climb = new TalonFX(CONSTANTS_PORTS.CLIMB_CAN);
 
         m_climb.getConfigurator().apply(CONSTANTS_CLIMB.CLIMBER_CONFIG);
-        // TODO: set climb position to zero at start of robot intialise (make that state or whatever)
+        // TODO: set climb position to zero at start of robot intialise (make that state
+        // or whatever)
     }
 
     public void setClimberMotorVelocity(double velocity) {

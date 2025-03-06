@@ -275,10 +275,10 @@ public class Module extends SubsystemBase {
 
         // If the requested speed is lower than a relevant steering speed,
         // don't turn the motor. Set it to whatever it's previous angle was.
-        // if (Math.abs(state.speedMetersPerSecond) < (minimumSteerSpeedPercent *
-        // maxModuleSpeedMeters) && !steerInPlace) {
-        // return;
-        // }
+        if (Math.abs(state.speedMetersPerSecond) < (minimumSteerSpeedPercent *
+        maxModuleSpeedMeters) && !steerInPlace) {
+        return;
+        }
 
         steerMotorController.Position = rotation;
         steerMotor.setControl(steerMotorController);

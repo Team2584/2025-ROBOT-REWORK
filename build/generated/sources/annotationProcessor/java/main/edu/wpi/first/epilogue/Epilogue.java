@@ -11,6 +11,7 @@ import frc.robot.subsystems.ClimberLogger;
 import frc.robot.subsystems.ElevatorLogger;
 import frc.robot.subsystems.RampLogger;
 import frc.robot.subsystems.StateLogger;
+import frc.robot.subsystems.WristLogger;
 import frc.robot.subsystems.swerve.DrivetrainLogger;
 
 public final class Epilogue {
@@ -30,6 +31,7 @@ public final class Epilogue {
   public static final RampLogger rampLogger = new RampLogger();
   public static final RobotContainerLogger robotContainerLogger = new RobotContainerLogger();
   public static final StateLogger stateLogger = new StateLogger();
+  public static final WristLogger wristLogger = new WristLogger();
 
   public static void configure(java.util.function.Consumer<EpilogueConfiguration> configurator) {
     configurator.accept(config);

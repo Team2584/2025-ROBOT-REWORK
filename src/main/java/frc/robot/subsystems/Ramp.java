@@ -17,7 +17,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
 @Logged
 public class Ramp extends SubsystemBase {
-    TalonFX m_ramp;
+    private TalonFX m_ramp;
 
     private Angle lastTargetPosition;
 

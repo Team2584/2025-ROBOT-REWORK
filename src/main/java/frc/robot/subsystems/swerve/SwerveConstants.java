@@ -5,10 +5,10 @@ import edu.wpi.first.math.util.Units;
 public class SwerveConstants {
     private static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(2) * Math.PI;
     private static final double STEER_GEAR_RATIO = 13.371428571428572;
-    public double steerGearRatio;
-    public double wheelCircumference;
-    public double driveGearRatio;
-    public double maxSpeedMeters;
+    public double steerGearRatio = 13.371428571428572;
+    public double wheelCircumference = Units.inchesToMeters(2) * Math.PI;
+    public double driveGearRatio = 5.6;
+    public double maxSpeedMeters = 17.5;
 
     /**
      * A wrapper for Swerve Module constants.

@@ -11,7 +11,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
 @Logged
 public class Algae extends SubsystemBase {
-  TalonFX m_algaeIntake;
+  private TalonFX m_algaeIntake;
 
   public boolean hasAlgaeOverride = false;
 

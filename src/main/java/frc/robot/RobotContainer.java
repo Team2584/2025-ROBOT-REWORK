@@ -4,11 +4,14 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.google.flatbuffers.Constants;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -25,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
+import frc.robot.CONSTANTS.CONSTANTS_VISION;
+import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Ramp;
@@ -35,6 +40,7 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.RobotState;
 import frc.robot.subsystems.swerve.Drivetrain;
@@ -54,6 +60,7 @@ public class RobotContainer {
   private final Wrist wrist = new Wrist();
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
+  private final Vision vision = new Vision();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -121,6 +128,10 @@ public class RobotContainer {
 
   public Coral getCoral() {
     return this.coral;
+  }
+
+  public Vision getVision() {
+    return this.vision;
   }
 
   // TODO: add other subsystems to this command
@@ -196,7 +207,45 @@ public class RobotContainer {
     }
   }
 
+  public void setMegaTag2(boolean setMegaTag2) {
+
+    if (setMegaTag2) {
+      drivetrain.swervePoseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_HEADING));
+    } else {
+      // Use MegaTag 1
+      drivetrain.swervePoseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_HEADING));
+    }
+    vision.setMegaTag2(setMegaTag2);
+  }
+
+  public boolean isAligned() {
+    return drivetrain.isAligned();
+  }
+
+  public Command AddVisionMeasurement() {
+    return new AddVisionMeasurement(this)
+        .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).ignoringDisable(true);
+  }
+
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
+  }
+
+  public void resetToAutoPose() {
+    Rotation2d desiredRotation = Rotation2d.kZero;
+
+    try {
+      desiredRotation = PathPlannerAuto.getPathGroupFromAutoFile(autoChooser.getSelected().getName()).get(0)
+          .getIdealStartingState().rotation();
+    } catch (Exception e) {
+    }
+
+    drivetrain.resetPoseToPose(new Pose2d(drivetrain.getPose().getTranslation(), desiredRotation));
   }
 }

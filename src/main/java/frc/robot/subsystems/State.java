@@ -97,11 +97,7 @@ public class State extends SubsystemBase {
           case INTAKE_ALGAE_REEF_WITH_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
             return new None(RC);
-<<<<<<< HEAD
           // TODO: climb states
-=======
-          //TODO: climb states
->>>>>>> origin/coralTest
         }
         break;
 
@@ -109,11 +105,7 @@ public class State extends SubsystemBase {
         switch (currentRobotState) {
           case INTAKE_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
-<<<<<<< HEAD
-            // TODO
-=======
             return new HasCoral(RC);
->>>>>>> origin/coralTest
         }
         break;
 
@@ -139,12 +131,7 @@ public class State extends SubsystemBase {
 
       // Prep Coral Only
       case PREP_CORAL_ZERO:
-<<<<<<< HEAD
         switch (currentRobotState) {
-          case NONE: // TEMP REMOVE ME PLS
-=======
-        switch(currentRobotState) {
->>>>>>> origin/coralTest
           case HAS_CORAL:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
@@ -155,12 +142,7 @@ public class State extends SubsystemBase {
         break;
 
       case PREP_CORAL_L1:
-<<<<<<< HEAD
         switch (currentRobotState) {
-          case NONE: // TEMP REMOVE ME PLS
-=======
-        switch(currentRobotState) {
->>>>>>> origin/coralTest
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L2:
@@ -182,12 +164,7 @@ public class State extends SubsystemBase {
         break;
 
       case PREP_CORAL_L3:
-<<<<<<< HEAD
         switch (currentRobotState) {
-          case NONE: // TEMP REMOVE ME PLS
-=======
-        switch(currentRobotState) {
->>>>>>> origin/coralTest
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
@@ -198,12 +175,7 @@ public class State extends SubsystemBase {
         break;
 
       case PREP_CORAL_L4:
-<<<<<<< HEAD
         switch (currentRobotState) {
-          case NONE: // NUKE THIS ASAP
-=======
-        switch(currentRobotState) {
->>>>>>> origin/coralTest
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
@@ -385,38 +357,19 @@ public class State extends SubsystemBase {
       case INTAKE_CORAL:
         switch (currentRobotState) {
           case NONE:
-<<<<<<< HEAD
-            // TODO
-        }
-        break;
-
-      case EJECT_CORAL:
-        switch (currentRobotState) {
-          case HAS_CORAL:
-            // TODO
-=======
             return new IntakeCoral(RC);
->>>>>>> origin/coralTest
         }
         break;
 
       case SCORE_CORAL:
-<<<<<<< HEAD
         switch (currentRobotState) {
-=======
-        switch(currentRobotState) {
           case HAS_CORAL:
->>>>>>> origin/coralTest
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
           case PREP_CORAL_L3:
           case PREP_CORAL_L4:
-<<<<<<< HEAD
-            // TODO
-=======
             return new ScoreCoral(RC, RobotState.NONE);
->>>>>>> origin/coralTest
         }
         break;
 
@@ -426,18 +379,7 @@ public class State extends SubsystemBase {
             // TODO
         }
         break;
-<<<<<<< HEAD
 
-      case EJECT_CORAL_WITH_ALGAE:
-        switch (currentRobotState) {
-          case HAS_CORAL_AND_ALGAE:
-            // TODO
-        }
-        break;
-
-=======
-      
->>>>>>> origin/coralTest
       case SCORE_CORAL_WITH_ALGAE:
         switch (currentRobotState) {
           case PREP_CORAL_ZERO_WITH_ALGAE:

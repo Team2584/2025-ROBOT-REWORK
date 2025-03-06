@@ -30,9 +30,6 @@ public class WristLogger extends ClassSpecificLogger<Wrist> {
     if (Epilogue.shouldLog(Logged.Importance.DEBUG)) {
       logSendable(backend.getNested("m_wrist"), ((com.ctre.phoenix6.hardware.TalonFX) $m_wrist.get(object)));
       backend.log("lastDesiredAngle", ((edu.wpi.first.units.measure.Angle) $lastDesiredAngle.get(object)));
-      backend.log("attemptingZeroing", object.attemptingZeroing);
-      backend.log("hasZeroed", object.hasZeroed);
-      backend.log("hasAlgaeOverride", object.hasAlgaeOverride);
       backend.log("getMotorVelocity", object.getMotorVelocity());
       backend.log("isMotorVelocityZero", object.isMotorVelocityZero());
       backend.log("getPivotAngle", object.getPivotAngle());

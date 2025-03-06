@@ -23,11 +23,8 @@ import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
-<<<<<<< HEAD
 import frc.robot.subsystems.Climber;
-=======
 import frc.robot.subsystems.Coral;
->>>>>>> origin/coralTest
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
@@ -45,13 +42,10 @@ public class RobotContainer {
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
-<<<<<<< HEAD
   private final Climber climber = new Climber();
   private final Ramp ramp = new Ramp();
   private final Wrist wrist = new Wrist();
-=======
   private final Coral coral = new Coral();
->>>>>>> origin/coralTest
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -93,7 +87,6 @@ public class RobotContainer {
     return this.elevator;
   }
 
-<<<<<<< HEAD
   public Climber getClimber() {
     return this.climber;
   }
@@ -104,10 +97,10 @@ public class RobotContainer {
 
   public Wrist getWrist() {
     return this.wrist;
-=======
+  }
+
   public Coral getCoral() {
     return this.coral;
->>>>>>> origin/coralTest
   }
 
   // TODO: add other subsystems to this command

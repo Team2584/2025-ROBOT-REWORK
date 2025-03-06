@@ -195,7 +195,7 @@ public class Swerve extends SubsystemBase {
 
 	public void configure() {
 		pigeon.setYaw(0);
-		
+
 		for (Module mod : modules) {
 			mod.configure();
 		}
@@ -476,7 +476,8 @@ public class Swerve extends SubsystemBase {
 		SmartDashboard.putNumber("PigeonYaw", getGyroRotation().getDegrees());
 		SmartDashboard.putNumber("SwervePoseEstimator/x", swervePoseEstimator.getEstimatedPosition().getX());
 		SmartDashboard.putNumber("SwervePoseEstimator/y", swervePoseEstimator.getEstimatedPosition().getY());
-		SmartDashboard.putNumber("SwervePoseEstimator/r", swervePoseEstimator.getEstimatedPosition().getRotation().getDegrees());
+		SmartDashboard.putNumber("SwervePoseEstimator/r",
+				swervePoseEstimator.getEstimatedPosition().getRotation().getDegrees());
 
 		updateTimer();
 		updatePoseEstimator();

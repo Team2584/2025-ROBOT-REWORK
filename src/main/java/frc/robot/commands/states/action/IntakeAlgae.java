@@ -40,7 +40,9 @@ public class IntakeAlgae extends Command {
   @Override
   public void end(boolean interrupted) {
     Algae.stateRun = false;
-    if (algae.hasAlgae() && coral.hasCoral()) {
+    if (algae.hasAlgae() && !coral.hasCoral()){
+      state.setRobotState(RobotState.HAS_ALGAE);
+    } else if  (algae.hasAlgae() && coral.hasCoral()) {
       state.setRobotState(RobotState.HAS_CORAL_AND_ALGAE);
     } else if (!algae.hasAlgae() && coral.hasCoral()) {
       state.setRobotState(RobotState.HAS_CORAL);

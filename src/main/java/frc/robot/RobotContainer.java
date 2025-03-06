@@ -3,12 +3,15 @@ package frc.robot;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.google.flatbuffers.Constants;
+
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -19,10 +22,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.zero.Zero_Elevator;
+import frc.robot.commands.zero.Zero_Ramp;
+import frc.robot.commands.zero.Zero_Wrist;
+import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
@@ -45,6 +52,7 @@ public class RobotContainer {
   private final Climber climber = new Climber();
   private final Ramp ramp = new Ramp();
   private final Wrist wrist = new Wrist();
+  private final Algae algae = new Algae();
   private final Coral coral = new Coral();
 
   @NotLogged
@@ -59,6 +67,14 @@ public class RobotContainer {
   Command TRY_SCORE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_CORAL));
   Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
   Command TRY_INTAKE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_CORAL));
+  Command TRY_PREP_ALGAE_NET = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_BARGE));
+  Command TRY_PREP_INTAKE_ALGAE_GROUND = Commands
+      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_GROUND));
+  Command TRY_PREP_INTAKE_ALGAE_HIGH_REEF = Commands
+      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_REEF_HIGH));
+  Command TRY_PREP_INTAKE_ALGAE_LOW_REEF = Commands
+      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_REEF_LOW));
+  Command TRY_SCORE_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_ALGAE));
 
   @NotLogged
   Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
@@ -99,13 +115,18 @@ public class RobotContainer {
     return this.wrist;
   }
 
+  public Algae getAlgae() {
+    return this.algae;
+  }
+
   public Coral getCoral() {
     return this.coral;
   }
 
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
-      new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)))
+      new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
+      new Zero_Wrist(this))
       .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).withName("ZeroSubsystems");
 
   // Map buttons to trigger variables
@@ -128,13 +149,13 @@ public class RobotContainer {
   private final JoystickButton blue1 = new JoystickButton(getButtonBoard(), 8);
 
   // Buttons
-  public Trigger slowModeTrigger = new Trigger(() -> getController().y().getAsBoolean());
-  public Trigger leftReefTrigger = new Trigger(() -> getController().x().getAsBoolean());
-  public Trigger rightReefTrigger = new Trigger(() -> getController().b().getAsBoolean());
+  public Trigger slowModeTrigger = new Trigger(() -> getController().leftTrigger().getAsBoolean());
+  public Trigger leftReefTrigger = new Trigger(() -> false);
+  public Trigger rightReefTrigger = new Trigger(() -> false);
 
-  public Trigger rightCoralStationTrigger = new Trigger(() -> blue4.getAsBoolean());
-  public Trigger leftCoralStationTrigger = new Trigger(() -> blue3.getAsBoolean());
-  public Trigger processorTrigger = new Trigger(() -> blue2.getAsBoolean());
+  public Trigger rightCoralStationTrigger = new Trigger(() -> false);
+  public Trigger leftCoralStationTrigger = new Trigger(() -> false);
+  public Trigger processorTrigger = new Trigger(() -> false);
 
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
@@ -146,24 +167,27 @@ public class RobotContainer {
                 leftCoralStationTrigger,
                 rightCoralStationTrigger, processorTrigger));
 
-    configureController(getController());
-    configureButtonBoard(getButtonBoard());
+    configureController();
+    configureButtonBoard();
     checkForCoral();
   }
 
-  private void configureController(CommandXboxController joystick) {
-    // redL4.onTrue(TRY_CORAL_L4);
-    // redL3.onTrue(TRY_CORAL_L3);
-    // redL2.onTrue(TRY_CORAL_L2);
-    // redL1.onTrue(TRY_CORAL_L1);
-
-    redL1.onTrue(TRY_INTAKE_CORAL);
-    blue1.onTrue(TRY_SCORE_CORAL);
-
+  private void configureController() {
+    controller.x().onTrue(TRY_INTAKE_CORAL);
+    controller.a().onTrue(TRY_SCORE_CORAL);
+    controller.y().onTrue(TRY_SCORE_ALGAE);
   }
 
-  private void configureButtonBoard(Joystick buttonBoard) {
+  private void configureButtonBoard() {
+    redL4.onTrue(TRY_CORAL_L4);
+    redL3.onTrue(TRY_CORAL_L3);
+    redL2.onTrue(TRY_CORAL_L2);
+    redL1.onTrue(TRY_CORAL_L1);
 
+    blue4.onTrue(TRY_PREP_ALGAE_NET);
+    blue3.onTrue(TRY_PREP_INTAKE_ALGAE_HIGH_REEF);
+    blue2.onTrue(TRY_PREP_INTAKE_ALGAE_LOW_REEF);
+    blue1.onTrue(TRY_PREP_INTAKE_ALGAE_GROUND);
   }
 
   public void checkForCoral() {

@@ -1,6 +1,7 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
@@ -9,6 +10,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -19,7 +21,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Module extends SubsystemBase {
@@ -128,6 +132,10 @@ public class Module extends SubsystemBase {
 
         driveMotor.getConfigurator().apply(driveConfiguration);
 
+        // -*- Absolute Encoder Config -*-
+        cancoderConfiguration.MagnetSensor.SensorDirection = cancoderInversion;
+        absoluteEncoder.getConfigurator().apply(cancoderConfiguration);
+
         // -*- Steer Motor Config -*-
         steerConfiguration.MotorOutput.Inverted = steerInversion;
         steerConfiguration.MotorOutput.NeutralMode = steerNeutralMode;
@@ -136,9 +144,6 @@ public class Module extends SubsystemBase {
 
         steerMotor.getConfigurator().apply(steerConfiguration);
 
-        // -*- Absolute Encoder Config -*-
-        cancoderConfiguration.MagnetSensor.SensorDirection = cancoderInversion;
-        absoluteEncoder.getConfigurator().apply(cancoderConfiguration);
     }
 
     /**
@@ -166,6 +171,10 @@ public class Module extends SubsystemBase {
         rotations -= absoluteEncoderOffset;
 
         return rotations;
+    }
+
+    public double getAdjustedSteerPositionDouble() {
+        return steerMotor.getPosition().getValueAsDouble() % 1;
     }
 
     public double getAbsoluteEncoderOffset() {
@@ -196,7 +205,7 @@ public class Module extends SubsystemBase {
     public SwerveModuleState getActualModuleState() {
         double velocity = SN_Math.rotationsToMeters(driveMotor.getVelocity().getValueAsDouble(), wheelCircumference, 1);
         Rotation2d angle = Rotation2d
-                .fromDegrees(Units.rotationsToDegrees(steerMotor.getPosition().getValueAsDouble()));
+                .fromDegrees(Units.rotationsToDegrees(getAdjustedSteerPositionDouble()));
 
         return new SwerveModuleState(velocity, angle);
     }
@@ -226,7 +235,7 @@ public class Module extends SubsystemBase {
         }
         double distance = SN_Math.rotationsToMeters(driveMotor.getPosition().getValueAsDouble(), wheelCircumference, 1);
         Rotation2d angle = Rotation2d
-                .fromDegrees(Units.rotationsToDegrees(steerMotor.getPosition().getValueAsDouble()));
+                .fromDegrees(Units.rotationsToDegrees(getAdjustedSteerPositionDouble()));
 
         return new SwerveModulePosition(distance, angle);
     }

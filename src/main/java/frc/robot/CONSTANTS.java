@@ -118,9 +118,7 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        // public static final LinearVelocity MAX_DRIVE_SPEED =
-        // Units.MetersPerSecond.of(5.33);
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(1);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -157,22 +155,27 @@ public final class CONSTANTS {
                 CONSTANTS_DRIVETRAIN.kSteerGearRatio, CONSTANTS_DRIVETRAIN.WHEEL_CIRCUMFERENCE,
                 CONSTANTS_DRIVETRAIN.kDriveGearRatio, edu.wpi.first.math.util.Units.feetToMeters(17.5));
 
+        public static final double kCancoderBootAllowanceSeconds = 5;
+
         /*
          * Physically measured from center to center of the wheels
          * Distance between Left & Right Wheels (IN METERS)
          */
-        public static final double WHEEL_DISTANCE_WIDTH = Units.Meters.convertFrom(0.58, Units.Meters);
+        public static final double WHEEL_DISTANCE_WIDTH = 0.58;
         // Distance between Front & Back Wheels
-        public static final double WHEEL_DISTANCE_LENGTH = Units.Meters.convertFrom(0.58, Units.Meters);
+        public static final double WHEEL_DISTANCE_LENGTH = 0.58;
 
         // PID is set to each module INDIVIDUALLY
-        public static final double DRIVE_P = 0.18;
+        public static final double DRIVE_P = 0.2;
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0;
 
-        public static final double STEER_P = 100;
+        public static final double STEER_P = 60;
         public static final double STEER_I = 0.0;
-        public static final double STEER_D = 0.15;
+        public static final double STEER_D = 0.1;
+
+        public static final double STEER_KS = 0.0;
+        public static final double STEER_KV = 0.0;
 
         public static final double DRIVE_KS = 0;
         public static final double DRIVE_KA = 0;
@@ -180,7 +183,7 @@ public final class CONSTANTS {
 
         public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
         public static final NeutralModeValue STEER_NEUTRAL_MODE = NeutralModeValue.Coast;
-        public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(80);
+        public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(70);
 
         public static final TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
         public static final TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
@@ -202,6 +205,7 @@ public final class CONSTANTS {
             DRIVE_RIGHT_CONFIG.Slot0.kP = DRIVE_P;
             DRIVE_RIGHT_CONFIG.Slot0.kI = DRIVE_I;
             DRIVE_RIGHT_CONFIG.Slot0.kD = DRIVE_D;
+
             DRIVE_RIGHT_CONFIG.MotorOutput.Inverted = INVERSION_RIGHT;
             DRIVE_RIGHT_CONFIG.MotorOutput.NeutralMode = DRIVE_NEUTRAL_MODE;
             DRIVE_RIGHT_CONFIG.Feedback.SensorToMechanismRatio = SWERVE_CONSTANTS.driveGearRatio;
@@ -211,6 +215,8 @@ public final class CONSTANTS {
             STEER_CONFIG.Slot0.kP = STEER_P;
             STEER_CONFIG.Slot0.kI = STEER_I;
             STEER_CONFIG.Slot0.kD = STEER_D;
+            STEER_CONFIG.Slot0.kV = STEER_KV;
+            STEER_CONFIG.Slot0.kS = STEER_KS;
             STEER_CONFIG.MotorOutput.Inverted = STEER_MOTOR_INVERT;
             STEER_CONFIG.MotorOutput.NeutralMode = STEER_NEUTRAL_MODE;
             STEER_CONFIG.Feedback.SensorToMechanismRatio = SWERVE_CONSTANTS.steerGearRatio;
@@ -361,7 +367,7 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(62).in(Units.Inches);
+            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
             ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
             ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
                     .in(Units.Inches);
@@ -402,20 +408,21 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
         public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
         public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(53.5);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGA_LOW = Units.Inches.of(23);
-        public static final Distance HEIGHT_ALGA_HIGH = Units.Inches.of(40);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(23);
+        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
 
-        public static final Distance HEIGHT_BARGE = Units.Inches.of(54);
+        public static final Distance HEIGHT_BARGE = Units.Inches.of(53.5);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
-        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(55);
+        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(53.5);
 
-        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(5);
+        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.3);
+        public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
 
         // TODO: }] Tune End here~
 
@@ -425,7 +432,7 @@ public final class CONSTANTS {
         /**
          * Voltage given to motor when it's zeroing
          */
-        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-1.5);
+        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-4);
 
         /**
          * Zero position (yk could slide around a bit~~~i pray it's zero)
@@ -447,7 +454,6 @@ public final class CONSTANTS {
         public static final double WRIST_GEAR_RATIO = 279.27;
         public static final TalonFXConfiguration WRIST_CONFIG = new TalonFXConfiguration();
 
-        // TODO: check
         public static final Angle MAX_POS = Units.Degrees.of(32);
         public static final Angle MIN_POS = Units.Degrees.of(-70);
 
@@ -466,17 +472,17 @@ public final class CONSTANTS {
             // WRIST_CONFIG.Feedback.SensorToMechanismRatio = WRIST_GEAR_RATIO;
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
-            WRIST_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
-            WRIST_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            WRIST_CONFIG.Slot0.kS = 0.24; // Volts to overcome static friction
+            WRIST_CONFIG.Slot0.kV = 0.0; // Volts for a velocity target of 1 rps
             WRIST_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            WRIST_CONFIG.Slot0.kP = 50;
+            WRIST_CONFIG.Slot0.kP = 40;
             WRIST_CONFIG.Slot0.kI = 0.0;
-            WRIST_CONFIG.Slot0.kD = 0.00;
+            WRIST_CONFIG.Slot0.kD = 0.8;
 
             WRIST_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
             WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
 
-            WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 60;
+            WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 50;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
         }
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(30);
@@ -484,13 +490,14 @@ public final class CONSTANTS {
         public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(-68);
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(-60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
+        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-68);
         // TODO: add processor scoring angle
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 0.4;
+        public static final double ALGAE_INTAKE_SPEED = 1;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0.1;
         public static final double ALGAE_HOLD_SPEED = 0.25;
@@ -502,7 +509,7 @@ public final class CONSTANTS {
             ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         }
 
-        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.25);
+        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.1);
         public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(18);
     }
 
@@ -538,7 +545,6 @@ public final class CONSTANTS {
         // 45:1 ratio
         public static final double RAMP_UP_VELOCITY = 1;
         public static final double RAMP_DOWN_VELOCITY = -1;
-        // TODO: implement
         public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();

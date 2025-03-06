@@ -17,6 +17,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
@@ -124,6 +125,7 @@ public class Elevator extends SubsystemBase {
     public void setPosition(Distance height) {
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
+        isZero = false;
         lastDesiredPosition = height;
     }
 
@@ -156,5 +158,16 @@ public class Elevator extends SubsystemBase {
 
     private double inchesToRotations(double heightInches) {
         return (heightInches / (Math.PI * CONSTANTS_ELEVATOR.ELEVATOR_PULLEY_PITCH_DIAMETER.in(Inches)));
+    }
+
+    @Override
+    public void periodic() {
+        if (getZeroLimit()) {
+            isZero = true;
+            resetSensorPosition(Units.Inches.of(0));
+        }
+        SmartDashboard.putBoolean("Elevator/isZero", isZero);
+        SmartDashboard.putNumber("Elevator/height (in)", rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble()));
+        SmartDashboard.putNumber("Elevator/target (in)", lastDesiredPosition.in(Units.Inches));
     }
 }

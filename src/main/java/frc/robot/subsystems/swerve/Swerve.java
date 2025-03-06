@@ -185,7 +185,7 @@ public class Swerve extends SubsystemBase {
 		pigeon = new Pigeon2(pigeonCANId, CANBusName);
 
 		// The absolute encoders need time to initialize
-		Timer.delay(2.5);
+		Timer.delay(5);
 		resetModulesToAbsolute();
 		configure();
 
@@ -469,10 +469,6 @@ public class Swerve extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		Field2d tField = new Field2d();
-		tField.setRobotPose(swervePoseEstimator.getEstimatedPosition());
-		SmartDashboard.putData(tField);
-
 		SmartDashboard.putNumber("PigeonYaw", getGyroRotation().getDegrees());
 		SmartDashboard.putNumber("SwervePoseEstimator/x", swervePoseEstimator.getEstimatedPosition().getX());
 		SmartDashboard.putNumber("SwervePoseEstimator/y", swervePoseEstimator.getEstimatedPosition().getY());

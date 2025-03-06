@@ -12,67 +12,40 @@ import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.RobotState;
 
 public class ScoreCoral extends Command {
-    Coral globalCoral;
-    Elevator globalElevator;
-    State globalState;
-    RobotState desiredState;
-    double coralOuttakeSpeed;
-  
-    /** Creates a new CoralScoreSequence. */
-    public ScoreCoral(RobotContainer RC, RobotState desiredState) {
-      globalCoral = RC.getCoral();
-      globalElevator = RC.getElevator();
-      globalState = RC.getState();
-      this.desiredState = desiredState;
-  
-    //   // Add your commands in the addCommands() call, e.g.
-    //   // addCommands(new FooCommand(), new BarCommand());
-    //   addCommands(
-    //       // Set state and LEDs
-    //       Commands.runOnce(() -> globalState.setRobotState(RobotState.SCORE_CORAL)),
-  
-    //       // Shoot coral when elevator is at the right position
-    //       //Commands.waitUntil(() -> globalElevator.isAtSetPoint()),
-    //       Commands.runOnce(() -> globalCoral.setCoralMotor(getCoralOuttakeSpeed())),
-  
-    //       // Start ze timer
-    //       Commands.waitSeconds(CONSTANTS_CORAL.CORAL_SCORE_TIME.in(Units.Seconds)),
-  
-    //       // Set the state to NONE once the timer is up and the operator lets go of the
-    //       // button
-    //       Commands.deferredProxy(() -> globalState.tryState(RobotState.NONE)));
-    }
-  
-    public double getCoralOuttakeSpeed() {
-      if (desiredState.equals(RobotState.PREP_CORAL_L4)) {
-        coralOuttakeSpeed = CONSTANTS_CORAL.CORAL_L4_OUTTAKE_SPEED;
-      } else if (desiredState.equals(RobotState.PREP_CORAL_L1)) {
-        coralOuttakeSpeed = CONSTANTS_CORAL.CORAL_L1_OUTTAKE_SPEED;
-      } else {
-        coralOuttakeSpeed = CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED;
-      }
-  
-      return coralOuttakeSpeed;
-    }
+  Coral globalCoral;
+  Elevator globalElevator;
+  State globalState;
+  RobotState desiredState;
+  double coralOuttakeSpeed;
 
-    public void initialize() {
-        globalState.setRobotState(RobotState.INTAKE_CORAL);
-        globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
-    }
+  public ScoreCoral(RobotContainer RC) {
+    globalCoral = RC.getCoral();
+    globalElevator = RC.getElevator();
+    globalState = RC.getState();
+  }
 
-    public void execute() {
-    }
+  @Override
+  public void initialize() {
+    globalState.setRobotState(RobotState.SCORE_CORAL);
+    globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
+  }
 
-    public void end(boolean interrupted) {
-        globalCoral.setCoralMotor(0);
-        if(globalCoral.coralLoaded()) {
-            globalState.tryState(RobotState.HAS_CORAL);
-        } else {
-            globalState.tryState(RobotState.NONE);
-        }
-    }
+  @Override
+  public void execute() {
+  }
 
-    public boolean isFinished() {
-        return !globalCoral.hasCoral();
+  @Override
+  public void end(boolean interrupted) {
+    globalCoral.setCoralMotor(0);
+    if (globalCoral.coralLoaded()) {
+      globalState.tryState(RobotState.HAS_CORAL);
+    } else {
+      globalState.tryState(RobotState.NONE);
     }
-  }  
+  }
+
+  @Override
+  public boolean isFinished() {
+    return !globalCoral.hasCoral();
+  }
+}

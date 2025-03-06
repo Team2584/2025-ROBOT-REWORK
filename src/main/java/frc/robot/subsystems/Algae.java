@@ -5,6 +5,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
@@ -13,7 +14,8 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 public class Algae extends SubsystemBase {
   private TalonFX m_algaeIntake;
 
-  public boolean hasAlgaeOverride = false;
+  public static boolean hasAlgaeOverride = false;
+  public static boolean stateRun = false;
 
   public Algae() {
     m_algaeIntake = new TalonFX(CONSTANTS_PORTS.ALGAE_CAN);
@@ -64,5 +66,13 @@ public class Algae extends SubsystemBase {
   @Override
   public void periodic() {
 
+    SmartDashboard.putBoolean("Algae/hasAlgaeOverride", hasAlgaeOverride);
+    SmartDashboard.putBoolean("Algae/stateRun", stateRun);
+
+    if (hasAlgae() && !stateRun) {
+      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
+    } else if (!stateRun) {
+      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED);
+    }
   }
 }

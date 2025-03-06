@@ -13,6 +13,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.CONSTANTS.CONSTANTS_WRIST;
@@ -49,6 +50,10 @@ public class Wrist extends SubsystemBase {
 
     public void setVoltage(Voltage voltage) {
         m_wrist.setControl(voltageRequest.withOutput(voltage));
+    }
+
+    public void setWristMotorVelocity(double velocity) {
+        m_wrist.set(velocity);
     }
 
     public void setSoftwareLimits(boolean reverseLimitEnable, boolean forwardLimitEnable) {
@@ -91,6 +96,8 @@ public class Wrist extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("Wrist/PivotAngle (deg)", getPivotAngle().in(Degrees));
+        SmartDashboard.putNumber("Wrist/Setpoint (deg)", lastDesiredAngle.in(Degrees));
 
     }
 }

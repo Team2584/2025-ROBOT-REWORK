@@ -329,7 +329,7 @@ public class Drivetrain extends Swerve {
                 desiredModuleStates = getDesiredModuleStates();
                 actualModuleStates = getActualModuleStates();
 
-                // SmartDashboard.putData(field);
+                SmartDashboard.putData(field);
                 SmartDashboard.putNumber("Drivetrain/Rotation", getRotationMeasure().in(Units.Degrees));
 
                 for (Module mod : CONSTANTS_DRIVETRAIN.MODULES) {
@@ -351,8 +351,9 @@ public class Drivetrain extends Swerve {
                         SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/Actual Speed (m.s)",
                                         Math.abs(getActualModuleStates()[mod.getModuleNumber()].speedMetersPerSecond));
                         SmartDashboard.putNumber("Drivetrain/Module #" + mod.getModuleNumber() + "/SteerPos",
-                                        mod.steerMotor.getPosition().getValueAsDouble());
+                                        mod.getAdjustedSteerPositionDouble());
 
                 }
+		resetModulesToAbsolute();
         }
 }

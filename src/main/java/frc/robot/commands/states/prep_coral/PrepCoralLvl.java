@@ -7,16 +7,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
+import frc.robot.CONSTANTS.CONSTANTS_WRIST;
 import frc.robot.subsystems.*;
 
 public class PrepCoralLvl extends Command {
   State globalState;
   Elevator globalElevator;
   Distance globalDistance;
+  Wrist wrist;
 
   public PrepCoralLvl(RobotContainer RC, Distance height) {
     globalState = RC.getState();
     globalElevator = RC.getElevator();
+    this.wrist = RC.getWrist();
     globalDistance = height;
   }
 
@@ -32,6 +35,7 @@ public class PrepCoralLvl extends Command {
       globalState.setRobotState(State.RobotState.PREP_CORAL_L4);
 
     globalElevator.setPosition(globalDistance);
+    wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL);
   }
 
   @Override

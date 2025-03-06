@@ -31,7 +31,6 @@ public class PrepCoralZero extends Command {
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Elevator height: ", globalElevator.getElevatorPosition().in(Inches));
   }
 
   @Override

@@ -27,7 +27,6 @@ public class AlgaeLogger extends ClassSpecificLogger<Algae> {
   public void update(EpilogueBackend backend, Algae object) {
     if (Epilogue.shouldLog(Logged.Importance.DEBUG)) {
       logSendable(backend.getNested("m_algaeIntake"), ((com.ctre.phoenix6.hardware.TalonFX) $m_algaeIntake.get(object)));
-      backend.log("hasAlgaeOverride", object.hasAlgaeOverride);
       backend.log("hasAlgae", object.hasAlgae());
       backend.log("getAlgaeIntakeVoltage", object.getAlgaeIntakeVoltage());
     }

@@ -1,6 +1,7 @@
 package frc.robot.commands.zero;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.CONSTANTS;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Wrist;
 
@@ -16,6 +17,7 @@ public class Zero_Wrist extends Command {
 
     @Override
     public void initialize() {
+        wrist.setWristAngle(CONSTANTS.CONSTANTS_WRIST.PIVOT_DEFAULT);
 
     }
 
@@ -31,6 +33,6 @@ public class Zero_Wrist extends Command {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return wrist.isAtSpecificSetpoint(CONSTANTS.CONSTANTS_WRIST.PIVOT_DEFAULT);
     }
 }

@@ -454,8 +454,8 @@ public final class CONSTANTS {
         public static final double WRIST_GEAR_RATIO = 279.27;
         public static final TalonFXConfiguration WRIST_CONFIG = new TalonFXConfiguration();
 
-        public static final Angle MAX_POS = Units.Degrees.of(32);
-        public static final Angle MIN_POS = Units.Degrees.of(-70);
+        public static final Angle MAX_POS = Units.Degrees.of(35);
+        public static final Angle MIN_POS = Units.Degrees.of(-80);
 
         static {
             WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -472,15 +472,15 @@ public final class CONSTANTS {
             // WRIST_CONFIG.Feedback.SensorToMechanismRatio = WRIST_GEAR_RATIO;
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
-            WRIST_CONFIG.Slot0.kS = 0.24; // Volts to overcome static friction
-            WRIST_CONFIG.Slot0.kV = 0.0; // Volts for a velocity target of 1 rps
-            WRIST_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            WRIST_CONFIG.Slot0.kP = 40;
-            WRIST_CONFIG.Slot0.kI = 0.0;
+            WRIST_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
+            WRIST_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            WRIST_CONFIG.Slot0.kA = 0.01; // Volts for an acceleration of 1 rps/s
+            WRIST_CONFIG.Slot0.kP = 60;
+            WRIST_CONFIG.Slot0.kI = 0;
             WRIST_CONFIG.Slot0.kD = 0.8;
 
             WRIST_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-            WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+            // WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
 
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 50;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
@@ -499,7 +499,7 @@ public final class CONSTANTS {
     public static class CONSTANTS_ALGAE {
         public static final double ALGAE_INTAKE_SPEED = 1;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
-        public static final double ALGAE_IDLE_SPEED = 0.1;
+        public static final double ALGAE_IDLE_SPEED = 0;
         public static final double ALGAE_HOLD_SPEED = 0.25;
 
         public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();

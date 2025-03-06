@@ -75,6 +75,7 @@ public class State extends SubsystemBase {
         switch (currentRobotState) {
           case INTAKE_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
+            Commands.print("hasCoral");
             return new HasCoral(RC);
         }
         break;

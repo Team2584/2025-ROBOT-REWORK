@@ -179,10 +179,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBoard() {
-    redL4.onTrue(TRY_CORAL_L4);
-    redL3.onTrue(TRY_CORAL_L3);
-    redL2.onTrue(TRY_CORAL_L2);
-    redL1.onTrue(TRY_CORAL_L1);
+    redL4.onTrue(TRY_CORAL_L4).onFalse(TRY_HAS_CORAL);
+    redL3.onTrue(TRY_CORAL_L3).onFalse(TRY_HAS_CORAL);
+    redL2.onTrue(TRY_CORAL_L2).onFalse(TRY_HAS_CORAL);
+    redL1.onTrue(TRY_CORAL_L1).onFalse(TRY_HAS_CORAL);
 
     blue4.onTrue(TRY_PREP_ALGAE_NET);
     blue3.onTrue(TRY_PREP_INTAKE_ALGAE_HIGH_REEF);

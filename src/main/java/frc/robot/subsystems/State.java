@@ -24,7 +24,6 @@ public class State extends SubsystemBase {
   @NotLogged
   RobotContainer RC;
 
-  /** Creates a new StateMachine. */
   // TODO: ADD NEW SUBSYSTEMS WHEN CREATED!!!!
   public State(RobotContainer RC) {
     currentRobotState = RobotState.NONE;

@@ -6,6 +6,7 @@ import edu.wpi.first.hal.FRCNetComm;
 import edu.wpi.first.hal.HAL;
 
 import frc.robot.RobotContainerLogger;
+import frc.robot.subsystems.AlgaeLogger;
 import frc.robot.subsystems.ClimberLogger;
 import frc.robot.subsystems.ElevatorLogger;
 import frc.robot.subsystems.RampLogger;
@@ -22,6 +23,7 @@ public final class Epilogue {
 
   private static final EpilogueConfiguration config = new EpilogueConfiguration();
 
+  public static final AlgaeLogger algaeLogger = new AlgaeLogger();
   public static final ClimberLogger climberLogger = new ClimberLogger();
   public static final DrivetrainLogger drivetrainLogger = new DrivetrainLogger();
   public static final ElevatorLogger elevatorLogger = new ElevatorLogger();

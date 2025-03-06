@@ -29,6 +29,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -442,7 +443,20 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_ALGAE {
+        public static final double ALGAE_INTAKE_SPEED = 0.4;
+        public static final double ALGAE_OUTTAKE_SPEED = -0.5;
+        public static final double ALGAE_IDLE_SPEED = 0.1;
+        public static final double ALGAE_HOLD_SPEED = 0.25;
 
+        public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();
+
+        static {
+            ALGAE_INTAKE_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        }
+
+        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.25);
+        public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(18);
     }
 
     public static class CONSTANTS_CORAL {
@@ -453,6 +467,7 @@ public final class CONSTANTS {
         // 45:1 ratio
         public static final double RAMP_UP_VELOCITY = 1;
         public static final double RAMP_DOWN_VELOCITY = -1;
+        // TODO: implement
         public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();

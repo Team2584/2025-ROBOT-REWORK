@@ -33,9 +33,6 @@ import frc.robot.subsystems.swerve.Drivetrain;
 public class RobotContainer {
   @NotLogged
   private final CommandXboxController controller = new CommandXboxController(CONSTANTS_PORTS.CONTROLLER_PORT);
-  // This is for home testing lol (i dont have xbox controller :(
-  // private final CommandPS4Controller controller = new
-  // CommandPS4Controller(CONSTANTS_PORTS.CONTROLLER_PORT);
   @NotLogged
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
@@ -115,13 +112,6 @@ public class RobotContainer {
   private final JoystickButton blue1 = new JoystickButton(getButtonBoard(), 8);
 
   // Buttons
-  // public Trigger slowModeTrigger = new Trigger(() ->
-  // getController().a().getAsBoolean());
-  // public Trigger leftReefTrigger = new Trigger(() ->
-  // getController().b().getAsBoolean());
-  // public Trigger rightReefTrigger = new Trigger(() ->
-  // getController().y().getAsBoolean());
-
   public Trigger slowModeTrigger = new Trigger(() -> getController().y().getAsBoolean());
   public Trigger leftReefTrigger = new Trigger(() -> getController().x().getAsBoolean());
   public Trigger rightReefTrigger = new Trigger(() -> getController().b().getAsBoolean());

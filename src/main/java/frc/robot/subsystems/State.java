@@ -5,6 +5,7 @@ import javax.print.attribute.standard.Destination;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
@@ -122,7 +123,6 @@ public class State extends SubsystemBase {
 
       case HAS_CORAL:
         switch (currentRobotState) {
-          case NONE: //TEMP REMOVE ME
           case INTAKE_CORAL:
           case SCORE_ALGAE_WITH_CORAL:
             return new HasCoral(RC);
@@ -152,7 +152,6 @@ public class State extends SubsystemBase {
       // Prep Coral Only
       case PREP_CORAL_ZERO:
         switch(currentRobotState) {
-          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
@@ -164,7 +163,6 @@ public class State extends SubsystemBase {
       
       case PREP_CORAL_L1:
         switch(currentRobotState) {
-          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L2:
@@ -187,7 +185,6 @@ public class State extends SubsystemBase {
       
       case PREP_CORAL_L3:
         switch(currentRobotState) {
-          case NONE: //TEMP REMOVE ME PLS
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
@@ -199,7 +196,6 @@ public class State extends SubsystemBase {
 
       case PREP_CORAL_L4:
         switch(currentRobotState) {
-          case NONE: //NUKE THIS ASAP
           case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
@@ -387,6 +383,7 @@ public class State extends SubsystemBase {
       
       case SCORE_CORAL:
         switch(currentRobotState) {
+          case HAS_CORAL:
           case PREP_CORAL_ZERO:
           case PREP_CORAL_L1:
           case PREP_CORAL_L2:
@@ -564,6 +561,6 @@ public class State extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    SmartDashboard.putString("Current Robot State", getRobotState().name());
   }
 }

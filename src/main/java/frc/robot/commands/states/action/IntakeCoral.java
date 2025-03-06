@@ -26,7 +26,11 @@ public class IntakeCoral extends Command {
 
     public void end(boolean interrupted) {
         globalCoral.setCoralMotor(0);
-        globalState.tryState(RobotState.HAS_CORAL);
+        if(globalCoral.coralLoaded()) {
+            globalState.tryState(RobotState.HAS_CORAL);
+        } else {
+            globalState.tryState(RobotState.NONE);
+        }
     }
 
     public boolean isFinished() {

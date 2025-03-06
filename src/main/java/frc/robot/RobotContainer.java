@@ -140,6 +140,7 @@ public class RobotContainer {
 
     configureController(getController());
     configureButtonBoard(getButtonBoard());
+    checkForCoral();
   }
 
   private void configureController(CommandXboxController joystick) {
@@ -149,6 +150,7 @@ public class RobotContainer {
     // redL1.onTrue(TRY_CORAL_L1);
 
     redL1.onTrue(TRY_INTAKE_CORAL);
+    blue1.onTrue(TRY_SCORE_CORAL);
 
   }
 

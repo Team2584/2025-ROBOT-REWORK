@@ -21,7 +21,7 @@ public class None extends Command {
     @Override
     public void initialize() {
         globalState.setRobotState(State.RobotState.NONE);
-        globalElevator.setPosition(Units.Inches.of(2));
+        //globalElevator.setPosition(Units.Inches.of(2));
         globalCoral.setCoralMotor(0);
     }
 

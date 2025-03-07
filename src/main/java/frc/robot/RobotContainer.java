@@ -161,8 +161,8 @@ public class RobotContainer {
 
   // Buttons
   public Trigger slowModeTrigger = new Trigger(() -> getController().leftTrigger().getAsBoolean());
-  public Trigger leftReefTrigger = new Trigger(() -> false);
-  public Trigger rightReefTrigger = new Trigger(() -> false);
+  public Trigger leftReefTrigger = new Trigger(() -> getController().leftBumper().getAsBoolean());
+  public Trigger rightReefTrigger = new Trigger(() -> getController().rightBumper().getAsBoolean());
 
   public Trigger rightCoralStationTrigger = new Trigger(() -> false);
   public Trigger leftCoralStationTrigger = new Trigger(() -> false);

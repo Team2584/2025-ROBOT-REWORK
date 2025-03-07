@@ -167,7 +167,8 @@ public class Elevator extends SubsystemBase {
             resetSensorPosition(Units.Inches.of(0));
         }
         SmartDashboard.putBoolean("Elevator/isZero", isZero);
-        SmartDashboard.putNumber("Elevator/height (in)", rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble()));
+        SmartDashboard.putNumber("Elevator/height (in)",
+                rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble()));
         SmartDashboard.putNumber("Elevator/target (in)", lastDesiredPosition.in(Units.Inches));
     }
 }

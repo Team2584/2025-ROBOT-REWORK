@@ -70,6 +70,6 @@ public class Ramp extends SubsystemBase {
 
     @Override
     public void periodic() {
-        
+
     }
 }

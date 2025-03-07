@@ -354,6 +354,6 @@ public class Drivetrain extends Swerve {
                                         mod.getAdjustedSteerPositionDouble());
 
                 }
-		resetModulesToAbsolute();
+                resetModulesToAbsolute();
         }
 }

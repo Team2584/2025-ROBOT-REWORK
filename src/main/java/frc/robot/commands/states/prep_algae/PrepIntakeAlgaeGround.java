@@ -44,7 +44,7 @@ public class PrepIntakeAlgaeGround extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        
+
     }
 
     @Override

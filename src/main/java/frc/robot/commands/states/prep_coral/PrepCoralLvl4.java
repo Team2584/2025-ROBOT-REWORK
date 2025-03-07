@@ -11,35 +11,35 @@ import frc.robot.CONSTANTS.CONSTANTS_WRIST;
 import frc.robot.subsystems.*;
 
 public class PrepCoralLvl4 extends Command {
-  State globalState;
-  Elevator globalElevator;
-  Distance globalDistance;
-  Wrist wrist;
+    State globalState;
+    Elevator globalElevator;
+    Distance globalDistance;
+    Wrist wrist;
 
-  public PrepCoralLvl4(RobotContainer RC) {
-    globalState = RC.getState();
-    globalElevator = RC.getElevator();
-    this.wrist = RC.getWrist();
-  }
+    public PrepCoralLvl4(RobotContainer RC) {
+        globalState = RC.getState();
+        globalElevator = RC.getElevator();
+        this.wrist = RC.getWrist();
+    }
 
-  @Override
-  public void initialize() {
-    globalState.setRobotState(State.RobotState.PREP_CORAL_L4);
+    @Override
+    public void initialize() {
+        globalState.setRobotState(State.RobotState.PREP_CORAL_L4);
 
-    globalElevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4);
-    wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL);
-  }
+        globalElevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4);
+        wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL);
+    }
 
-  @Override
-  public void execute() {
-  }
+    @Override
+    public void execute() {
+    }
 
-  @Override
-  public void end(boolean interrupted) {
-  }
+    @Override
+    public void end(boolean interrupted) {
+    }
 
-  @Override
-  public boolean isFinished() {
-    return globalElevator.isAtSetPoint();
-  }
+    @Override
+    public boolean isFinished() {
+        return globalElevator.isAtSetPoint();
+    }
 }

@@ -19,37 +19,37 @@ import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.RobotState;
 
 public class HasAlgae extends Command {
-  State state;
+    State state;
     Wrist wrist;
     Elevator elevator;
     Algae algae;
     Coral coral;
 
-  public HasAlgae(RobotContainer RC) {
+    public HasAlgae(RobotContainer RC) {
         this.state = RC.getState();
         this.wrist = RC.getWrist();
         this.elevator = RC.getElevator();
         this.algae = RC.getAlgae();
         this.coral = RC.getCoral();
-    addRequirements(state);
-  }
+        addRequirements(state);
+    }
 
-  @Override
-  public void initialize() {
-    state.setRobotState(RobotState.HAS_ALGAE);
-  }
+    @Override
+    public void initialize() {
+        state.setRobotState(RobotState.HAS_ALGAE);
+    }
 
-  @Override
-  public void execute() {
-  }
+    @Override
+    public void execute() {
+    }
 
-  @Override
-  public void end(boolean interrupted) {
-    algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
-  }
+    @Override
+    public void end(boolean interrupted) {
+        algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
+    }
 
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

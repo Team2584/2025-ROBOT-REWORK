@@ -45,6 +45,6 @@ public class Coral extends SubsystemBase {
 
     @Override
     public void periodic() {
-        
+
     }
 }

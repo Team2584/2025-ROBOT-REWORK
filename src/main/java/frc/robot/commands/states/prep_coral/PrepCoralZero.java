@@ -6,6 +6,8 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.subsystems.*;
@@ -35,6 +37,7 @@ public class PrepCoralZero extends Command {
 
   @Override
   public void end(boolean interrupted) {
+    Commands.deferredProxy(() -> globalState.tryState(RobotState.HAS_ALGAE));
   }
 
   @Override

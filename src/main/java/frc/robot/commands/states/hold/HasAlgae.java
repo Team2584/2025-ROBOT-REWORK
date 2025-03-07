@@ -4,6 +4,7 @@
 
 package frc.robot.commands.states.hold;
 
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
 import frc.robot.CONSTANTS.CONSTANTS_CORAL;
@@ -37,6 +38,9 @@ public class HasAlgae extends Command {
   @Override
   public void initialize() {
     state.setRobotState(RobotState.HAS_ALGAE);
+    algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
+    elevator.setPosition(Units.Inches.zero());
+    wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET);
   }
 
   @Override
@@ -45,11 +49,10 @@ public class HasAlgae extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -47,6 +47,10 @@ public class Algae extends SubsystemBase {
     }
   }
 
+  public double getMotorVelocityDouble() {
+    return  m_algaeIntake.getVelocity().getValueAsDouble();
+  }
+
   public void setHasAlgaeOverride(boolean passedHasAlgae) {
     hasAlgaeOverride = passedHasAlgae;
   }
@@ -66,13 +70,14 @@ public class Algae extends SubsystemBase {
   @Override
   public void periodic() {
 
-    SmartDashboard.putBoolean("Algae/hasAlgaeOverride", hasAlgaeOverride);
+    SmartDashboard.putBoolean("Algae/hasAlgaeOverride", hasAlgae());
     SmartDashboard.putBoolean("Algae/stateRun", stateRun);
+    SmartDashboard.putNumber("Algae/Speed", getMotorVelocityDouble());
 
-    if (hasAlgae() && !stateRun) {
-      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
-    } else if (!stateRun) {
-      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED);
-    }
+    // if (hasAlgae() && !stateRun) {
+    //   setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
+    // } else if (!stateRun) {
+    //   setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED);
+    // }
   }
 }

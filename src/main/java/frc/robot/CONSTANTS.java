@@ -408,13 +408,13 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
         public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
         public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(53.5);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(53.25);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(23);
-        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
+        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(37);
 
-        public static final Distance HEIGHT_BARGE = Units.Inches.of(53.5);
+        public static final Distance HEIGHT_BARGE = Units.Inches.of(53.25);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
 
         // Physical Constants
@@ -490,17 +490,18 @@ public final class CONSTANTS {
         public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(-68);
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(-60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
-        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-68);
+        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-80);
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(-70);
         // TODO: add processor scoring angle
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 1;
+        public static final double ALGAE_INTAKE_SPEED = 0.3;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
-        public static final double ALGAE_IDLE_SPEED = 0;
-        public static final double ALGAE_HOLD_SPEED = 0.25;
+        public static final double ALGAE_IDLE_SPEED = 0.0;
+        public static final double ALGAE_HOLD_SPEED = 0.15;
 
         public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();
 

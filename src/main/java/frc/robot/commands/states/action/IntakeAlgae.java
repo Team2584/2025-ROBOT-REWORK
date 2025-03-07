@@ -35,21 +35,22 @@ public class IntakeAlgae extends Command {
 
   @Override
   public void execute() {
+    //algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);
+    
   }
 
   @Override
   public void end(boolean interrupted) {
-    Algae.stateRun = false;
-    if (algae.hasAlgae() && !coral.hasCoral()){
-      state.setRobotState(RobotState.HAS_ALGAE);
-    } else if  (algae.hasAlgae() && coral.hasCoral()) {
-      state.setRobotState(RobotState.HAS_CORAL_AND_ALGAE);
-    } else if (!algae.hasAlgae() && coral.hasCoral()) {
-      state.setRobotState(RobotState.HAS_CORAL);
-    } else if (!coral.hasCoral()) {
-      state.setRobotState(RobotState.NONE);
-    }
-    state.tryState(RobotState.NONE);
+    // Algae.stateRun = false;
+    // if (algae.hasAlgae() && !coral.hasCoral()){
+    //   state.tryState(RobotState.HAS_ALGAE);
+    // } else if  (algae.hasAlgae() && coral.hasCoral()) {
+    //   state.tryState(RobotState.HAS_CORAL_AND_ALGAE);
+    // } else if (!algae.hasAlgae() && coral.hasCoral()) {
+    //   state.tryState(RobotState.HAS_CORAL);
+    // } else if (!coral.hasCoral()) {
+    //   state.tryState(RobotState.NONE);
+    // }
   }
 
   @Override

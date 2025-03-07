@@ -169,5 +169,7 @@ public class Elevator extends SubsystemBase {
         SmartDashboard.putBoolean("Elevator/isZero", isZero);
         SmartDashboard.putNumber("Elevator/height (in)", rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble()));
         SmartDashboard.putNumber("Elevator/target (in)", lastDesiredPosition.in(Units.Inches));
+        SmartDashboard.putBoolean("Wrist/isAtSetpoint", isAtSetPoint());
+
     }
 }

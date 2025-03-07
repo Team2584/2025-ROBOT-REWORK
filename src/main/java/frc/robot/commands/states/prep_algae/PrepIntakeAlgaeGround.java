@@ -2,6 +2,7 @@ package frc.robot.commands.states.prep_algae;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
 import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
@@ -40,11 +41,12 @@ public class PrepIntakeAlgaeGround extends Command {
 
     @Override
     public void execute() {
+        //algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);
+        // Commands.print(elevator.isAtSetPoint() + " " + wrist.isAtSetPoint());
     }
 
     @Override
     public void end(boolean interrupted) {
-        
     }
 
     @Override

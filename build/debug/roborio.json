@@ -3,7 +3,7 @@
     "type": "java",
     "name": "frcJava",
     "port": 8349,
-    "target": "10.25.84.2",
+    "target": "roborio-2584-FRC.local",
     "project": "2025-ROBOT-REWORK"
   }
 ]

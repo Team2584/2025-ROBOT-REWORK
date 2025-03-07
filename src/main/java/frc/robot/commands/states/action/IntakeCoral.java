@@ -3,21 +3,25 @@ package frc.robot.commands.states.action;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.CONSTANTS.CONSTANTS_RAMP;
+import frc.robot.CONSTANTS.CONSTANTS_WRIST;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.RobotState;
+import frc.robot.subsystems.Wrist;
 
 public class IntakeCoral extends Command {
     State globalState;
     Coral globalCoral;
+    Wrist globalWrist;
     Ramp ramp;
 
     public IntakeCoral(RobotContainer RC) {
         globalState = RC.getState();
         globalCoral = RC.getCoral();
         this.ramp = RC.getRamp();
+        globalWrist = RC.getWrist();
     }
 
     @Override
@@ -25,6 +29,7 @@ public class IntakeCoral extends Command {
         globalState.setRobotState(RobotState.INTAKE_CORAL);
         globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
         ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY);
+        globalWrist.setWristAngle(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL);
     }
 
     @Override

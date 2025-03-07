@@ -18,6 +18,7 @@ import frc.robot.commands.states.action.IntakeAlgae;
 import frc.robot.commands.states.action.IntakeCoral;
 import frc.robot.commands.states.action.ScoreAlgae;
 import frc.robot.commands.states.action.ScoreCoral;
+import frc.robot.commands.states.hold.HasAlgae;
 import frc.robot.commands.states.hold.HasCoral;
 import frc.robot.commands.states.prep_algae.PrepAlgaeNet;
 import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeGround;
@@ -84,7 +85,7 @@ public class State extends SubsystemBase {
         switch (desiredState) {
           case INTAKE_ALGAE:
           case SCORE_CORAL_WITH_ALGAE:
-            // TODO
+            return new HasAlgae(RC);
         }
         break;
 
@@ -213,19 +214,19 @@ public class State extends SubsystemBase {
 
       // Prep Algae Only
       case PREP_ALGAE_INTAKE_GROUND:
-        Commands.print("Ground");
+        //Commands.print("Ground");
         return new PrepIntakeAlgaeGround(RC);
 
       case PREP_ALGAE_INTAKE_REEF_LOW:
-        Commands.print("Lowreef");
+        //Commands.print("Lowreef");
         return new PrepIntakeAlgaeLowReef(RC);
 
       case PREP_ALGAE_INTAKE_REEF_HIGH:
-        Commands.print("Highreef");
+        //Commands.print("Highreef");
         return new PrepIntakeAlgaeHighReef(RC);
 
       case PREP_ALGAE_BARGE:
-        Commands.print("Barge");
+        //Commands.print("Barge");
         return new PrepAlgaeNet(RC);
 
       case PREP_ALGAE_PROCESSOR:

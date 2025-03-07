@@ -98,6 +98,6 @@ public class Wrist extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Wrist/PivotAngle (deg)", getPivotAngle().in(Degrees));
         SmartDashboard.putNumber("Wrist/Setpoint (deg)", lastDesiredAngle.in(Degrees));
-
+        SmartDashboard.putBoolean("Wrist/isAtSetpoint", isAtSetPoint());
     }
 }

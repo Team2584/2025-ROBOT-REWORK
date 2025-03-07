@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -26,6 +27,17 @@ import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
+import frc.robot.commands.states.None;
+import frc.robot.commands.states.action.IntakeAlgae;
+import frc.robot.commands.states.action.ScoreAlgae;
+import frc.robot.commands.states.action.ScoreCoral;
+import frc.robot.commands.states.hold.HasAlgae;
+import frc.robot.commands.states.prep_algae.PrepAlgaeNet;
+import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeGround;
+import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeHighReef;
+import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeLowReef;
+import frc.robot.commands.states.prep_coral.PrepCoralLvl;
+import frc.robot.commands.states.prep_coral.*;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Ramp;
 import frc.robot.commands.zero.Zero_Wrist;
@@ -68,6 +80,8 @@ public class RobotContainer {
   Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
   Command TRY_INTAKE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_CORAL));
   Command TRY_PREP_ALGAE_NET = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_BARGE));
+  Command TRY_INTAKE_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_ALGAE));
+  Command TRY_HAS_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_ALGAE));
   Command TRY_PREP_INTAKE_ALGAE_GROUND = Commands
       .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_GROUND));
   Command TRY_PREP_INTAKE_ALGAE_HIGH_REEF = Commands
@@ -175,28 +189,37 @@ public class RobotContainer {
   private void configureController() {
     controller.x().onTrue(TRY_INTAKE_CORAL);
     controller.a().onTrue(TRY_SCORE_CORAL);
-    controller.y().onTrue(TRY_SCORE_ALGAE);
+    controller.y().onTrue(new ScoreAlgae(this)).onFalse(new None(this));
+    controller.b().onTrue(TRY_NONE).onFalse(zeroSubsystems);
   }
 
   private void configureButtonBoard() {
-    redL4.onTrue(TRY_CORAL_L4).onFalse(TRY_HAS_CORAL);
-    redL3.onTrue(TRY_CORAL_L3).onFalse(TRY_HAS_CORAL);
-    redL2.onTrue(TRY_CORAL_L2).onFalse(TRY_HAS_CORAL);
-    redL1.onTrue(TRY_CORAL_L1).onFalse(TRY_HAS_CORAL);
+    redL4.onTrue(new PrepCoralLvl4(this)).onFalse(new None(this));
+    redL3.onTrue(new PrepCoralLvl3(this)).onFalse(new None(this));
+    redL2.onTrue(new PrepCoralLvl2(this)).onFalse(new None(this));
+    redL1.onTrue(new PrepCoralLvl1(this)).onFalse(new None(this));
 
-    blue4.onTrue(TRY_PREP_ALGAE_NET);
-    blue3.onTrue(TRY_PREP_INTAKE_ALGAE_HIGH_REEF);
-    blue2.onTrue(TRY_PREP_INTAKE_ALGAE_LOW_REEF);
-    blue1.onTrue(TRY_PREP_INTAKE_ALGAE_GROUND);
+    blue4.onTrue(new SequentialCommandGroup(new PrepAlgaeNet(this))).onFalse(new None(this));
+    blue3.onTrue(new SequentialCommandGroup(new PrepIntakeAlgaeHighReef(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
+    blue2.onTrue(new SequentialCommandGroup(new PrepIntakeAlgaeLowReef(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
+    blue1.whileTrue(new SequentialCommandGroup(new PrepIntakeAlgaeGround(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
   }
 
   public void checkForCoral() {
     if (coral.coralLoaded()) {
-      state.setRobotState(RobotState.HAS_CORAL);
+      Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
+    }
+  }
+
+  public void checkForAlgae() {
+    if(algae.hasAlgae()) {
+      Commands.deferredProxy(() -> state.tryState(RobotState.HAS_ALGAE));
     }
   }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
+
+  
 }

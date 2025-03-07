@@ -359,7 +359,8 @@ public final class CONSTANTS {
 
     public static class CONSTANTS_ELEVATOR {
         public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
-        public static final double ELEVATOR_GEAR_RATIO = 8.571; // we may change our elevator ratio
+        // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
+        public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
         public static TalonFXConfiguration ELEVATOR_CONFIG = new TalonFXConfiguration();
         static {

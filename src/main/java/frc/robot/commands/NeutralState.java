@@ -29,42 +29,41 @@ public class NeutralState extends ParallelCommandGroup {
         algae = RC.getAlgae();
         ramp = RC.getRamp();
 
-        if (algae.hasAlgae()){
+        if (algae.hasAlgae()) {
             addCommands(
 
-                new InstantCommand(() -> algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED)),
+                    new InstantCommand(() -> algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED)),
 
-                new InstantCommand(() -> coral.setCoralMotor(0)),
+                    new InstantCommand(() -> coral.setCoralMotor(0)),
 
-                new InstantCommand(()-> ramp.setNeutral()),
+                    new InstantCommand(() -> ramp.setNeutral()),
 
-                wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_ALGAE_NEUTRAL)
-                        .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
+                    wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_ALGAE_NEUTRAL)
+                            .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
 
-                new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS))
-                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
-                        .andThen(new InstantCommand(() -> elevator.homeElevator())));
+                    new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS))
+                            .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
+                            .andThen(new InstantCommand(() -> elevator.homeElevator())));
         }
 
         else {
             addCommands(
 
-                new InstantCommand(() -> algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED)),
+                    new InstantCommand(() -> algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED)),
 
-                new InstantCommand(() -> coral.setCoralMotor(0)),
+                    new InstantCommand(() -> coral.setCoralMotor(0)),
 
-                new InstantCommand(()-> ramp.setNeutral()),
+                    new InstantCommand(() -> ramp.setNeutral()),
 
-                wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_DEFAULT)
-                        .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
+                    wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_DEFAULT)
+                            .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
 
-                new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS))
-                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
-                        .andThen(new InstantCommand(() -> elevator.homeElevator())));
+                    new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS))
+                            .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
+                            .andThen(new InstantCommand(() -> elevator.homeElevator())));
 
         }
 
-       
     }
 
 }

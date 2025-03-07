@@ -31,10 +31,10 @@ public class PrepNetAlgae extends ParallelCommandGroup {
 
         addCommands(
 
-            new InstantCommand(()->wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET)),
-            
-            new InstantCommand(()->elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_NET))
-                .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
+                new InstantCommand(() -> wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET)),
+
+                new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_NET))
+                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
 
         );
 

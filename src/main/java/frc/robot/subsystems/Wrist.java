@@ -36,7 +36,7 @@ public class Wrist extends SubsystemBase {
         m_wrist.getConfigurator().apply(CONSTANTS_WRIST.WRIST_CONFIG);
     }
 
-    public Command setWristAngleCommand(Angle setpoint){
+    public Command setWristAngleCommand(Angle setpoint) {
         lastDesiredAngle = setpoint;
         return run(() -> m_wrist.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation))));
     }

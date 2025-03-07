@@ -87,7 +87,6 @@ public class RobotContainer {
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-
   @NotLogged
   Pose2d[] SELECTED_AUTO_PREP_MAP;
   String SELECTED_AUTO_PREP_MAP_NAME = "none"; // only used for logging
@@ -172,7 +171,6 @@ public class RobotContainer {
   public Trigger rightCoralStationTrigger = new Trigger(() -> false);
   public Trigger leftCoralStationTrigger = new Trigger(() -> false);
   public Trigger processorTrigger = new Trigger(() -> false);
-  
 
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
@@ -200,28 +198,28 @@ public class RobotContainer {
   private void configureButtonBoard() {
 
     redL4.onTrue(new PrepCoralLvl4(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     redL3.onTrue(new PrepCoralLvl3(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     redL2.onTrue(new PrepCoralLvl2(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     redL1.onTrue(new PrepCoralLvl1(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     blue4.onTrue(new PrepNetAlgae(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     blue3.onTrue(new PickupReefHighAlgae(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     blue2.whileTrue(new PickupReefLowAlgae(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
 
     blue1.whileTrue(new PickupAlgaeGround(this))
-    .onFalse(new NeutralState(this));
+        .onFalse(new NeutralState(this));
   }
 
   /* AUTO STUFF */
@@ -230,7 +228,6 @@ public class RobotContainer {
     selectAutoMap();
     return autoChooser.getSelected();
   }
-  
 
   public void resetToAutoPose() {
     Rotation2d desiredRotation = Rotation2d.kZero;
@@ -243,7 +240,6 @@ public class RobotContainer {
       }
     } catch (Exception e) {
     }
-    
 
     drivetrain.resetPoseToPose(new Pose2d(drivetrain.getPose().getTranslation(), desiredRotation));
   }
@@ -253,41 +249,42 @@ public class RobotContainer {
     SmartDashboard.putData(autoChooser);
   }
 
-  private void configureAutoBindings(){
+  private void configureAutoBindings() {
 
-     Command driveAutoAlign = Commands.runOnce(() -> drivetrain.autoAlign(Meters.of(0),
+    Command driveAutoAlign = Commands.runOnce(() -> drivetrain.autoAlign(Meters.of(0),
         SELECTED_AUTO_PREP_MAP[AUTO_PREP_NUM], MetersPerSecond.of(0),
         MetersPerSecond.of(0), DegreesPerSecond.of(0), 1.0, false, Meters.of(1000), DriverState.REEF_AUTO_DRIVING,
         DriverState.REEF_AUTO_DRIVING, state)).repeatedly();
 
-      NamedCommands.registerCommand("PlaceSequenceL4",
+    NamedCommands.registerCommand("PlaceSequenceL4",
         Commands.sequence(
-            driveAutoAlign.asProxy().withTimeout(1),  // Attempt to align for up to 1 second
+            driveAutoAlign.asProxy().withTimeout(1), // Attempt to align for up to 1 second
             Commands.runOnce(() -> drivetrain.drive(new ChassisSpeeds(), false)), // Stop driving
-            new PrepCoralLvl4(this).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT), // Give it time to "prepare" without checking state
+            new PrepCoralLvl4(this).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT), // Give it time to
+                                                                                                    // "prepare" without
+                                                                                                    // checking state
             coral.outtakeCoral().asProxy().withTimeout(0.25), // Give it time to "score" without checking state
             Commands.runOnce(() -> AUTO_PREP_NUM++) // Increment counter
         ).withName("PlaceSequence"));
 
-      NamedCommands.registerCommand("PrepPlace",
+    NamedCommands.registerCommand("PrepPlace",
         new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
-          .asProxy().withName("PrepPlace"));
+            .asProxy().withName("PrepPlace"));
 
-      // I FORGOT WHAT THIS NONE DOES BUT IT SEEMS ESSENTIAL
-      NamedCommands.registerCommand("GetCoralStationPiece",
-          coral.intakeCoral().asProxy().until(() -> coral.coralLoaded())
-          .withName("GetCoralStationPiece"));
-      
+    // I FORGOT WHAT THIS NONE DOES BUT IT SEEMS ESSENTIAL
+    NamedCommands.registerCommand("GetCoralStationPiece",
+        coral.intakeCoral().asProxy().until(() -> coral.coralLoaded())
+            .withName("GetCoralStationPiece"));
 
     NamedCommands.registerCommand("prepNet", new PrepNetAlgae(this).withTimeout(1));
 
     NamedCommands.registerCommand("wrist60Deg", wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_ALGAE_NEUTRAL)
-    .withTimeout(0.3));
+        .withTimeout(0.3));
 
     NamedCommands.registerCommand("shootAlgae", algae.outtakeAlgae());
 
     NamedCommands.registerCommand("liftLowAlgae", new PickupReefLowAlgae(this).withTimeout(1));
-    
+
     NamedCommands.registerCommand("algaeNeutral", new NeutralState(this).withTimeout(1));
 
     NamedCommands.registerCommand("liftL4", new PrepCoralLvl4(this).withTimeout(0.5));
@@ -304,7 +301,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCoral", coral.intakeCoral());
 
-     // -- Event Markers --
+    // -- Event Markers --
     EventTrigger prepPlace = new EventTrigger("PrepPlace");
     prepPlace
         .onTrue(new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
@@ -312,7 +309,6 @@ public class RobotContainer {
     EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
     getCoralStationPiece.onTrue(coral.intakeCoral());
   }
-  
 
   /**
    * Populates the selected AutoMap for your autonomous command.
@@ -339,7 +335,6 @@ public class RobotContainer {
         return noAutoSelected;
     }
   }
-
 
   public void setMegaTag2(boolean setMegaTag2) {
 

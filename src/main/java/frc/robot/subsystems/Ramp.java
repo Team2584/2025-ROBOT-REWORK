@@ -32,7 +32,6 @@ public class Ramp extends SubsystemBase {
         m_ramp.getConfigurator().apply(CONSTANTS_RAMP.RAMP_CONFIG);
     }
 
-
     public void setRampMotorVelocity(double velocity) {
         m_ramp.set(velocity);
     }
@@ -50,7 +49,6 @@ public class Ramp extends SubsystemBase {
         return lastTargetPosition;
     }
 
-    
     public void setNeutral() {
         m_ramp.setControl(new NeutralOut());
     }

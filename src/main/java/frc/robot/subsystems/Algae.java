@@ -52,7 +52,6 @@ public class Algae extends SubsystemBase {
     }
   }
 
-
   public double getAlgaeIntakeVoltage() {
     return m_algaeIntake.getMotorVoltage().getValueAsDouble();
   }

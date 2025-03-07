@@ -25,17 +25,18 @@ public class Coral extends SubsystemBase {
         coralElevatorSensor = new DigitalInput(CONSTANTS_PORTS.CORAL_ELEVATOR_SENSOR_CHANNEL);
 
         coralMotor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_CONFIG, 0.25);
-        coralSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_CONFIG,0.25);
+        coralSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_CONFIG, 0.25);
     }
 
     public Command intakeCoral() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED), () -> setCoralMotor(0)).until(() -> coralLoaded());
-    }
-    
-    public Command outtakeCoral() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0)).withTimeout(2.5);
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED), () -> setCoralMotor(0))
+                .until(() -> coralLoaded());
     }
 
+    public Command outtakeCoral() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0))
+                .withTimeout(2.5);
+    }
 
     public void setCoralMotor(double speed) {
         coralMotor.set(speed);
@@ -52,13 +53,11 @@ public class Coral extends SubsystemBase {
     public boolean coralLoaded() {
         return (hasCoral() && !coralCleared());
     }
-    
 
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Coral/Cleared", coralCleared());
         SmartDashboard.putBoolean("Coral/Loaded", coralLoaded());
-        
 
     }
 }

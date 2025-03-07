@@ -8,7 +8,6 @@ import frc.robot.CONSTANTS.*;
 import frc.robot.RobotContainer;
 import edu.wpi.first.units.measure.Distance;
 
-
 public class PrepCoralLvl3 extends SequentialCommandGroup {
   Elevator elevator;
   Wrist wrist;
@@ -23,9 +22,10 @@ public class PrepCoralLvl3 extends SequentialCommandGroup {
 
     addCommands(
 
-      new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L3)).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+        new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L3))
+            .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
 
-      new InstantCommand(()-> wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL))
+        new InstantCommand(() -> wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL))
 
     );
 

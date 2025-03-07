@@ -379,14 +379,28 @@ public final class CONSTANTS {
 
             ELEVATOR_CONFIG.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
+            // ELEVATOR UP PID
             ELEVATOR_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             ELEVATOR_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
             ELEVATOR_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
             ELEVATOR_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            ELEVATOR_CONFIG.Slot0.kP = 12;
+            ELEVATOR_CONFIG.Slot0.kP = 6;
             ELEVATOR_CONFIG.Slot0.kI = 0.0;
             ELEVATOR_CONFIG.Slot0.kD = 0.01;
-            // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+
+            // ELEVATOR DOWN PID
+
+            ELEVATOR_CONFIG.Slot1.GravityType = GravityTypeValue.Elevator_Static;
+            ELEVATOR_CONFIG.Slot1.kG = 0.0; // Volts to overcome gravity
+            ELEVATOR_CONFIG.Slot1.kS = 0.3; // Volts to overcome static friction
+            ELEVATOR_CONFIG.Slot1.kV = 0.3; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG.Slot1.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG.Slot1.kP = 1;
+            ELEVATOR_CONFIG.Slot1.kI = 0.0;
+            ELEVATOR_CONFIG.Slot1.kD = 0.01;
+
+            // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign =
+            // StaticFeedforwardSignValue.UseClosedLoopSign;
 
             ELEVATOR_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 600;
             ELEVATOR_CONFIG.MotionMagic.MotionMagicAcceleration = 1100;
@@ -426,7 +440,7 @@ public final class CONSTANTS {
         public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.3);
         public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
 
-        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.1,Seconds);
+        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.1, Seconds);
 
         // TODO: }] Tune End here~
 
@@ -484,7 +498,8 @@ public final class CONSTANTS {
             WRIST_CONFIG.Slot0.kD = 0.8;
 
             WRIST_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-            // WRIST_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+            // WRIST_CONFIG.Slot0.StaticFeedforwardSign =
+            // StaticFeedforwardSignValue.UseClosedLoopSign;
 
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 50;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
@@ -500,7 +515,7 @@ public final class CONSTANTS {
         // TODO: add processor scoring angle
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
-        public static final Time WRIST_TIMEOUT = Time.ofRelativeUnits(0.6,Seconds);
+        public static final Time WRIST_TIMEOUT = Time.ofRelativeUnits(0.6, Seconds);
     }
 
     public static class CONSTANTS_ALGAE {
@@ -542,7 +557,6 @@ public final class CONSTANTS {
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
         public static final double CORAL_OUTTAKE_SPEED = 0.375;
-
 
         public static final double CORAL_INTAKE_SPEED = 0.2;
     }

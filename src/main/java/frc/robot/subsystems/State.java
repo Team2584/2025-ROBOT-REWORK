@@ -34,13 +34,10 @@ public class State extends SubsystemBase {
     currentDriverState = driverState;
   }
 
-
   public DriverState getDriverState() {
     return currentDriverState;
   }
 
-
-  
   public static enum DriverState {
     MANUAL,
 
@@ -54,10 +51,8 @@ public class State extends SubsystemBase {
     PROCESSOR_AUTO_DRIVING,
   }
 
-  
-
   @Override
   public void periodic() {
-    
+
   }
 }

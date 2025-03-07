@@ -54,12 +54,8 @@ public class Elevator extends SubsystemBase {
         voltageRequest = new VoltageOut(0);
         motionRequest = new MotionMagicVoltage(0);
 
-        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
-
-        // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN,
-        // true));
+        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot0);
     }
-    
 
     public Distance getLastDesiredPosition() {
         return lastDesiredPosition;
@@ -107,11 +103,11 @@ public class Elevator extends SubsystemBase {
 
     public void homeElevator() {
         if (getZeroLimit()) {
-          resetSensorPosition(Units.Inches.of(0));
+            resetSensorPosition(Units.Inches.of(0));
         } else {
-          return;
+            return;
         }
-      }
+    }
 
     public AngularVelocity getMotorVelocity() {
         return m_Leader_Right.getRotorVelocity().getValue();
@@ -132,10 +128,13 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setPosition(Distance height) {
+        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot0);
+        if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
+            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot1);
+        }
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
     }
-
 
     public void setNeutral() {
         m_Leader_Right.setControl(new NeutralOut());

@@ -54,7 +54,7 @@ public class Elevator extends SubsystemBase {
         voltageRequest = new VoltageOut(0);
         motionRequest = new MotionMagicVoltage(0);
 
-        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot0);
+        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
     }
 
     public Distance getLastDesiredPosition() {
@@ -118,8 +118,8 @@ public class Elevator extends SubsystemBase {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.COAST_MODE_CONFIGURATION);
             m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.COAST_MODE_CONFIGURATION);
         } else {
-            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
-            m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
+            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
+            m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
         }
     }
 
@@ -128,9 +128,10 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setPosition(Distance height) {
-        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot0);
+        lastDesiredPosition = height;
+        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
         if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
-            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.Slot1);
+            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
         }
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
@@ -152,11 +153,11 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setHardLimits(boolean reverseLimitEnable, boolean forwardLimitEnable) {
-        CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = reverseLimitEnable;
-        CONSTANTS_ELEVATOR.ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = forwardLimitEnable;
+        CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitEnable = reverseLimitEnable;
+        CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitEnable = forwardLimitEnable;
 
-        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
-        m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG);
+        m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
+        m_Follower_Left.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
     }
 
     private double rotationsToInches(double rotations) {

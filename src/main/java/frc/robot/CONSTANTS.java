@@ -363,53 +363,73 @@ public final class CONSTANTS {
         // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
         public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
-        public static TalonFXConfiguration ELEVATOR_CONFIG = new TalonFXConfiguration();
-        static {
-            ELEVATOR_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            ELEVATOR_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        // Elevator UP
+        public static TalonFXConfiguration ELEVATOR_CONFIG_0 = new TalonFXConfiguration();
+        // Elevator DOWN
+        public static TalonFXConfiguration ELEVATOR_CONFIG_1 = new TalonFXConfiguration();
 
-            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            ELEVATOR_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
-            ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-            ELEVATOR_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
+        static {
+            ELEVATOR_CONFIG_0.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ELEVATOR_CONFIG_0.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            ELEVATOR_CONFIG_1.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ELEVATOR_CONFIG_1.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
                     .in(Units.Inches);
 
-            ELEVATOR_CONFIG.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
+                    .in(Units.Inches);
+
+            ELEVATOR_CONFIG_0.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+            ELEVATOR_CONFIG_1.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+
             // Elevator motors will provide feedback in INCHES the carriage has moved
+            ELEVATOR_CONFIG_0.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
+            ELEVATOR_CONFIG_1.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
-            ELEVATOR_CONFIG.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
+            ELEVATOR_CONFIG_0.Slot0.kG = 0.0; // Volts to overcome gravity
+            ELEVATOR_CONFIG_0.Slot0.kS = 0.3; // Volts to overcome static friction
+            ELEVATOR_CONFIG_0.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG_0.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG_0.Slot0.kP = 13;
+            ELEVATOR_CONFIG_0.Slot0.kI = 0.0;
+            ELEVATOR_CONFIG_0.Slot0.kD = 0.01;
 
-            // ELEVATOR UP PID
-            ELEVATOR_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
-            ELEVATOR_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
-            ELEVATOR_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
-            ELEVATOR_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            ELEVATOR_CONFIG.Slot0.kP = 6;
-            ELEVATOR_CONFIG.Slot0.kI = 0.0;
-            ELEVATOR_CONFIG.Slot0.kD = 0.01;
-
-            // ELEVATOR DOWN PID
-
-            ELEVATOR_CONFIG.Slot1.GravityType = GravityTypeValue.Elevator_Static;
-            ELEVATOR_CONFIG.Slot1.kG = 0.0; // Volts to overcome gravity
-            ELEVATOR_CONFIG.Slot1.kS = 0.3; // Volts to overcome static friction
-            ELEVATOR_CONFIG.Slot1.kV = 0.3; // Volts for a velocity target of 1 rps
-            ELEVATOR_CONFIG.Slot1.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            ELEVATOR_CONFIG.Slot1.kP = 1;
-            ELEVATOR_CONFIG.Slot1.kI = 0.0;
-            ELEVATOR_CONFIG.Slot1.kD = 0.01;
+            ELEVATOR_CONFIG_1.Slot0.kG = 0.0; // Volts to overcome gravity
+            ELEVATOR_CONFIG_1.Slot0.kS = 0.3; // Volts to overcome static friction
+            ELEVATOR_CONFIG_1.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG_1.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG_1.Slot0.kP = 0.6;
+            ELEVATOR_CONFIG_1.Slot0.kI = 0.0;
+            ELEVATOR_CONFIG_1.Slot0.kD = 0.01;
 
             // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign =
             // StaticFeedforwardSignValue.UseClosedLoopSign;
 
-            ELEVATOR_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 600;
-            ELEVATOR_CONFIG.MotionMagic.MotionMagicAcceleration = 1100;
-            ELEVATOR_CONFIG.MotionMagic.MotionMagicExpo_kV = 0.12;
+            ELEVATOR_CONFIG_0.MotionMagic.MotionMagicCruiseVelocity = 100;
+            ELEVATOR_CONFIG_0.MotionMagic.MotionMagicAcceleration = 40;
+            ELEVATOR_CONFIG_0.MotionMagic.MotionMagicExpo_kV = 0.12;
 
-            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
-            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 30;
-            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLimit = 60;
-            ELEVATOR_CONFIG.CurrentLimits.SupplyCurrentLowerTime = 1;
+            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicCruiseVelocity = 200;
+            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 30;
+            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicExpo_kV = 0.12;
+
+            ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLowerLimit = 30;
+            ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimit = 60;
+            ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLowerTime = 1;
+
+            ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLowerLimit = 30;
+            ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLimit = 60;
+            ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLowerTime = 1;
 
         }
 
@@ -424,20 +444,20 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
         public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
         public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(53.5);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(23);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
 
-        public static final Distance HEIGHT_NET = Units.Inches.of(53.5);
+        public static final Distance HEIGHT_NET = Units.Inches.of(54);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
-        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(53.5);
+        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(54);
 
-        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.3);
+        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.2);
         public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
 
         public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.1, Seconds);

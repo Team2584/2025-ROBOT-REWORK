@@ -22,7 +22,7 @@ public class PickupReefHighAlgae extends ParallelCommandGroup {
     elevator = RC.getElevator();
     wrist = RC.getWrist();
 
-    addRequirements(wrist, algae, elevator);
+    addRequirements();
 
     addCommands(
 

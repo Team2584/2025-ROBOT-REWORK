@@ -9,6 +9,8 @@ import java.util.function.DoubleSupplier;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import com.google.flatbuffers.Constants;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import com.google.flatbuffers.Constants;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -19,7 +21,9 @@ import edu.wpi.first.units.measure.*;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotState;
@@ -37,9 +41,23 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CONSTANTS.*;
+import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
+import frc.robot.CONSTANTS.CONSTANTS_PORTS;
+import frc.robot.CONSTANTS.CONSTANTS_VISION;
+import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralState;
-import frc.robot.subsystems.*;
+import frc.robot.commands.zero.Zero_Elevator;
+import frc.robot.commands.zero.Zero_Ramp;
+import frc.robot.commands.zero.Zero_Wrist;
+import frc.robot.subsystems.Algae;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Coral;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Ramp;
+import frc.robot.subsystems.State;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.DriverState;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.commands.prep_coral.*;
@@ -64,6 +82,7 @@ public class RobotContainer {
   private final Wrist wrist = new Wrist();
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
+  private final Vision vision = new Vision();
 
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -116,6 +135,10 @@ public class RobotContainer {
     return this.coral;
   }
 
+  public Vision getVision() {
+    return this.vision;
+  }
+
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
       new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
@@ -143,8 +166,8 @@ public class RobotContainer {
 
   // Buttons
   public Trigger slowModeTrigger = new Trigger(() -> getController().leftTrigger().getAsBoolean());
-  public Trigger leftReefTrigger = new Trigger(() -> false);
-  public Trigger rightReefTrigger = new Trigger(() -> false);
+  public Trigger leftReefTrigger = new Trigger(() -> getController().leftBumper().getAsBoolean());
+  public Trigger rightReefTrigger = new Trigger(() -> getController().rightBumper().getAsBoolean());
 
   public Trigger rightCoralStationTrigger = new Trigger(() -> false);
   public Trigger leftCoralStationTrigger = new Trigger(() -> false);
@@ -317,5 +340,31 @@ public class RobotContainer {
     }
   }
 
+
+  public void setMegaTag2(boolean setMegaTag2) {
+
+    if (setMegaTag2) {
+      drivetrain.swervePoseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG2_STD_DEVS_HEADING));
+    } else {
+      // Use MegaTag 1
+      drivetrain.swervePoseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_POSITION,
+          CONSTANTS_VISION.MEGA_TAG1_STD_DEVS_HEADING));
+    }
+    vision.setMegaTag2(setMegaTag2);
+  }
+
+  public boolean isAligned() {
+    return drivetrain.isAligned();
+  }
+
+  public Command AddVisionMeasurement() {
+    return new AddVisionMeasurement(this)
+        .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).ignoringDisable(true);
+  }
 
 }

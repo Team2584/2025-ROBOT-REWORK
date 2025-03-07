@@ -56,8 +56,9 @@ public class Coral extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Coral Cleared", coralCleared());
-        SmartDashboard.putBoolean("Coral Loaded", coralLoaded());
+        SmartDashboard.putBoolean("Coral/Cleared", coralCleared());
+        SmartDashboard.putBoolean("Coral/Loaded", coralLoaded());
         
+
     }
 }

@@ -16,6 +16,7 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
   private static final VarHandle $wrist;
   private static final VarHandle $algae;
   private static final VarHandle $coral;
+  private static final VarHandle $vision;
 
   static {
     try {
@@ -28,6 +29,7 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
       $wrist = lookup.findVarHandle(RobotContainer.class, "wrist", frc.robot.subsystems.Wrist.class);
       $algae = lookup.findVarHandle(RobotContainer.class, "algae", frc.robot.subsystems.Algae.class);
       $coral = lookup.findVarHandle(RobotContainer.class, "coral", frc.robot.subsystems.Coral.class);
+      $vision = lookup.findVarHandle(RobotContainer.class, "vision", frc.robot.subsystems.Vision.class);
     } catch (ReflectiveOperationException e) {
       throw new RuntimeException("[EPILOGUE] Could not load private fields for logging!", e);
     }
@@ -47,6 +49,9 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
       Epilogue.rampLogger.tryUpdate(backend.getNested("ramp"), ((frc.robot.subsystems.Ramp) $ramp.get(object)), Epilogue.getConfig().errorHandler);
       Epilogue.wristLogger.tryUpdate(backend.getNested("wrist"), ((frc.robot.subsystems.Wrist) $wrist.get(object)), Epilogue.getConfig().errorHandler);
       Epilogue.algaeLogger.tryUpdate(backend.getNested("algae"), ((frc.robot.subsystems.Algae) $algae.get(object)), Epilogue.getConfig().errorHandler);
+      Epilogue.visionLogger.tryUpdate(backend.getNested("vision"), ((frc.robot.subsystems.Vision) $vision.get(object)), Epilogue.getConfig().errorHandler);
+      backend.log("SELECTED_AUTO_PREP_MAP_NAME", object.SELECTED_AUTO_PREP_MAP_NAME);
+      backend.log("AUTO_PREP_NUM", object.AUTO_PREP_NUM);
       backend.log("slowModeTrigger", object.slowModeTrigger.getAsBoolean());
       backend.log("leftReefTrigger", object.leftReefTrigger.getAsBoolean());
       backend.log("rightReefTrigger", object.rightReefTrigger.getAsBoolean());
@@ -60,6 +65,8 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
       Epilogue.rampLogger.tryUpdate(backend.getNested("getRamp"), object.getRamp(), Epilogue.getConfig().errorHandler);
       Epilogue.wristLogger.tryUpdate(backend.getNested("getWrist"), object.getWrist(), Epilogue.getConfig().errorHandler);
       Epilogue.algaeLogger.tryUpdate(backend.getNested("getAlgae"), object.getAlgae(), Epilogue.getConfig().errorHandler);
+      Epilogue.visionLogger.tryUpdate(backend.getNested("getVision"), object.getVision(), Epilogue.getConfig().errorHandler);
+      backend.log("isAligned", object.isAligned());
     }
   }
 }

@@ -6,6 +6,7 @@ import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
@@ -23,6 +24,14 @@ public class Algae extends SubsystemBase {
     m_algaeIntake.getConfigurator().apply(CONSTANTS_ALGAE.ALGAE_INTAKE_CONFIG);
   }
 
+  public Command intakeAlgae() {
+    return runEnd(() -> setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED), () -> setAlgaeIntakeMotor(0));
+  }
+
+  public Command outtakeAlgae() {
+    return runEnd(() -> setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED), () -> setAlgaeIntakeMotor(0));
+  }
+
   public void setAlgaeIntakeMotor(double speed) {
     m_algaeIntake.set(speed);
   }
@@ -35,10 +44,6 @@ public class Algae extends SubsystemBase {
     Current intakeHasGamePieceCurrent = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT;
     AngularVelocity intakeHasGamePieceVelocity = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY;
 
-    if (hasAlgaeOverride) {
-      return hasAlgaeOverride;
-    }
-
     if ((intakeCurrent.gte(intakeHasGamePieceCurrent))
         && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
       return true;
@@ -47,13 +52,6 @@ public class Algae extends SubsystemBase {
     }
   }
 
-  public void setHasAlgaeOverride(boolean passedHasAlgae) {
-    hasAlgaeOverride = passedHasAlgae;
-  }
-
-  public void algaeToggle() {
-    this.hasAlgaeOverride = !hasAlgaeOverride;
-  }
 
   public double getAlgaeIntakeVoltage() {
     return m_algaeIntake.getMotorVoltage().getValueAsDouble();
@@ -65,14 +63,9 @@ public class Algae extends SubsystemBase {
 
   @Override
   public void periodic() {
+    hasAlgae();
 
     SmartDashboard.putBoolean("Algae/hasAlgaeOverride", hasAlgaeOverride);
     SmartDashboard.putBoolean("Algae/stateRun", stateRun);
-
-    if (hasAlgae() && !stateRun) {
-      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_HOLD_SPEED);
-    } else if (!stateRun) {
-      setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_IDLE_SPEED);
-    }
   }
 }

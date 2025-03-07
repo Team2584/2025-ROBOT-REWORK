@@ -6,6 +6,7 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
@@ -31,6 +32,7 @@ public class Ramp extends SubsystemBase {
         m_ramp.getConfigurator().apply(CONSTANTS_RAMP.RAMP_CONFIG);
     }
 
+
     public void setRampMotorVelocity(double velocity) {
         m_ramp.set(velocity);
     }
@@ -48,6 +50,7 @@ public class Ramp extends SubsystemBase {
         return lastTargetPosition;
     }
 
+    
     public void setNeutral() {
         m_ramp.setControl(new NeutralOut());
     }

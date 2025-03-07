@@ -14,6 +14,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.CONSTANTS.CONSTANTS_WRIST;
@@ -33,6 +34,11 @@ public class Wrist extends SubsystemBase {
         m_wrist = new TalonFX(CONSTANTS_PORTS.WRIST_CAN);
 
         m_wrist.getConfigurator().apply(CONSTANTS_WRIST.WRIST_CONFIG);
+    }
+
+    public Command setWristAngleCommand(Angle setpoint){
+        lastDesiredAngle = setpoint;
+        return run(() -> m_wrist.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation))));
     }
 
     public void setWristAngle(Angle setpoint) {

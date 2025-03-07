@@ -14,7 +14,6 @@ public class StateLogger extends ClassSpecificLogger<State> {
   public void update(EpilogueBackend backend, State object) {
     if (Epilogue.shouldLog(Logged.Importance.DEBUG)) {
       backend.log("getDriverState", object.getDriverState());
-      backend.log("getRobotState", object.getRobotState());
     }
   }
 }

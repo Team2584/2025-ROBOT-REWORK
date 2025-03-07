@@ -59,6 +59,7 @@ public class Elevator extends SubsystemBase {
         // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN,
         // true));
     }
+    
 
     public Distance getLastDesiredPosition() {
         return lastDesiredPosition;
@@ -93,7 +94,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean isAtAnyAlgaeScoringPosition() {
-        if (isAtSpecificSetpoint(CONSTANTS_ELEVATOR.HEIGHT_BARGE) ||
+        if (isAtSpecificSetpoint(CONSTANTS_ELEVATOR.HEIGHT_NET) ||
                 isAtSpecificSetpoint(CONSTANTS_ELEVATOR.HEIGHT_PROCESSOR)) {
             return true;
         }
@@ -103,6 +104,14 @@ public class Elevator extends SubsystemBase {
     public boolean getZeroLimit() {
         return !elevatorZeroLimit.get(); // returns true if the limit switch is touched
     }
+
+    public void homeElevator() {
+        if (getZeroLimit()) {
+          resetSensorPosition(Units.Inches.of(0));
+        } else {
+          return;
+        }
+      }
 
     public AngularVelocity getMotorVelocity() {
         return m_Leader_Right.getRotorVelocity().getValue();
@@ -125,9 +134,8 @@ public class Elevator extends SubsystemBase {
     public void setPosition(Distance height) {
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true));
-        isZero = false;
-        lastDesiredPosition = height;
     }
+
 
     public void setNeutral() {
         m_Leader_Right.setControl(new NeutralOut());

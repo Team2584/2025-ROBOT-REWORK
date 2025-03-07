@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Kilograms;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
+import static edu.wpi.first.units.Units.Seconds;
 
 import java.util.List;
 import java.util.Optional;
@@ -384,7 +385,7 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG.Slot0.kP = 12;
             ELEVATOR_CONFIG.Slot0.kI = 0.0;
             ELEVATOR_CONFIG.Slot0.kD = 0.01;
-            ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
+            // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseClosedLoopSign;
 
             ELEVATOR_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 600;
             ELEVATOR_CONFIG.MotionMagic.MotionMagicAcceleration = 1100;
@@ -414,7 +415,7 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(23);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
 
-        public static final Distance HEIGHT_BARGE = Units.Inches.of(53.5);
+        public static final Distance HEIGHT_NET = Units.Inches.of(53.5);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
 
         // Physical Constants
@@ -423,6 +424,8 @@ public final class CONSTANTS {
 
         public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.3);
         public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
+
+        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.1,Seconds);
 
         // TODO: }] Tune End here~
 
@@ -437,7 +440,7 @@ public final class CONSTANTS {
         /**
          * Zero position (yk could slide around a bit~~~i pray it's zero)
          */
-        public static final Distance ZEROED_POS = Units.Meters.of(0);
+        public static final Distance ZEROED_POS = Units.Inches.of(0);
 
         /**
          * The velocity that the motor goes at once it has zeroed (and can no longer
@@ -485,19 +488,22 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 50;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 2100;
         }
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(-70);
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(20);
         public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(-68);
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(-60);
+        public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(-60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
-        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-68);
+        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-80);
         // TODO: add processor scoring angle
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
+        public static final Time WRIST_TIMEOUT = Time.ofRelativeUnits(0.6,Seconds);
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 1;
+        public static final double ALGAE_INTAKE_SPEED = 0.4;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
         public static final double ALGAE_HOLD_SPEED = 0.25;
@@ -509,7 +515,7 @@ public final class CONSTANTS {
             ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         }
 
-        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.1);
+        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.25);
         public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(18);
     }
 
@@ -535,8 +541,7 @@ public final class CONSTANTS {
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
         public static final double CORAL_OUTTAKE_SPEED = 0.375;
-        public static final double CORAL_L1_OUTTAKE_SPEED = 0.375;
-        public static final double CORAL_L4_OUTTAKE_SPEED = 0.375;
+
 
         public static final double CORAL_INTAKE_SPEED = 0.2;
     }

@@ -14,7 +14,6 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.State.RobotState;
 
 public class PrepIntakeAlgaeGround extends Command {
     State state;
@@ -33,7 +32,6 @@ public class PrepIntakeAlgaeGround extends Command {
 
     @Override
     public void initialize() {
-        state.setRobotState(State.RobotState.PREP_ALGAE_INTAKE_GROUND);
         wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_GROUND);
         elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_GROUND);
         algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);

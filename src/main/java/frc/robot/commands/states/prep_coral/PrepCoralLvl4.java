@@ -24,8 +24,6 @@ public class PrepCoralLvl4 extends Command {
 
   @Override
   public void initialize() {
-    globalState.setRobotState(State.RobotState.PREP_CORAL_L4);
-
     globalElevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4);
     wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL);
   }

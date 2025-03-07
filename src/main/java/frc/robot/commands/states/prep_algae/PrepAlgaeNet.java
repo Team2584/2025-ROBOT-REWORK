@@ -12,7 +12,6 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.State.RobotState;
 
 public class PrepAlgaeNet extends Command {
     State state;
@@ -33,7 +32,6 @@ public class PrepAlgaeNet extends Command {
 
     @Override
     public void initialize() {
-        state.setRobotState(State.RobotState.PREP_ALGAE_BARGE);
         wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET);
         elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_BARGE);
     }
@@ -44,16 +42,6 @@ public class PrepAlgaeNet extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        if (interrupted) {
-            if (algae.hasAlgae() && coral.hasCoral()) {
-                state.setRobotState(RobotState.HAS_CORAL_AND_ALGAE);
-            } else if (coral.hasCoral()) {
-                state.setRobotState(RobotState.HAS_CORAL);
-            } else {
-                state.setRobotState(RobotState.NONE);
-            }
-            state.tryState(RobotState.NONE);
-        }
     }
 
     @Override

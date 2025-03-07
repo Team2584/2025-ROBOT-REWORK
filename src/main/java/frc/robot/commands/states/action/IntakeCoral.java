@@ -8,7 +8,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
-import frc.robot.subsystems.State.RobotState;
 import frc.robot.subsystems.Wrist;
 
 public class IntakeCoral extends Command {
@@ -26,7 +25,6 @@ public class IntakeCoral extends Command {
 
     @Override
     public void initialize() {
-        globalState.setRobotState(RobotState.INTAKE_CORAL);
         globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
         ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY);
         globalWrist.setWristAngle(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL);
@@ -40,11 +38,6 @@ public class IntakeCoral extends Command {
     public void end(boolean interrupted) {
         globalCoral.setCoralMotor(0);
         ramp.setRampMotorVelocity(0);
-        if (globalCoral.coralLoaded()) {
-            globalState.tryState(RobotState.HAS_CORAL);
-        } else {
-            globalState.tryState(RobotState.NONE);
-        }
     }
 
     @Override

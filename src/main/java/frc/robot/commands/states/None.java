@@ -30,7 +30,6 @@ public class None extends Command {
 
     @Override
     public void initialize() {
-        state.setRobotState(State.RobotState.NONE);
         elevator.setPosition(CONSTANTS_ELEVATOR.ELEVATOR_MIN_HEIGHT);
         wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_DEFAULT);
         climber.setClimberMotorVelocity(0);

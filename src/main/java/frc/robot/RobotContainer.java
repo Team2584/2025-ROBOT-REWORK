@@ -29,6 +29,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.states.None;
 import frc.robot.commands.states.action.IntakeAlgae;
+import frc.robot.commands.states.action.IntakeCoral;
 import frc.robot.commands.states.action.ScoreAlgae;
 import frc.robot.commands.states.action.ScoreCoral;
 import frc.robot.commands.states.hold.HasAlgae;
@@ -36,7 +37,6 @@ import frc.robot.commands.states.prep_algae.PrepAlgaeNet;
 import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeGround;
 import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeHighReef;
 import frc.robot.commands.states.prep_algae.PrepIntakeAlgaeLowReef;
-import frc.robot.commands.states.prep_coral.PrepCoralLvl;
 import frc.robot.commands.states.prep_coral.*;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Ramp;
@@ -48,7 +48,6 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.State.RobotState;
 import frc.robot.subsystems.swerve.Drivetrain;
 
 @Logged
@@ -70,28 +69,7 @@ public class RobotContainer {
   @NotLogged
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-  Command TRY_NONE = Commands.deferredProxy(() -> state.tryState(RobotState.NONE));
-  Command TRY_CORAL_ZERO = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_ZERO));
-  Command TRY_CORAL_L1 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L1));
-  Command TRY_CORAL_L2 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L2));
-  Command TRY_CORAL_L3 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L3));
-  Command TRY_CORAL_L4 = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_CORAL_L4));
-  Command TRY_SCORE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_CORAL));
-  Command TRY_HAS_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
-  Command TRY_INTAKE_CORAL = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_CORAL));
-  Command TRY_PREP_ALGAE_NET = Commands.deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_BARGE));
-  Command TRY_INTAKE_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.INTAKE_ALGAE));
-  Command TRY_HAS_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.HAS_ALGAE));
-  Command TRY_PREP_INTAKE_ALGAE_GROUND = Commands
-      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_GROUND));
-  Command TRY_PREP_INTAKE_ALGAE_HIGH_REEF = Commands
-      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_REEF_HIGH));
-  Command TRY_PREP_INTAKE_ALGAE_LOW_REEF = Commands
-      .deferredProxy(() -> state.tryState(RobotState.PREP_ALGAE_INTAKE_REEF_LOW));
-  Command TRY_SCORE_ALGAE = Commands.deferredProxy(() -> state.tryState(RobotState.SCORE_ALGAE));
-
   @NotLogged
-  Pair<RobotState, Pose2d>[] SELECTED_AUTO_PREP_MAP;
   String SELECTED_AUTO_PREP_MAP_NAME = "none"; // only used for logging
   int AUTO_PREP_NUM = 0;
 
@@ -183,14 +161,13 @@ public class RobotContainer {
 
     configureController();
     configureButtonBoard();
-    checkForCoral();
   }
 
   private void configureController() {
-    controller.x().onTrue(TRY_INTAKE_CORAL);
-    controller.a().onTrue(TRY_SCORE_CORAL);
+    controller.x().onTrue(new IntakeCoral(this));
+    controller.a().onTrue(new ScoreCoral(this));
     controller.y().onTrue(new ScoreAlgae(this)).onFalse(new None(this));
-    controller.b().onTrue(TRY_NONE).onFalse(zeroSubsystems);
+    controller.b().onTrue(new None(this)).onFalse(zeroSubsystems);
   }
 
   private void configureButtonBoard() {
@@ -203,18 +180,6 @@ public class RobotContainer {
     blue3.onTrue(new SequentialCommandGroup(new PrepIntakeAlgaeHighReef(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
     blue2.onTrue(new SequentialCommandGroup(new PrepIntakeAlgaeLowReef(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
     blue1.whileTrue(new SequentialCommandGroup(new PrepIntakeAlgaeGround(this), new IntakeAlgae(this))).onFalse(new HasAlgae(this));
-  }
-
-  public void checkForCoral() {
-    if (coral.coralLoaded()) {
-      Commands.deferredProxy(() -> state.tryState(RobotState.HAS_CORAL));
-    }
-  }
-
-  public void checkForAlgae() {
-    if(algae.hasAlgae()) {
-      Commands.deferredProxy(() -> state.tryState(RobotState.HAS_ALGAE));
-    }
   }
 
   public Command getAutonomousCommand() {

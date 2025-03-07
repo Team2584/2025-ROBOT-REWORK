@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.State.RobotState;
 
 public class PrepCoralZero extends Command {
   State globalState;
@@ -26,8 +25,6 @@ public class PrepCoralZero extends Command {
 
   @Override
   public void initialize() {
-    globalState.setRobotState(RobotState.PREP_CORAL_ZERO);
-
     globalElevator.setPosition(Units.Inches.of(0));
   }
 
@@ -37,7 +34,6 @@ public class PrepCoralZero extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    Commands.deferredProxy(() -> globalState.tryState(RobotState.HAS_ALGAE));
   }
 
   @Override

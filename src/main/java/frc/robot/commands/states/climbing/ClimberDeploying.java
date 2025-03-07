@@ -19,7 +19,6 @@ public class ClimberDeploying extends Command {
 
   @Override
   public void initialize() {
-    state.setRobotState(State.RobotState.CLIMBER_DEPLOYING);
     climber.setClimberMotorVelocity(CONSTANTS.CONSTANTS_CLIMB.CLIMBER_DEPLOYING_VELOCITY);
   }
 

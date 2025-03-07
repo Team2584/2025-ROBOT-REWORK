@@ -26,7 +26,6 @@ public class ClimberRetracting extends Command {
 
     @Override
     public void initialize() {
-        state.setRobotState(State.RobotState.CLIMBER_RETRACTING);
         climber.setClimberMotorVelocity(CONSTANTS.CONSTANTS_CLIMB.CLIMBER_RETRACT_VELOCITY);
         ramp.setRampMotorVelocity(CONSTANTS.CONSTANTS_RAMP.RAMP_UP_VELOCITY);
     }

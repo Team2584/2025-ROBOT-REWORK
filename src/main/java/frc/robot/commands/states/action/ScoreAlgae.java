@@ -11,7 +11,6 @@ import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
-import frc.robot.subsystems.State.RobotState;
 
 public class ScoreAlgae extends Command {
   Algae algae;
@@ -29,7 +28,6 @@ public class ScoreAlgae extends Command {
   @Override
   public void initialize() {
     Algae.stateRun = true;
-    state.setRobotState(RobotState.SCORE_ALGAE);
     algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED);
   }
 
@@ -40,14 +38,6 @@ public class ScoreAlgae extends Command {
   @Override
   public void end(boolean interrupted) {
     Algae.stateRun = false;
-    if (algae.hasAlgae() && coral.hasCoral()) {
-      state.tryState(RobotState.HAS_CORAL_AND_ALGAE);
-    } else if (!algae.hasAlgae() && coral.hasCoral()) {
-      state.tryState(RobotState.HAS_CORAL);
-    } else if (!coral.hasCoral()) {
-      state.tryState(RobotState.NONE);
-    }
-    state.tryState(RobotState.NONE);
   }
 
   @Override

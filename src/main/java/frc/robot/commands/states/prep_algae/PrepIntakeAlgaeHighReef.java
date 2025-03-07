@@ -12,7 +12,6 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.State.RobotState;
 
 public class PrepIntakeAlgaeHighReef extends Command {
     State state;
@@ -31,7 +30,6 @@ public class PrepIntakeAlgaeHighReef extends Command {
 
     @Override
     public void initialize() {
-        state.setRobotState(State.RobotState.PREP_ALGAE_INTAKE_REEF_HIGH);
         wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_REEF);
         elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_HIGH);
         algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);
@@ -43,7 +41,6 @@ public class PrepIntakeAlgaeHighReef extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        state.tryState(RobotState.INTAKE_ALGAE);
     }
 
     @Override

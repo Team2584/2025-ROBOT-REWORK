@@ -4,7 +4,6 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.State.RobotState;
 
 public class HasCoral extends Command {
   State globalState;
@@ -20,7 +19,6 @@ public class HasCoral extends Command {
 
   @Override
   public void initialize() {
-    globalState.setRobotState(RobotState.HAS_CORAL);
     globalElevator.setPosition(Units.Inches.zero());
   }
 

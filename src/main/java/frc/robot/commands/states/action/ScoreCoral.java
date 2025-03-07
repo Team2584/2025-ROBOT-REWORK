@@ -9,13 +9,11 @@ import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
-import frc.robot.subsystems.State.RobotState;
 
 public class ScoreCoral extends Command {
   Coral globalCoral;
   Elevator globalElevator;
   State globalState;
-  RobotState desiredState;
   double coralOuttakeSpeed;
 
   public ScoreCoral(RobotContainer RC) {
@@ -26,7 +24,6 @@ public class ScoreCoral extends Command {
 
   @Override
   public void initialize() {
-    globalState.setRobotState(RobotState.SCORE_CORAL);
     globalCoral.setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED);
   }
 
@@ -37,11 +34,6 @@ public class ScoreCoral extends Command {
   @Override
   public void end(boolean interrupted) {
     globalCoral.setCoralMotor(0);
-    if (globalCoral.coralLoaded()) {
-      globalState.tryState(RobotState.HAS_CORAL);
-    } else {
-      globalState.tryState(RobotState.NONE);
-    }
   }
 
   @Override

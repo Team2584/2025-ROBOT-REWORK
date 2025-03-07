@@ -11,7 +11,6 @@ import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.State;
-import frc.robot.subsystems.State.RobotState;
 
 public class IntakeAlgae extends Command {
   Algae algae;
@@ -29,14 +28,13 @@ public class IntakeAlgae extends Command {
   @Override
   public void initialize() {
     Algae.stateRun = true;
-    state.setRobotState(RobotState.INTAKE_ALGAE);
     algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);
   }
 
   @Override
   public void execute() {
     //algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED);
-    
+
   }
 
   @Override

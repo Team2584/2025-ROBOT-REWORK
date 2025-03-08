@@ -23,6 +23,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "GetCoralStationPiece"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "TOP-K"

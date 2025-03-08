@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -36,10 +38,16 @@ public class Robot extends TimedRobot {
     if (!hasAutonomousRun) {
       // Manual Zero Command here
     }
+    
   }
 
   @Override
   public void disabledPeriodic() {
+    CONSTANTS_FIELD.ALLIANCE = DriverStation.getAlliance();
+    SmartDashboard.putString("ALLIANCE", CONSTANTS_FIELD.ALLIANCE.toString());
+    if (!hasAutonomousRun) {
+      m_robotContainer.resetToAutoPose();
+    }
   }
 
   @Override

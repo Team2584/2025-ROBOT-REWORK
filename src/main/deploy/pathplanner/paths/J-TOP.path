@@ -1,0 +1,67 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.10487105505807,
+        "y": 5.6199186359133035
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.1966371237093645,
+        "y": 6.598883211869058
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.704347629206521,
+        "y": 7.111347716195243
+      },
+      "prevControl": {
+        "x": 3.7002884523053847,
+        "y": 6.1244513677398755
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "neutral",
+      "waypointRelativePos": 0.07960762564591585,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "GetCoralStationPiece",
+      "waypointRelativePos": 0.8832942932609491,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -55.0
+  },
+  "reversed": false,
+  "folder": "Mahdistuff",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -115.0
+  },
+  "useDefaultConstraints": true
+}

@@ -3,9 +3,10 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
+    "Algae",
     "CSBottom-Score",
     "CSTop-Score",
-    "Algae",
+    "Mahdistuff",
     "Score-CSBottom",
     "Score-CSTop",
     "Tickle Monster",

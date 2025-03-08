@@ -41,9 +41,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CONSTANTS.*;
-import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
-import frc.robot.CONSTANTS.CONSTANTS_PORTS;
-import frc.robot.CONSTANTS.CONSTANTS_VISION;
 import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralAlgaeState;
@@ -304,13 +301,14 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCoral", coral.intakeCoral());
 
-  //   // -- Event Markers --
-  //   EventTrigger prepPlace = new EventTrigger("PrepPlace");
-  //   prepPlace
-  //       .onTrue(new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+    // // -- Event Markers --
+    // EventTrigger prepPlace = new EventTrigger("PrepPlace");
+    // prepPlace
+    // .onTrue(new
+    // PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
-  //   EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
-  //   getCoralStationPiece.onTrue(coral.intakeCoral());
+    // EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
+    // getCoralStationPiece.onTrue(coral.intakeCoral());
   }
 
   /**
@@ -332,6 +330,13 @@ public class RobotContainer {
         fourPieceHigh[2] = fieldPositions.get(0); // A
         fourPieceHigh[3] = fieldPositions.get(9); // J
         return fourPieceHigh;
+      case "M_TEST4PIECE":
+        Pose2d[] M_TEST4PIECE = new Pose2d[2];
+        M_TEST4PIECE[0] = fieldPositions.get(9); // J
+        M_TEST4PIECE[1] = fieldPositions.get(10); // K
+        // M_TEST4PIECE[2] = fieldPositions.get(11); // L
+        // M_TEST4PIECE[3] = fieldPositions.get(0); // A
+        return M_TEST4PIECE;
       default:
         Pose2d[] noAutoSelected = new Pose2d[1];
         noAutoSelected[0] = new Pose2d();

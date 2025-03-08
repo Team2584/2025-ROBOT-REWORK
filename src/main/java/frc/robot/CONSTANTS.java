@@ -48,9 +48,16 @@ import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.Module;
 import frc.robot.subsystems.swerve.Swerve;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.InputStream;
 
 public final class CONSTANTS {
 
@@ -115,13 +122,57 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_DRIVETRAIN {
-        public static final double WHEEL_DIAMETER = Units.Inches.of(2).in(Units.Meters);
-        public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
-        public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
+        // PathPlanner Constants
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED;
+        public static final double MaxAngularRate;
+        public static final Mass MASS;
+        public static final double MOI;
+        public static final double WHEEL_COF;
+        public static final Translation2d[] MODULE_OFFSETS;
+        public static final Current DRIVE_CURRENT_LIMIT;
+        private static final double kDriveGearRatio;
+        public static final double WHEEL_DIAMETER;
+        public static final Distance WHEEL_RADIUS;
+        public static final double WHEEL_CIRCUMFERENCE;
+        public static final double WHEEL_DISTANCE_WIDTH;
+        public static final double WHEEL_DISTANCE_LENGTH;
 
-        public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
+        static {
+            // We'll initialize these in a static block
+            ObjectMapper mapper = new ObjectMapper();
+            File deployDir = Filesystem.getDeployDirectory(); 
+            // This points to the folder on the RIO where /src/main/deploy content ends up
+
+            // Build the full path to settings.json
+            File settingsFile = new File(deployDir, "pathplanner/settings.json");
+
+            try {
+            // Parse the file
+            JsonNode root = mapper.readTree(settingsFile);
+    
+                MAX_DRIVE_SPEED = Units.MetersPerSecond.of(root.get("maxDriveSpeed").asDouble());
+                MaxAngularRate = Units.RadiansPerSecond.convertFrom((root.get("defaultMaxAngVel").asDouble()),Units.DegreesPerSecond);
+                MASS = Units.Kilograms.of(root.get("robotMass").asDouble());
+                MOI = root.get("robotMOI").asDouble();
+                WHEEL_COF = root.get("wheelCOF").asDouble();
+                MODULE_OFFSETS = new Translation2d[] {
+                    new Translation2d(root.get("flModuleX").asDouble(), root.get("flModuleY").asDouble()),
+                    new Translation2d(root.get("frModuleX").asDouble(), root.get("frModuleY").asDouble()),
+                    new Translation2d(root.get("blModuleX").asDouble(), root.get("blModuleY").asDouble()),
+                    new Translation2d(root.get("brModuleX").asDouble(), root.get("brModuleY").asDouble())
+                };
+                DRIVE_CURRENT_LIMIT = Units.Amps.of(root.get("driveCurrentLimit").asDouble());
+                kDriveGearRatio = root.get("driveGearing").asDouble();
+                WHEEL_RADIUS = Units.Meters.of(root.get("driveWheelRadius").asDouble());
+                WHEEL_DIAMETER = WHEEL_RADIUS.times(2).magnitude();
+                WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
+                WHEEL_DISTANCE_LENGTH = root.get("robotTrackwidth").asDouble();
+                WHEEL_DISTANCE_WIDTH = root.get("robotTrackwidth").asDouble();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to load constants from constants.json", e);
+            }
+        }
 
         // Inverted states
         public static final boolean RIGHT_INVERTED = false;
@@ -149,7 +200,6 @@ public final class CONSTANTS {
         public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
         public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
 
-        private static final double kDriveGearRatio = 5.6;
         private static final double kSteerGearRatio = 13.371428571428572;
 
         public static final SwerveConstants SWERVE_CONSTANTS = new SwerveConstants(
@@ -157,14 +207,6 @@ public final class CONSTANTS {
                 CONSTANTS_DRIVETRAIN.kDriveGearRatio, edu.wpi.first.math.util.Units.feetToMeters(17.5));
 
         public static final double kCancoderBootAllowanceSeconds = 5;
-
-        /*
-         * Physically measured from center to center of the wheels
-         * Distance between Left & Right Wheels (IN METERS)
-         */
-        public static final double WHEEL_DISTANCE_WIDTH = 0.58;
-        // Distance between Front & Back Wheels
-        public static final double WHEEL_DISTANCE_LENGTH = 0.58;
 
         // PID is set to each module INDIVIDUALLY
         public static final double DRIVE_P = 0.2;
@@ -184,7 +226,6 @@ public final class CONSTANTS {
 
         public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
         public static final NeutralModeValue STEER_NEUTRAL_MODE = NeutralModeValue.Coast;
-        public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(70);
 
         public static final TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
         public static final TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
@@ -300,22 +341,13 @@ public final class CONSTANTS {
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_P,
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_I,
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_D);
-
-            public static final Mass MASS = Units.Kilograms.of(51);
+                
             // TODO: Calculate real MOI
-            public static final double MOI = 5.0;
-            public static final double WHEEL_COF = 1.0;
             public static final DCMotor DRIVE_MOTOR = DCMotor.getKrakenX60(1);
             public static final ModuleConfig MODULE_CONFIG = new ModuleConfig(WHEEL_RADIUS, MAX_DRIVE_SPEED,
                     WHEEL_COF,
                     DRIVE_MOTOR,
                     DRIVE_CURRENT_LIMIT, 1);
-
-            public static final Translation2d[] MODULE_OFFSETS = {
-                    new Translation2d(WHEEL_DISTANCE_LENGTH / 2.0, WHEEL_DISTANCE_WIDTH / 2.0),
-                    new Translation2d(WHEEL_DISTANCE_LENGTH / 2.0, -WHEEL_DISTANCE_WIDTH / 2.0),
-                    new Translation2d(-WHEEL_DISTANCE_LENGTH / 2.0, WHEEL_DISTANCE_WIDTH / 2.0),
-                    new Translation2d(-WHEEL_DISTANCE_LENGTH / 2.0, -WHEEL_DISTANCE_WIDTH / 2.0) };
 
             public static final RobotConfig ROBOT_CONFIG = new RobotConfig(MASS.in(Kilograms), MOI, MODULE_CONFIG,
                     MODULE_OFFSETS);

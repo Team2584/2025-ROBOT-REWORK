@@ -119,7 +119,9 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
+        // public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(0.6);
+
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -740,6 +742,14 @@ public final class CONSTANTS {
             return false;
         };
 
+        public static Pose2d getRelativePose(Pose2d robotPose, double xOffset, double yOffset) {
+            Translation2d offset = new Translation2d(xOffset, yOffset);
+            Translation2d transformedOffset = offset.rotateBy(robotPose.getRotation());
+            return new Pose2d(
+                    robotPose.getTranslation().plus(transformedOffset),
+                    robotPose.getRotation());
+        }
+
         /*
          * All poses on the field, defined by their location on the BLUE Alliance
          */
@@ -749,18 +759,49 @@ public final class CONSTANTS {
             public static final Pose3d SCORING_ELEMENT_NOT_COLLECTED = new Pose3d(0, 0, -1, Rotation3d.kZero);
 
             // BRANCH POSES
-            public static final Pose2d REEF_A = new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0));
-            public static final Pose2d REEF_B = new Pose2d(3.171, 3.863, Rotation2d.fromDegrees(0));
-            public static final Pose2d REEF_C = new Pose2d(3.688, 2.968, Rotation2d.fromDegrees(60));
-            public static final Pose2d REEF_D = new Pose2d(3.975, 2.803, Rotation2d.fromDegrees(60));
-            public static final Pose2d REEF_E = new Pose2d(5.001, 2.804, Rotation2d.fromDegrees(120));
-            public static final Pose2d REEF_F = new Pose2d(5.285, 2.964, Rotation2d.fromDegrees(120));
-            public static final Pose2d REEF_G = new Pose2d(5.805, 3.863, Rotation2d.fromDegrees(180));
-            public static final Pose2d REEF_H = new Pose2d(5.805, 4.189, Rotation2d.fromDegrees(180));
-            public static final Pose2d REEF_I = new Pose2d(5.288, 5.083, Rotation2d.fromDegrees(-120));
-            public static final Pose2d REEF_J = new Pose2d(5.002, 5.248, Rotation2d.fromDegrees(-120));
-            public static final Pose2d REEF_K = new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60));
-            public static final Pose2d REEF_L = new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60));
+            // public static final Pose2d REEF_A = new Pose2d(3.171, 4.189,
+            // Rotation2d.fromDegrees(0));
+
+            // negative goes away from reef
+            public static final double REEF_SCORE_X_OFFSET = -1.25;
+            public static final double REEF_SCORE_Y_OFFSET = 0;
+
+            public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_B = getRelativePose(new Pose2d(3.171, 3.863, Rotation2d.fromDegrees(0)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_C = getRelativePose(new Pose2d(3.688, 2.968, Rotation2d.fromDegrees(60)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_D = getRelativePose(new Pose2d(3.975, 2.803, Rotation2d.fromDegrees(60)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_E = getRelativePose(new Pose2d(5.001, 2.804, Rotation2d.fromDegrees(120)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_F = getRelativePose(new Pose2d(5.285, 2.964, Rotation2d.fromDegrees(120)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_G = getRelativePose(new Pose2d(5.805, 3.863, Rotation2d.fromDegrees(180)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_H = getRelativePose(new Pose2d(5.805, 4.189, Rotation2d.fromDegrees(180)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_I = getRelativePose(new Pose2d(5.288, 5.083, Rotation2d.fromDegrees(-120)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_J = getRelativePose(new Pose2d(5.002, 5.248, Rotation2d.fromDegrees(-120)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
+            public static final Pose2d REEF_L = getRelativePose(new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60)),
+                    REEF_SCORE_X_OFFSET,
+                    REEF_SCORE_Y_OFFSET);
 
             private static final List<Pose2d> BLUE_REEF_POSES = List.of(REEF_A, REEF_B, REEF_C, REEF_D, REEF_E,
                     REEF_F, REEF_G, REEF_H, REEF_I, REEF_J, REEF_K, REEF_L);

@@ -46,6 +46,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 import frc.robot.CONSTANTS.CONSTANTS_VISION;
 import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
+import frc.robot.commands.NeutralAlgaeState;
 import frc.robot.commands.NeutralState;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Ramp;
@@ -210,16 +211,16 @@ public class RobotContainer {
         .onFalse(new NeutralState(this));
 
     blue4.onTrue(new PrepNetAlgae(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralAlgaeState(this));
 
     blue3.onTrue(new PickupReefHighAlgae(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralAlgaeState(this));
 
     blue2.whileTrue(new PickupReefLowAlgae(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralAlgaeState(this));
 
     blue1.whileTrue(new PickupAlgaeGround(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralAlgaeState(this));
   }
 
   /* AUTO STUFF */
@@ -285,13 +286,15 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("liftLowAlgae", new PickupReefLowAlgae(this).withTimeout(1));
 
-    NamedCommands.registerCommand("algaeNeutral", new NeutralState(this).withTimeout(1));
+    NamedCommands.registerCommand("algaeNeutral", new NeutralAlgaeState(this).withTimeout(1));
+
+    NamedCommands.registerCommand("neutral", new NeutralState(this).withTimeout(1));
 
     NamedCommands.registerCommand("liftL4", new PrepCoralLvl4(this).withTimeout(0.5));
 
     NamedCommands.registerCommand("liftL3", new PrepCoralLvl3(this).withTimeout(0.3));
 
-    NamedCommands.registerCommand("scoreCoral", coral.outtakeCoral().withTimeout(0.3));
+    NamedCommands.registerCommand("scoreCoral", coral.outtakeCoral().withTimeout(0.125));
 
     NamedCommands.registerCommand("liftHighAlgae", new PickupReefHighAlgae(this).withTimeout(1.5));
 
@@ -301,13 +304,13 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCoral", coral.intakeCoral());
 
-    // -- Event Markers --
-    EventTrigger prepPlace = new EventTrigger("PrepPlace");
-    prepPlace
-        .onTrue(new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+  //   // -- Event Markers --
+  //   EventTrigger prepPlace = new EventTrigger("PrepPlace");
+  //   prepPlace
+  //       .onTrue(new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
-    EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
-    getCoralStationPiece.onTrue(coral.intakeCoral());
+  //   EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
+  //   getCoralStationPiece.onTrue(coral.intakeCoral());
   }
 
   /**

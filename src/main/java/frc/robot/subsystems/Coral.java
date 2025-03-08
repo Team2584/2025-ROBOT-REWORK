@@ -34,8 +34,7 @@ public class Coral extends SubsystemBase {
     }
 
     public Command outtakeCoral() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0))
-                .withTimeout(2.5);
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0));
     }
 
     public void setCoralMotor(double speed) {

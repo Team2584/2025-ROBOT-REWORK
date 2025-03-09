@@ -269,7 +269,6 @@ public class RobotContainer {
         new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
             .asProxy().withName("PrepPlace"));
 
-    // I FORGOT WHAT THIS NONE DOES BUT IT SEEMS ESSENTIAL
     NamedCommands.registerCommand("GetCoralStationPiece",
         coral.intakeCoral().asProxy().until(() -> coral.coralLoaded())
             .withName("GetCoralStationPiece"));
@@ -311,9 +310,6 @@ public class RobotContainer {
     // getCoralStationPiece.onTrue(coral.intakeCoral());
   }
 
-  /**
-   * Populates the selected AutoMap for your autonomous command.
-   */
   private void selectAutoMap() {
     SELECTED_AUTO_PREP_MAP = configureAutoPrepMaps(autoChooser.getSelected().getName());
     SELECTED_AUTO_PREP_MAP_NAME = autoChooser.getSelected().getName();

@@ -11,33 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "PlaceSequenceL4"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "J-TOP"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "GetCoralStationPiece"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "TOP-K"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "PlaceSequenceL4"
           }
         }
       ]

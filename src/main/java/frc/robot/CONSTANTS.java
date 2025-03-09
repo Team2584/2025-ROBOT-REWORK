@@ -144,6 +144,7 @@ public final class CONSTANTS {
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
         public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.0327;
 
+    
         public static final InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
         public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
@@ -184,7 +185,7 @@ public final class CONSTANTS {
 
         public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
         public static final NeutralModeValue STEER_NEUTRAL_MODE = NeutralModeValue.Coast;
-        public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(70);
+        public static final Current DRIVE_CURRENT_LIMIT = Units.Amps.of(60);
 
         public static final TalonFXConfiguration DRIVE_LEFT_CONFIG = new TalonFXConfiguration();
         public static final TalonFXConfiguration DRIVE_RIGHT_CONFIG = new TalonFXConfiguration();
@@ -305,7 +306,7 @@ public final class CONSTANTS {
             // TODO: Calculate real MOI
             public static final double MOI = 5.0;
             public static final double WHEEL_COF = 1.0;
-            public static final DCMotor DRIVE_MOTOR = DCMotor.getKrakenX60(1);
+            public static final DCMotor DRIVE_MOTOR = DCMotor.getKrakenX60(1).withReduction(kDriveGearRatio);
             public static final ModuleConfig MODULE_CONFIG = new ModuleConfig(WHEEL_RADIUS, MAX_DRIVE_SPEED,
                     WHEEL_COF,
                     DRIVE_MOTOR,
@@ -324,7 +325,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 4);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 4.5);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -332,7 +333,7 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    1.5,
+                    2,
                     0,
                     0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.5);
@@ -641,7 +642,7 @@ public final class CONSTANTS {
     public static class CONSTANTS_VISION {
         // AprilTag layout
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2025ReefscapeWelded);
+                .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
         // TODO: change these names on limelight config :))) pls do or it wont work
         public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-front", "limelight-back" };
@@ -740,12 +741,12 @@ public final class CONSTANTS {
             return false;
         };
 
-        public static Pose2d getRelativePose(Pose2d robotPose, double xOffset, double yOffset) {
+        public static Pose2d getRelativePose(Pose2d reefPose, double xOffset, double yOffset) {
             Translation2d offset = new Translation2d(xOffset, yOffset);
-            Translation2d transformedOffset = offset.rotateBy(robotPose.getRotation());
+            Translation2d transformedOffset = offset.rotateBy(reefPose.getRotation());
             return new Pose2d(
-                    robotPose.getTranslation().plus(transformedOffset),
-                    robotPose.getRotation());
+                    reefPose.getTranslation().plus(transformedOffset),
+                    reefPose.getRotation());
         }
 
         /*
@@ -758,7 +759,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -1.25;
+            public static final double REEF_SCORE_X_OFFSET = -0.7;
             public static final double REEF_SCORE_Y_OFFSET = 0;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
@@ -794,6 +795,9 @@ public final class CONSTANTS {
             public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,
                     REEF_SCORE_Y_OFFSET);
+
+            // public static final Pose2d REEF_K = new Pose2d(3.972-0.5, 5.247+.5*Math.sqrt(3), Rotation2d.fromDegrees(-60));
+
             public static final Pose2d REEF_L = getRelativePose(new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,
                     REEF_SCORE_Y_OFFSET);

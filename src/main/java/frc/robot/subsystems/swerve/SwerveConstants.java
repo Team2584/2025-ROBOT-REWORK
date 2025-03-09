@@ -8,7 +8,7 @@ public class SwerveConstants {
     public double steerGearRatio = 13.371428571428572;
     public double wheelCircumference = Units.inchesToMeters(2) * Math.PI;
     public double driveGearRatio = 5.6;
-    public double maxSpeedMeters = 17.5;
+    public double maxSpeedMeters = 5.33;
 
     /**
      * A wrapper for Swerve Module constants.

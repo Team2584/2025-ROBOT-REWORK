@@ -14,6 +14,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
+import com.pathplanner.lib.util.DriveFeedforwards;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -326,7 +327,7 @@ public class Swerve extends SubsystemBase {
 	 *                      Desired robot-relative chassis speeds
 	 *
 	 */
-	public void driveAutonomous(ChassisSpeeds chassisSpeeds) {
+	public void driveAutonomous(ChassisSpeeds chassisSpeeds, DriveFeedforwards feedforwards) {
 		SwerveModuleState[] desiredModuleStates = swerveKinematics
 				.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
 		setModuleStates(desiredModuleStates, false);
@@ -372,7 +373,7 @@ public class Swerve extends SubsystemBase {
 	 */
 	public Pose2d getPose() {
 		return swervePoseEstimator.getEstimatedPosition();
-	}
+	} 
 
 	/**
 	 * Return the current rotation of the robot using the pose estimator.
@@ -401,7 +402,7 @@ public class Swerve extends SubsystemBase {
 	 *         for you as long as you specify your desired unit (ex.
 	 *         rotation.getDegrees)
 	 */
-	private Rotation2d getGyroRotation() {
+	public Rotation2d getGyroRotation() {
 
 		if (isSimulation && lastDesiredStates != null) {
 			simAngle += swerveKinematics.toChassisSpeeds(lastDesiredStates).omegaRadiansPerSecond *
@@ -431,7 +432,7 @@ public class Swerve extends SubsystemBase {
 	 * @param yaw
 	 *            The yaw (in degrees) to reset the Pigeon to
 	 */
-	private void resetYaw(double yaw) {
+	public void resetYaw(double yaw) {
 		if (isSimulation) {
 			simAngle = Units.Radians.convertFrom(yaw, Units.Degrees);
 		}

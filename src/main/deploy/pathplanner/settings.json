@@ -3,19 +3,9 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
-    "Algae",
-    "CSBottom-Score",
-    "CSTop-Score",
-    "Mahdistuff",
-    "Score-CSBottom",
-    "Score-CSTop",
-    "Tickle Monster",
-    "Tuning"
+    "ReefToTop"
   ],
-  "autoFolders": [
-    "DEBUG",
-    "COMP_READY"
-  ],
+  "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

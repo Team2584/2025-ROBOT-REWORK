@@ -11,8 +11,8 @@
       "style": "0",
       "userScale": "2",
       "width": "692",
-      "xpos": "20",
-      "ypos": "64"
+      "xpos": "758",
+      "ypos": "167"
     }
   },
   "Table": {
@@ -26,13 +26,13 @@
   "Window": {
     "###/SmartDashboard/SendableChooser[1]": {
       "Collapsed": "0",
-      "Pos": "447,82",
+      "Pos": "446,80",
       "Size": "284,54"
     },
     "###FMS": {
       "Collapsed": "0",
       "Pos": "147,38",
-      "Size": "175,184"
+      "Size": "283,140"
     },
     "###Joysticks": {
       "Collapsed": "1",

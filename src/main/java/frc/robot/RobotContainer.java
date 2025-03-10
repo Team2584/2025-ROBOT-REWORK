@@ -243,7 +243,7 @@ public class RobotContainer {
   }
 
   private void configureAutoSelector() {
-    autoChooser = AutoBuilder.buildAutoChooser("Four-Piece-Low");
+    autoChooser = AutoBuilder.buildAutoChooser("4PIECE_L4_HIGH");
     SmartDashboard.putData(autoChooser);
   }
 
@@ -319,20 +319,13 @@ public class RobotContainer {
     List<Pose2d> fieldPositions = CONSTANTS_FIELD.getReefPositions().get();
 
     switch (selectedAuto) {
-      case "Four_Piece_High":
-        Pose2d[] fourPieceHigh = new Pose2d[4];
-        fourPieceHigh[0] = fieldPositions.get(11); // L
-        fourPieceHigh[1] = fieldPositions.get(10); // K
-        fourPieceHigh[2] = fieldPositions.get(0); // A
-        fourPieceHigh[3] = fieldPositions.get(9); // J
-        return fourPieceHigh;
-      case "M_TEST4PIECE":
-        Pose2d[] M_TEST4PIECE = new Pose2d[2];
-        M_TEST4PIECE[0] = fieldPositions.get(9); // J
-        M_TEST4PIECE[1] = fieldPositions.get(10); // K
-        // M_TEST4PIECE[2] = fieldPositions.get(11); // L
-        // M_TEST4PIECE[3] = fieldPositions.get(0); // A
-        return M_TEST4PIECE;
+      case "4PIECE_L4_HIGH":
+        Pose2d[] PIECE_L4_HIGH = new Pose2d[4];
+        PIECE_L4_HIGH[0] = fieldPositions.get(9); // J
+        PIECE_L4_HIGH[1] = fieldPositions.get(10); // K
+        PIECE_L4_HIGH[2] = fieldPositions.get(11); // L
+        PIECE_L4_HIGH[3] = fieldPositions.get(0); // A
+        return PIECE_L4_HIGH;
       default:
         Pose2d[] noAutoSelected = new Pose2d[1];
         noAutoSelected[0] = new Pose2d();

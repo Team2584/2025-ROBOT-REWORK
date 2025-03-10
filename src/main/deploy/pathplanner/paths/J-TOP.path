@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.10487105505807,
-        "y": 5.6199186359133035
+        "x": 5.103873211996896,
+        "y": 5.588004793439593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1966371237093645,
-        "y": 6.598883211869058
+        "x": 3.260113456921394,
+        "y": 6.697176933657584
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.704347629206521,
-        "y": 7.111347716195243
+        "x": 1.625,
+        "y": 7.182
       },
       "prevControl": {
-        "x": 3.7002884523053847,
-        "y": 6.1244513677398755
+        "x": 3.800770352622137,
+        "y": 6.0788662592029645
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,10 +58,10 @@
     "rotation": -55.0
   },
   "reversed": false,
-  "folder": "Mahdistuff",
+  "folder": "ReefToTop",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -115.0
+    "rotation": -119.99999999999999
   },
   "useDefaultConstraints": true
 }

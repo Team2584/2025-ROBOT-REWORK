@@ -1,0 +1,97 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "P-J"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PlaceSequenceL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "J-TOP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoralStationPiece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TOP-K"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PlaceSequenceL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "K-TOP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoralStationPiece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TOP-L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PlaceSequenceL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L-TOP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoralStationPiece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TOP-A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PlaceSequenceL4"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": false,
+  "folder": null,
+  "choreoAuto": false
+}

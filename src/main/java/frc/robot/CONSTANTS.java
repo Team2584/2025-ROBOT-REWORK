@@ -461,7 +461,7 @@ public final class CONSTANTS {
         public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.2);
         public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
 
-        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.1, Seconds);
+        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.4, Seconds);
 
         // TODO: }] Tune End here~
 

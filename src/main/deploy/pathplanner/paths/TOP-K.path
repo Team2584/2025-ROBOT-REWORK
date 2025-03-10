@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7044,
-        "y": 7.111
+        "x": 1.625,
+        "y": 7.182
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8828867421987214,
-        "y": 6.935950056100303
+        "x": 2.5969237896277746,
+        "y": 6.426116620152937
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 3.891771248408726,
-        "y": 5.446416681153433
+        "y": 5.446
       },
       "prevControl": {
-        "x": 4.115862863658439,
-        "y": 5.3355882192188995
+        "x": 4.091172156230714,
+        "y": 5.295204516116141
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "PrepPlace",
-      "waypointRelativePos": 0.8446167472779286,
+      "waypointRelativePos": 0.9057269287109373,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -52,7 +52,7 @@
     "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": "Mahdistuff",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -55.0

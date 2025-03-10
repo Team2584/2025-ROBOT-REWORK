@@ -3,15 +3,16 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
-    "ReefToTop"
+    "ReefToTop",
+    "TopToReef"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 5.5,
+  "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 60.0,
+  "robotMass": 61.0,
   "robotMOI": 5.0,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.051,
@@ -30,5 +31,8 @@
   "brModuleY": -0.29,
   "bumperOffsetX": 0.0,
   "bumperOffsetY": 0.0,
-  "robotFeatures": []
+  "robotFeatures": [
+    "{\"name\":\"IntakeWheel1\",\"type\":\"circle\",\"data\":{\"center\":{\"x\":0.45,\"y\":-0.15},\"radius\":0.07,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"IntakeWheel2\",\"type\":\"circle\",\"data\":{\"center\":{\"x\":0.45,\"y\":0.15},\"radius\":0.07,\"strokeWidth\":0.02,\"filled\":false}}"
+  ]
 }

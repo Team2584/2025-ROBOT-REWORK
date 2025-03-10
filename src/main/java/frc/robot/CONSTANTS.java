@@ -119,7 +119,7 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.33);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.5);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -305,7 +305,7 @@ public final class CONSTANTS {
             public static final Mass MASS = Units.Kilograms.of(51);
             // TODO: Calculate real MOI
             public static final double MOI = 5.0;
-            public static final double WHEEL_COF = 1.0;
+            public static final double WHEEL_COF = 1.2;
             public static final DCMotor DRIVE_MOTOR = DCMotor.getKrakenX60(1).withReduction(kDriveGearRatio);
             public static final ModuleConfig MODULE_CONFIG = new ModuleConfig(WHEEL_RADIUS, MAX_DRIVE_SPEED,
                     WHEEL_COF,
@@ -333,9 +333,9 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    2,
+                    1.4,
                     0,
-                    0);
+                    0.0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.5);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
@@ -343,7 +343,7 @@ public final class CONSTANTS {
                             Math.pow(TURN_SPEED.in(Units.DegreesPerSecond), 2)));
             public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(3);
 
-            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.8);
+            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.7);
 
             static {
                 PID_TRANSLATION.setTolerance(AT_POINT_TOLERANCE.in(Units.Meters));
@@ -759,7 +759,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.7;
+            public static final double REEF_SCORE_X_OFFSET = -0.1;
             public static final double REEF_SCORE_Y_OFFSET = 0;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),

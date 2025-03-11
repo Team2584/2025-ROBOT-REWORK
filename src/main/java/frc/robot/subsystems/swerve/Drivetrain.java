@@ -5,8 +5,6 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 
 import java.util.List;
 
-import com.frcteam3255.components.swerve.SN_SwerveModule;
-
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.MathUtil;
@@ -24,9 +22,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.CONSTANTS;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 import frc.robot.CONSTANTS.CONSTANTS_VISION;
@@ -354,6 +350,6 @@ public class Drivetrain extends Swerve {
                                         mod.getAdjustedSteerPositionDouble());
 
                 }
-		resetModulesToAbsolute();
+                resetModulesToAbsolute();
         }
 }

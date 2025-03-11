@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.function.BooleanSupplier;
-
 import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -9,10 +7,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.CONSTANTS;
 import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
-import frc.robot.CONSTANTS.CONSTANTS_USBCAM;
 
 public class Coral extends SubsystemBase {
     TalonFX coralMotor;

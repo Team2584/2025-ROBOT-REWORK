@@ -1,19 +1,9 @@
 package frc.robot.subsystems;
 
-import javax.print.attribute.standard.Destination;
-
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
-import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
-import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
-import frc.robot.subsystems.swerve.Drivetrain;
 
 @Logged
 public class State extends SubsystemBase {
@@ -22,7 +12,6 @@ public class State extends SubsystemBase {
   @NotLogged
   RobotContainer RC;
 
-  // TODO: ADD NEW SUBSYSTEMS WHEN CREATED!!!!
   public State(RobotContainer RC) {
 
     currentDriverState = DriverState.MANUAL;

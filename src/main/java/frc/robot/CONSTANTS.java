@@ -19,7 +19,6 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
-import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -33,7 +32,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -50,7 +48,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.Module;
-import frc.robot.subsystems.swerve.Swerve;
 
 public final class CONSTANTS {
 
@@ -144,7 +141,6 @@ public final class CONSTANTS {
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
         public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.0327;
 
-    
         public static final InvertedValue INVERSION_LEFT = InvertedValue.CounterClockwise_Positive;
         public static final InvertedValue INVERSION_RIGHT = InvertedValue.Clockwise_Positive;
         public static final InvertedValue STEER_MOTOR_INVERT = InvertedValue.Clockwise_Positive;
@@ -735,9 +731,10 @@ public final class CONSTANTS {
          */
         public static boolean isRedAlliance() {
             var alliance = ALLIANCE;
+
             var x = DriverStation.getAlliance();
 
-            if (x.isPresent() && x.get() == DriverStation.Alliance.Red){
+            if (x.isPresent() && x.get() == DriverStation.Alliance.Red) {
                 return true;
             }
             if (alliance.isPresent()) {
@@ -801,7 +798,8 @@ public final class CONSTANTS {
                     REEF_SCORE_X_OFFSET,
                     REEF_SCORE_Y_OFFSET);
 
-            // public static final Pose2d REEF_K = new Pose2d(3.972-0.5, 5.247+.5*Math.sqrt(3), Rotation2d.fromDegrees(-60));
+            // public static final Pose2d REEF_K = new Pose2d(3.972-0.5,
+            // 5.247+.5*Math.sqrt(3), Rotation2d.fromDegrees(-60));
 
             public static final Pose2d REEF_L = getRelativePose(new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,

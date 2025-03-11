@@ -1,15 +1,11 @@
 package frc.robot.commands;
 
-import java.util.Optional;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
@@ -25,9 +21,8 @@ public class AddVisionMeasurement extends Command {
     PoseEstimate estimatedPose;
     double drivetrainRotation = 0;
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
-    StructPublisher<Pose2d> posePublisher =
-    nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
-    .getStructTopic("pose2d", Pose2d.struct).publish();
+    StructPublisher<Pose2d> posePublisher = nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
+            .getStructTopic("pose2d", Pose2d.struct).publish();
 
     public AddVisionMeasurement(RobotContainer RC) {
         this.drivetrain = RC.getDrivetrain();

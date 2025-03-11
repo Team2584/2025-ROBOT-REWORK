@@ -1,12 +1,8 @@
 package frc.robot.commands.prep_algae;
 
-import java.util.function.BooleanSupplier;
-
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
 
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 

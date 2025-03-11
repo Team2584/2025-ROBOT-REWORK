@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.*;
 import frc.robot.CONSTANTS.*;
 import frc.robot.RobotContainer;
-import edu.wpi.first.units.measure.Distance;
 
 public class PrepCoralLvl2 extends SequentialCommandGroup {
   Elevator elevator;

@@ -1,42 +1,26 @@
 package frc.robot;
 
-import java.io.ObjectInputFilter.Config;
 import java.util.List;
-import java.util.Set;
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
 
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import com.google.flatbuffers.Constants;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import com.google.flatbuffers.Constants;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.events.EventTrigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.units.measure.*;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotState;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.DeferredCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -46,7 +30,6 @@ import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralAlgaeState;
 import frc.robot.commands.NeutralState;
 import frc.robot.commands.zero.Zero_Elevator;
-import frc.robot.commands.zero.Zero_Ramp;
 import frc.robot.commands.zero.Zero_Wrist;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Climber;
@@ -60,10 +43,7 @@ import frc.robot.subsystems.State.DriverState;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.commands.prep_coral.*;
 import frc.robot.commands.prep_algae.*;
-import frc.robot.commands.zero.*;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.units.Units.*;
 
 @Logged
 public class RobotContainer {

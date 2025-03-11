@@ -282,7 +282,7 @@ public final class CONSTANTS {
 
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem
-            public static final double AUTO_DRIVE_P = 9;
+            public static final double AUTO_DRIVE_P = 11;
             public static final double AUTO_DRIVE_I = 0;
             public static final double AUTO_DRIVE_D = 0;
             public static final PIDConstants AUTO_DRIVE_PID = new PIDConstants(
@@ -298,7 +298,7 @@ public final class CONSTANTS {
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_I,
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_D);
 
-            public static final Mass MASS = Units.Kilograms.of(51);
+            public static final Mass MASS = Units.Kilograms.of(60);
             // TODO: Calculate real MOI
             public static final double MOI = 5.0;
             public static final double WHEEL_COF = 1.2;
@@ -329,7 +329,7 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    1.4,
+                    1.8,
                     0,
                     0.0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.5);

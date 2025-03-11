@@ -24,10 +24,10 @@ public class AddVisionMeasurement extends Command {
 
     PoseEstimate estimatedPose;
     double drivetrainRotation = 0;
-    // NetworkTableInstance nt = NetworkTableInstance.getDefault();
-    // StructPublisher<Pose2d> posePublisher =
-    // nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
-    // .getStructTopic("pose2d", Pose2d.struct).publish();
+    NetworkTableInstance nt = NetworkTableInstance.getDefault();
+    StructPublisher<Pose2d> posePublisher =
+    nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
+    .getStructTopic("pose2d", Pose2d.struct).publish();
 
     public AddVisionMeasurement(RobotContainer RC) {
         this.drivetrain = RC.getDrivetrain();
@@ -59,7 +59,7 @@ public class AddVisionMeasurement extends Command {
 
         var estimatedPose = vision.determinePoseEstimate(gyroRate);
         if (estimatedPose.isPresent()) {
-            // posePublisher.set(estimatedPose.get().pose);
+            posePublisher.set(estimatedPose.get().pose);
             drivetrain.addVisionMeasurement(estimatedPose.get().pose, estimatedPose.get().timestampSeconds);
             if (DriverStation.isDisabled()) {
                 drivetrain.resetYaw(estimatedPose.get().pose.getRotation().getDegrees());

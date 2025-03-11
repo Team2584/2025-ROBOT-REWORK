@@ -735,6 +735,11 @@ public final class CONSTANTS {
          */
         public static boolean isRedAlliance() {
             var alliance = ALLIANCE;
+            var x = DriverStation.getAlliance();
+
+            if (x.isPresent() && x.get() == DriverStation.Alliance.Red){
+                return true;
+            }
             if (alliance.isPresent()) {
                 return alliance.get() == DriverStation.Alliance.Red;
             }
@@ -759,7 +764,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.1;
+            public static final double REEF_SCORE_X_OFFSET = -0.14;
             public static final double REEF_SCORE_Y_OFFSET = 0;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),

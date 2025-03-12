@@ -1,0 +1,1915 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x000000014cdd12d4, pid=57574, tid=51459
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.12+7 (17.0.12+7) (build 17.0.12+7)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.12+7 (17.0.12+7, mixed mode, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-aarch64)
+# Problematic frame:
+# C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:59698 -Djava.library.path=/Users/michaelsagerman/Documents/FRC/2025-ROBOT-REWORK/build/jni/release -XX:+ShowCodeDetailsInExceptionMessages frc.robot.Main
+
+Host: "MacBookPro18,3" arm64, 8 cores, 16G, Darwin 24.1.0, macOS 15.1.1 (24B91)
+Time: Wed Mar 12 13:02:47 2025 PDT elapsed time: 267.170541 seconds (0d 0h 4m 27s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000012c811a00):  JavaThread "robot main" daemon [_thread_in_native, id=51459, stack(0x000000016df60000,0x000000016e163000)]
+
+Stack: [0x000000016df60000,0x000000016e163000],  sp=0x000000016e161bd0,  free space=2054k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+C  [libCTRE_PhoenixTools_Sim.dylib+0x84c2c]
+J 1453  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000011a63ccc4 [0x000000011a63cc40+0x0000000000000084]
+C  0x3fb999999999999a
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1453  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000011a63ccc4 [0x000000011a63cc40+0x0000000000000084]
+J 2543 c2 frc.robot.subsystems.swerve.Swerve.resetModulesToAbsolute()V (32 bytes) @ 0x000000011a736ff8 [0x000000011a736980+0x0000000000000678]
+J 2544 c2 frc.robot.subsystems.swerve.Drivetrain.periodic()V (262 bytes) @ 0x000000011a740610 [0x000000011a73c240+0x00000000000043d0]
+J 2551 c2 edu.wpi.first.wpilibj2.command.CommandScheduler.run()V (603 bytes) @ 0x000000011a75e0d8 [0x000000011a75db80+0x0000000000000558]
+J 1971 c1 frc.robot.Robot.robotPeriodic()V (7 bytes) @ 0x0000000112ee7bc4 [0x0000000112ee7980+0x0000000000000244]
+J 1968 c1 edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc()V (552 bytes) @ 0x0000000112ee2a30 [0x0000000112ee08c0+0x0000000000002170]
+J 1849 c1 edu.wpi.first.wpilibj.TimedRobot$$Lambda$10+0x0000000800095cd8.run()V (8 bytes) @ 0x0000000112e8a874 [0x0000000112e8a740+0x0000000000000134]
+j  edu.wpi.first.wpilibj.TimedRobot.startCompetition()V+75
+j  edu.wpi.first.wpilibj.RobotBase.runRobot(Ljava/util/function/Supplier;)V+265
+j  edu.wpi.first.wpilibj.RobotBase.lambda$startRobot$1(Ljava/util/function/Supplier;)V+1
+j  edu.wpi.first.wpilibj.RobotBase$$Lambda$2+0x0000000800089b58.run()V+4
+j  java.lang.Thread.run()V+11 java.base@17.0.12
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 2 (SEGV_ACCERR), si_addr: 0x0000000000000000
+
+Registers:
+ x0=0x000000014aeb4cb0  x1=0x0000000000000003  x2=0x0000000000000003  x3=0x0000000000000003
+ x4=0x000000014cbfa7c0  x5=0x000000000000000d  x6=0x0000000000000002  x7=0x0000000000000000
+ x8=0x0000000000000000  x9=0x000000000000c903 x10=0x00000000aa9440c8 x11=0x00000000aa9440c8
+x12=0x00000000aa9440c8 x13=0x00000000aa9440c8 x14=0x00000000ffffffff x15=0x0000000000100010
+x16=0xd796000104b90080 x17=0x0000000000000000 x18=0x0000000000000000 x19=0x000000014cbf02e0
+x20=0x0000000000000002 x21=0x000000014aeb4cb0 x22=0x000000014cbf02e6 x23=0x000000014cab45a8
+x24=0x000000003e0e3bcd x25=0x00000000000003f8 x26=0x000000014cab45a8 x27=0x000000014cab45a8
+x28=0x000000014cab45a0  fp=0x000000016e1621d0  lr=0x000000014cdd12b8  sp=0x000000016e161bd0
+pc=0x000000014cdd12d4 cpsr=0x0000000040001000
+
+Register to memory mapping:
+
+ x0=0x000000014aeb4cb0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x1=0x0000000000000003 is an unknown value
+ x2=0x0000000000000003 is an unknown value
+ x3=0x0000000000000003 is an unknown value
+ x4=0x000000014cbfa7c0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x5=0x000000000000000d is an unknown value
+ x6=0x0000000000000002 is an unknown value
+ x7=0x0 is NULL
+ x8=0x0 is NULL
+ x9=0x000000000000c903 is an unknown value
+x10=0x00000000aa9440c8 is an unknown value
+x11=0x00000000aa9440c8 is an unknown value
+x12=0x00000000aa9440c8 is an unknown value
+x13=0x00000000aa9440c8 is an unknown value
+x14=0x00000000ffffffff is an unknown value
+x15=0x0000000000100010 is an unknown value
+x16=0xd796000104b90080 is an unknown value
+x17=0x0 is NULL
+x18=0x0 is NULL
+x19=0x000000014cbf02e0 points into unknown readable memory: 0x00003e0e3bcd03f8 | f8 03 cd 3b 0e 3e 00 00
+x20=0x0000000000000002 is an unknown value
+x21=0x000000014aeb4cb0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+x22=0x000000014cbf02e6 points into unknown readable memory: 00 00
+x23=0x000000014cab45a8 points into unknown readable memory: 0x000000014aeb4cb0 | b0 4c eb 4a 01 00 00 00
+x24=0x000000003e0e3bcd is an unknown value
+x25=0x00000000000003f8 is an unknown value
+x26=0x000000014cab45a8 points into unknown readable memory: 0x000000014aeb4cb0 | b0 4c eb 4a 01 00 00 00
+x27=0x000000014cab45a8 points into unknown readable memory: 0x000000014aeb4cb0 | b0 4c eb 4a 01 00 00 00
+x28=0x000000014cab45a0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+
+
+Top of Stack: (sp=0x000000016e161bd0)
+0x000000016e161bd0:   1fffffff02047c42 000000014cb3b7e0
+0x000000016e161be0:   0000000000000000 000000014cab45a0
+0x000000016e161bf0:   0000008200000000 000000014cb864e0
+0x000000016e161c00:   000000014af818e0 000000014cbf02e0
+0x000000016e161c10:   000000014cbf02e6 000000014cbf02e6
+0x000000016e161c20:   000000000000000e 000000014cbea970
+0x000000016e161c30:   000000014cbea976 000000014cbea976
+0x000000016e161c40:   0000000000000000 0000000200000002
+0x000000016e161c50:   000000014cb864e0 000000016e161d08
+0x000000016e161c60:   0000000000000400 02047c0202047c42
+0x000000016e161c70:   0000000000000000 0000000000000000
+0x000000016e161c80:   0000000000000000 0000000000000000
+0x000000016e161c90:   0000000000000000 0000000000000000
+0x000000016e161ca0:   000000016e161d00 0000000000000000
+0x000000016e161cb0:   0000000000000000 0000000000000000
+0x000000016e161cc0:   0000000000000000 0000000000000000
+0x000000016e161cd0:   0000000000000000 0000000100000000
+0x000000016e161ce0:   000000014ce1ff00 000000016e162128
+0x000000016e161cf0:   000000016e162130 000000004cf0cb00
+0x000000016e161d00:   000000014cf0cd80 00003e0e3bcd0605
+0x000000016e161d10:   000000016e1620b0 000000016e1620b0
+0x000000016e161d20:   000000016e162118 000000000000001e
+0x000000016e161d30:   000000016e161ed0 0000000185a5045c
+0x000000016e161d40:   0000000709a7b80c 000000016e161f78
+0x000000016e161d50:   0000001700000000 00000000ffff0208
+0x000000016e161d60:   000000016e161f72 000000000000001d
+0x000000016e161d70:   0000000000000000 0000000000000000
+0x000000016e161d80:   0000000000000000 0000000000000000
+0x000000016e161d90:   0000000000000000 0000000000000000
+0x000000016e161da0:   0000000000000000 0000000000000000
+0x000000016e161db0:   000000016e161de8 0000000000000000
+0x000000016e161dc0:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x000000014cdd12d4)
+0x000000014cdd11d4:   e0 03 09 aa 09 00 40 f9 28 79 68 f8 00 01 3f d6
+0x000000014cdd11e4:   e0 03 1a aa 87 24 02 94 15 02 00 34 f3 03 1c aa
+0x000000014cdd11f4:   61 8e 40 f8 e0 03 1c aa 8c 02 00 94 93 03 00 f9
+0x000000014cdd1204:   9f 0b 00 f9 7f 02 00 f9 e0 07 40 f9 38 24 02 94
+0x000000014cdd1214:   fb 1f 40 f9 1b 11 00 b4 fb 23 00 f9 e0 03 1b aa
+0x000000014cdd1224:   7b 24 02 94 84 00 00 14 f3 db 43 a9 7f 02 16 eb
+0x000000014cdd1234:   60 06 00 54 97 23 00 91 0a 00 00 14 80 07 40 f9
+0x000000014cdd1244:   d6 0b f9 97 88 0b 40 f9 08 05 00 91 88 0b 00 f9
+0x000000014cdd1254:   b8 22 00 b9 73 1a 00 91 7f 02 16 eb 00 05 00 54
+0x000000014cdd1264:   79 02 40 79 78 22 40 b8 fb 03 17 aa fa 03 17 aa
+0x000000014cdd1274:   e8 02 40 f9 a8 00 00 b5 0d 00 00 14 48 03 40 f9
+0x000000014cdd1284:   fb 03 1a aa 48 01 00 b4 fa 03 08 aa 08 39 40 79
+0x000000014cdd1294:   3f 03 08 6b 43 ff ff 54 1f 01 19 6b 62 02 00 54
+0x000000014cdd12a4:   48 07 40 f9 28 ff ff b5 5b 23 00 91 00 05 80 52
+0x000000014cdd12b4:   5d 24 02 94 f5 03 00 aa 19 38 00 79 1f 20 00 b9
+0x000000014cdd12c4:   1f 7c 00 a9 1a 08 00 f9 60 03 00 f9 88 03 40 f9
+0x000000014cdd12d4:   08 01 40 f9 e1 03 00 aa 28 fb ff b4 88 03 00 f9
+0x000000014cdd12e4:   61 03 40 f9 d6 ff ff 17 f5 03 1a aa 58 23 00 b9
+0x000000014cdd12f4:   73 1a 00 91 7f 02 16 eb 41 fb ff 54 15 00 80 52
+0x000000014cdd1304:   e0 07 40 f9 fa 23 02 94 fb 1f 40 f9 7b f8 ff b5
+0x000000014cdd1314:   49 00 00 14 e0 63 01 91 47 4a ff 97 0a 00 00 14
+0x000000014cdd1324:   2e 07 f9 97 08 00 00 14 e0 e3 00 91 42 4a ff 97
+0x000000014cdd1334:   05 00 00 14 29 07 f9 97 03 00 00 14 e0 e3 04 91
+0x000000014cdd1344:   50 f7 f8 97 20 00 20 d4 f4 03 00 aa e0 03 02 91
+0x000000014cdd1354:   d2 ba fd 97 10 00 00 14 0e 00 00 14 f4 03 00 aa
+0x000000014cdd1364:   a0 03 55 f8 1f 00 18 eb 81 00 00 54 88 00 80 52
+0x000000014cdd1374:   a0 23 03 d1 03 00 00 14 60 01 00 b4 a8 00 80 52
+0x000000014cdd1384:   09 00 40 f9 28 79 68 f8 00 01 3f d6 06 00 00 14
+0x000000014cdd1394:   f4 03 00 aa a0 a3 02 d1 20 20 fd 97 02 00 00 14
+0x000000014cdd13a4:   f4 03 00 aa e0 03 1a aa 16 24 02 94 0e 00 00 14
+0x000000014cdd13b4:   0c 00 00 14 f4 03 00 aa e8 3f c5 39 48 01 f8 36
+0x000000014cdd13c4:   e0 9f 40 f9 12 24 02 94 07 00 00 14 f4 03 00 aa 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x1fffffff02047c42 is an unknown value
+stack at sp + 1 slots: 0x000000014cb3b7e0 points into unknown readable memory: 0x000000004d55545a | 5a 54 55 4d 00 00 00 00
+stack at sp + 2 slots: 0x0 is NULL
+stack at sp + 3 slots: 0x000000014cab45a0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 4 slots: 0x0000008200000000 is an unknown value
+stack at sp + 5 slots: 0x000000014cb864e0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 6 slots: 0x000000014af818e0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 7 slots: 0x000000014cbf02e0 points into unknown readable memory: 0x00003e0e3bcd03f8 | f8 03 cd 3b 0e 3e 00 00
+
+
+Compiled method (n/a)  267185 1453     n 0       com.ctre.phoenix6.configs.jni.ConfigJNI::SetConfigs (native)
+ total in heap  [0x000000011a63ca90,0x000000011a63ce08] = 888
+ relocation     [0x000000011a63cbe8,0x000000011a63cc10] = 40
+ main code      [0x000000011a63cc40,0x000000011a63cdf8] = 440
+ oops           [0x000000011a63cdf8,0x000000011a63ce00] = 8
+ metadata       [0x000000011a63ce00,0x000000011a63ce08] = 8
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000138a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # this:     c_rarg1:c_rarg1 
+                        = 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # parm0:    c_rarg2:c_rarg2 
+                        = 'java/lang/String'
+  # parm1:    c_rarg3   = int
+  # parm2:    v0:v0     = double
+  # parm3:    c_rarg4   = boolean
+  # parm4:    c_rarg5   = boolean
+  #           [sp+0x60]  (sp of caller)
+  0x000000011a63cc40: 2808 40b9 | 3f01 086b | 4000 0054 
+
+  0x000000011a63cc4c: ;   {runtime_call ic_miss_stub}
+  0x000000011a63cc4c: edaf e817 
+[Verified Entry Point]
+  0x000000011a63cc50: 1f20 03d5 | e953 40d1 | 3f01 00f9 | fd7b bfa9 | fd03 0091 | ff43 01d1 | e207 00f9 | 5f00 1feb 
+  0x000000011a63cc70: e223 0091 | e203 829a | e103 00f9 | 3f00 1feb | e103 00d1 | e103 819a | e801 0010 | 884f 01f9 
+  0x000000011a63cc90: e803 0091 | 884b 01f9 
+
+  0x000000011a63cc98: ;   {external_word}
+  0x000000011a63cc98: 8830 f8f0 | 0869 5339 | a806 0035 | 80c3 0a91 | e803 7eb2 | 8903 0d91 | 28fd 9f88 
+
+  0x000000011a63ccb4: ;   {runtime_call}
+  0x000000011a63ccb4: 886b 89d2 | 0899 a9f2 | 2800 c0f2 | 0001 3fd6 | 007c 4093 | a800 80d2 | 8843 03b9 | bf3b 03d5 
+  0x000000011a63ccd4: 8823 0d91 | 08fd dfc8 | bf03 08eb | a803 0054 | 8833 43b9 | 6803 0035 | e803 7db2 | 8903 0d91 
+  0x000000011a63ccf4: 28fd 9f88 | 88c3 4e39 | 1f09 0071 | c001 0054 
+
+  0x000000011a63cd04: ;   {external_word}
+  0x000000011a63cd04: 8830 f8f0 | 0869 5339 | a805 0035 | 9f4b 01f9 | 9f4f 01f9 | 826f 40f9 | 5f80 00f9 | bf03 0091 
+  0x000000011a63cd24: fd7b c1a8 | 8807 40f9 | 4800 00b5 | c003 5fd6 
+
+  0x000000011a63cd34: ;   {runtime_call StubRoutines (1)}
+  0x000000011a63cd34: d3ac e717 | a083 1ff8 
+
+  0x000000011a63cd3c: ;   {runtime_call SharedRuntime::reguard_yellow_pages()}
+  0x000000011a63cd3c: 88cc 9cd2 | 8850 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | edff ff17 | a083 1ff8 | e003 1caa 
+  0x000000011a63cd5c: ;   {runtime_call JavaThread::check_special_condition_for_native_trans(JavaThread*)}
+  0x000000011a63cd5c: 888c 81d2 | 4853 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | dfff ff17 | e00f 1ffc | e10b bda9 
+  0x000000011a63cd7c: e313 01a9 | e57f 02a9 
+
+  0x000000011a63cd84: ;   {metadata({method} {0x0000000138a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x000000011a63cd84: 0179 82d2 | 4114 a7f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 0896 98d2 | 8850 a1f2 | 2800 c0f2 
+  0x000000011a63cda4: 0001 3fd6 | e833 c1a8 | e313 41a9 | e57f 42a9 | e10b c3a8 | e007 41fc | baff ff17 | a083 1ff8 
+  0x000000011a63cdc4: ;   {metadata({method} {0x0000000138a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x000000011a63cdc4: 0179 82d2 | 4114 a7f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 08aa 98d2 | 8850 a1f2 | 2800 c0f2 
+  0x000000011a63cde4: 0001 3fd6 | e833 c1a8 | a083 5ff8 | c8ff ff17 | 0000 0000 
+[/MachCode]
+
+
+Compiled method (c2)  267191 2543       4       frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute (32 bytes)
+ total in heap  [0x000000011a736310,0x000000011a73a4c0] = 16816
+ relocation     [0x000000011a736468,0x000000011a736920] = 1208
+ constants      [0x000000011a736940,0x000000011a736980] = 64
+ main code      [0x000000011a736980,0x000000011a738180] = 6144
+ stub code      [0x000000011a738180,0x000000011a738990] = 2064
+ oops           [0x000000011a738990,0x000000011a738a48] = 184
+ metadata       [0x000000011a738a48,0x000000011a738de0] = 920
+ scopes data    [0x000000011a738de0,0x000000011a739a80] = 3232
+ scopes pcs     [0x000000011a739a80,0x000000011a73a0b0] = 1584
+ dependencies   [0x000000011a73a0b0,0x000000011a73a1b0] = 256
+ handler table  [0x000000011a73a1b0,0x000000011a73a3f0] = 576
+ nul chk table  [0x000000011a73a3f0,0x000000011a73a4c0] = 208
+
+
+[Constant Pool]
+             Address          hex4                    hex8      
+  0x000000011a736940:   0x9999999a      0x3fb999999999999a      
+  0x000000011a736944:   0x3fb99999                              
+  0x000000011a736948:   0x00000000      0x0000000000000000      
+  0x000000011a73694c:   0x00000000                              
+  0x000000011a736950:   0x00000000      0x0000000000000000      
+  0x000000011a736954:   0x00000000                              
+  0x000000011a736958:   0x00000000      0x0000000000000000      
+  0x000000011a73695c:   0x00000000                              
+  0x000000011a736960:   0x00000000      0x0000000000000000      
+  0x000000011a736964:   0x00000000                              
+  0x000000011a736968:   0x00000000      0x0000000000000000      
+  0x000000011a73696c:   0x00000000                              
+  0x000000011a736970:   0x00000000      0x0000000000000000      
+  0x000000011a736974:   0x00000000                              
+  0x000000011a736978:   0x00000000      0x0000000000000000      
+  0x000000011a73697c:   0x00000000                              
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000138653798} 'resetModulesToAbsolute' '()V' in 'frc/robot/subsystems/swerve/Swerve'
+  #           [sp+0xd0]  (sp of caller)
+  0x000000011a736980: ;   {no_reloc}
+  0x000000011a736980: 2808 40b9 | 3f01 086b | 4000 0054 
+
+  0x000000011a73698c: ;   {runtime_call ic_miss_stub}
+  0x000000011a73698c: 9dc8 e417 
+[Verified Entry Point]
+  0x000000011a736990: 1f20 03d5 | e953 40d1 | 3f01 00f9 | ff43 03d1 | fd7b 0ca9 | 2a28 40b9 | 4bf1 7dd3 
+
+  0x000000011a7369ac: ; implicit exception: dispatches to 0x000000011a737ff0
+  0x000000011a7369ac: 6d0d 40b9 | bf01 0071 | 294b 0054 | aa05 0051 | 5f01 0d6b | e2a2 0054 | 8a47 41f9 | 4a01 40f9 
+  0x000000011a7369cc: eb07 00f9 | 4bfd 43d3 | ed13 00b9 | 1290 621e | e103 00f9 | 1010 611e | eb17 00b9 
+
+  0x000000011a7369e8: ;   {section_word}
+  0x000000011a7369e8: d1fa ff5c | 1310 6e1e | ea0f 00f9 | ec03 1f2a | 7e00 0014 | ec03 1b32 | 4c41 0039 | 6b08 8052 
+  0x000000011a736a08: ec0d 8052 | 4b45 0039 | 4c49 0039 | cb0d 8052 | cc0c 8052 | 4b4d 0039 | 4c51 0039 | 2b0d 8052 
+  0x000000011a736a28: ec0c 8052 | 4b55 0039 | 4c59 0039 | ea47 40f9 | 4b15 40b9 | 6af1 7dd3 | ea4f 00f9 
+
+  0x000000011a736a44: ; implicit exception: dispatches to 0x000000011a737fd8
+  0x000000011a736a44: 4b0d 40b9 | ea47 40f9 | 4a41 c039 | eb2b 00b9 | 6c29 ca1a | eb4b 40f9 | 73c1 2ccb | eb03 132a 
+  0x000000011a736a64: eba3 00b9 | e803 60b2 | 7f02 08eb | aa5d 0054 | eb4f 40f9 | 6041 0091 | 8a73 0035 | eba3 40b9 
+  0x000000011a736a84: ea57 40f9 | 4ac1 2b8b | ec03 0b2a | eb2b 40b9 | eda3 40b9 | 8c01 0b0b | ed87 f837 | bf03 0c6b 
+  0x000000011a736aa4: a387 0054 | 7f01 0071 | 8900 0054 | 627d 4093 | 4141 0091 
+
+  0x000000011a736ab8: ;   {runtime_call StubRoutines (2)}
+  0x000000011a736ab8: 9073 e497 | ea57 40f9 | 5dfd 43d3 | b36e 00b5 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb 
+  0x000000011a736ad8: 2279 0054 | ea03 40b2 | 8b87 00f9 | 0a00 00f9 
+
+  0x000000011a736ae8: ;   {metadata('java/lang/String')}
+  0x000000011a736ae8: 8a00 a0d2 | 0a79 83f2 | 0a7c 0129 | 70c1 80f9 | 1f08 00f9 | 1d14 00b9 | bf3b 03d5 | fd03 00aa 
+  0x000000011a736b08: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x00000007066beed8})}
+  0x000000011a736b08: 0adb 9dd2 | 6acd a0f2 | ea00 c0f2 | 4115 40b9 | e203 1daa 
+
+  0x000000011a736b1c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokestatic reportStatusCode {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@102 (line 61)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {static_call}
+  0x000000011a736b1c: ad47 fc97 | f22b 40fd | f02f 40fd | f333 40fd | ea1b 40f9 | 4b31 40b9 | 7df1 7dd3 
+
+  0x000000011a736b38: ; implicit exception: dispatches to 0x000000011a737fc0
+  0x000000011a736b38: aa0b 40b9 
+
+  0x000000011a736b3c: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x000000011a736b3c: cc00 a0d2 | 0c80 83f2 | 5f01 0c6b | 0182 0054 | aa0f 40b9 | 4af1 7dd3 | fd2b 05a9 | 4a7f 00b4 
+  0x000000011a736b5c: 4a41 0091 | 4bfd df88 | ea2f 40f9 | 4a0d 40b9 | 4af1 7dd3 | ec0f 40f9 | 7d05 0051 | ea33 00f9 
+  0x000000011a736b7c: 5f01 0ceb | 2188 0054 | 7f05 0071 | 2183 0054 | 8ae3 c039 | aa4c 0035 | ea2f 40f9 | 5f0d 00b9 
+  0x000000011a736b9c: 4a41 0091 | 5dfd 9f88 | ea2f 40f9 | 4a51 0091 | 4afd df88 
+
+  0x000000011a736bb0: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x0000000706653158})}
+  0x000000011a736bb0: 0b2b 86d2 | abcc a0f2 | eb00 c0f2 | 6c15 40b9 | 5df1 7dd3 | eb3b 40f9 | 6b15 40b9 | 1d86 00b5 
+  0x000000011a736bd0: 7f01 0c6b | 8153 0054 | ea2f 40b9 | 4c05 0011 | eb13 40b9 | 9f01 0b6b | 8a39 0054 | f127 40fd 
+  0x000000011a736bf0: ea07 40f9 | 4ac9 2c8b | 4a11 40b9 | 4af1 7dd3 | ea13 00f9 
+
+  0x000000011a736c04: ; implicit exception: dispatches to 0x000000011a737f7c
+  0x000000011a736c04: 4b35 40b9 
+
+  0x000000011a736c08: ;   {oop(a 'com/ctre/phoenix6/spns/SpnValue'{0x00000007066e3df8})}
+  0x000000011a736c08: 0abf 87d2 | cacd a0f2 | ea00 c0f2 | 4d15 40b9 | ea13 40f9 | 4a39 40b9 | 4af1 7dd3 | ea1b 00f9 
+  0x000000011a736c28: 6af1 7dd3 | ed2b 00b9 | ea1f 00f9 | ad01 0211 | ea1b 40f9 
+
+  0x000000011a736c3c: ; implicit exception: dispatches to 0x000000011a737f88
+  0x000000011a736c3c: 4b21 40b9 | 7df1 7dd3 | bf01 0471 | 6302 0054 | 8d87 40f9 | 8a8f 40f9 | ab41 0091 | 7f01 0aeb 
+  0x000000011a736c5c: 026f 0054 | ea03 40b2 | 8b87 00f9 | aa01 00f9 
+
+  0x000000011a736c6c: ;   {metadata('java/lang/Integer')}
+  0x000000011a736c6c: aa00 a0d2 | 0aea 8cf2 | aa09 00b9 | 70c1 80f9 | bf0d 00b9 | ec2f 00b9 | ec2b 40b9 | ac0d 00b9 
+  0x000000011a736c8c: ed23 00f9 | 0d00 0014 
+
+  0x000000011a736c94: ;   {oop(a 'java/lang/Integer'[256] {0x00000007066e3e10})}
+  0x000000011a736c94: 0bc2 87d2 | cbcd a0f2 | eb00 c0f2 | ee2b 40b9 
+
+  0x000000011a736ca4: ;   {oop(a 'java/lang/Integer'[256] {0x00000007066e3e10})}
+  0x000000011a736ca4: 0ac2 87d2 | cacd a0f2 | ea00 c0f2 | 6ac9 2e8b | 4b11 42b9 | ea0f 0b8b | ea23 00f9 | ec2f 00b9 
+  0x000000011a736cc4: ; implicit exception: dispatches to 0x000000011a737f94
+  0x000000011a736cc4: ab0b 40b9 
+
+  0x000000011a736cc8: ;   {metadata('java/util/concurrent/ConcurrentHashMap')}
+  0x000000011a736cc8: aa00 a0d2 | 0ada 84f2 | 7f01 0a6b | 2174 0054 | aaa3 0091 | 4bfd df88 | 6af1 7dd3 | fdab 04a9 
+  0x000000011a736ce8: ; implicit exception: dispatches to 0x000000011a736dd4
+  0x000000011a736ce8: 4b0d 40b9 | eb5b 00b9 | eb2b 40b9 | ea03 0b2a | 6a41 4a4a | ec5b 40b9 | 4a79 0012 | 8b05 0051 
+  0x000000011a736d08: 6b01 0a0a | ea5f 00b9 | ea2b 40f9 | 4ac9 2b8b | eb5b 40b9 | 7f01 0071 | c974 0054 | 4a41 0091 
+  0x000000011a736d28: 4afd df88 | 4af1 7dd3 | ea33 00f9 
+
+  0x000000011a736d34: ; implicit exception: dispatches to 0x000000011a736dd4
+  0x000000011a736d34: 4a0d 40b9 | eb5f 40b9 | ea6b 00b9 | 5f01 0b6b | c004 0054 | ea33 40f9 | 4a61 0091 | ec6b 40b9 
+  0x000000011a736d54: 4afd df88 | cc86 f837 | 4af1 7dd3 | ea33 00f9 | 8a03 00b4 | eb33 40f9 | 6c0d 40b9 
+
+  0x000000011a736d70: ; ImmutableOopMap {r11=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.ConcurrentHashMap::get@127 (line 946)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+  0x000000011a736d70: 8aab 41f9 
+
+  0x000000011a736d74: ;   {poll}
+  0x000000011a736d74: 5f01 40b9 | ea5f 40b9 | 9f01 0a6b | 8134 0054 | 6a51 0091 | 4cfd df88 | 6a11 40b9 | 4af1 7dd3 
+  0x000000011a736d94: eb23 40f9 | ea3b 00f9 | 5f01 0beb | 8001 0054 
+
+  0x000000011a736da4: ; implicit exception: dispatches to 0x000000011a737ffc
+  0x000000011a736da4: 4a09 40b9 
+
+  0x000000011a736da8: ;   {metadata('java/lang/Integer')}
+  0x000000011a736da8: ad00 a0d2 | 0dea 8cf2 | 5f01 0d6b | 018e 0054 | ea3b 40f9 | 5d0d 40b9 | eb2b 40b9 | ea3f 00f9 
+  0x000000011a736dc8: 7f01 1d6b | 6183 0054 | 2c03 0035 | 6101 8012 
+
+  0x000000011a736dd8: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@13 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a736dd8: aae2 e497 | ea33 40f9 | 4a51 0091 | 4cfd df88 | ea33 40f9 | 4a11 40b9 | 4af1 7dd3 | eb23 40f9 
+  0x000000011a736df8: ea3b 00f9 | 5f01 0beb | 8001 0054 
+
+  0x000000011a736e04: ; implicit exception: dispatches to 0x000000011a737fe8
+  0x000000011a736e04: 4a09 40b9 
+
+  0x000000011a736e08: ;   {metadata('java/lang/Integer')}
+  0x000000011a736e08: ab00 a0d2 | 0bea 8cf2 | 5f01 0b6b | 818a 0054 | ea3b 40f9 | 5d0d 40b9 | eb2b 40b9 | ea3f 00f9 
+  0x000000011a736e28: 7f01 1d6b | 8175 0054 | 2cfd ff34 | 9df1 7dd3 | aa0b 40b9 
+
+  0x000000011a736e3c: ;   {metadata('com/ctre/phoenix6/StatusSignal')}
+  0x000000011a736e3c: 4b02 a0d2 | 0b2a 8af2 | 5f01 0b6b | 2188 0054 | aa43 40b9 | fd23 00f9 | 0a66 0034 
+
+  0x000000011a736e58: ;   {oop(a 'java/lang/Class'{0x0000000706655410} = 'edu/wpi/first/units/measure/Angle')}
+  0x000000011a736e58: 8c19 bcd2 | 4c50 95f2 | 5f01 0c6b | e167 0054 | f333 00fd | f02f 00fd | f22b 00fd | f127 00fd 
+  0x000000011a736e78: e103 1daa | e203 0032 
+
+  0x000000011a736e80: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*invokevirtual refresh {reexecute=0 rethrow=0 return_oop=1}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@193 (line 466)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a736e80: 0400 fc97 | ea13 40f9 | 5109 40fd | b00b 40fd | 103a 711e | ea1f 40f9 
+
+  0x000000011a736e98: ; implicit exception: dispatches to 0x000000011a737f9c
+  0x000000011a736e98: 4a39 40b9 | 4af1 7dd3 | ea1b 00f9 | ca63 00b4 
+
+  0x000000011a736ea8: ;   {oop(a 'com/ctre/phoenix6/spns/SpnValue'{0x000000070676cef8})}
+  0x000000011a736ea8: 0adf 99d2 | cace a0f2 | ea00 c0f2 | f023 00fd | 4115 40b9 | 0042 601e 
+
+  0x000000011a736ec0: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*invokestatic Serializedouble {reexecute=0 rethrow=0 return_oop=1}
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@7 (line 1360)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {static_call}
+  0x000000011a736ec0: c410 fb97 | ea1b 40f9 | 4a31 40b9 | e037 00f9 | 5df1 7dd3 
+
+  0x000000011a736ed4: ; implicit exception: dispatches to 0x000000011a737fa8
+  0x000000011a736ed4: ab0b 40b9 
+
+  0x000000011a736ed8: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x000000011a736ed8: cc00 a0d2 | 0c80 83f2 | 7f01 0c6b | a164 0054 | ab0f 40b9 | 6af1 7dd3 | fd2b 07a9 | aa61 00b4 
+  0x000000011a736ef8: ed03 0032 | eb03 1f2a | 4a41 0091 | e803 0baa | 4dfd e888 | 1f01 0b6b | ea17 9f9a | 0a58 0034 
+  0x000000011a736f18: 8ae3 c039 | ca2e 0035 | ea3f 40f9 | eb0f 40f9 | 6b01 0aca | ed17 40b9 | 6bfd 55d3 | ec3f 40f9 
+  0x000000011a736f38: 8d0d 00b9 | 0b01 00b4 | 4afd 49d3 | 0bc0 a0d2 | 2b00 c0f2 | 6001 0a8b | 0a00 c039 | 5f11 0071 
+  0x000000011a736f58: e12f 0054 | ea1b 40f9 | 5335 40b9 | 74f2 7dd3 | 545e 00b4 | 8be3 c039 | cb2a 0035 | eb37 40f9 
+  0x000000011a736f78: ea03 14aa | 6b01 0aca | ec37 40f9 | 8dfd 43d3 | 6bfd 55d3 | 8d0e 00b9 | 2b01 00b4 | 0c01 00b4 
+  0x000000011a736f98: 4afd 49d3 | 0bc0 a0d2 | 2b00 c0f2 | 6001 0a8b | 0b00 c039 | 7f11 0071 | c12f 0054 | ea1b 40f9 
+  0x000000011a736fb8: 4a0d 40b9 | 4af1 7dd3 | 7df2 7dd3 
+
+  0x000000011a736fc4: ; implicit exception: dispatches to 0x000000011a737fb0
+  0x000000011a736fc4: 4c15 40b9 | 4b11 40b9 | 8af1 7dd3 | eb2b 00b9 | ea3b 00f9 | 1d5b 00b4 | e103 1daa | e203 0aaa 
+  0x000000011a736fe4: e303 0b2a | e027 40fd | e403 1f2a | e503 0032 
+
+  0x000000011a736ff4: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokevirtual SetConfigs {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@40 (line 73)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a736ff4: 1717 fc97 
+
+  0x000000011a736ff8: ;   {oop(a 'java/lang/Class'{0x00000007066f8348} = 'com/ctre/phoenix6/StatusCode')}
+  0x000000011a736ff8: 0a69 90d2 | eacd a0f2 | ea00 c0f2 | 4a59 43b9 | 0c00 0211 | 5df1 7dd3 | e02b 00b9 | 9f01 0471 
+  0x000000011a737018: 2302 0054 | 8c87 40f9 | 8a8f 40f9 | 8b41 0091 | 7f01 0aeb | 6252 0054 | ea03 40b2 | 8b87 00f9 
+  0x000000011a737038: ;   {metadata('java/lang/Integer')}
+  0x000000011a737038: ad00 a0d2 | 0dea 8cf2 | 8a01 00f9 | 8d09 00b9 | 70c1 80f9 | ea2b 40b9 | 8a0d 00b9 | ec3b 00f9 
+  0x000000011a737058: 0b00 0014 
+
+  0x000000011a73705c: ;   {oop(a 'java/lang/Integer'[256] {0x00000007066e3e10})}
+  0x000000011a73705c: 0bc2 87d2 | cbcd a0f2 | eb00 c0f2 
+
+  0x000000011a737068: ;   {oop(a 'java/lang/Integer'[256] {0x00000007066e3e10})}
+  0x000000011a737068: 0ac2 87d2 | cacd a0f2 | ea00 c0f2 | 6ac9 208b | 4b11 42b9 | ea0f 0b8b | ea3b 00f9 
+
+  0x000000011a737084: ; implicit exception: dispatches to 0x000000011a737fb8
+  0x000000011a737084: ab0b 40b9 
+
+  0x000000011a737088: ;   {metadata('java/util/HashMap')}
+  0x000000011a737088: ac00 a0d2 | 0c38 9ff2 | 7f01 0c6b | 6157 0054 | ab27 40b9 | 6af1 7dd3 | fdab 07a9 
+
+  0x000000011a7370a4: ; implicit exception: dispatches to 0x000000011a7374a0
+  0x000000011a7370a4: 4b0d 40b9 | ea2b 40b9 | 4a41 4a4a | ea8f 00b9 | 6a05 0051 | eb8b 00b9 | ec8f 40b9 | 4b01 0c0a 
+  0x000000011a7370c4: ea43 40f9 | 4ac9 2b8b | eb8b 40b9 | 7f01 0071 | 6957 0054 | 4b11 40b9 | 6af1 7dd3 | ea4b 00f9 
+  0x000000011a7370e4: ; implicit exception: dispatches to 0x000000011a7374a0
+  0x000000011a7370e4: 4a0d 40b9 | 5f01 0c6b | 8114 0054 | ea4b 40f9 | 4a11 40b9 | 4af1 7dd3 | eb3b 40f9 | ea4f 00f9 
+  0x000000011a737104: 5f01 0beb | 8001 0054 
+
+  0x000000011a73710c: ; implicit exception: dispatches to 0x000000011a737fe0
+  0x000000011a73710c: 4a09 40b9 
+
+  0x000000011a737110: ;   {metadata('java/lang/Integer')}
+  0x000000011a737110: ab00 a0d2 | 0bea 8cf2 | 5f01 0b6b | 0172 0054 | ea4f 40f9 | 5d0d 40b9 | ea53 00f9 | ea2b 40b9 
+  0x000000011a737130: 5f01 1d6b | 815d 0054 | ea4b 40f9 | 4a15 40b9 | 5df1 7dd3 
+
+  0x000000011a737144: ; implicit exception: dispatches to 0x000000011a7374a0
+  0x000000011a737144: ab0b 40b9 
+
+  0x000000011a737148: ;   {metadata('com/ctre/phoenix6/StatusCode')}
+  0x000000011a737148: 4a02 a0d2 | 0aff 87f2 | 7f01 0a6b | 0170 0054 | fd3b 00f9 
+
+  0x000000011a73715c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokestatic getCurrentTimeSeconds {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.Utils::getCurrentTimeSeconds@0 (line 26)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@0 (line 38)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {static_call}
+  0x000000011a73715c: 5dcf fb97 | ea1b 40f9 | 500d 40fd | 1038 701e | f22b 40fd | 5411 40fd | 4022 701e | 1138 741e 
+  0x000000011a73717c: 4011 00fd | 2c57 0054 | f333 40fd | 6022 711e | ed18 0054 | 5015 40fd | 0822 601e | 0019 0054 
+  0x000000011a73719c: 0822 601e | 8d18 0054 | 1138 701e | f02f 40fd | 2022 701e | edcb ff54 | 4b0d 40b9 | 61f1 7dd3 
+  0x000000011a7371bc: 614c 00b4 | f443 00fd | e03f 00fd 
+
+  0x000000011a7371c8: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual toString {reexecute=0 rethrow=0 return_oop=1}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@84 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a7371c8: 4255 ff97 | e047 00f9 
+
+  0x000000011a7371d0: ; implicit exception: dispatches to 0x000000011a737fc8
+  0x000000011a7371d0: 0a14 40b9 | 4af1 7dd3 
+
+  0x000000011a7371d8: ; implicit exception: dispatches to 0x000000011a737fd0
+  0x000000011a7371d8: 4b0d 40b9 | 7f01 0071 | 4912 0054 | 0c40 c039 | 6b29 cc1a | 6a7d 4093 | eb2b 00b9 | ea4b 00f9 
+  0x000000011a7371f8: 9f05 0071 | 603e 0054 | ea4b 40f9 | 4a1d 0091 | ea4f 00f9 | 4afd 6093 | eb4f 40f9 | 5d1d 0013 
+  0x000000011a737218: ec03 0b2a | 8a21 dd1a | eb2b 40b9 | ec2b 1429 | 6b51 f837 | 8c51 f837 | eba7 40b9 | 0b53 f837 
+  0x000000011a737238: ea03 0b2a | 4a7d 4093 | 7f01 4471 | 2900 0054 | ec03 0b2a | 7f01 4471 | 683c 0054 | 8d87 40f9 
+  0x000000011a737258: 4a5d 0091 | 4af1 7d92 | 8b8f 40f9 | aa01 0a8b | 5f01 0beb | 823b 0054 | eb03 40b2 | 8a87 00f9 
+  0x000000011a737278: ab01 00f9 
+
+  0x000000011a73727c: ;   {metadata({type array byte})}
+  0x000000011a73727c: 8e00 a0d2 | 0efc 80f2 | 50c1 80f9 | ae09 00b9 | 5001 81f9 | ac0d 00b9 | 5041 81f9 | eca3 00b9 
+  0x000000011a73729c: bf3a 03d5 | eba3 40b9 | ea4b 40f9 | ed57 00f9 | fd03 0b2a | e803 60b2 | 5f01 08eb | 6a1a 0054 
+  0x000000011a7372bc: ea2b 40b9 | 4b1d 0011 | bf03 0b6b | 4346 0054 | ec2b 40b9 | aac1 2c8b | 9f01 0071 | 2db9 ff54 
+  0x000000011a7372dc: eb0c 8052 | 4b59 0039 | 2c0d 8052 | cb0c 8052 | 4c55 0039 | 4b51 0039 | cc0d 8052 | eb0d 8052 
+  0x000000011a7372fc: 4c4d 0039 | 4b49 0039 | 6c08 8052 | eb03 1b32 | 4c45 0039 | 4b41 0039 | c8fd ff17 | fd7b 4ca9 
+  0x000000011a73731c: ff43 0391 | 88e3 41f9 | ff63 28eb | 2302 0054 | fd7b bfa9 | fd03 0091 
+
+  0x000000011a737334: ;   {external_word}
+  0x000000011a737334: 8848 81d2 | a850 a1f2 | 2800 c0f2 | e003 1caa | 0001 3fd6 | bf03 0091 | fd7b c1a8 
+
+  0x000000011a737350: ;   {runtime_call delayed StackOverflowError throw_exception}
+  0x000000011a737350: 0860 9ad2 | 4840 a3f2 | 2800 c0f2 | 0001 1fd6 | c1d5 bbd4 | dcea aa0a | 0100 0000 
+
+  0x000000011a73736c: ;   {poll_return}
+  0x000000011a73736c: 88a7 41f9 | ff63 28eb | 086f 0054 | c003 5fd6 | ea4b 40f9 | 4a19 40b9 | 4af1 7dd3 | ea4f 00f9 
+  0x000000011a73738c: ea4b 40f9 | 4b09 40b9 | ea4f 40f9 | 4a08 00b4 
+
+  0x000000011a73739c: ;   {metadata('java/util/HashMap$TreeNode')}
+  0x000000011a73739c: ca00 a0d2 | 0aa1 82f2 | 7f01 0a6b | 6055 0054 | ea4f 40f9 | 4b0d 40b9 | ec8f 40b9 | 7f01 0c6b 
+  0x000000011a7373bc: 6106 0054 | 4b11 40b9 | 6af1 7dd3 | eb3b 40f9 | ea53 00f9 | 5f01 0beb | 8001 0054 
+
+  0x000000011a7373d8: ; implicit exception: dispatches to 0x000000011a738004
+  0x000000011a7373d8: 4b09 40b9 
+
+  0x000000011a7373dc: ;   {metadata('java/lang/Integer')}
+  0x000000011a7373dc: aa00 a0d2 | 0aea 8cf2 | 7f01 0a6b | 215c 0054 | ea53 40f9 | 5d0d 40b9 | eb2b 40b9 | ea57 00f9 
+  0x000000011a7373fc: 7f01 1d6b | 6155 0054 | ea4f 40f9 | ea4b 00f9 | 4bff ff17 | 6a61 0091 | 4afd df88 | 4af1 7dd3 
+  0x000000011a73741c: ea33 00f9 | 4aca ffb5 | 6cfe ff17 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb | 623b 0054 
+  0x000000011a73743c: ea03 40b2 | 8b87 00f9 | 0a00 00f9 
+
+  0x000000011a737448: ;   {metadata('java/lang/String')}
+  0x000000011a737448: 8a00 a0d2 | 0a79 83f2 | 0a7c 0129 | 70c1 80f9 | 1f10 00b9 
+
+  0x000000011a73745c: ;   {oop([B{0x00000007066beef0})}
+  0x000000011a73745c: ab19 bcd2 | cbbb 8ff2 
+
+  0x000000011a737464: ;   {oop(" Config"{0x00000007066bef08})}
+  0x000000011a737464: 0ae1 9dd2 | 6acd a0f2 | ea00 c0f2 | 0b14 00b9 | 4a0d 40b9 | 0a0c 00b9 | bf3b 03d5 | fd03 00aa 
+  0x000000011a737484: a1fd ff17 | 4b19 40b9 | 8aab 41f9 
+
+  0x000000011a737490: ; ImmutableOopMap {r11=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [128]=Oop [144]=Oop }
+                      ;*ifnonnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@145 (line 579)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+  0x000000011a737490: 6bf1 7dd3 
+
+  0x000000011a737494: ;   {poll}
+  0x000000011a737494: 5f01 40b9 | eb4f 00f9 | 8bf8 ffb5 | 6101 8012 
+
+  0x000000011a7374a4: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@10 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a7374a4: f7e0 e497 | 10e4 002f | 5015 00fd | f02f 40fd | 9efd ff17 | 8822 601e | 5415 00fd | 4ce7 ff54 
+  0x000000011a7374c4: fbff ff17 | 8a0e 40b9 | 40f1 7dd3 | 20d5 ffb4 | 8a13 40f9 | 8a37 00b4 | 8b1b 40f9 | 4c21 00d1 
+  0x000000011a7374e4: 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | a1fe ff17 | ea3f 40f9 | 4b0d 40b9 | 60f1 7dd3 | 00d1 ffb4 
+  0x000000011a737504: 8a13 40f9 | 6a37 00b4 | 8b1b 40f9 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | 80fe ff17 
+  0x000000011a737524: ea2f 40f9 | 4b0d 40b9 | 60f1 7dd3 | 20b3 ffb4 | 8a13 40f9 | 0a37 00b4 | 8b1b 40f9 | 4c21 00d1 
+  0x000000011a737544: 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | 91fd ff17 | 8a23 40f9 | 8b2b 40f9 | bf3b 03d5 | 0c00 c039 
+  0x000000011a737564: cccf ff34 | 1f00 0039 | 4a01 00b5 | e103 1caa | c900 0010 
+
+  0x000000011a737578: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_post_entry(unsigned char volatile*, JavaThread*)}
+  0x000000011a737578: 0880 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | 73fe ff17 | 4c21 00d1 
+  0x000000011a737598: 6a01 0a8b | 4081 1ff8 | 8c23 00f9 | 6efe ff17 | 8a23 40f9 | 8b2b 40f9 | bf3b 03d5 | 0d00 c039 
+  0x000000011a7375b8: 0d02 0034 | 1f00 0039 | ca00 00b4 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c23 00f9 | 0900 0014 
+  0x000000011a7375d8: e103 1caa | c900 0010 
+
+  0x000000011a7375e0: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_post_entry(unsigned char volatile*, JavaThread*)}
+  0x000000011a7375e0: 0880 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | ea1b 40f9 | 5335 40b9 
+  0x000000011a737600: 6dfe ff17 
+
+  0x000000011a737604: ;   {oop(" Config"{0x00000007066bef08})}
+  0x000000011a737604: 01e1 9dd2 | 61cd a0f2 | e100 c0f2 | e203 0daa | e32b 40b9 | e403 0032 
+
+  0x000000011a73761c: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a73761c: 39c6 e497 | 05fd ff17 | fd03 13aa | e147 40f9 | e257 40f9 | e303 0b2a | e403 0032 
+
+  0x000000011a737638: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a737638: 32c6 e497 | f303 1daa | 1ffd ff17 
+
+  0x000000011a737644: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x00000007066fb9e8})}
+  0x000000011a737644: 0a3d 97d2 | eacd a0f2 | ea00 c0f2 | eb3b 40f9 | 7f01 0aeb | 00ac ff54 | ea1b 40f9 | 4b0d 40b9 
+  0x000000011a737664: 61f1 7dd3 | 6142 00b4 | f333 00fd | f02f 00fd | f22b 00fd 
+
+  0x000000011a737678: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual toString {reexecute=0 rethrow=0 return_oop=1}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a737678: 1654 ff97 | e03f 00f9 
+
+  0x000000011a737680: ; implicit exception: dispatches to 0x000000011a73800c
+  0x000000011a737680: 0a14 40b9 | 4af1 7dd3 
+
+  0x000000011a737688: ; implicit exception: dispatches to 0x000000011a738014
+  0x000000011a737688: 4b0d 40b9 | 7f01 0071 | 2921 0054 | 0c40 c039 | 6b29 cc1a | 6a7d 4093 | eb2b 00b9 | ea43 00f9 
+  0x000000011a7376a8: 9f05 0071 | a03c 0054 | ea43 40f9 | 4a35 0091 | ea47 00f9 | 4afd 6093 | eb47 40f9 | 5d1d 0013 
+  0x000000011a7376c8: ec03 0b2a | 8a21 dd1a | ea97 00b9 | ea2b 40b9 | ec93 00b9 | 0a41 f837 | 2c41 f837 | ea97 40b9 
+  0x000000011a7376e8: 2a41 f837 | 4c7d 4093 | 5f01 4471 | 2900 0054 | eb03 0a2a | 5f01 4471 | e83a 0054 | 8a87 40f9 
+  0x000000011a737708: 8c5d 0091 | 8cf1 7d92 | 8d8f 40f9 | 4c01 0c8b | 9f01 0deb | 023a 0054 | ed03 40b2 | 8c87 00f9 
+  0x000000011a737728: 4d01 00f9 
+
+  0x000000011a73772c: ;   {metadata({type array byte})}
+  0x000000011a73772c: 8e00 a0d2 | 0efc 80f2 | 90c1 80f9 | 4e09 00b9 | 9001 81f9 | 4b0d 00b9 | 9041 81f9 | eb93 00b9 
+  0x000000011a73774c: bf3a 03d5 | eb93 40b9 | ea4f 00f9 | ea43 40f9 | fd03 0b2a | e803 60b2 | 5f01 08eb | aa29 0054 
+  0x000000011a73776c: eb2b 40b9 | ea4f 40f9 | 4ac1 2b8b 
+
+  0x000000011a737778: ;   {oop([B{0x000000070676cf10})}
+  0x000000011a737778: cc19 bcd2 | 4c3c 9bf2 | eb0f 0c8b | ec2b 40b9 | 8d35 0011 | bf03 0d6b | 6339 0054 | a201 80d2 
+  0x000000011a737798: 4141 0091 | 6041 0091 
+
+  0x000000011a7377a0: ;   {runtime_call StubRoutines (2)}
+  0x000000011a7377a0: 5670 e497 | ea3f 40f9 | 4a15 40b9 | 4af1 7dd3 | ea47 00f9 
+
+  0x000000011a7377b4: ; implicit exception: dispatches to 0x000000011a73801c
+  0x000000011a7377b4: 4b0d 40b9 | eb2b 00b9 | ea3f 40f9 | 4b41 c039 | ea2b 40b9 | 4a29 cb1a | ec43 40f9 | 93c1 2acb 
+  0x000000011a7377d4: ea03 132a | ea93 00b9 | e803 60b2 | 7f02 08eb | ca26 0054 | ea47 40f9 | 4041 0091 | 8b2a 0035 
+  0x000000011a7377f4: ec93 40b9 | ea4f 40f9 | 4ac1 2c8b | ed2b 40b9 | 8b01 0d0b | ec35 f837 | bf03 0b6b | a335 0054 
+  0x000000011a737814: eb2b 40b9 | 7f01 0071 | 8900 0054 | 627d 4093 | 4141 0091 
+
+  0x000000011a737828: ;   {runtime_call StubRoutines (2)}
+  0x000000011a737828: 3470 e497 | ea4f 40f9 | 5dfd 43d3 | d325 00b5 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb 
+  0x000000011a737848: a231 0054 | ea03 40b2 | 8b87 00f9 | 0a00 00f9 
+
+  0x000000011a737858: ;   {metadata('java/lang/String')}
+  0x000000011a737858: 8a00 a0d2 | 0a79 83f2 | 0a7c 0129 | 70c1 80f9 | 1f08 00f9 | 1d14 00b9 | bf3b 03d5 | fd03 00aa 
+  0x000000011a737878: ea3b 40f9 | 4115 40b9 | e203 1daa 
+
+  0x000000011a737884: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokestatic reportStatusCode {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@115 (line 87)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {static_call}
+  0x000000011a737884: 5344 fc97 | f22b 40fd | f02f 40fd | f333 40fd | d1fc ff17 | e803 60b2 | 7f02 08eb | 2132 0054 
+  0x000000011a7378a4: 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb | 022f 0054 | ea03 40b2 | 8b87 00f9 
+
+  0x000000011a7378c0: ;   {metadata('java/lang/String')}
+  0x000000011a7378c0: 8c00 a0d2 | 0c79 83f2 | 0a00 00f9 | 0c08 00b9 | 70c1 80f9 | 1f0c 00b9 | ea03 40b2 | 0a08 00f9 
+  0x000000011a7378e0: 1d14 00b9 | bf3b 03d5 | 87fc ff17 | eaa3 40b9 | 4b79 1f53 | eb2f f837 | ec2b 40b9 | 8a79 1f53 
+  0x000000011a737900: ec57 40f9 | 8cc1 2b8b | 6d01 0a0b | 2a2f f837 | bf03 0d6b | e32e 0054 | e22b 40b9 | 8141 0091 
+  0x000000011a737920: 00e4 002f | 437c 0353 | e301 0035 | 5f10 0071 | 2b01 0054 | 0144 40bc | 2238 000e | 4210 0051 
+  0x000000011a737940: 2284 00fc | 0204 0034 | 0314 4038 | 2324 0078 | 4204 0051 | a2ff ffb5 | 1b00 0014 
+
+  0x000000011a73795c: ;   {runtime_call StubRoutines (2)}
+  0x000000011a73795c: 997c e497 | f2ff ff17 | 0184 40fc | 4208 0012 | 7f28 00f1 | 6aff ff54 | 0200 0014 | 0184 40fc 
+  0x000000011a73797c: 6304 00f1 | 2001 0054 | 2138 004e | 0284 40fc | 2174 9f4c | 6304 00f1 | 4238 004e | 2274 9f4c 
+  0x000000011a73799c: e1fe ff54 | 0300 0014 | 2138 004e | 2174 9f4c | c200 00b4 | 0000 028b | 0280 5ffc | 2144 228b 
+  0x000000011a7379bc: 4238 004e | 2200 9f3c | 3efc ff17 | 4a01 60b2 | ea4b 00f9 | ea03 0a2a | ea2b 00b9 | 0afe ff17 
+  0x000000011a7379dc: eca3 00b9 
+
+  0x000000011a7379e0: ;   {metadata({type array byte})}
+  0x000000011a7379e0: 01fc 80d2 | 8100 a0f2 | 0101 c0f2 | e203 0c2a 
+
+  0x000000011a7379f0: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop }
+                      ;*invokevirtual allocateUninitializedArray0 {reexecute=0 rethrow=0 return_oop=1}
+                      ; - jdk.internal.misc.Unsafe::allocateUninitializedArray@51 (line 1375)
+                      ; - java.lang.StringConcatHelper::newArray@33 (line 497)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_array_Java}
+  0x000000011a7379f0: 54cd e797 | ed03 00aa | 29fe ff17 | f34b 00f9 
+
+  0x000000011a737a00: ;   {metadata('java/lang/String')}
+  0x000000011a737a00: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737a0c: ; ImmutableOopMap {rfp=NarrowOop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@6 (line 387)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737a0c: 8dcc e797 | 3bfc ff17 | ea3f 40f9 | 4b0d 40b9 | 6af1 7dd3 | eb0f 40f9 | 5f01 0beb | 4003 0054 
+  0x000000011a737a2c: e13f 40f9 | e203 0032 
+
+  0x000000011a737a34: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [120]=Oop }
+                      ;*invokevirtual acquire {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@9 (line 153)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a737a34: 33c5 e497 | 49fd ff17 | ec2f 00b9 | f32f 00fd | f02b 00fd | f227 00fd | f123 00fd 
+
+  0x000000011a737a50: ;   {metadata('java/lang/Integer')}
+  0x000000011a737a50: 01ea 8cd2 | a100 a0f2 | 0101 c0f2 
+
+  0x000000011a737a5c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.Integer::valueOf@23 (line 1081)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@5 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737a5c: 79cc e797 | ed03 00aa | f123 40fd | f227 40fd | f02b 40fd | f32f 40fd | 84fc ff17 
+
+  0x000000011a737a78: ;   {metadata('java/lang/Integer')}
+  0x000000011a737a78: 01ea 8cd2 | a100 a0f2 | 0101 c0f2 
+
+  0x000000011a737a84: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.Integer::valueOf@23 (line 1081)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@4 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737a84: 6fcc e797 | ec03 00aa | 70fd ff17 | ea3f 40f9 | 4a41 0091 | 4bfd df88 | 7d05 0011 | 7d24 f837 
+  0x000000011a737aa4: ea3f 40f9 | 4a41 0091 | 5dfd 9f88 | 2bfd ff17 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb 
+  0x000000011a737ac4: 6220 0054 | ea03 40b2 | 8b87 00f9 | 0a00 00f9 
+
+  0x000000011a737ad4: ;   {metadata('java/lang/String')}
+  0x000000011a737ad4: 8a00 a0d2 | 0a79 83f2 | 0a7c 0129 | 70c1 80f9 | 1f10 00b9 
+
+  0x000000011a737ae8: ;   {oop([B{0x000000070676cf10})}
+  0x000000011a737ae8: cb19 bcd2 | 4b3c 9bf2 
+
+  0x000000011a737af0: ;   {oop(" Apply Config"{0x000000070676cee0})}
+  0x000000011a737af0: 0adc 99d2 | cace a0f2 | ea00 c0f2 | 0b14 00b9 | 4a0d 40b9 | 0a0c 00b9 | bf3b 03d5 | fd03 00aa 
+  0x000000011a737b10: 5aff ff17 | 2101 8012 
+
+  0x000000011a737b18: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*invokevirtual equals {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@165 (line 460)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b18: 5adf e497 | f00f 00fd | 2101 8012 
+
+  0x000000011a737b24: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop }
+                      ;*invokevirtual setPosition {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b24: 57df e497 | 2101 8012 
+
+  0x000000011a737b2c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokevirtual lock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b2c: 55df e497 | 2101 8012 
+
+  0x000000011a737b34: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*putfield serializedString {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@14 (line 71)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b34: 53df e497 | 2101 8012 
+
+  0x000000011a737b3c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual SetConfigs {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@40 (line 73)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b3c: 51df e497 | 2101 8012 
+
+  0x000000011a737b44: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual release {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b44: 4fdf e497 | f427 00fd | e00f 00fd | 2101 8012 
+
+  0x000000011a737b54: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokevirtual toString {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@84 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b54: 4bdf e497 | 2104 8012 
+
+  0x000000011a737b5c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop }
+                      ;*invokeinterface get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b5c: 49df e497 
+
+  0x000000011a737b60: ;   {oop(a 'java/lang/Class'{0x0000000706655410} = 'edu/wpi/first/units/measure/Angle')}
+  0x000000011a737b60: 8b19 bcd2 | 4b50 95f2 | 5f01 0b6b | fd17 9f1a | 4117 8012 
+
+  0x000000011a737b74: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop }
+                      ;*ifne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) com.ctre.phoenix6.hardware.ParentDevice::commonLookup@168 (line 460)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b74: 43df e497 | 2104 8012 
+
+  0x000000011a737b7c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokeinterface lock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b7c: 41df e497 | 2104 8012 
+
+  0x000000011a737b84: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b84: 3fdf e497 | 2104 8012 
+
+  0x000000011a737b8c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokeinterface unlock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b8c: 3ddf e497 | 6106 8012 
+
+  0x000000011a737b94: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737b94: 3bdf e497 | fd03 13aa | 6106 8012 
+
+  0x000000011a737ba0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [152]=Oop [168]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ba0: 38df e497 
+
+  0x000000011a737ba4: ;   {metadata('java/lang/String')}
+  0x000000011a737ba4: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737bb0: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::simpleConcat@17 (line 411)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737bb0: 24cc e797 | 2afe ff17 | 4117 8012 
+
+  0x000000011a737bbc: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [80]=Oop }
+                      ;*ifle {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.ConcurrentHashMap::get@23 (line 937)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737bbc: 31df e497 | 4117 8012 
+
+  0x000000011a737bc4: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [128]=Oop }
+                      ;*ifle {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@14 (line 567)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737bc4: 2fdf e497 | e103 1caa | c900 0010 
+
+  0x000000011a737bd0: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a737bd0: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | e3fc ff17 | 4117 8012 
+  0x000000011a737bf0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [80]=Oop [88]=Oop [104]=Oop [112]=Oop }
+                      ;*ifne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.ReentrantLock$Sync::tryRelease@26 (line 176)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@2 (line 1007)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737bf0: 24df e497 | e103 1caa | c900 0010 
+
+  0x000000011a737bfc: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a737bfc: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | c3fc ff17 | 6a42 601e 
+  0x000000011a737c1c: 4842 601e | 0942 601e | e103 1caa | c900 0010 
+
+  0x000000011a737c2c: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a737c2c: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | 1241 601e | 3041 601e 
+  0x000000011a737c4c: 5341 601e | d1fb ff17 | 4117 8012 
+
+  0x000000011a737c58: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@46 (line 419)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c58: 0adf e497 | 4117 8012 
+
+  0x000000011a737c60: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@54 (line 420)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c60: 08df e497 | 4022 701e | ea03 9f5a | 4ab5 8a5a | f427 00fd | e00f 00fd | fd03 0a4b | 4117 8012 
+  0x000000011a737c80: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@24 (line 42)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c80: 00df e497 | 4117 8012 
+
+  0x000000011a737c88: ; ImmutableOopMap {[0]=Oop [8]=Oop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [80]=Oop [88]=Oop [96]=Oop [104]=Oop [112]=Oop }
+                      ;*if_acmpeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.ReentrantLock$Sync::tryRelease@14 (line 174)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@2 (line 1007)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c88: fede e497 | 4117 8012 
+
+  0x000000011a737c90: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [80]=Oop [88]=Oop [104]=Oop [112]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.AbstractQueuedSynchronizer::signalNext@1 (line 609)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@12 (line 1008)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c90: fcde e497 | 4117 8012 
+
+  0x000000011a737c98: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::newArray@13 (line 494)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737c98: fade e497 
+
+  0x000000011a737c9c: ;   {oop(" Apply Config"{0x000000070676cee0})}
+  0x000000011a737c9c: 01dc 99d2 | c1ce a0f2 | e100 c0f2 | e24f 40f9 | e32b 40b9 | e403 0032 
+
+  0x000000011a737cb4: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a737cb4: 93c4 e497 | bbfe ff17 | fd03 13aa | e13f 40f9 | e24f 40f9 | e303 0a2a | e403 0032 
+
+  0x000000011a737cd0: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {optimized virtual_call}
+  0x000000011a737cd0: 8cc4 e497 | f303 1daa | d5fe ff17 | 4117 8012 
+
+  0x000000011a737ce0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [112]=Oop [120]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.concurrent.ConcurrentHashMap::get@73 (line 940)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ce0: e8de e497 | 4117 8012 
+
+  0x000000011a737ce8: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [128]=Oop [144]=Oop [152]=Oop [160]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.HashMap::getNode@63 (line 570)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ce8: e6de e497 | e803 60b2 | 7f02 08eb | 0112 0054 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb 
+  0x000000011a737d08: 6210 0054 | ea03 40b2 | 8b87 00f9 
+
+  0x000000011a737d14: ;   {metadata('java/lang/String')}
+  0x000000011a737d14: 8c00 a0d2 | 0c79 83f2 | 0a00 00f9 | 0c08 00b9 | 70c1 80f9 | 1f0c 00b9 | ea03 40b2 | 0a08 00f9 
+  0x000000011a737d34: 1d14 00b9 | bf3b 03d5 | cefe ff17 | ea93 40b9 | 4a79 1f53 | ca0f f837 | ec2b 40b9 | eb4f 40f9 
+  0x000000011a737d54: 8c79 1f53 | 6bc1 2a8b | 4a01 0c0b | 0c0f f837 | bf03 0a6b | c30e 0054 | e22b 40b9 | 6141 0091 
+  0x000000011a737d74: 00e4 002f | 437c 0353 | e301 0035 | 5f10 0071 | 2b01 0054 | 0144 40bc | 2238 000e | 4210 0051 
+  0x000000011a737d94: 2284 00fc | 0204 0034 | 0314 4038 | 2324 0078 | 4204 0051 | a2ff ffb5 | 1b00 0014 
+
+  0x000000011a737db0: ;   {runtime_call StubRoutines (2)}
+  0x000000011a737db0: 847b e497 | f2ff ff17 | 0184 40fc | 4208 0012 | 7f28 00f1 | 6aff ff54 | 0200 0014 | 0184 40fc 
+  0x000000011a737dd0: 6304 00f1 | 2001 0054 | 2138 004e | 0284 40fc | 2174 9f4c | 6304 00f1 | 4238 004e | 2274 9f4c 
+  0x000000011a737df0: e1fe ff54 | 0300 0014 | 2138 004e | 2174 9f4c | c200 00b4 | 0000 028b | 0280 5ffc | 2144 228b 
+  0x000000011a737e10: 4238 004e | 2200 9f3c | 85fe ff17 | fd03 01aa | ed0b 00b9 | eb03 00f9 | 2111 8012 
+
+  0x000000011a737e2c: ; ImmutableOopMap {rfp=Oop [0]=Oop }
+                      ;*if_icmplt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@28 (line 215)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737e2c: 95de e497 | 4117 8012 
+
+  0x000000011a737e34: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [80]=Oop [96]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.ConcurrentHashMap::get@86 (line 943)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737e34: 93de e497 | 4117 8012 
+
+  0x000000011a737e3c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [112]=Oop [120]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.concurrent.ConcurrentHashMap::get@149 (line 947)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737e3c: 91de e497 | 4a01 60b2 | ea43 00f9 | ea03 0a2a | ea2b 00b9 | 18fe ff17 | 4117 8012 
+
+  0x000000011a737e58: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [128]=Oop [144]=Oop [152]=Oop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@85 (line 573)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737e58: 8ade e497 | eb93 00b9 
+
+  0x000000011a737e60: ;   {metadata({type array byte})}
+  0x000000011a737e60: 01fc 80d2 | 8100 a0f2 | 0101 c0f2 | e203 0b2a 
+
+  0x000000011a737e70: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*invokevirtual allocateUninitializedArray0 {reexecute=0 rethrow=0 return_oop=1}
+                      ; - jdk.internal.misc.Unsafe::allocateUninitializedArray@51 (line 1375)
+                      ; - java.lang.StringConcatHelper::newArray@33 (line 497)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_array_Java}
+  0x000000011a737e70: 34cc e797 | ea03 00aa | 35fe ff17 | f343 00f9 
+
+  0x000000011a737e80: ;   {metadata('java/lang/String')}
+  0x000000011a737e80: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737e8c: ; ImmutableOopMap {rfp=NarrowOop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@6 (line 387)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737e8c: 6dcb e797 | 77fe ff17 | f34b 00f9 
+
+  0x000000011a737e98: ;   {metadata('java/lang/String')}
+  0x000000011a737e98: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737ea4: ; ImmutableOopMap {rfp=NarrowOop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@24 (line 389)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737ea4: 67cb e797 | 8cfe ff17 | 4117 8012 
+
+  0x000000011a737eb0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [128]=Oop [144]=Oop [152]=Oop [160]=Oop [168]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.HashMap::getNode@128 (line 577)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737eb0: 74de e497 | 2101 8012 
+
+  0x000000011a737eb8: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual toString {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737eb8: 72de e497 | 6106 8012 
+
+  0x000000011a737ec0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ec0: 70de e497 | fd03 13aa | 6106 8012 
+
+  0x000000011a737ecc: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [136]=Oop [152]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ecc: 6dde e497 
+
+  0x000000011a737ed0: ;   {metadata('java/lang/String')}
+  0x000000011a737ed0: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737edc: ; ImmutableOopMap {[0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::simpleConcat@17 (line 411)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737edc: 59cb e797 | 02ff ff17 | fd03 13aa | 610b 8052 
+
+  0x000000011a737eec: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::newString@34 (line 391)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737eec: 65de e497 | fd03 13aa | 2106 8012 
+
+  0x000000011a737ef8: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [152]=Oop [168]=Oop }
+                      ;*invokestatic inflate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@40 (line 4461)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ef8: 62de e497 | 4117 8012 
+
+  0x000000011a737f00: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@46 (line 419)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f00: 60de e497 | 4117 8012 
+
+  0x000000011a737f08: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@54 (line 420)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f08: 5ede e497 | 4117 8012 
+
+  0x000000011a737f10: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::newArray@13 (line 494)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f10: 5cde e497 | f343 00f9 
+
+  0x000000011a737f18: ;   {metadata('java/lang/String')}
+  0x000000011a737f18: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a737f24: ; ImmutableOopMap {rfp=NarrowOop [0]=Oop [8]=Oop [20]=NarrowOop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@24 (line 389)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a737f24: 47cb e797 | 81ff ff17 | e10f 1f32 
+
+  0x000000011a737f30: ; ImmutableOopMap {[0]=Oop [8]=Oop [24]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$NonfairSync::initialTryLock@39 (line 231)
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@1 (line 152)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f30: 54de e497 | fd03 13aa | 610b 8052 
+
+  0x000000011a737f3c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [152]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::newString@34 (line 391)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f3c: 51de e497 | fd03 13aa | 2106 8012 
+
+  0x000000011a737f48: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [136]=Oop [152]=Oop }
+                      ;*invokestatic inflate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@40 (line 4461)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f48: 4ede e497 | 2104 8012 
+
+  0x000000011a737f50: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@13 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f50: 4cde e497 | 2104 8012 
+
+  0x000000011a737f58: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@10 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f58: 4ade e497 | 2104 8012 
+
+  0x000000011a737f60: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [128]=Oop [144]=Oop [152]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.HashMap::getNode@63 (line 570)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f60: 48de e497 | 2104 8012 
+
+  0x000000011a737f68: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [80]=Oop [96]=Oop [112]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.concurrent.ConcurrentHashMap::get@73 (line 940)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f68: 46de e497 | 2104 8012 
+
+  0x000000011a737f70: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [128]=Oop [144]=Oop [152]=Oop [160]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.HashMap::getNode@128 (line 577)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f70: 44de e497 | 2104 8012 
+
+  0x000000011a737f78: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [112]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.concurrent.ConcurrentHashMap::get@149 (line 947)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f78: 42de e497 | fd03 0c2a | 2101 8012 
+
+  0x000000011a737f84: ; ImmutableOopMap {[0]=Oop [8]=Oop }
+                      ;*invokevirtual resetSteerMotorToAbsolute {reexecute=0 rethrow=0 return_oop=0}
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f84: 3fde e497 | fd03 0c2a | 2101 8012 
+
+  0x000000011a737f90: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop }
+                      ;*invokevirtual getAbsolutePosition {reexecute=0 rethrow=0 return_oop=0}
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f90: 3cde e497 | 2101 8012 
+
+  0x000000011a737f98: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop }
+                      ;*invokeinterface get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737f98: 3ade e497 | f00f 00fd | 2101 8012 
+
+  0x000000011a737fa4: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop }
+                      ;*invokevirtual setPosition {reexecute=0 rethrow=0 return_oop=0}
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fa4: 37de e497 | 2101 8012 
+
+  0x000000011a737fac: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokeinterface lock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fac: 35de e497 | 2101 8012 
+
+  0x000000011a737fb4: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop }
+                      ;*invokevirtual getNetwork {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@25 (line 74)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fb4: 33de e497 | 2101 8012 
+
+  0x000000011a737fbc: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fbc: 31de e497 | 2101 8012 
+
+  0x000000011a737fc4: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop }
+                      ;*invokeinterface unlock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fc4: 2fde e497 | 6114 8012 
+
+  0x000000011a737fcc: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [136]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::stringOf@1 (line 453)
+                      ; - java.lang.StringConcatHelper::simpleConcat@1 (line 407)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fcc: 2dde e497 | 2101 8012 
+
+  0x000000011a737fd4: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [136]=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::isEmpty@4 (line 1494)
+                      ; - java.lang.StringConcatHelper::simpleConcat@11 (line 409)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fd4: 2bde e497 | 2101 8012 
+
+  0x000000011a737fdc: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [136]=Oop [168]=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::length@4 (line 1481)
+                      ; - java.lang.StringConcatHelper::prepend@2 (line 352)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::reportIfFrequent@87 (line 60)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fdc: 29de e497 | 6101 8012 
+
+  0x000000011a737fe4: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [128]=Oop [144]=Oop [152]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.HashMap::getNode@63 (line 570)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fe4: 27de e497 | 4117 8012 
+
+  0x000000011a737fec: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [80]=Oop [96]=Oop [112]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.ConcurrentHashMap::get@67 (line 940)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737fec: 25de e497 | fd03 01aa | 2101 8012 
+
+  0x000000011a737ff8: ; ImmutableOopMap {rfp=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@7 (line 215)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a737ff8: 22de e497 | 4117 8012 
+
+  0x000000011a738000: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [112]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.ConcurrentHashMap::get@143 (line 946)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::commonLookup@8 (line 425)
+                      ; - com.ctre.phoenix6.hardware.ParentDevice::lookupStatusSignal@11 (line 478)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@18 (line 682)
+                      ; - com.ctre.phoenix6.hardware.core.CoreCANcoder::getAbsolutePosition@2 (line 652)
+                      ; - frc.robot.subsystems.swerve.Module::getRawAbsoluteEncoder@4 (line 151)
+                      ; - frc.robot.subsystems.swerve.Module::getAbsoluteEncoder@1 (line 165)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@5 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a738000: 20de e497 | 6101 8012 
+
+  0x000000011a738008: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop [128]=Oop [144]=Oop [152]=Oop [160]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.HashMap::getNode@128 (line 577)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a738008: 1ede e497 | 6114 8012 
+
+  0x000000011a738010: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::stringOf@1 (line 453)
+                      ; - java.lang.StringConcatHelper::simpleConcat@1 (line 407)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ; - com.ctre.phoenix6.configs.TalonFXConfigurator::setPosition@18 (line 1361)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@6 (line 9129)
+                      ; - com.ctre.phoenix6.hardware.core.CoreTalonFX::setPosition@5 (line 9118)
+                      ; - frc.robot.subsystems.swerve.Module::resetSteerMotorToAbsolute@8 (line 185)
+                      ; - frc.robot.subsystems.swerve.Swerve::resetModulesToAbsolute@20 (line 216)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a738010: 1cde e497 | 2101 8012 
+
+  0x000000011a738018: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::isEmpty@4 (line 1494)
+                      ; - java.lang.StringConcatHelper::simpleConcat@11 (line 409)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21

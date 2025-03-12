@@ -9,8 +9,10 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 
 import edu.wpi.first.math.Matrix;
@@ -190,8 +192,8 @@ public class Swerve extends SubsystemBase{
 		
 
 
-		// AutoBuilder.configure(this::getPose, this::resetPoseToPose, this::getChassisSpeeds, this::driveAutonomous,
-		// 		new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig, autoFlipPaths, this);
+		AutoBuilder.configure(this::getPose, this::resetPoseToPose, this::getChassisSpeeds, this::driveAutonomous,
+				new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig, autoFlipPaths, this);
 	}
 
 	public void configure() {
@@ -320,18 +322,18 @@ public class Swerve extends SubsystemBase{
 		setModuleStates(desiredModuleStates, isOpenLoop);
 	}
 
-	// /**
-	//  * Drive the drivetrain in autonomous. Autonomous driving is always closed loop.
-	//  *
-	//  * @param chassisSpeeds
-	//  *                      Desired robot-relative chassis speeds
-	//  *
-	//  */
-	// public void driveAutonomous(ChassisSpeeds chassisSpeeds, DriveFeedforwards feedforwards) {
-	// 	SwerveModuleState[] desiredModuleStates = swerveKinematics
-	// 			.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
-	// 	setModuleStates(desiredModuleStates, false);
-	// }
+	/**
+	 * Drive the drivetrain in autonomous. Autonomous driving is always closed loop.
+	 *
+	 * @param chassisSpeeds
+	 *                      Desired robot-relative chassis speeds
+	 *
+	 */
+	public void driveAutonomous(ChassisSpeeds chassisSpeeds) {
+		SwerveModuleState[] desiredModuleStates = swerveKinematics
+				.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
+		setModuleStates(desiredModuleStates, false);
+	}
 
 	/**
 	 * Sets all modules to neutral output

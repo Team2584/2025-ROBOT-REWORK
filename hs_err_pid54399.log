@@ -1,0 +1,767 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00000001552d12d4, pid=54399, tid=58115
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.12+7 (17.0.12+7) (build 17.0.12+7)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.12+7 (17.0.12+7, mixed mode, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-aarch64)
+# Problematic frame:
+# C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:58968 -Djava.library.path=/Users/michaelsagerman/Documents/FRC/2025-ROBOT-REWORK/build/jni/release -XX:+ShowCodeDetailsInExceptionMessages frc.robot.Main
+
+Host: "MacBookPro18,3" arm64, 8 cores, 16G, Darwin 24.1.0, macOS 15.1.1 (24B91)
+Time: Wed Mar 12 12:43:15 2025 PDT elapsed time: 14.711785 seconds (0d 0h 0m 14s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000147849400):  JavaThread "robot main" daemon [_thread_in_native, id=58115, stack(0x000000016e924000,0x000000016eb27000)]
+
+Stack: [0x000000016e924000,0x000000016eb27000],  sp=0x000000016eb257c0,  free space=2053k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+C  [libCTRE_PhoenixTools_Sim.dylib+0x84c2c]
+J 1452  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x0000000119e36d44 [0x0000000119e36cc0+0x0000000000000084]
+C  0x000000016eb25f58
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1452  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x0000000119e36d44 [0x0000000119e36cc0+0x0000000000000084]
+J 1451 c1 com.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode; (121 bytes) @ 0x0000000112594f5c [0x0000000112594b80+0x00000000000003dc]
+J 1468 c1 com.ctre.phoenix6.configs.TalonFXConfigurator.setPosition(DD)Lcom/ctre/phoenix6/StatusCode; (22 bytes) @ 0x00000001125a003c [0x000000011259fec0+0x000000000000017c]
+J 1467 c1 com.ctre.phoenix6.hardware.core.CoreTalonFX.setPosition(DD)Lcom/ctre/phoenix6/StatusCode; (10 bytes) @ 0x000000011259fb3c [0x000000011259f9c0+0x000000000000017c]
+J 1466 c1 com.ctre.phoenix6.hardware.core.CoreTalonFX.setPosition(D)Lcom/ctre/phoenix6/StatusCode; (9 bytes) @ 0x000000011259f640 [0x000000011259f500+0x0000000000000140]
+J 1469 c1 frc.robot.subsystems.swerve.Module.resetSteerMotorToAbsolute()V (13 bytes) @ 0x00000001125a05b4 [0x00000001125a0440+0x0000000000000174]
+j  frc.robot.subsystems.swerve.Swerve.resetModulesToAbsolute()V+20
+j  frc.robot.subsystems.swerve.Drivetrain.periodic()V+258
+J 1590 c1 edu.wpi.first.wpilibj2.command.CommandScheduler.run()V (603 bytes) @ 0x00000001125d2f40 [0x00000001125d2900+0x0000000000000640]
+j  frc.robot.Robot.robotPeriodic()V+3
+j  edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc()V+437
+j  edu.wpi.first.wpilibj.TimedRobot$$Lambda$10+0x0000000800095cd8.run()V+4
+j  edu.wpi.first.wpilibj.TimedRobot.startCompetition()V+75
+j  edu.wpi.first.wpilibj.RobotBase.runRobot(Ljava/util/function/Supplier;)V+265
+j  edu.wpi.first.wpilibj.RobotBase.lambda$startRobot$1(Ljava/util/function/Supplier;)V+1
+j  edu.wpi.first.wpilibj.RobotBase$$Lambda$2+0x0000000800089b58.run()V+4
+j  java.lang.Thread.run()V+11 java.base@17.0.12
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 2 (SEGV_ACCERR), si_addr: 0x0000000000000000
+
+Registers:
+ x0=0x000000015808dc60  x1=0x0000000000000003  x2=0x0000000000000003  x3=0x0000000000000003
+ x4=0x00000001557ed420  x5=0x000000000000000d  x6=0x0000000000000002  x7=0x0000000000000000
+ x8=0x0000000000000000  x9=0x000000000000e303 x10=0x0000000020100806 x11=0x0000000020100806
+x12=0x0000000020100806 x13=0x0000000020100806 x14=0x000000007fffffff x15=0x0000000004020144
+x16=0xd7960001041cc080 x17=0x0000000000000000 x18=0x0000000000000000 x19=0x00000001557ec360
+x20=0x0000000000000008 x21=0x000000015808dc60 x22=0x00000001557ec366 x23=0x00000001576d6678
+x24=0x00000000beffbe77 x25=0x00000000000003f8 x26=0x00000001576d6678 x27=0x00000001576d6678
+x28=0x00000001576d6670  fp=0x000000016eb25dc0  lr=0x00000001552d12b8  sp=0x000000016eb257c0
+pc=0x00000001552d12d4 cpsr=0x0000000040001000
+
+Register to memory mapping:
+
+ x0=0x000000015808dc60 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x1=0x0000000000000003 is an unknown value
+ x2=0x0000000000000003 is an unknown value
+ x3=0x0000000000000003 is an unknown value
+ x4=0x00000001557ed420 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x5=0x000000000000000d is an unknown value
+ x6=0x0000000000000002 is an unknown value
+ x7=0x0 is NULL
+ x8=0x0 is NULL
+ x9=0x000000000000e303 is an unknown value
+x10=0x0000000020100806 is an unknown value
+x11=0x0000000020100806 is an unknown value
+x12=0x0000000020100806 is an unknown value
+x13=0x0000000020100806 is an unknown value
+x14=0x000000007fffffff is an unknown value
+x15=0x0000000004020144 is an unknown value
+x16=0xd7960001041cc080 is an unknown value
+x17=0x0 is NULL
+x18=0x0 is NULL
+x19=0x00000001557ec360 points into unknown readable memory: 0x0000beffbe7703f8 | f8 03 77 be ff be 00 00
+x20=0x0000000000000008 is an unknown value
+x21=0x000000015808dc60 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+x22=0x00000001557ec366 points into unknown readable memory: 00 00
+x23=0x00000001576d6678 points into unknown readable memory: 0x000000015808dc60 | 60 dc 08 58 01 00 00 00
+x24=0x00000000beffbe77 is an unknown value
+x25=0x00000000000003f8 is an unknown value
+x26=0x00000001576d6678 points into unknown readable memory: 0x000000015808dc60 | 60 dc 08 58 01 00 00 00
+x27=0x00000001576d6678 points into unknown readable memory: 0x000000015808dc60 | 60 dc 08 58 01 00 00 00
+x28=0x00000001576d6670 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+
+
+Top of Stack: (sp=0x000000016eb257c0)
+0x000000016eb257c0:   1fffffff02047c48 0000000158070300
+0x000000016eb257d0:   0000000000000000 00000001576d6670
+0x000000016eb257e0:   0000008800000000 00000001476f6720
+0x000000016eb257f0:   000000016eb25c00 00000001557ec360
+0x000000016eb25800:   00000001557ec366 00000001557ec366
+0x000000016eb25810:   000000000000000f 00000001557ee360
+0x000000016eb25820:   00000001557ee366 00000001557ee366
+0x000000016eb25830:   0000000000000000 0000000800000002
+0x000000016eb25840:   00000001476f6720 000000016eb258f8
+0x000000016eb25850:   0000000000000400 02047c0802047c48
+0x000000016eb25860:   0000000000000000 0000000000000000
+0x000000016eb25870:   0000000000000000 0000000045da2d00
+0x000000016eb25880:   0000000000000000 0000000000000000
+0x000000016eb25890:   0000000000000000 0000000000000000
+0x000000016eb258a0:   0000000045da2d00 0000000000000000
+0x000000016eb258b0:   0000000000000000 0000000000000000
+0x000000016eb258c0:   0000000000000000 0000000000000000
+0x000000016eb258d0:   000000015531ff00 000000016eb25d18
+0x000000016eb258e0:   000000016eb25d20 0000000000000000
+0x000000016eb258f0:   000000016eb25bc8 0000beffbe770605
+0x000000016eb25900:   0000000000000000 000000016eb259f7
+0x000000016eb25910:   0000000000000001 0000000185a9e940
+0x000000016eb25920:   0000000000000001 0000000185aa079c
+0x000000016eb25930:   0000000000000001 0000000145da2d14
+0x000000016eb25940:   0000000000000004 0000000000000000
+0x000000016eb25950:   0000000000000000 0000000000000000
+0x000000016eb25960:   0000000000000000 0000000000000000
+0x000000016eb25970:   0000000000000000 0000000000000000
+0x000000016eb25980:   0000000000000000 5800000000000000
+0x000000016eb25990:   0000000000000000 0000000000000000
+0x000000016eb259a0:   0000000145da2d18 0000000000000000
+0x000000016eb259b0:   bfdff7ced916872b 0000000100000000 
+
+Instructions: (pc=0x00000001552d12d4)
+0x00000001552d11d4:   e0 03 09 aa 09 00 40 f9 28 79 68 f8 00 01 3f d6
+0x00000001552d11e4:   e0 03 1a aa 87 24 02 94 15 02 00 34 f3 03 1c aa
+0x00000001552d11f4:   61 8e 40 f8 e0 03 1c aa 8c 02 00 94 93 03 00 f9
+0x00000001552d1204:   9f 0b 00 f9 7f 02 00 f9 e0 07 40 f9 38 24 02 94
+0x00000001552d1214:   fb 1f 40 f9 1b 11 00 b4 fb 23 00 f9 e0 03 1b aa
+0x00000001552d1224:   7b 24 02 94 84 00 00 14 f3 db 43 a9 7f 02 16 eb
+0x00000001552d1234:   60 06 00 54 97 23 00 91 0a 00 00 14 80 07 40 f9
+0x00000001552d1244:   d6 0b f9 97 88 0b 40 f9 08 05 00 91 88 0b 00 f9
+0x00000001552d1254:   b8 22 00 b9 73 1a 00 91 7f 02 16 eb 00 05 00 54
+0x00000001552d1264:   79 02 40 79 78 22 40 b8 fb 03 17 aa fa 03 17 aa
+0x00000001552d1274:   e8 02 40 f9 a8 00 00 b5 0d 00 00 14 48 03 40 f9
+0x00000001552d1284:   fb 03 1a aa 48 01 00 b4 fa 03 08 aa 08 39 40 79
+0x00000001552d1294:   3f 03 08 6b 43 ff ff 54 1f 01 19 6b 62 02 00 54
+0x00000001552d12a4:   48 07 40 f9 28 ff ff b5 5b 23 00 91 00 05 80 52
+0x00000001552d12b4:   5d 24 02 94 f5 03 00 aa 19 38 00 79 1f 20 00 b9
+0x00000001552d12c4:   1f 7c 00 a9 1a 08 00 f9 60 03 00 f9 88 03 40 f9
+0x00000001552d12d4:   08 01 40 f9 e1 03 00 aa 28 fb ff b4 88 03 00 f9
+0x00000001552d12e4:   61 03 40 f9 d6 ff ff 17 f5 03 1a aa 58 23 00 b9
+0x00000001552d12f4:   73 1a 00 91 7f 02 16 eb 41 fb ff 54 15 00 80 52
+0x00000001552d1304:   e0 07 40 f9 fa 23 02 94 fb 1f 40 f9 7b f8 ff b5
+0x00000001552d1314:   49 00 00 14 e0 63 01 91 47 4a ff 97 0a 00 00 14
+0x00000001552d1324:   2e 07 f9 97 08 00 00 14 e0 e3 00 91 42 4a ff 97
+0x00000001552d1334:   05 00 00 14 29 07 f9 97 03 00 00 14 e0 e3 04 91
+0x00000001552d1344:   50 f7 f8 97 20 00 20 d4 f4 03 00 aa e0 03 02 91
+0x00000001552d1354:   d2 ba fd 97 10 00 00 14 0e 00 00 14 f4 03 00 aa
+0x00000001552d1364:   a0 03 55 f8 1f 00 18 eb 81 00 00 54 88 00 80 52
+0x00000001552d1374:   a0 23 03 d1 03 00 00 14 60 01 00 b4 a8 00 80 52
+0x00000001552d1384:   09 00 40 f9 28 79 68 f8 00 01 3f d6 06 00 00 14
+0x00000001552d1394:   f4 03 00 aa a0 a3 02 d1 20 20 fd 97 02 00 00 14
+0x00000001552d13a4:   f4 03 00 aa e0 03 1a aa 16 24 02 94 0e 00 00 14
+0x00000001552d13b4:   0c 00 00 14 f4 03 00 aa e8 3f c5 39 48 01 f8 36
+0x00000001552d13c4:   e0 9f 40 f9 12 24 02 94 07 00 00 14 f4 03 00 aa 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x1fffffff02047c48 is an unknown value
+stack at sp + 1 slots: 0x0000000158070300 points into unknown readable memory: 0x000000004d55545a | 5a 54 55 4d 00 00 00 00
+stack at sp + 2 slots: 0x0 is NULL
+stack at sp + 3 slots: 0x00000001576d6670 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 4 slots: 0x0000008800000000 is an unknown value
+stack at sp + 5 slots: 0x00000001476f6720 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 6 slots: 0x000000016eb25c00 is pointing into the stack for thread: 0x0000000147849400
+stack at sp + 7 slots: 0x00000001557ec360 points into unknown readable memory: 0x0000beffbe7703f8 | f8 03 77 be ff be 00 00
+
+
+Compiled method (n/a)   14727 1452     n 0       com.ctre.phoenix6.configs.jni.ConfigJNI::SetConfigs (native)
+ total in heap  [0x0000000119e36b10,0x0000000119e36e88] = 888
+ relocation     [0x0000000119e36c68,0x0000000119e36c90] = 40
+ main code      [0x0000000119e36cc0,0x0000000119e36e78] = 440
+ oops           [0x0000000119e36e78,0x0000000119e36e80] = 8
+ metadata       [0x0000000119e36e80,0x0000000119e36e88] = 8
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000140a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # this:     c_rarg1:c_rarg1 
+                        = 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # parm0:    c_rarg2:c_rarg2 
+                        = 'java/lang/String'
+  # parm1:    c_rarg3   = int
+  # parm2:    v0:v0     = double
+  # parm3:    c_rarg4   = boolean
+  # parm4:    c_rarg5   = boolean
+  #           [sp+0x60]  (sp of caller)
+  0x0000000119e36cc0: 2808 40b9 | 3f01 086b | 4000 0054 
+
+  0x0000000119e36ccc: ;   {runtime_call ic_miss_stub}
+  0x0000000119e36ccc: cdc7 e817 
+[Verified Entry Point]
+  0x0000000119e36cd0: 1f20 03d5 | e953 40d1 | 3f01 00f9 | fd7b bfa9 | fd03 0091 | ff43 01d1 | e207 00f9 | 5f00 1feb 
+  0x0000000119e36cf0: e223 0091 | e203 829a | e103 00f9 | 3f00 1feb | e103 00d1 | e103 819a | e801 0010 | 884f 01f9 
+  0x0000000119e36d10: e803 0091 | 884b 01f9 
+
+  0x0000000119e36d18: ;   {external_word}
+  0x0000000119e36d18: c830 f8b0 | 0869 5339 | a806 0035 | 80c3 0a91 | e803 7eb2 | 8903 0d91 | 28fd 9f88 
+
+  0x0000000119e36d34: ;   {runtime_call}
+  0x0000000119e36d34: 886b 89d2 | 08a3 aaf2 | 2800 c0f2 | 0001 3fd6 | 007c 4093 | a800 80d2 | 8843 03b9 | bf3b 03d5 
+  0x0000000119e36d54: 8823 0d91 | 08fd dfc8 | bf03 08eb | a803 0054 | 8833 43b9 | 6803 0035 | e803 7db2 | 8903 0d91 
+  0x0000000119e36d74: 28fd 9f88 | 88c3 4e39 | 1f09 0071 | c001 0054 
+
+  0x0000000119e36d84: ;   {external_word}
+  0x0000000119e36d84: c830 f8b0 | 0869 5339 | a805 0035 | 9f4b 01f9 | 9f4f 01f9 | 826f 40f9 | 5f80 00f9 | bf03 0091 
+  0x0000000119e36da4: fd7b c1a8 | 8807 40f9 | 4800 00b5 | c003 5fd6 
+
+  0x0000000119e36db4: ;   {runtime_call StubRoutines (1)}
+  0x0000000119e36db4: b3c4 e717 | a083 1ff8 
+
+  0x0000000119e36dbc: ;   {runtime_call SharedRuntime::reguard_yellow_pages()}
+  0x0000000119e36dbc: 88cc 9cd2 | 8840 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | edff ff17 | a083 1ff8 | e003 1caa 
+  0x0000000119e36ddc: ;   {runtime_call JavaThread::check_special_condition_for_native_trans(JavaThread*)}
+  0x0000000119e36ddc: 888c 81d2 | 4843 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | dfff ff17 | e00f 1ffc | e10b bda9 
+  0x0000000119e36dfc: e313 01a9 | e57f 02a9 
+
+  0x0000000119e36e04: ;   {metadata({method} {0x0000000140a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x0000000119e36e04: 0179 82d2 | 4114 a8f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 0896 98d2 | 8840 a1f2 | 2800 c0f2 
+  0x0000000119e36e24: 0001 3fd6 | e833 c1a8 | e313 41a9 | e57f 42a9 | e10b c3a8 | e007 41fc | baff ff17 | a083 1ff8 
+  0x0000000119e36e44: ;   {metadata({method} {0x0000000140a213c8} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x0000000119e36e44: 0179 82d2 | 4114 a8f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 08aa 98d2 | 8840 a1f2 | 2800 c0f2 
+  0x0000000119e36e64: 0001 3fd6 | e833 c1a8 | a083 5ff8 | c8ff ff17 | 0000 0000 
+[/MachCode]
+
+
+Compiled method (c1)   14731 1451   !   3       com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate (121 bytes)
+ total in heap  [0x0000000112594210,0x000000011259a8b0] = 26272
+ relocation     [0x0000000112594368,0x0000000112594b48] = 2016
+ main code      [0x0000000112594b80,0x0000000112598800] = 15488
+ stub code      [0x0000000112598800,0x0000000112598d00] = 1280
+ oops           [0x0000000112598d00,0x0000000112598e40] = 320
+ metadata       [0x0000000112598e40,0x00000001125991d8] = 920
+ scopes data    [0x00000001125991d8,0x000000011259a018] = 3648
+ scopes pcs     [0x000000011259a018,0x000000011259a698] = 1664
+ dependencies   [0x000000011259a698,0x000000011259a6f0] = 88
+ handler table  [0x000000011259a6f0,0x000000011259a828] = 312
+ nul chk table  [0x000000011259a828,0x000000011259a8b0] = 136
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator'
+  # this:     c_rarg1:c_rarg1 
+                        = 'com/ctre/phoenix6/configs/ParentConfigurator'
+  # parm0:    c_rarg2:c_rarg2 
+                        = 'java/lang/String'
+  # parm1:    v0:v0     = double
+  # parm2:    c_rarg3   = boolean
+  # parm3:    c_rarg4   = boolean
+  #           [sp+0x290]  (sp of caller)
+  0x0000000112594b80: 2808 40b9 | 3f01 086b | c001 0054 
+
+  0x0000000112594b8c: ;   {runtime_call ic_miss_stub}
+  0x0000000112594b8c: 1d50 cb15 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 
+  0x0000000112594bac: 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 | 1f20 03d5 
+[Verified Entry Point]
+  0x0000000112594bc0: 1f20 03d5 | e953 40d1 | 3f01 00f9 | fd7b bfa9 | ff03 0ad1 | e10b 16a9 | e037 01fd | e373 01b9 
+  0x0000000112594be0: e477 01b9 
+
+  0x0000000112594be4: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594be4: 00c8 9cd2 | 0019 a8f2 | 2000 c0f2 | 05ac 40b9 | a508 0011 | 05ac 00b9 | a524 1f12 | bf00 0071 
+  0x0000000112594c04: 60a6 0154 | 2030 40b9 | 00f0 7dd3 | e0bf 00f9 | 4001 00b4 
+
+  0x0000000112594c18: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112594c18: 0780 83d2 | c700 a0f2 | 0701 c0f2 | 0a08 40b9 | 4a01 5dd2 | 481d 40f9 | ff00 08eb | e1a5 0154 
+  0x0000000112594c38: 0100 0014 | e503 00aa 
+
+  0x0000000112594c40: ; implicit exception: dispatches to 0x00000001125980f4
+  0x0000000112594c40: 1f00 40f9 | e503 00aa 
+
+  0x0000000112594c48: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594c48: 06c8 9cd2 | 0619 a8f2 | 2600 c0f2 | a508 40b9 | a500 5dd2 | c900 0491 | 2801 40f9 | bf00 08eb 
+  0x0000000112594c68: a100 0054 | c884 40f9 | 0805 0091 | c884 00f9 | 1c00 0014 | c940 0491 | 2801 40f9 | bf00 08eb 
+  0x0000000112594c88: a100 0054 | c88c 40f9 | 0805 0091 | c88c 00f9 | 1400 0014 | c900 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112594ca8: 2501 00f9 | e803 40b2 | c920 0491 | 2801 00f9 | 0c00 0014 | c940 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112594cc8: 2501 00f9 | e803 40b2 | c960 0491 | 2801 00f9 | 0400 0014 | c878 40f9 | 0805 0091 | c878 00f9 
+  0x0000000112594ce8: ;   {metadata(method data for {method} {0x00000001401a65d0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112594ce8: 0548 88d2 | 250f a8f2 | 2500 c0f2 | a6ac 40b9 | c608 0011 | a6ac 00b9 | c64c 1f12 | df00 0071 
+  0x0000000112594d08: 809f 0154 | 050c 40b9 | a5f0 7dd3 | e5af 00f9 
+
+  0x0000000112594d18: ; implicit exception: dispatches to 0x0000000112598118
+  0x0000000112594d18: bf00 40f9 | e603 05aa 
+
+  0x0000000112594d20: ;   {metadata(method data for {method} {0x00000001401a65d0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112594d20: 0748 88d2 | 270f a8f2 | 2700 c0f2 | e878 40f9 | 0805 0091 | e878 00f9 
+
+  0x0000000112594d38: ;   {metadata(method data for {method} {0x00000001405f3ec0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock$Sync')}
+  0x0000000112594d38: 0675 88d2 | 260f a8f2 | 2600 c0f2 | c7ac 40b9 | e708 0011 | c7ac 00b9 | e74c 1f12 | ff00 0071 
+  0x0000000112594d58: 209e 0154 | e603 05aa 
+
+  0x0000000112594d60: ;   {metadata(method data for {method} {0x00000001405f3ec0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock$Sync')}
+  0x0000000112594d60: 0775 88d2 | 270f a8f2 | 2700 c0f2 | c608 40b9 | c600 5dd2 | e900 0491 | 2801 40f9 | df00 08eb 
+  0x0000000112594d80: a100 0054 | e884 40f9 | 0805 0091 | e884 00f9 | 1c00 0014 | e940 0491 | 2801 40f9 | df00 08eb 
+  0x0000000112594da0: a100 0054 | e88c 40f9 | 0805 0091 | e88c 00f9 | 1400 0014 | e900 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112594dc0: 2601 00f9 | e803 40b2 | e920 0491 | 2801 00f9 | 0c00 0014 | e940 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112594de0: 2601 00f9 | e803 40b2 | e960 0491 | 2801 00f9 | 0400 0014 | e878 40f9 | 0805 0091 | e878 00f9 
+  0x0000000112594e00: e103 05aa | 09f4 9ad2 | 2900 a0f2 | 0901 c0f2 
+
+  0x0000000112594e10: ; ImmutableOopMap {[376]=Oop [360]=Oop [344]=Oop [352]=Oop }
+                      ;*invokevirtual initialTryLock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@1 (line 152)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {virtual_call}
+  0x0000000112594e10: 2c85 e295 | 1f00 0071 
+
+  0x0000000112594e18: ;   {metadata(method data for {method} {0x00000001405f3ec0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock$Sync')}
+  0x0000000112594e18: 0275 88d2 | 220f a8f2 | 2200 c0f2 | 0825 80d2 | 0927 80d2 | 0111 899a | 4068 61f8 | 0004 0091 
+  0x0000000112594e38: 4068 21f8 | 8101 0054 | e5af 40f9 | e203 05aa 
+
+  0x0000000112594e48: ;   {metadata(method data for {method} {0x00000001405f3ec0} 'lock' '()V' in 'java/util/concurrent/locks/ReentrantLock$Sync')}
+  0x0000000112594e48: 0175 88d2 | 210f a8f2 | 2100 c0f2 | 28a4 40f9 | 0805 0091 | 28a4 00f9 | e203 0032 | e103 05aa 
+  0x0000000112594e68: ; ImmutableOopMap {[360]=Oop [352]=Oop [376]=Oop [344]=Oop }
+                      ;*invokevirtual acquire {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@9 (line 153)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {optimized virtual_call}
+  0x0000000112594e68: 2650 cb95 | e10b 56a9 | 2034 40b9 | 00f0 7dd3 | 83e3 4039 | 7f00 0071 | e195 0154 | 48fc 43d3 
+  0x0000000112594e88: ; implicit exception: dispatches to 0x0000000112598154
+  0x0000000112594e88: 080c 00b9 | 0300 02ca | 63fc 55d3 | 7f00 00f1 | 0196 0154 | 230c 40b9 | 63f0 7dd3 
+
+  0x0000000112594ea4: ; implicit exception: dispatches to 0x0000000112598168
+  0x0000000112594ea4: 7f00 40f9 | e403 03aa 
+
+  0x0000000112594eac: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594eac: 05c8 9cd2 | 0519 a8f2 | 2500 c0f2 
+
+  0x0000000112594eb8: ;   {metadata('com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x0000000112594eb8: 0879 88d2 | 4802 a0f2 | 0801 c0f2 | a9e0 0491 | 2801 00f9 | a8a0 40f9 | 0805 0091 | a8a0 00f9 
+  0x0000000112594ed8: 6414 40b9 | 84f0 7dd3 | e503 03aa 
+
+  0x0000000112594ee4: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594ee4: 06c8 9cd2 | 0619 a8f2 | 2600 c0f2 
+
+  0x0000000112594ef0: ;   {metadata('com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x0000000112594ef0: 0879 88d2 | 4802 a0f2 | 0801 c0f2 | c9c0 0591 | 2801 00f9 | c8bc 40f9 | 0805 0091 | c8bc 00f9 
+  0x0000000112594f10: 6310 40b9 | e503 00aa 
+
+  0x0000000112594f18: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594f18: 06c8 9cd2 | 0619 a8f2 | 2600 c0f2 
+
+  0x0000000112594f24: ;   {metadata('com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x0000000112594f24: 08ed 83d2 | 4802 a0f2 | 0801 c0f2 | c9a0 0691 | 2801 00f9 | c8d8 40f9 | 0805 0091 | c8d8 00f9 
+  0x0000000112594f44: e203 04aa | e037 41fd | e473 41b9 | e577 41b9 | e103 00aa 
+
+  0x0000000112594f58: ; ImmutableOopMap {[352]=Oop [360]=Oop }
+                      ;*invokevirtual SetConfigs {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@40 (line 73)
+                      ;   {optimized virtual_call}
+  0x0000000112594f58: 5e87 e295 | e08b 01b9 
+
+  0x0000000112594f60: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112594f60: 01c8 9cd2 | 0119 a8f2 | 2100 c0f2 | 28e8 40f9 | 0805 0091 | 28e8 00f9 
+
+  0x0000000112594f78: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112594f78: 01e0 85d2 | a116 a8f2 | 2100 c0f2 | 22ac 40b9 | 4208 0011 | 22ac 00b9 | 424c 1f12 | 5f00 0071 
+  0x0000000112594f98: a08e 0154 
+
+  0x0000000112594f9c: ;   {oop(a 'java/lang/Class'{0x000000070e858c48} = 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112594f9c: 0189 91d2 | a1d0 a1f2 | e100 c0f2 | 2258 43b9 | 42f0 7dd3 
+
+  0x0000000112594fb0: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112594fb0: 01e0 85d2 | a116 a8f2 | 2100 c0f2 | 2878 40f9 | 0805 0091 | 2878 00f9 | e103 00aa | e2c3 00f9 
+  0x0000000112594fd0: ; ImmutableOopMap {[352]=Oop [360]=Oop [384]=Oop }
+                      ;*invokestatic valueOf {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@4 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {static_call}
+  0x0000000112594fd0: 9c34 e295 | e1c3 40f9 
+
+  0x0000000112594fd8: ; implicit exception: dispatches to 0x000000011259818c
+  0x0000000112594fd8: 3f00 40f9 | e203 01aa 
+
+  0x0000000112594fe0: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112594fe0: 03e0 85d2 | a316 a8f2 | 2300 c0f2 | 4208 40b9 | 4200 5dd2 | 6940 0491 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595000: a100 0054 | 688c 40f9 | 0805 0091 | 688c 00f9 | 1c00 0014 | 6980 0491 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595020: a100 0054 | 6894 40f9 | 0805 0091 | 6894 00f9 | 1400 0014 | 6940 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595040: 2201 00f9 | e803 40b2 | 6960 0491 | 2801 00f9 | 0c00 0014 | 6980 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595060: 2201 00f9 | e803 40b2 | 69a0 0491 | 2801 00f9 | 0400 0014 | 6880 40f9 | 0805 0091 | 6880 00f9 
+  0x0000000112595080: e203 00aa | 0938 9fd2 | a900 a0f2 | 0901 c0f2 
+
+  0x0000000112595090: ; ImmutableOopMap {[352]=Oop [360]=Oop }
+                      ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {virtual_call}
+  0x0000000112595090: 6c46 e295 | 0001 00b5 
+
+  0x0000000112595098: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595098: 03e0 85d2 | a316 a8f2 | 2300 c0f2 | 68c4 4439 | 0801 40b2 | 68c4 0439 | 3600 0014 
+
+  0x00000001125950b4: ;   {metadata('com/ctre/phoenix6/StatusCode')}
+  0x00000001125950b4: 02f1 87d2 | 4202 a0f2 | 0201 c0f2 | 0808 40b9 | 0801 5dd2 | 1f01 02eb | e104 0054 
+
+  0x00000001125950d0: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x00000001125950d0: 03e0 85d2 | a316 a8f2 | 2300 c0f2 | 0208 40b9 | 4200 5dd2 | 6920 0591 | 2801 40f9 | 5f00 08eb 
+  0x00000001125950f0: a100 0054 | 68a8 40f9 | 0805 0091 | 68a8 00f9 | 2200 0014 | 6960 0591 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595110: a100 0054 | 68b0 40f9 | 0805 0091 | 68b0 00f9 | 1a00 0014 | 6920 0591 | 2801 40f9 | c800 00b5 
+  0x0000000112595130: 2201 00f9 | e803 40b2 | 6940 0591 | 2801 00f9 | 1200 0014 | 6960 0591 | 2801 40f9 | c800 00b5 
+  0x0000000112595150: 2201 00f9 | e803 40b2 | 6980 0591 | 2801 00f9 | 0a00 0014 | 0900 0014 
+
+  0x0000000112595168: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595168: 03e0 85d2 | a316 a8f2 | 2300 c0f2 | 689c 40f9 | 0805 00d1 | 689c 00f9 | 040c 0014 | 0100 0014 
+  0x0000000112595188: e103 1faa | 1f00 01eb 
+
+  0x0000000112595190: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595190: 01e0 85d2 | a116 a8f2 | 2100 c0f2 | e807 79b2 | 092e 80d2 | 0211 899a | 2368 62f8 | 6304 0091 
+  0x00000001125951b0: 2368 22f8 | c110 0054 | e0cb 00f9 
+
+  0x00000001125951bc: ;   {metadata(method data for {method} {0x0000000140a2c888} 'valueOf' '(I)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x00000001125951bc: 01e0 85d2 | a116 a8f2 | 2100 c0f2 | 28c8 40f9 | 0805 0091 | 28c8 00f9 
+
+  0x00000001125951d4: ;   {metadata(method data for {method} {0x0000000140a2c660} 'values' '()[Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x00000001125951d4: 011c 86d2 | a116 a8f2 | 2100 c0f2 | 23ac 40b9 | 6308 0011 | 23ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x00000001125951f4: 207d 0154 
+
+  0x00000001125951f8: ;   {oop(a 'com/ctre/phoenix6/StatusCode'[186] {0x000000070e858fa8})}
+  0x00000001125951f8: 01f5 91d2 | a1d0 a1f2 | e100 c0f2 | e303 01aa 
+
+  0x0000000112595208: ;   {metadata(method data for {method} {0x0000000140a2c660} 'values' '()[Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595208: 041c 86d2 | a416 a8f2 | 2400 c0f2 | 6308 40b9 | 6300 5dd2 | 8900 0491 | 2801 40f9 | 7f00 08eb 
+  0x0000000112595228: a100 0054 | 8884 40f9 | 0805 0091 | 8884 00f9 | 1c00 0014 | 8940 0491 | 2801 40f9 | 7f00 08eb 
+  0x0000000112595248: a100 0054 | 888c 40f9 | 0805 0091 | 888c 00f9 | 1400 0014 | 8900 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595268: 2301 00f9 | e803 40b2 | 8920 0491 | 2801 00f9 | 0c00 0014 | 8940 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595288: 2301 00f9 | e803 40b2 | 8960 0491 | 2801 00f9 | 0400 0014 | 8878 40f9 | 0805 0091 | 8878 00f9 
+  0x00000001125952a8: e9ff 9fd2 | e9ff bff2 | e9ff dff2 
+
+  0x00000001125952b4: ; ImmutableOopMap {[352]=Oop [360]=Oop [400]=Oop }
+                      ;*invokevirtual clone {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::values@3 (line 15)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@20 (line 825)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {virtual_call}
+  0x00000001125952b4: d34f cb95 | 0001 00b5 
+
+  0x00000001125952bc: ;   {metadata(method data for {method} {0x0000000140a2c660} 'values' '()[Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x00000001125952bc: 031c 86d2 | a316 a8f2 | 2300 c0f2 | 6884 4439 | 0801 40b2 | 6884 0439 | 3700 0014 
+
+  0x00000001125952d8: ;   {metadata('com/ctre/phoenix6/StatusCode'[])}
+  0x00000001125952d8: 023a 88d2 | 4202 a0f2 | 0201 c0f2 | 0308 40b9 | 6300 5dd2 | 6824 40f9 | 5f00 08eb | e104 0054 
+  0x00000001125952f8: ;   {metadata(method data for {method} {0x0000000140a2c660} 'values' '()[Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x00000001125952f8: 031c 86d2 | a316 a8f2 | 2300 c0f2 | 0208 40b9 | 4200 5dd2 | 69e0 0491 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595318: a100 0054 | 68a0 40f9 | 0805 0091 | 68a0 00f9 | 2200 0014 | 6920 0591 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595338: a100 0054 | 68a8 40f9 | 0805 0091 | 68a8 00f9 | 1a00 0014 | 69e0 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595358: 2201 00f9 | e803 40b2 | 6900 0591 | 2801 00f9 | 1200 0014 | 6920 0591 | 2801 40f9 | c800 00b5 
+  0x0000000112595378: 2201 00f9 | e803 40b2 | 6940 0591 | 2801 00f9 | 0a00 0014 | 0900 0014 
+
+  0x0000000112595390: ;   {metadata(method data for {method} {0x0000000140a2c660} 'values' '()[Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595390: 031c 86d2 | a316 a8f2 | 2300 c0f2 | 6894 40f9 | 0805 00d1 | 6894 00f9 | 840b 0014 | 0100 0014 
+  0x00000001125953b0: e103 00aa 
+
+  0x00000001125953b4: ; implicit exception: dispatches to 0x00000001125981c0
+  0x00000001125953b4: 200c 40b9 | 1f00 0071 | 4970 0154 | 2110 40b9 | 21f0 7dd3 | e003 01aa | e0cf 00f9 | e1b3 40f9 
+  0x00000001125953d4: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x00000001125953d4: 02c8 9cd2 | 0219 a8f2 | 2200 c0f2 | 2108 40b9 | 2100 5dd2 | 49c0 0791 | 2801 40f9 | 3f00 08eb 
+  0x00000001125953f4: a100 0054 | 48fc 40f9 | 0805 0091 | 48fc 00f9 | 1c00 0014 | 4900 0891 | 2801 40f9 | 3f00 08eb 
+  0x0000000112595414: a100 0054 | 4804 41f9 | 0805 0091 | 4804 01f9 | 1400 0014 | 49c0 0791 | 2801 40f9 | c800 00b5 
+  0x0000000112595434: 2101 00f9 | e803 40b2 | 49e0 0791 | 2801 00f9 | 0c00 0014 | 4900 0891 | 2801 40f9 | c800 00b5 
+  0x0000000112595454: 2101 00f9 | e803 40b2 | 4920 0891 | 2801 00f9 | 0400 0014 | 48f0 40f9 | 0805 0091 | 48f0 00f9 
+  0x0000000112595474: e1b3 40f9 
+
+  0x0000000112595478: ; ImmutableOopMap {[352]=Oop [360]=Oop [408]=Oop }
+                      ;*invokevirtual reportIfFrequent {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ;   {optimized virtual_call}
+  0x0000000112595478: d2a4 0094 | e1b3 40f9 | 2030 40b9 | 00f0 7dd3 | e0d7 00f9 | 4001 00b4 
+
+  0x0000000112595490: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112595490: 0480 83d2 | c400 a0f2 | 0401 c0f2 | 0508 40b9 | a500 5dd2 | a81c 40f9 | 9f00 08eb | 8169 0154 
+  0x00000001125954b0: 0100 0014 | e203 00aa 
+
+  0x00000001125954b8: ; implicit exception: dispatches to 0x00000001125981e0
+  0x00000001125954b8: 1f00 40f9 | e203 00aa 
+
+  0x00000001125954c0: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x00000001125954c0: 03c8 9cd2 | 0319 a8f2 | 2300 c0f2 | 4208 40b9 | 4200 5dd2 | 69a0 0891 | 2801 40f9 | 5f00 08eb 
+  0x00000001125954e0: a100 0054 | 6818 41f9 | 0805 0091 | 6818 01f9 | 1c00 0014 | 69e0 0891 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595500: a100 0054 | 6820 41f9 | 0805 0091 | 6820 01f9 | 1400 0014 | 69a0 0891 | 2801 40f9 | c800 00b5 
+  0x0000000112595520: 2201 00f9 | e803 40b2 | 69c0 0891 | 2801 00f9 | 0c00 0014 | 69e0 0891 | 2801 40f9 | c800 00b5 
+  0x0000000112595540: 2201 00f9 | e803 40b2 | 6900 0991 | 2801 00f9 | 0400 0014 | 680c 41f9 | 0805 0091 | 680c 01f9 
+  0x0000000112595560: ;   {metadata(method data for {method} {0x00000001401a6890} 'unlock' '()V' in 'java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112595560: 02da 89d2 | 220f a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595580: 2063 0154 | 030c 40b9 | 63f0 7dd3 | e3d3 00f9 
+
+  0x0000000112595590: ; implicit exception: dispatches to 0x0000000112598204
+  0x0000000112595590: 7f00 40f9 | e203 03aa 
+
+  0x0000000112595598: ;   {metadata(method data for {method} {0x00000001401a6890} 'unlock' '()V' in 'java/util/concurrent/locks/ReentrantLock')}
+  0x0000000112595598: 04da 89d2 | 240f a8f2 | 2400 c0f2 | 8878 40f9 | 0805 0091 | 8878 00f9 
+
+  0x00000001125955b0: ;   {metadata(method data for {method} {0x00000001405f69a0} 'release' '(I)Z' in 'java/util/concurrent/locks/AbstractQueuedSynchronizer')}
+  0x00000001125955b0: 0207 8ad2 | 220f a8f2 | 2200 c0f2 | 44ac 40b9 | 8408 0011 | 44ac 00b9 | 844c 1f12 | 9f00 0071 
+  0x00000001125955d0: c061 0154 | e203 03aa 
+
+  0x00000001125955d8: ;   {metadata(method data for {method} {0x00000001405f69a0} 'release' '(I)Z' in 'java/util/concurrent/locks/AbstractQueuedSynchronizer')}
+  0x00000001125955d8: 0407 8ad2 | 240f a8f2 | 2400 c0f2 | 4208 40b9 | 4200 5dd2 | 8900 0491 | 2801 40f9 | 5f00 08eb 
+  0x00000001125955f8: a100 0054 | 8884 40f9 | 0805 0091 | 8884 00f9 | 1c00 0014 | 8940 0491 | 2801 40f9 | 5f00 08eb 
+  0x0000000112595618: a100 0054 | 888c 40f9 | 0805 0091 | 888c 00f9 | 1400 0014 | 8900 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595638: 2201 00f9 | e803 40b2 | 8920 0491 | 2801 00f9 | 0c00 0014 | 8940 0491 | 2801 40f9 | c800 00b5 
+  0x0000000112595658: 2201 00f9 | e803 40b2 | 8960 0491 | 2801 00f9 | 0400 0014 | 8878 40f9 | 0805 0091 | 8878 00f9 
+  0x0000000112595678: e203 0032 | e103 03aa 
+
+  0x0000000112595680: ; ImmutableOopMap {[360]=Oop [408]=Oop [352]=Oop [416]=Oop [424]=Oop }
+                      ;*invokevirtual tryRelease {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@2 (line 1007)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {optimized virtual_call}
+  0x0000000112595680: f49a e295 | 1f00 0071 
+
+  0x0000000112595688: ;   {metadata(method data for {method} {0x00000001405f69a0} 'release' '(I)Z' in 'java/util/concurrent/locks/AbstractQueuedSynchronizer')}
+  0x0000000112595688: 0107 8ad2 | 210f a8f2 | 2100 c0f2 | 0825 80d2 | 0927 80d2 | 0001 899a | 2268 60f8 | 4204 0091 
+  0x00000001125956a8: 2268 20f8 | e001 0054 | e3d3 40f9 | bf3b 03d5 | 6114 40b9 | 21f0 7dd3 | bf39 03d5 
+
+  0x00000001125956c4: ;   {metadata(method data for {method} {0x00000001405f69a0} 'release' '(I)Z' in 'java/util/concurrent/locks/AbstractQueuedSynchronizer')}
+  0x00000001125956c4: 0207 8ad2 | 220f a8f2 | 2200 c0f2 | 48a4 40f9 | 0805 0091 | 48a4 00f9 
+
+  0x00000001125956dc: ; ImmutableOopMap {[360]=Oop [408]=Oop [352]=Oop [424]=Oop [416]=Oop }
+                      ;*invokestatic signalNext {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@12 (line 1008)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {static_call}
+  0x00000001125956dc: 099a e295 | e103 0032 | 0200 0014 | 0100 a052 
+
+  0x00000001125956ec: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x00000001125956ec: 01c8 9cd2 | 0119 a8f2 | 2100 c0f2 | 2228 41f9 | 4204 0091 | 2228 01f9 | e0cf 40f9 
+
+  0x0000000112595708: ; implicit exception: dispatches to 0x0000000112598228
+  0x0000000112595708: 1f00 40f9 | e103 00aa 
+
+  0x0000000112595710: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112595710: 02c8 9cd2 | 0219 a8f2 | 2200 c0f2 | 4850 41f9 | 0805 0091 | 4850 01f9 
+
+  0x0000000112595728: ;   {metadata(method data for {method} {0x0000000140a2cab8} 'isOK' '()Z' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595728: 01fa 93d2 | c118 a8f2 | 2100 c0f2 | 22ac 40b9 | 4208 0011 | 22ac 00b9 | 424c 1f12 | 5f00 0071 
+  0x0000000112595748: 2057 0154 | 0114 40b9 
+
+  0x0000000112595750: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x000000070e810080})}
+  0x0000000112595750: 0210 80d2 | 22d0 a1f2 | e200 c0f2 
+
+  0x000000011259575c: ; implicit exception: dispatches to 0x000000011259824c
+  0x000000011259575c: 4214 40b9 | 3f00 026b 
+
+  0x0000000112595764: ;   {metadata(method data for {method} {0x0000000140a2cab8} 'isOK' '()Z' in 'com/ctre/phoenix6/StatusCode')}
+  0x0000000112595764: 01fa 93d2 | c118 a8f2 | 2100 c0f2 | e80f 7cb2 | e903 78b2 | 0211 899a | 2368 62f8 | 6304 0091 
+  0x0000000112595784: 2368 22f8 | 2101 0054 
+
+  0x000000011259578c: ;   {metadata(method data for {method} {0x0000000140a2cab8} 'isOK' '()Z' in 'com/ctre/phoenix6/StatusCode')}
+  0x000000011259578c: 01fa 93d2 | c118 a8f2 | 2100 c0f2 | 2288 40f9 | 4204 0091 | 2288 00f9 | e103 0032 | 0200 0014 
+  0x00000001125957ac: 0100 a052 | 2100 0012 | 3f00 0071 
+
+  0x00000001125957b8: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x00000001125957b8: 01c8 9cd2 | 0119 a8f2 | 2100 c0f2 | 085d 80d2 | 095b 80d2 | 0201 899a | 2368 62f8 | 6304 0091 
+  0x00000001125957d8: 2368 22f8 | 6000 0054 | e0cf 00f9 | fc09 0014 
+
+  0x00000001125957e8: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x000000070e85c2e8})}
+  0x00000001125957e8: 015d 98d2 | a1d0 a1f2 | e100 c0f2 | 1f00 01eb 
+
+  0x00000001125957f8: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x00000001125957f8: 01c8 9cd2 | 0119 a8f2 | 2100 c0f2 | 0861 80d2 | 095f 80d2 | 0211 899a | 2368 62f8 | 6304 0091 
+  0x0000000112595818: 2368 22f8 | 6100 0054 | e0cf 00f9 | ec09 0014 | e1b3 40f9 | 240c 40b9 | 84f0 7dd3 | e4eb 00f9 
+  0x0000000112595838: ; implicit exception: dispatches to 0x0000000112598250
+  0x0000000112595838: 9f00 40f9 | e203 04aa 
+
+  0x0000000112595840: ;   {metadata(method data for {method} {0x0000000140a50e08} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator')}
+  0x0000000112595840: 03c8 9cd2 | 0319 a8f2 | 2300 c0f2 
+
+  0x000000011259584c: ;   {metadata('com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x000000011259584c: 0879 88d2 | 4802 a0f2 | 0801 c0f2 | 69a0 0c91 | 2801 00f9 | 6898 41f9 | 0805 0091 | 6898 01f9 
+  0x000000011259586c: ;   {metadata(method data for {method} {0x0000000140a32028} 'toString' '()Ljava/lang/String;' in 'com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x000000011259586c: 0216 81d2 | e218 a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x000000011259588c: 404e 0154 | 821c 40b9 | 42f0 7dd3 | e303 1faa | 5f00 03eb 
+
+  0x00000001125958a0: ;   {metadata(method data for {method} {0x0000000140a32028} 'toString' '()Ljava/lang/String;' in 'com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x00000001125958a0: 0216 81d2 | e218 a8f2 | 2200 c0f2 | e803 78b2 | e90f 7cb2 | 0301 899a | 4568 63f8 | a504 0091 
+  0x00000001125958c0: 4568 23f8 | 6000 0054 | e0cf 00f9 | 0609 0014 | 8518 40b9 | a5f0 7dd3 | e5ef 00f9 | 860c 40b9 
+  0x00000001125958e0: e68f 01b9 | 8714 40b9 | e7f0 7dd3 | e7f3 00f9 
+
+  0x00000001125958f0: ;   {metadata(method data for {method} {0x0000000140a32028} 'toString' '()Ljava/lang/String;' in 'com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x00000001125958f0: 0216 81d2 | e218 a8f2 | 2200 c0f2 | 4280 0491 | e303 05aa | 8300 00b5 | 4904 40f9 | 2901 40b2 
+  0x0000000112595910: 4904 00f9 | e303 07aa | 8300 00b5 | 490c 40f9 | 2901 40b2 | 490c 00f9 
+
+  0x0000000112595928: ;   {metadata(method data for {method} {0x0000000140c8c670} 'linkToTargetMethod' '(Ljava/lang/Object;ILjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189800')}
+  0x0000000112595928: 0215 99d2 | 0219 a8f2 | 2200 c0f2 | 4200 0891 | e303 05aa | a300 00b5 | 4900 40f9 | 2901 40b2 
+  0x0000000112595948: 4900 00f9 | 1700 0014 
+
+  0x0000000112595950: ;   {metadata('java/lang/String')}
+  0x0000000112595950: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4900 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595970: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4900 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595990: c800 00b4 | 4900 40f9 | 2901 7fb2 | 4900 00f9 | 0200 0014 | 4300 00f9 | e303 07aa | a300 00b5 
+  0x00000001125959b0: 4908 40f9 | 2901 40b2 | 4908 00f9 | 1700 0014 
+
+  0x00000001125959c0: ;   {metadata('java/lang/String')}
+  0x00000001125959c0: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4908 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x00000001125959e0: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4908 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595a00: c800 00b4 | 4908 40f9 | 2901 7fb2 | 4908 00f9 | 0200 0014 | 4308 00f9 
+
+  0x0000000112595a18: ;   {metadata(method data for {method} {0x0000000140a32028} 'toString' '()Ljava/lang/String;' in 'com/ctre/phoenix6/hardware/DeviceIdentifier')}
+  0x0000000112595a18: 0216 81d2 | e218 a8f2 | 2200 c0f2 | 4888 40f9 | 0805 0091 | 4888 00f9 
+
+  0x0000000112595a30: ;   {metadata(method data for {method} {0x0000000140c8c670} 'linkToTargetMethod' '(Ljava/lang/Object;ILjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189800')}
+  0x0000000112595a30: 0215 99d2 | 0219 a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595a50: 2041 0154 
+
+  0x0000000112595a54: ;   {metadata(method data for {method} {0x0000000140c8c670} 'linkToTargetMethod' '(Ljava/lang/Object;ILjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189800')}
+  0x0000000112595a54: 0215 99d2 | 0219 a8f2 | 2200 c0f2 | 4280 0591 | e303 05aa | a300 00b5 | 4904 40f9 | 2901 40b2 
+  0x0000000112595a74: 4904 00f9 | 1700 0014 
+
+  0x0000000112595a7c: ;   {metadata('java/lang/String')}
+  0x0000000112595a7c: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4904 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595a9c: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4904 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595abc: c800 00b4 | 4904 40f9 | 2901 7fb2 | 4904 00f9 | 0200 0014 | 4304 00f9 
+
+  0x0000000112595ad4: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595ad4: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 4220 1b91 
+
+  0x0000000112595ae4: ;   {oop(a 'java/lang/invoke/BoundMethodHandle$Species_LLLLLLLLL'{0x000000070f418c70})}
+  0x0000000112595ae4: 038e 91d2 | 23e8 a1f2 | e300 c0f2 | a300 00b5 | 4900 40f9 | 2901 40b2 | 4900 00f9 | 1700 0014 
+  0x0000000112595b04: ;   {metadata('java/lang/invoke/BoundMethodHandle$Species_LLLLLLLLL')}
+  0x0000000112595b04: 03bd 85d2 | a301 a0f2 | 0301 c0f2 | 4900 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595b24: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4900 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595b44: c800 00b4 | 4900 40f9 | 2901 7fb2 | 4900 00f9 | 0200 0014 | 4300 00f9 | e303 05aa | a300 00b5 
+  0x0000000112595b64: 4908 40f9 | 2901 40b2 | 4908 00f9 | 1700 0014 
+
+  0x0000000112595b74: ;   {metadata('java/lang/String')}
+  0x0000000112595b74: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4908 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595b94: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4908 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595bb4: c800 00b4 | 4908 40f9 | 2901 7fb2 | 4908 00f9 | 0200 0014 | 4308 00f9 
+
+  0x0000000112595bcc: ;   {metadata(method data for {method} {0x0000000140c8c670} 'linkToTargetMethod' '(Ljava/lang/Object;ILjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189800')}
+  0x0000000112595bcc: 0215 99d2 | 0219 a8f2 | 2200 c0f2 | 4894 40f9 | 0805 0091 | 4894 00f9 
+
+  0x0000000112595be4: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595be4: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595c04: 8034 0154 
+
+  0x0000000112595c08: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595c08: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 4260 0691 | e303 05aa | a300 00b5 | 4904 40f9 | 2901 40b2 
+  0x0000000112595c28: 4904 00f9 | 1700 0014 
+
+  0x0000000112595c30: ;   {metadata('java/lang/String')}
+  0x0000000112595c30: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4904 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595c50: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4904 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595c70: c800 00b4 | 4904 40f9 | 2901 7fb2 | 4904 00f9 | 0200 0014 | 4304 00f9 
+
+  0x0000000112595c88: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595c88: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 42e0 0791 
+
+  0x0000000112595c98: ;   {oop(a 'java/lang/invoke/DirectMethodHandle'{0x000000070e8d29c8})}
+  0x0000000112595c98: 0339 85d2 | a3d1 a1f2 | e300 c0f2 | ea03 03aa | 8a00 00b5 | 4900 40f9 | 2901 40b2 | 4900 00f9 
+  0x0000000112595cb8: ea03 05aa | 8a00 00b5 | 4908 40f9 | 2901 40b2 | 4908 00f9 
+
+  0x0000000112595ccc: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595ccc: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 48b0 40f9 | 0805 0091 | 48b0 00f9 
+
+  0x0000000112595ce4: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595ce4: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4aac 40b9 | 4a09 0011 | 4aac 00b9 | 4a4d 1f12 | 5f01 0071 
+  0x0000000112595d04: 802d 0154 
+
+  0x0000000112595d08: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595d08: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4200 0491 | 8300 00b5 | 4904 40f9 | 2901 40b2 | 4904 00f9 
+  0x0000000112595d28: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595d28: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4878 40f9 | 0805 0091 | 4878 00f9 
+
+  0x0000000112595d40: ;   {metadata(method data for {method} {0x000000014007f738} 'internalMemberName' '(Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle')}
+  0x0000000112595d40: 02eb 81d2 | 420e a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595d60: a02b 0154 
+
+  0x0000000112595d64: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595d64: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4240 0491 
+
+  0x0000000112595d74: ;   {oop(a 'java/lang/invoke/MemberName'{0x000000070e8d2a28} = {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595d74: 0345 85d2 | a3d1 a1f2 | e300 c0f2 | 8300 00b5 | 4900 40f9 | 2901 40b2 | 4900 00f9 
+
+  0x0000000112595d90: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595d90: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 42a0 0591 | e303 05aa | 8300 00b5 | 4904 40f9 | 2901 40b2 
+  0x0000000112595db0: 4904 00f9 
+
+  0x0000000112595db4: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595db4: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 48ac 40f9 | 0805 0091 | 48ac 00f9 
+
+  0x0000000112595dcc: ;   {metadata(method data for {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595dcc: 0219 96d2 | 2209 a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595dec: 4028 0154 | e203 1faa | bf00 02eb 
+
+  0x0000000112595df8: ;   {metadata(method data for {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595df8: 0219 96d2 | 2209 a8f2 | 2200 c0f2 | e80f 7cb2 | e903 78b2 | 0301 899a | 4a68 63f8 | 4a05 0091 
+  0x0000000112595e18: 4a68 23f8 | c003 0054 
+
+  0x0000000112595e20: ; implicit exception: dispatches to 0x0000000112598314
+  0x0000000112595e20: bf00 40f9 | e203 05aa 
+
+  0x0000000112595e28: ;   {metadata(method data for {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595e28: 0319 96d2 | 2309 a8f2 | 2300 c0f2 | 6888 40f9 | 0805 0091 | 6888 00f9 
+
+  0x0000000112595e40: ;   {metadata(method data for {method} {0x000000014000dd60} 'toString' '()Ljava/lang/String;' in 'java/lang/String')}
+  0x0000000112595e40: 02f7 95d2 | 2209 a8f2 | 2200 c0f2 | 43ac 40b9 | 6308 0011 | 43ac 00b9 | 634c 1f12 | 7f00 0071 
+  0x0000000112595e60: c025 0154 | e203 1faa | bf00 02eb 
+
+  0x0000000112595e6c: ;   {metadata(method data for {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595e6c: 0219 96d2 | 2209 a8f2 | 2200 c0f2 | 0829 80d2 | 092b 80d2 | 0311 899a | 4a68 63f8 | 4a05 0091 
+  0x0000000112595e8c: 4a68 23f8 | 6101 0054 
+
+  0x0000000112595e94: ;   {metadata(method data for {method} {0x00000001401c04d0} 'stringOf' '(Ljava/lang/Object;)Ljava/lang/String;' in 'java/lang/StringConcatHelper')}
+  0x0000000112595e94: 0219 96d2 | 2209 a8f2 | 2200 c0f2 | 43b4 40f9 | 6304 0091 | 43b4 00f9 
+
+  0x0000000112595eac: ;   {oop("null"{0x000000070e815c90})}
+  0x0000000112595eac: 0a92 8bd2 | 2ad0 a1f2 | ea00 c0f2 | 0200 0014 | ea03 05aa 
+
+  0x0000000112595ec0: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112595ec0: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4220 0691 | e303 0aaa | a300 00b5 | 4900 40f9 | 2901 40b2 
+  0x0000000112595ee0: 4900 00f9 | 0b00 0014 | 6308 40b9 | 6300 5dd2 | 4900 40f9 | 6300 09ca | 68f4 7e92 | a800 00b4 
+  0x0000000112595f00: 8300 0837 | 4900 40f9 | 2901 7fb2 | 4900 00f9 
+
+  0x0000000112595f10: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595f10: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 42a0 0691 | e303 0aaa | a300 00b5 | 4900 40f9 | 2901 40b2 
+  0x0000000112595f30: 4900 00f9 | 1600 0014 | 6308 40b9 | 6300 5dd2 | 4900 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 
+  0x0000000112595f50: e301 0837 | a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4900 40f9 | 6300 09ca 
+  0x0000000112595f70: 68f4 7e92 | c800 00b4 | 4900 40f9 | 2901 7fb2 | 4900 00f9 | 0200 0014 | 4300 00f9 
+
+  0x0000000112595f8c: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112595f8c: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 42c0 0791 | e303 07aa | a300 00b5 | 4904 40f9 | 2901 40b2 
+  0x0000000112595fac: 4904 00f9 | 1700 0014 
+
+  0x0000000112595fb4: ;   {metadata('java/lang/String')}
+  0x0000000112595fb4: 0379 83d2 | 8300 a0f2 | 0301 c0f2 | 4904 40f9 | 6300 09ca | 68f4 7e92 | 0802 00b4 | e301 0837 
+  0x0000000112595fd4: a901 00b4 | 3f05 00f1 | 6001 0054 | bf39 03d5 | 6300 09ca | 4904 40f9 | 6300 09ca | 68f4 7e92 
+  0x0000000112595ff4: c800 00b4 | 4904 40f9 | 2901 7fb2 | 4904 00f9 | 0200 0014 | 4304 00f9 
+
+  0x000000011259600c: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x000000011259600c: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 42e0 0791 
+
+  0x000000011259601c: ;   {oop(a 'java/lang/invoke/DirectMethodHandle'{0x000000070e8d29c8})}
+  0x000000011259601c: 0339 85d2 | a3d1 a1f2 | e300 c0f2 | eb03 03aa | 8b00 00b5 | 4900 40f9 | 2901 40b2 | 4900 00f9 
+  0x000000011259603c: eb03 07aa | 8b00 00b5 | 4908 40f9 | 2901 40b2 | 4908 00f9 
+
+  0x0000000112596050: ;   {metadata(method data for {method} {0x0000000140c8b4f8} 'invoke' '(Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/LambdaForm$MH+0x0000000800189000')}
+  0x0000000112596050: 0200 9ad2 | 0219 a8f2 | 2200 c0f2 | 48dc 40f9 | 0805 0091 | 48dc 00f9 
+
+  0x0000000112596068: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x0000000112596068: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4bac 40b9 | 6b09 0011 | 4bac 00b9 | 6b4d 1f12 | 7f01 0071 
+  0x0000000112596088: 8015 0154 
+
+  0x000000011259608c: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x000000011259608c: 025e 86d2 | 820e a8f2 | 2200 c0f2 | 4200 0491 | 8300 00b5 | 4904 40f9 | 2901 40b2 | 4904 00f9 
+  0x00000001125960ac: ;   {metadata(method data for {method} {0x0000000140361c68} 'invokeStatic' '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' in 'java/lang/invoke/DirectMethodHandle$Holder')}
+  0x00000001125960ac: 025e 86d2 | 

@@ -832,12 +832,6 @@ public final class CONSTANTS {
             public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,
                     REEF_SCORE_Y_OFFSET_LEFT);
-            // public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
-            //         REEF_SCORE_X_OFFSET,
-            //         REEF_SCORE_Y_OFFSET);
-
-            // public static final Pose2d REEF_K = new Pose2d(3.972-0.5,
-            // 5.247+.5*Math.sqrt(3), Rotation2d.fromDegrees(-60));
 
             public static final Pose2d REEF_L = getRelativePose(new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,

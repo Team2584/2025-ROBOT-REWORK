@@ -11,8 +11,8 @@
       "style": "0",
       "userScale": "2",
       "width": "692",
-      "xpos": "758",
-      "ypos": "167"
+      "xpos": "792",
+      "ypos": "570"
     }
   },
   "Table": {
@@ -26,7 +26,7 @@
   "Window": {
     "###/SmartDashboard/SendableChooser[1]": {
       "Collapsed": "0",
-      "Pos": "446,80",
+      "Pos": "445,79",
       "Size": "284,54"
     },
     "###FMS": {
@@ -51,7 +51,7 @@
     },
     "###NetworkTables": {
       "Collapsed": "0",
-      "Pos": "103,444",
+      "Pos": "36,244",
       "Size": "750,185"
     },
     "###NetworkTables Info": {
@@ -71,7 +71,7 @@
     },
     "###Timing": {
       "Collapsed": "0",
-      "Pos": "66,227",
+      "Pos": "57,151",
       "Size": "135,150"
     },
     "Debug##Default": {

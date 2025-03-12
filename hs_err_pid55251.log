@@ -1,0 +1,180 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x000000016b0212d4, pid=55251, tid=50691
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.12+7 (17.0.12+7) (build 17.0.12+7)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.12+7 (17.0.12+7, mixed mode, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-aarch64)
+# Problematic frame:
+# C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:59151 -Djava.library.path=/Users/michaelsagerman/Documents/FRC/2025-ROBOT-REWORK/build/jni/release -XX:+ShowCodeDetailsInExceptionMessages frc.robot.Main
+
+Host: "MacBookPro18,3" arm64, 8 cores, 16G, Darwin 24.1.0, macOS 15.1.1 (24B91)
+Time: Wed Mar 12 12:48:26 2025 PDT elapsed time: 46.900941 seconds (0d 0h 0m 46s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000011f89e200):  JavaThread "robot main" daemon [_thread_in_native, id=50691, stack(0x0000000179df0000,0x0000000179ff3000)]
+
+Stack: [0x0000000179df0000,0x0000000179ff3000],  sp=0x0000000179ff1530,  free space=2053k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+C  [libCTRE_PhoenixTools_Sim.dylib+0x84c2c]
+J 1818  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000013f5dc3c4 [0x000000013f5dc340+0x0000000000000084]
+C  0x0000000100a20008
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1818  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000013f5dc3c4 [0x000000013f5dc340+0x0000000000000084]
+J 2464 c1 com.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode; (121 bytes) @ 0x0000000137f52820 [0x0000000137f52480+0x00000000000003a0]
+J 1927 c1 com.ctre.phoenix6.configs.TalonFXConfigurator.setPosition(DD)Lcom/ctre/phoenix6/StatusCode; (22 bytes) @ 0x0000000137e013bc [0x0000000137e01240+0x000000000000017c]
+J 1831 c1 com.ctre.phoenix6.hardware.core.CoreTalonFX.setPosition(DD)Lcom/ctre/phoenix6/StatusCode; (10 bytes) @ 0x0000000137dcbfbc [0x0000000137dcbe40+0x000000000000017c]
+J 1830 c1 com.ctre.phoenix6.hardware.core.CoreTalonFX.setPosition(D)Lcom/ctre/phoenix6/StatusCode; (9 bytes) @ 0x0000000137dcbac0 [0x0000000137dcb980+0x0000000000000140]
+J 2212 c1 frc.robot.subsystems.swerve.Swerve.resetModulesToAbsolute()V (32 bytes) @ 0x0000000137ea3588 [0x0000000137ea3380+0x0000000000000208]
+J 2221 c1 frc.robot.subsystems.swerve.Drivetrain.periodic()V (262 bytes) @ 0x0000000137eb1e78 [0x0000000137ea8140+0x0000000000009d38]
+J 2466 c2 edu.wpi.first.wpilibj2.command.CommandScheduler.run()V (603 bytes) @ 0x000000013f626428 [0x000000013f625e80+0x00000000000005a8]
+J 2389 c1 frc.robot.Robot.robotPeriodic()V (7 bytes) @ 0x0000000137f27644 [0x0000000137f27400+0x0000000000000244]
+J 2332 c1 edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc()V (552 bytes) @ 0x0000000137f02388 [0x0000000137f00240+0x0000000000002148]
+J 2218 c1 edu.wpi.first.wpilibj.TimedRobot$$Lambda$10+0x0000000800095cd8.run()V (8 bytes) @ 0x0000000137ea5974 [0x0000000137ea5840+0x0000000000000134]
+j  edu.wpi.first.wpilibj.TimedRobot.startCompetition()V+75
+j  edu.wpi.first.wpilibj.RobotBase.runRobot(Ljava/util/function/Supplier;)V+265
+j  edu.wpi.first.wpilibj.RobotBase.lambda$startRobot$1(Ljava/util/function/Supplier;)V+1
+j  edu.wpi.first.wpilibj.RobotBase$$Lambda$2+0x0000000800089b58.run()V+4
+j  java.lang.Thread.run()V+11 java.base@17.0.12
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 2 (SEGV_ACCERR), si_addr: 0x0000000000000000
+
+Registers:
+ x0=0x000000011e69b450  x1=0x0000000000000003  x2=0x0000000000000000  x3=0x00000001859aff68
+ x4=0x000000017d0be760  x5=0x000000000000000d  x6=0x0000000000000002  x7=0x0000000000000000
+ x8=0x0000000000000000  x9=0x000000000000c603 x10=0x0000000000000003 x11=0x0000000000046350
+x12=0x000000017d003f6c x13=0x0000000000000011 x14=0x000000017d000000 x15=0x00000000000040e1
+x16=0x000000000000eafc x17=0x00000001f2efd608 x18=0x0000000000000000 x19=0x000000017d0bb9e0
+x20=0x000000000000000b x21=0x000000011e69b450 x22=0x000000017d0bb9e6 x23=0x00000001697eb158
+x24=0x000000003d05f06f x25=0x00000000000003f8 x26=0x00000001697eb158 x27=0x00000001697eb158
+x28=0x00000001697eb150  fp=0x0000000179ff1b30  lr=0x000000016b0212b8  sp=0x0000000179ff1530
+pc=0x000000016b0212d4 cpsr=0x0000000040001000
+
+Register to memory mapping:
+
+ x0=0x000000011e69b450 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x1=0x0000000000000003 is an unknown value
+ x2=0x0 is NULL
+ x3=0x00000001859aff68: szone_malloc_type_malloc+0 in /usr/lib/system/libsystem_malloc.dylib at 0x0000000185997000
+ x4=0x000000017d0be760 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x5=0x000000000000000d is an unknown value
+ x6=0x0000000000000002 is an unknown value
+ x7=0x0 is NULL
+ x8=0x0 is NULL
+ x9=0x000000000000c603 is an unknown value
+x10=0x0000000000000003 is an unknown value
+x11=0x0000000000046350 is an unknown value
+x12=0x000000017d003f6c points into unknown readable memory: 6f ba c5 04
+x13=0x0000000000000011 is an unknown value
+x14=0x000000017d000000 points into unknown readable memory: 0x000000011f200000 | 00 00 20 1f 01 00 00 00
+x15=0x00000000000040e1 is an unknown value
+x16=0x000000000000eafc is an unknown value
+x17=0x00000001f2efd608 points into unknown readable memory: 0x00000001859b32fc | fc 32 9b 85 01 00 00 00
+x18=0x0 is NULL
+x19=0x000000017d0bb9e0 points into unknown readable memory: 0x00003d05f06f03f8 | f8 03 6f f0 05 3d 00 00
+x20=0x000000000000000b is an unknown value
+x21=0x000000011e69b450 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+x22=0x000000017d0bb9e6 points into unknown readable memory: 00 00
+x23=0x00000001697eb158 points into unknown readable memory: 0x000000011e69b450 | 50 b4 69 1e 01 00 00 00
+x24=0x000000003d05f06f is an unknown value
+x25=0x00000000000003f8 is an unknown value
+x26=0x00000001697eb158 points into unknown readable memory: 0x000000011e69b450 | 50 b4 69 1e 01 00 00 00
+x27=0x00000001697eb158 points into unknown readable memory: 0x000000011e69b450 | 50 b4 69 1e 01 00 00 00
+x28=0x00000001697eb150 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+
+
+Top of Stack: (sp=0x0000000179ff1530)
+0x0000000179ff1530:   1fffffff02047c4b 000000011f0e34d0
+0x0000000179ff1540:   0000000000000000 00000001697eb150
+0x0000000179ff1550:   0000008b00000000 000000017d01b300
+0x0000000179ff1560:   0000000179ff1970 000000017d0bb9e0
+0x0000000179ff1570:   000000017d0bb9e6 000000017d0bb9e6
+0x0000000179ff1580:   000000000000000e 000000017d05ad40
+0x0000000179ff1590:   000000017d05ad46 000000017d05ad46
+0x0000000179ff15a0:   0000000000000000 0000000b00000002
+0x0000000179ff15b0:   000000017d01b300 0000000179ff1668
+0x0000000179ff15c0:   0000000000000400 02047c0b02047c4b
+0x0000000179ff15d0:   0000000000000000 0000000000000000
+0x0000000179ff15e0:   0000000000000000 0000000000000000
+0x0000000179ff15f0:   0000000000000000 0000000000000000
+0x0000000179ff1600:   0000000179ff1800 0000000000000000
+0x0000000179ff1610:   0000000000000000 0000000000000000
+0x0000000179ff1620:   0000000000000000 0000000000000000
+0x0000000179ff1630:   0000000000000000 0000000100000000
+0x0000000179ff1640:   000000016b06ff00 0000000179ff1a88
+0x0000000179ff1650:   0000000179ff1a90 0000000000000000
+0x0000000179ff1660:   000000010e6647f4 00003d05f06f0605
+0x0000000179ff1670:   0000000179ff19d8 0000000000000006
+0x0000000179ff1680:   00000001eacaa608 0000000000000100
+0x0000000179ff1690:   0000000179ff16b8 0000000179ff1b40
+0x0000000179ff16a0:   0000000000000000 0000000000000002
+0x0000000179ff16b0:   0000000179ff1988 0000000179ff16c8
+0x0000000179ff16c0:   0000000000000000 0000000185a9e940
+0x0000000179ff16d0:   0000000000000001 0000000185aa079c
+0x0000000179ff16e0:   0000000000000001 0000000185a9e940
+0x0000000179ff16f0:   0000000000000001 000000010e6647f4
+0x0000000179ff1700:   0000000000000003 0000000000000000
+0x0000000179ff1710:   0000000000000000 0000000000000000
+0x0000000179ff1720:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x000000016b0212d4)
+0x000000016b0211d4:   e0 03 09 aa 09 00 40 f9 28 79 68 f8 00 01 3f d6
+0x000000016b0211e4:   e0 03 1a aa 87 24 02 94 15 02 00 34 f3 03 1c aa
+0x000000016b0211f4:   61 8e 40 f8 e0 03 1c aa 8c 02 00 94 93 03 00 f9
+0x000000016b021204:   9f 0b 00 f9 7f 02 00 f9 e0 07 40 f9 38 24 02 94
+0x000000016b021214:   fb 1f 40 f9 1b 11 00 b4 fb 23 00 f9 e0 03 1b aa
+0x000000016b021224:   7b 24 02 94 84 00 00 14 f3 db 43 a9 7f 02 16 eb
+0x000000016b021234:   60 06 00 54 97 23 00 91 0a 00 00 14 80 07 40 f9
+0x000000016b021244:   d6 0b f9 97 88 0b 40 f9 08 05 00 91 88 0b 00 f9
+0x000000016b021254:   b8 22 00 b9 73 1a 00 91 7f 02 16 eb 00 05 00 54
+0x000000016b021264:   79 02 40 79 78 22 40 b8 fb 03 17 aa fa 03 17 aa
+0x000000016b021274:   e8 02 40 f9 a8 00 00 b5 0d 00 00 14 48 03 40 f9
+0x000000016b021284:   fb 03 1a aa 48 01 00 b4 fa 03 08 aa 08 39 40 79
+0x000000016b021294:   3f 03 08 6b 43 ff ff 54 1f 01 19 6b 62 02 00 54
+0x000000016b0212a4:   48 07 40 f9 28 ff ff b5 5b 23 00 91 00 05 80 52
+0x000000016b0212b4:   5d 24 02 94 f5 03 00 aa 19 38 00 79 1f 20 00 b9
+0x000000016b0212c4:   1f 7c 00 a9 1a 08 00 f9 60 03 00 f9 88 03 40 f9
+0x000000016b0212d4:   08 01 40 f9 e1 03 00 aa 28 fb ff b4 88 03 00 f9
+0x000000016b0212e4:   61 03 40 f9 d6 ff ff 17 f5 03 1a aa 58 23 00 b9
+0x000000016b0212f4:   73 1a 00 91 7f 02 16 eb 41 fb ff 54 15 00 80 52
+0x000000016b021304:   e0 07 40 f9 fa 23 02 94 fb 1f 40 f9 7b f8 ff b5
+0x000000016b021314:   49 00 00 14 e0 63 01 91 47 4a ff 97 0a 00 00 14
+0x000000016b021324:   2e 07 f9 97 08 00 00 14 e0 e3 00 91 42 4a ff 97
+0x000000016b021334:   05 00 00 14 29 07 f9 97 03 00 00 14 e0 e3 04 91
+0x000000016b021344:   50 f7 f8 97 20 00 20 d4 f4 03 00 aa e0 03 02 91
+0x000000016b021354:   d2 ba fd 97 10 00 00 14 0e 00 00 14 f4 03 00 aa
+0x000000016b021364:   a0 03 55 f8 1f 00 18 eb 81 00 00 54 88 00 80 52
+0x000000016b021374:   a0 23 03 d1 03 00 00 14 60 01 00 b4 a8 00 80 52
+0x000000016b021384:   09 00 40 f9 28 79 68 f8 00 01 3f d6 06 00 00 14
+0x000000016b021394:   f4 03 00 aa a0 a3 02 d1 20 20 fd 97 02 00 00 14
+0x000000016b0213a4:   f4 03 00 aa e0 03 1a aa 16 24 02 94 0e 00 00 14
+0x000000016b0213b4:   0c 00 00 14 f4 03 00 aa e8 3f c5 39 48 01 f8 36
+0x000000016b0213c4:   e0 9f 40 f9 12 24 02 94 07 00 00 14 f4 03 00 aa 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x1fffffff02047c4b is an unknown value
+stack at sp + 1 slots: 0x000000011f0e34d0 points into unknown readable memory: 0x000000004d55545a | 5a 54 55 4d 00 00 00 00
+stack at sp + 2 slots: 0x0 is NULL
+stack at sp + 3 slots: 0x00000001697eb150 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 4 slots: 0x0000008b00000000 is an unknown value
+stack at sp + 5 slots: 0x000000017d01b300 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 6 slots: 0x0000000179ff1970 is pointing into the stack for thread: 0x000000011f89e200
+stack at sp + 7 slots: 0x000000017d0bb9e0 points into unknown readable memory: 0x00003d05f06f03f8 | f8 03 6f f0 05 3d 00 00
+

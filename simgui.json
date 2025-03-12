@@ -27,14 +27,26 @@
     }
   },
   "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
     "Retained Values": {
       "open": false
     },
     "transitory": {
+      "PathPlanner": {
+        "Pose2d[]##v_/PathPlanner/activePath": {
+          "open": true
+        },
+        "open": true
+      },
       "Shuffleboard": {
         "open": true
       },
       "SmartDashboard": {
+        "PathPlanner": {
+          "open": true
+        },
         "open": true
       }
     }

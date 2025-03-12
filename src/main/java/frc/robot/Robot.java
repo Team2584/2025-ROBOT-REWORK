@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.setMegaTag2(true);
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = Autons.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    Autons.closeCommandSwerveDrivetrain();
     m_robotContainer.setMegaTag2(true);
 
     if (m_autonomousCommand != null) {

@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swerve;
 
+import static edu.wpi.first.units.Units.Rotation;
+
 import java.util.HashMap;
 import java.util.function.BooleanSupplier;
 
@@ -7,12 +9,9 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
-import com.pathplanner.lib.util.DriveFeedforwards;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -31,8 +30,9 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 
-public class Swerve extends SubsystemBase {
+public class Swerve extends SubsystemBase{
 	public Module[] modules;
 	public SwerveDrivePoseEstimator swervePoseEstimator;
 	public SwerveDriveKinematics swerveKinematics;
@@ -175,6 +175,11 @@ public class Swerve extends SubsystemBase {
 		Module.steerInversion = steerInversion;
 		Module.cancoderInversion = cancoderInversion;
 
+		// modules[0].driveInversion = driveLeftInversion;
+		// modules[2].driveInversion = driveLeftInversion;
+		// modules[1].driveInversion = driveRightInversion;
+		// modules[3].driveInversion = driveRightInversion;
+
 		pigeon = new Pigeon2(pigeonCANId, CANBusName);
 
 		// The absolute encoders need time to initialize
@@ -182,8 +187,11 @@ public class Swerve extends SubsystemBase {
 		resetModulesToAbsolute();
 		configure();
 
-		AutoBuilder.configure(this::getPose, this::resetPoseToPose, this::getChassisSpeeds, this::driveAutonomous,
-				new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig, autoFlipPaths, this);
+		
+
+
+		// AutoBuilder.configure(this::getPose, this::resetPoseToPose, this::getChassisSpeeds, this::driveAutonomous,
+		// 		new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig, autoFlipPaths, this);
 	}
 
 	public void configure() {
@@ -312,18 +320,18 @@ public class Swerve extends SubsystemBase {
 		setModuleStates(desiredModuleStates, isOpenLoop);
 	}
 
-	/**
-	 * Drive the drivetrain in autonomous. Autonomous driving is always closed loop.
-	 *
-	 * @param chassisSpeeds
-	 *                      Desired robot-relative chassis speeds
-	 *
-	 */
-	public void driveAutonomous(ChassisSpeeds chassisSpeeds, DriveFeedforwards feedforwards) {
-		SwerveModuleState[] desiredModuleStates = swerveKinematics
-				.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
-		setModuleStates(desiredModuleStates, false);
-	}
+	// /**
+	//  * Drive the drivetrain in autonomous. Autonomous driving is always closed loop.
+	//  *
+	//  * @param chassisSpeeds
+	//  *                      Desired robot-relative chassis speeds
+	//  *
+	//  */
+	// public void driveAutonomous(ChassisSpeeds chassisSpeeds, DriveFeedforwards feedforwards) {
+	// 	SwerveModuleState[] desiredModuleStates = swerveKinematics
+	// 			.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
+	// 	setModuleStates(desiredModuleStates, false);
+	// }
 
 	/**
 	 * Sets all modules to neutral output
@@ -365,7 +373,7 @@ public class Swerve extends SubsystemBase {
 	 */
 	public Pose2d getPose() {
 		return swervePoseEstimator.getEstimatedPosition();
-	}
+	} 
 
 	/**
 	 * Return the current rotation of the robot using the pose estimator.

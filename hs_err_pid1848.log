@@ -1,0 +1,1292 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00000001557fd2d4, pid=1848, tid=51203
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.12+7 (17.0.12+7) (build 17.0.12+7)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.12+7 (17.0.12+7, mixed mode, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-aarch64)
+# Problematic frame:
+# C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:51524 -Djava.library.path=/Users/michaelsagerman/Documents/FRC/2025-ROBOT-REWORK/build/jni/release -XX:+ShowCodeDetailsInExceptionMessages frc.robot.Main
+
+Host: "MacBookPro18,3" arm64, 8 cores, 16G, Darwin 24.1.0, macOS 15.1.1 (24B91)
+Time: Tue Mar 11 13:37:57 2025 PDT elapsed time: 3374.640351 seconds (0d 0h 56m 14s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000127023c00):  JavaThread "robot main" daemon [_thread_in_native, id=51203, stack(0x000000016df08000,0x000000016e10b000)]
+
+Stack: [0x000000016df08000,0x000000016e10b000],  sp=0x000000016e109c60,  free space=2055k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libCTRE_PhoenixTools_Sim.dylib+0x1d12d4]
+C  [libCTRE_PhoenixTools_Sim.dylib+0x84c2c]
+J 1773  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000011a659844 [0x000000011a6597c0+0x0000000000000084]
+C  0x0000000000000001
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1773  com.ctre.phoenix6.configs.jni.ConfigJNI.SetConfigs(Ljava/lang/String;IDZZ)I (0 bytes) @ 0x000000011a659844 [0x000000011a6597c0+0x0000000000000084]
+J 2660 c2 com.ctre.phoenix6.configs.ParentConfigurator.setConfigsPrivate(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode; (121 bytes) @ 0x000000011a79a7dc [0x000000011a79a680+0x000000000000015c]
+J 2552 c2 frc.robot.subsystems.swerve.Swerve.resetModulesToAbsolute()V (32 bytes) @ 0x000000011a71c1f0 [0x000000011a71c100+0x00000000000000f0]
+J 3112 c2 frc.robot.subsystems.swerve.Drivetrain.periodic()V (262 bytes) @ 0x000000011a80b230 [0x000000011a806980+0x00000000000048b0]
+J 2356 c2 edu.wpi.first.wpilibj2.command.CommandScheduler.run()V (603 bytes) @ 0x000000011a6a96e4 [0x000000011a6a9140+0x00000000000005a4]
+J 2704 c2 edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc()V (552 bytes) @ 0x000000011a7d19b4 [0x000000011a7d1240+0x0000000000000774]
+J 2677 c2 edu.wpi.first.wpilibj.TimedRobot$$Lambda$10+0x0000000800095cd8.run()V (8 bytes) @ 0x000000011a7a7278 [0x000000011a7a7240+0x0000000000000038]
+J 3220% c1 edu.wpi.first.wpilibj.TimedRobot.startCompetition()V (203 bytes) @ 0x0000000112fe1278 [0x0000000112fe0d80+0x00000000000004f8]
+j  edu.wpi.first.wpilibj.RobotBase.runRobot(Ljava/util/function/Supplier;)V+265
+j  edu.wpi.first.wpilibj.RobotBase.lambda$startRobot$1(Ljava/util/function/Supplier;)V+1
+j  edu.wpi.first.wpilibj.RobotBase$$Lambda$2+0x0000000800089b58.run()V+4
+j  java.lang.Thread.run()V+11 java.base@17.0.12
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 2 (SEGV_ACCERR), si_addr: 0x0000000000000000
+
+Registers:
+ x0=0x0000000156b16380  x1=0x0000000000000003  x2=0x0000000000000000  x3=0x00000001859aff68
+ x4=0x00000001569521e0  x5=0x000000000000000d  x6=0x0000000000000002  x7=0x0000000000000000
+ x8=0x0000000000000000  x9=0x000000000000c803 x10=0x0000000000000003 x11=0x000000000008ab90
+x12=0x0000000156903f58 x13=0x000000000000000c x14=0x0000000156900000 x15=0x00000000d4f90fff
+x16=0x000000000000eafc x17=0x00000001f2efd608 x18=0x0000000000000000 x19=0x00000001569785e0
+x20=0x0000000000000008 x21=0x0000000156b16380 x22=0x00000001569785e6 x23=0x00000001418ff078
+x24=0x00000000beffbe77 x25=0x00000000000003f8 x26=0x00000001418ff078 x27=0x00000001418ff078
+x28=0x00000001418ff070  fp=0x000000016e10a260  lr=0x00000001557fd2b8  sp=0x000000016e109c60
+pc=0x00000001557fd2d4 cpsr=0x0000000040001000
+
+Register to memory mapping:
+
+ x0=0x0000000156b16380 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x1=0x0000000000000003 is an unknown value
+ x2=0x0 is NULL
+ x3=0x00000001859aff68: szone_malloc_type_malloc+0 in /usr/lib/system/libsystem_malloc.dylib at 0x0000000185997000
+ x4=0x00000001569521e0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+ x5=0x000000000000000d is an unknown value
+ x6=0x0000000000000002 is an unknown value
+ x7=0x0 is NULL
+ x8=0x0 is NULL
+ x9=0x000000000000c803 is an unknown value
+x10=0x0000000000000003 is an unknown value
+x11=0x000000000008ab90 is an unknown value
+x12=0x0000000156903f58 points into unknown readable memory: 0x000000004e174e17 | 17 4e 17 4e 00 00 00 00
+x13=0x000000000000000c is an unknown value
+x14=0x0000000156900000 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+x15=0x00000000d4f90fff is an unknown value
+x16=0x000000000000eafc is an unknown value
+x17=0x00000001f2efd608 points into unknown readable memory: 0x00000001859b32fc | fc 32 9b 85 01 00 00 00
+x18=0x0 is NULL
+x19=0x00000001569785e0 points into unknown readable memory: 0x0000beffbe7703f8 | f8 03 77 be ff be 00 00
+x20=0x0000000000000008 is an unknown value
+x21=0x0000000156b16380 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+x22=0x00000001569785e6 points into unknown readable memory: 00 00
+x23=0x00000001418ff078 points into unknown readable memory: 0x0000000156b16380 | 80 63 b1 56 01 00 00 00
+x24=0x00000000beffbe77 is an unknown value
+x25=0x00000000000003f8 is an unknown value
+x26=0x00000001418ff078 points into unknown readable memory: 0x0000000156b16380 | 80 63 b1 56 01 00 00 00
+x27=0x00000001418ff078 points into unknown readable memory: 0x0000000156b16380 | 80 63 b1 56 01 00 00 00
+x28=0x00000001418ff070 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+
+
+Top of Stack: (sp=0x000000016e109c60)
+0x000000016e109c60:   1fffffff02047c48 0000000141aece70
+0x000000016e109c70:   0000000000000000 00000001418ff070
+0x000000016e109c80:   0000008800000000 00000001569611c0
+0x000000016e109c90:   0000000100000000 00000001569785e0
+0x000000016e109ca0:   00000001569785e6 00000001569785e6
+0x000000016e109cb0:   000000000000000f 00000001569788e0
+0x000000016e109cc0:   00000001569788e6 00000001569788e6
+0x000000016e109cd0:   0000000000000000 0000000800000002
+0x000000016e109ce0:   00000001569611c0 000000016e109d98
+0x000000016e109cf0:   0000000000000400 02047c0802047c48
+0x000000016e109d00:   0000000000000000 0000000000000000
+0x000000016e109d10:   0000000000000000 000000006e10a000
+0x000000016e109d20:   0000000000000000 0000000000000000
+0x000000016e109d30:   0000000000000000 0000000000000000
+0x000000016e109d40:   000000006e109d00 0000000000000000
+0x000000016e109d50:   0000000000000000 0000000000000000
+0x000000016e109d60:   0000000000000000 0000000100000000
+0x000000016e109d70:   000000015584bf00 000000016e10a1b8
+0x000000016e109d80:   000000016e10a1c0 0000000000000000
+0x000000016e109d90:   000000016e109ff0 0000beffbe770605
+0x000000016e109da0:   000000015691ef8f 000000015691ef60
+0x000000016e109db0:   000000015691ef60 000000016e109ff0
+0x000000016e109dc0:   0000000000000073 000000016e109fb0
+0x000000016e109dd0:   363130316e109e20 00000001556b0818
+0x000000016e109de0:   000000000000012c 0000000000000004
+0x000000016e109df0:   000000016e109eb0 0000000185a2401c
+0x000000016e109e00:   000000030000007d 000000000000002f
+0x000000016e109e10:   000000015695a470 573ba370d7ce005d
+0x000000016e109e20:   000000016e109eb0 000000018599aca0
+0x000000016e109e30:   0000000127023c00 00000007006be8d0
+0x000000016e109e40:   000000070ddd70f4 0000000155938bc8
+0x000000016e109e50:   0000000155938d80 0000000000000020 
+
+Instructions: (pc=0x00000001557fd2d4)
+0x00000001557fd1d4:   e0 03 09 aa 09 00 40 f9 28 79 68 f8 00 01 3f d6
+0x00000001557fd1e4:   e0 03 1a aa 87 24 02 94 15 02 00 34 f3 03 1c aa
+0x00000001557fd1f4:   61 8e 40 f8 e0 03 1c aa 8c 02 00 94 93 03 00 f9
+0x00000001557fd204:   9f 0b 00 f9 7f 02 00 f9 e0 07 40 f9 38 24 02 94
+0x00000001557fd214:   fb 1f 40 f9 1b 11 00 b4 fb 23 00 f9 e0 03 1b aa
+0x00000001557fd224:   7b 24 02 94 84 00 00 14 f3 db 43 a9 7f 02 16 eb
+0x00000001557fd234:   60 06 00 54 97 23 00 91 0a 00 00 14 80 07 40 f9
+0x00000001557fd244:   d6 0b f9 97 88 0b 40 f9 08 05 00 91 88 0b 00 f9
+0x00000001557fd254:   b8 22 00 b9 73 1a 00 91 7f 02 16 eb 00 05 00 54
+0x00000001557fd264:   79 02 40 79 78 22 40 b8 fb 03 17 aa fa 03 17 aa
+0x00000001557fd274:   e8 02 40 f9 a8 00 00 b5 0d 00 00 14 48 03 40 f9
+0x00000001557fd284:   fb 03 1a aa 48 01 00 b4 fa 03 08 aa 08 39 40 79
+0x00000001557fd294:   3f 03 08 6b 43 ff ff 54 1f 01 19 6b 62 02 00 54
+0x00000001557fd2a4:   48 07 40 f9 28 ff ff b5 5b 23 00 91 00 05 80 52
+0x00000001557fd2b4:   5d 24 02 94 f5 03 00 aa 19 38 00 79 1f 20 00 b9
+0x00000001557fd2c4:   1f 7c 00 a9 1a 08 00 f9 60 03 00 f9 88 03 40 f9
+0x00000001557fd2d4:   08 01 40 f9 e1 03 00 aa 28 fb ff b4 88 03 00 f9
+0x00000001557fd2e4:   61 03 40 f9 d6 ff ff 17 f5 03 1a aa 58 23 00 b9
+0x00000001557fd2f4:   73 1a 00 91 7f 02 16 eb 41 fb ff 54 15 00 80 52
+0x00000001557fd304:   e0 07 40 f9 fa 23 02 94 fb 1f 40 f9 7b f8 ff b5
+0x00000001557fd314:   49 00 00 14 e0 63 01 91 47 4a ff 97 0a 00 00 14
+0x00000001557fd324:   2e 07 f9 97 08 00 00 14 e0 e3 00 91 42 4a ff 97
+0x00000001557fd334:   05 00 00 14 29 07 f9 97 03 00 00 14 e0 e3 04 91
+0x00000001557fd344:   50 f7 f8 97 20 00 20 d4 f4 03 00 aa e0 03 02 91
+0x00000001557fd354:   d2 ba fd 97 10 00 00 14 0e 00 00 14 f4 03 00 aa
+0x00000001557fd364:   a0 03 55 f8 1f 00 18 eb 81 00 00 54 88 00 80 52
+0x00000001557fd374:   a0 23 03 d1 03 00 00 14 60 01 00 b4 a8 00 80 52
+0x00000001557fd384:   09 00 40 f9 28 79 68 f8 00 01 3f d6 06 00 00 14
+0x00000001557fd394:   f4 03 00 aa a0 a3 02 d1 20 20 fd 97 02 00 00 14
+0x00000001557fd3a4:   f4 03 00 aa e0 03 1a aa 16 24 02 94 0e 00 00 14
+0x00000001557fd3b4:   0c 00 00 14 f4 03 00 aa e8 3f c5 39 48 01 f8 36
+0x00000001557fd3c4:   e0 9f 40 f9 12 24 02 94 07 00 00 14 f4 03 00 aa 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x1fffffff02047c48 is an unknown value
+stack at sp + 1 slots: 0x0000000141aece70 points into unknown readable memory: 0x000000004d55545a | 5a 54 55 4d 00 00 00 00
+stack at sp + 2 slots: 0x0 is NULL
+stack at sp + 3 slots: 0x00000001418ff070 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 4 slots: 0x0000008800000000 is an unknown value
+stack at sp + 5 slots: 0x00000001569611c0 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 6 slots: 0x0000000100000000 is an unknown value
+stack at sp + 7 slots: 0x00000001569785e0 points into unknown readable memory: 0x0000beffbe7703f8 | f8 03 77 be ff be 00 00
+
+
+Compiled method (n/a) 3374650 1773     n 0       com.ctre.phoenix6.configs.jni.ConfigJNI::SetConfigs (native)
+ total in heap  [0x000000011a659610,0x000000011a659988] = 888
+ relocation     [0x000000011a659768,0x000000011a659790] = 40
+ main code      [0x000000011a6597c0,0x000000011a659978] = 440
+ oops           [0x000000011a659978,0x000000011a659980] = 8
+ metadata       [0x000000011a659980,0x000000011a659988] = 8
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000143a1fe00} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # this:     c_rarg1:c_rarg1 
+                        = 'com/ctre/phoenix6/configs/jni/ConfigJNI'
+  # parm0:    c_rarg2:c_rarg2 
+                        = 'java/lang/String'
+  # parm1:    c_rarg3   = int
+  # parm2:    v0:v0     = double
+  # parm3:    c_rarg4   = boolean
+  # parm4:    c_rarg5   = boolean
+  #           [sp+0x60]  (sp of caller)
+  0x000000011a6597c0: 2808 40b9 | 3f01 086b | 4000 0054 
+
+  0x000000011a6597cc: ;   {runtime_call ic_miss_stub}
+  0x000000011a6597cc: 0d3d e817 
+[Verified Entry Point]
+  0x000000011a6597d0: 1f20 03d5 | e953 40d1 | 3f01 00f9 | fd7b bfa9 | fd03 0091 | ff43 01d1 | e207 00f9 | 5f00 1feb 
+  0x000000011a6597f0: e223 0091 | e203 829a | e103 00f9 | 3f00 1feb | e103 00d1 | e103 819a | e801 0010 | 884f 01f9 
+  0x000000011a659810: e803 0091 | 884b 01f9 
+
+  0x000000011a659818: ;   {external_word}
+  0x000000011a659818: a82f f8d0 | 0869 5339 | a806 0035 | 80c3 0a91 | e803 7eb2 | 8903 0d91 | 28fd 9f88 
+
+  0x000000011a659834: ;   {runtime_call}
+  0x000000011a659834: 886b 81d2 | 68ad aaf2 | 2800 c0f2 | 0001 3fd6 | 007c 4093 | a800 80d2 | 8843 03b9 | bf3b 03d5 
+  0x000000011a659854: 8823 0d91 | 08fd dfc8 | bf03 08eb | a803 0054 | 8833 43b9 | 6803 0035 | e803 7db2 | 8903 0d91 
+  0x000000011a659874: 28fd 9f88 | 88c3 4e39 | 1f09 0071 | c001 0054 
+
+  0x000000011a659884: ;   {external_word}
+  0x000000011a659884: a82f f8d0 | 0869 5339 | a805 0035 | 9f4b 01f9 | 9f4f 01f9 | 826f 40f9 | 5f80 00f9 | bf03 0091 
+  0x000000011a6598a4: fd7b c1a8 | 8807 40f9 | 4800 00b5 | c003 5fd6 
+
+  0x000000011a6598b4: ;   {runtime_call StubRoutines (1)}
+  0x000000011a6598b4: f339 e717 | a083 1ff8 
+
+  0x000000011a6598bc: ;   {runtime_call SharedRuntime::reguard_yellow_pages()}
+  0x000000011a6598bc: 88cc 9cd2 | 8850 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | edff ff17 | a083 1ff8 | e003 1caa 
+  0x000000011a6598dc: ;   {runtime_call JavaThread::check_special_condition_for_native_trans(JavaThread*)}
+  0x000000011a6598dc: 888c 81d2 | 4853 a1f2 | 2800 c0f2 | 0001 3fd6 | a083 5ff8 | dfff ff17 | e00f 1ffc | e10b bda9 
+  0x000000011a6598fc: e313 01a9 | e57f 02a9 
+
+  0x000000011a659904: ;   {metadata({method} {0x0000000143a1fe00} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x000000011a659904: 01c0 9fd2 | 2174 a8f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 0896 98d2 | 8850 a1f2 | 2800 c0f2 
+  0x000000011a659924: 0001 3fd6 | e833 c1a8 | e313 41a9 | e57f 42a9 | e10b c3a8 | e007 41fc | baff ff17 | a083 1ff8 
+  0x000000011a659944: ;   {metadata({method} {0x0000000143a1fe00} 'SetConfigs' '(Ljava/lang/String;IDZZ)I' in 'com/ctre/phoenix6/configs/jni/ConfigJNI')}
+  0x000000011a659944: 01c0 9fd2 | 2174 a8f2 | 2100 c0f2 | e003 1caa | e833 bfa9 | 08aa 98d2 | 8850 a1f2 | 2800 c0f2 
+  0x000000011a659964: 0001 3fd6 | e833 c1a8 | a083 5ff8 | c8ff ff17 | 0000 0000 
+[/MachCode]
+
+
+Compiled method (c2) 3374656 2660   !   4       com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate (121 bytes)
+ total in heap  [0x000000011a79a110,0x000000011a79f1b8] = 20648
+ relocation     [0x000000011a79a268,0x000000011a79a648] = 992
+ main code      [0x000000011a79a680,0x000000011a79c640] = 8128
+ stub code      [0x000000011a79c640,0x000000011a79ccf0] = 1712
+ oops           [0x000000011a79ccf0,0x000000011a79ce78] = 392
+ metadata       [0x000000011a79ce78,0x000000011a79d180] = 776
+ scopes data    [0x000000011a79d180,0x000000011a79e998] = 6168
+ scopes pcs     [0x000000011a79e998,0x000000011a79eee8] = 1360
+ dependencies   [0x000000011a79eee8,0x000000011a79efa0] = 184
+ handler table  [0x000000011a79efa0,0x000000011a79f120] = 384
+ nul chk table  [0x000000011a79f120,0x000000011a79f1b8] = 152
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000000143a508e0} 'setConfigsPrivate' '(Ljava/lang/String;DZZ)Lcom/ctre/phoenix6/StatusCode;' in 'com/ctre/phoenix6/configs/ParentConfigurator'
+  # this:     c_rarg1:c_rarg1 
+                        = 'com/ctre/phoenix6/configs/ParentConfigurator'
+  # parm0:    c_rarg2:c_rarg2 
+                        = 'java/lang/String'
+  # parm1:    v0:v0     = double
+  # parm2:    c_rarg3   = boolean
+  # parm3:    c_rarg4   = boolean
+  #           [sp+0xc0]  (sp of caller)
+  0x000000011a79a680: 2808 40b9 | 3f01 086b | 4000 0054 
+
+  0x000000011a79a68c: ;   {runtime_call ic_miss_stub}
+  0x000000011a79a68c: 5d39 e317 
+[Verified Entry Point]
+  0x000000011a79a690: 1f20 03d5 | e953 40d1 | 3f01 00f9 | ff03 03d1 | fd7b 0ba9 | 2a30 40b9 | e433 00b9 | e327 00b9 
+  0x000000011a79a6b0: e017 00fd | e20f 00f9 | f303 01aa | 4df1 7dd3 
+
+  0x000000011a79a6c0: ; implicit exception: dispatches to 0x000000011a79c344
+  0x000000011a79a6c0: ab09 40b9 
+
+  0x000000011a79a6c4: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x000000011a79a6c4: ca00 a0d2 | 0a80 83f2 | 7f01 0a6b | e141 0054 | aa0d 40b9 | 54f1 7dd3 | d43e 00b4 | 8b47 41f9 
+  0x000000011a79a6e4: 7501 40f9 | eb03 0032 | ec03 1f2a | 8a42 0091 | e803 0caa | 4bfd e888 | 1f01 0c6b | ea17 9f9a 
+  0x000000011a79a704: ea36 0034 | 8ae3 c039 | 8a21 0035 | ea03 14aa | eb03 15aa | 6b01 0aca | acfe 43d3 | 6bfd 55d3 
+  0x000000011a79a724: 8c0e 00b9 | 0b01 00b4 | 4afd 49d3 | 0bc0 a0d2 | 2b00 c0f2 | 6001 0a8b | 0b00 c039 | 7f11 0071 
+  0x000000011a79a744: 2121 0054 | 7436 40b9 | 96f2 7dd3 | d63b 00b4 | 8be3 c039 | 6b1c 0035 | f70f 40f9 | ea03 16aa 
+  0x000000011a79a764: eb03 17aa | 6b01 0aca | edfe 43d3 | 6bfd 55d3 | cd0e 00b9 | 2b01 00b4 | 1701 00b4 | 4afd 49d3 
+  0x000000011a79a784: 0bc0 a0d2 | 2b00 c0f2 | 6001 0a8b | 0b00 c039 | 7f11 0071 | 2121 0054 | 6a0e 40b9 | 4af1 7dd3 
+  0x000000011a79a7a4: 81f2 7dd3 
+
+  0x000000011a79a7a8: ; implicit exception: dispatches to 0x000000011a79c350
+  0x000000011a79a7a8: 4c15 40b9 | 4311 40b9 | 82f1 7dd3 | 0139 00b4 | f7d7 00a9 | f303 00f9 
+
+  0x000000011a79a7c0: ;   {oop(a 'java/lang/Class'{0x00000007007e39b8} = 'com/ctre/phoenix6/StatusCode')}
+  0x000000011a79a7c0: 1d37 87d2 | dd0f a0f2 | fd00 c0f2 | e017 40fd | e427 40b9 | e533 40b9 
+
+  0x000000011a79a7d8: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop }
+                      ;*invokevirtual SetConfigs {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@40 (line 73)
+                      ;   {optimized virtual_call}
+  0x000000011a79a7d8: fefb fa97 | aa5b 43b9 | 4df1 7dd3 | 0c00 0211 | ea03 002a | 9f01 0471 | 0201 0054 
+
+  0x000000011a79a7f4: ;   {oop(a 'java/lang/Integer'[256] {0x00000007009291d8})}
+  0x000000011a79a7f4: 0b3b 92d2 | 4b12 a0f2 | eb00 c0f2 | 6bc9 208b | 6c11 42b9 | e00f 0c8b | 0e00 0014 | 8087 40f9 
+  0x000000011a79a814: 8b8f 40f9 | 0c40 0091 | 9f01 0beb | 822f 0054 | eb03 40b2 | 8c87 00f9 | 0b00 00f9 
+
+  0x000000011a79a830: ;   {metadata('java/lang/Integer')}
+  0x000000011a79a830: ab00 a0d2 | 0bea 8cf2 | 0b08 00b9 | 90c1 80f9 | 0a0c 00b9 
+
+  0x000000011a79a844: ; implicit exception: dispatches to 0x000000011a79c364
+  0x000000011a79a844: ab09 40b9 
+
+  0x000000011a79a848: ;   {metadata('java/util/HashMap')}
+  0x000000011a79a848: ae00 a0d2 | 0e38 9ff2 | 7f01 0e6b | 6136 0054 | ac25 40b9 | 8ff1 7dd3 
+
+  0x000000011a79a860: ; implicit exception: dispatches to 0x000000011a79b0a4
+  0x000000011a79a860: ee0d 40b9 | 5041 4a4a | cb05 0051 | 6c01 100a | ebc9 2c8b | df01 0071 | 8937 0054 | 6c11 40b9 
+  0x000000011a79a880: 82f1 7dd3 
+
+  0x000000011a79a884: ; implicit exception: dispatches to 0x000000011a79b0ac
+  0x000000011a79a884: 4b0c 40b9 | 7f01 106b | 2006 0054 | 4b18 40b9 | 71f1 7dd3 | 4c08 40b9 | 115f 00b4 
+
+  0x000000011a79a8a0: ;   {metadata('java/util/HashMap$TreeNode')}
+  0x000000011a79a8a0: cb00 a0d2 | 0ba1 82f2 | 9f01 0b6b | c05e 0054 | 2b0e 40b9 | 7f01 106b | e103 0054 | 2b12 40b9 
+  0x000000011a79a8c0: 6cf1 7dd3 | 9f01 00eb | 2003 0054 
+
+  0x000000011a79a8cc: ; implicit exception: dispatches to 0x000000011a79c3d8
+  0x000000011a79a8cc: 8b09 40b9 
+
+  0x000000011a79a8d0: ;   {metadata('java/lang/Integer')}
+  0x000000011a79a8d0: a100 a0d2 | 01ea 8cf2 | 7f01 016b | 21ce 0054 | eb03 0caa | 7d0d 40b9 | 5f01 1d6b | 0002 0054 
+  0x000000011a79a8f0: ec2f 07a9 | f017 40fd | ec27 40b9 | eb33 40b9 | 4117 8012 | f00b 00fd | ec2f 0329 | ed83 03a9 
+  0x000000011a79a910: ef8b 04a9 | f12f 00f9 | ee27 00b9 | f063 00b9 | e037 00f9 | ea67 00b9 
+
+  0x000000011a79a928: ; ImmutableOopMap {[0]=Oop [8]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [88]=Oop [104]=Oop [112]=Oop [120]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.HashMap::getNode@128 (line 577)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79a928: d653 e397 | e203 11aa | 2300 0014 | 2b1a 40b9 | 81ab 41f9 
+
+  0x000000011a79a93c: ; ImmutableOopMap {r13=Oop r15=Oop r17=Oop c_rarg0=Oop c_rarg2=Oop [0]=Oop [8]=Oop [16]=Oop }
+                      ;*ifnonnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@145 (line 579)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+  0x000000011a79a93c: 71f1 7dd3 
+
+  0x000000011a79a940: ;   {poll}
+  0x000000011a79a940: 3f00 40b9 | 71fb ffb5 | eb03 0a2a | db01 0014 | 4b10 40b9 | 6cf1 7dd3 | 9f01 00eb | 0003 0054 
+  0x000000011a79a960: ; implicit exception: dispatches to 0x000000011a79c398
+  0x000000011a79a960: 8b09 40b9 
+
+  0x000000011a79a964: ;   {metadata('java/lang/Integer')}
+  0x000000011a79a964: b100 a0d2 | 11ea 8cf2 | 7f01 116b | a1cc 0054 | eb03 0caa | 7d0d 40b9 | 5f01 1d6b | e001 0054 
+  0x000000011a79a984: ecaf 06a9 | f017 40fd | eb27 40b9 | ec33 40b9 | 4117 8012 | f00b 00fd | eb33 0329 | ed83 03a9 
+  0x000000011a79a9a4: ef8b 04a9 | ee27 00b9 | f05b 00b9 | e033 00f9 | ea5f 00b9 
+
+  0x000000011a79a9b8: ; ImmutableOopMap {[0]=Oop [8]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [104]=Oop [112]=Oop }
+                      ;*if_icmpne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::equals@18 (line 1236)
+                      ; - java.util.HashMap::getNode@63 (line 570)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79a9b8: b253 e397 | 4b14 40b9 | 6df1 7dd3 
+
+  0x000000011a79a9c4: ; implicit exception: dispatches to 0x000000011a79b0b4
+  0x000000011a79a9c4: ac09 40b9 
+
+  0x000000011a79a9c8: ;   {metadata('com/ctre/phoenix6/StatusCode')}
+  0x000000011a79a9c8: 4b02 a0d2 | 0bdf 87f2 | 9f01 0b6b | 81c8 0054 | ed0f 00f9 | e103 40f9 
+
+  0x000000011a79a9e0: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop }
+                      ;*invokevirtual reportIfFrequent {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@49 (line 80)
+                      ;   {optimized virtual_call}
+  0x000000011a79a9e0: ac76 0194 | f903 40f9 | 2a33 40b9 | 55f1 7dd3 
+
+  0x000000011a79a9f0: ; implicit exception: dispatches to 0x000000011a79c384
+  0x000000011a79a9f0: ab0a 40b9 
+
+  0x000000011a79a9f4: ;   {metadata('java/util/concurrent/locks/ReentrantLock')}
+  0x000000011a79a9f4: ca00 a0d2 | 0a80 83f2 | 7f01 0a6b | 412a 0054 | aa0e 40b9 | 54f1 7dd3 | 1427 00b4 | 8a42 0091 
+  0x000000011a79aa14: 4bfd df88 | 8a0e 40b9 | 4af1 7dd3 | 7305 0051 | ec0b 40f9 | 5f01 0ceb | 8130 0054 | 7f05 0071 
+  0x000000011a79aa34: 612c 0054 | 8ae3 c039 | aa06 0035 | 9f0e 00b9 | 8a42 0091 | 53fd 9f88 | 8a52 0091 | 4afd df88 
+  0x000000011a79aa54: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x0000000700601e10})}
+  0x000000011a79aa54: 0bc2 83d2 | 0b0c a0f2 | eb00 c0f2 | f30f 40f9 | 4af1 7dd3 | 6d16 40b9 | 6b15 40b9 | 2a30 00b5 
+  0x000000011a79aa74: bf01 0b6b | e10c 0054 | e003 13aa | fd7b 4ba9 | ff03 0391 | 88e3 41f9 | ff63 28eb | 2302 0054 
+  0x000000011a79aa94: fd7b bfa9 | fd03 0091 
+
+  0x000000011a79aa9c: ;   {external_word}
+  0x000000011a79aa9c: 8848 81d2 | a850 a1f2 | 2800 c0f2 | e003 1caa | 0001 3fd6 | bf03 0091 | fd7b c1a8 
+
+  0x000000011a79aab8: ;   {runtime_call delayed StackOverflowError throw_exception}
+  0x000000011a79aab8: 0860 9ad2 | 4840 a3f2 | 2800 c0f2 | 0001 1fd6 | c1d5 bbd4 | dcea aa0a | 0100 0000 
+
+  0x000000011a79aad4: ;   {poll_return}
+  0x000000011a79aad4: 88a7 41f9 | ff63 28eb | a8da 0054 | c003 5fd6 | ca0e 40b9 | 40f1 7dd3 | 80e3 ffb4 | 8a13 40f9 
+  0x000000011a79aaf4: 4a25 00b4 | 8b1b 40f9 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | 14ff ff17 | 8b0e 40b9 
+  0x000000011a79ab14: 60f1 7dd3 | 40f9 ffb4 | 8a13 40f9 | aa26 00b4 | 8b1b 40f9 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 
+  0x000000011a79ab34: 8c13 00f9 | c2ff ff17 | 8b0e 40b9 | 60f1 7dd3 | 60de ffb4 | 8a13 40f9 | 6a26 00b4 | 8b1b 40f9 
+  0x000000011a79ab54: 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | ebfe ff17 | 8a23 40f9 | 8b2b 40f9 | bf3b 03d5 
+  0x000000011a79ab74: 0d00 c039 | 8dde ff34 | 1f00 0039 | 4a01 00b5 | e103 1caa | c900 0010 
+
+  0x000000011a79ab8c: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_post_entry(unsigned char volatile*, JavaThread*)}
+  0x000000011a79ab8c: 0880 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | e9fe ff17 | 4c21 00d1 
+  0x000000011a79abac: 6a01 0a8b | 4081 1ff8 | 8c23 00f9 | e4fe ff17 | 8a23 40f9 | 8b2b 40f9 | bf3b 03d5 | 0d00 c039 
+  0x000000011a79abcc: 0d02 0034 | 1f00 0039 | ca00 00b4 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c23 00f9 | 0900 0014 
+  0x000000011a79abec: e103 1caa | c900 0010 
+
+  0x000000011a79abf4: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_post_entry(unsigned char volatile*, JavaThread*)}
+  0x000000011a79abf4: 0880 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | 7436 40b9 | e3fe ff17 
+  0x000000011a79ac14: ;   {oop(a 'com/ctre/phoenix6/StatusCode'{0x00000007007ed318})}
+  0x000000011a79ac14: 0063 9ad2 | c00f a0f2 | e000 c0f2 | 7f02 00eb | e0f2 ff54 | 2a0f 40b9 | 54f1 7dd3 
+
+  0x000000011a79ac30: ; implicit exception: dispatches to 0x000000011a79c41c
+  0x000000011a79ac30: 8b1e 40b9 | 4b25 0034 | 76f1 7dd3 | ca16 40b9 | 4af1 7dd3 
+
+  0x000000011a79ac44: ; implicit exception: dispatches to 0x000000011a79c430
+  0x000000011a79ac44: 4b0d 40b9 | 7f01 0071 | 2910 0054 | cc42 c039 | 6d29 cc1a | b47d 4093 | 9f05 0071 | 0050 0054 
+  0x000000011a79ac64: 8e36 0091 | cafd 6093 | 5d1d 0013 | ec03 0e2a | 9521 dd1a | 2d70 f837 | 2c71 f837 | 3572 f837 
+  0x000000011a79ac84: aa7e 4093 | bf02 4471 | 2900 0054 | bf02 4471 | a84f 0054 | 9787 40f9 | 4a5d 0091 | 4af1 7d92 
+  0x000000011a79aca4: 8b8f 40f9 | ea02 0a8b | 5f01 0beb | c24e 0054 | eb03 40b2 | 8a87 00f9 | eb02 00f9 
+
+  0x000000011a79acc0: ;   {metadata({type array byte})}
+  0x000000011a79acc0: 8b00 a0d2 | 0bfc 80f2 | 50c1 80f9 | eb0a 00b9 | 5001 81f9 | f50e 00b9 | 5041 81f9 | bf3a 03d5 
+  0x000000011a79ace0: e803 60b2 | 9f02 08eb | ca3e 0054 
+
+  0x000000011a79acec: ;   {oop([B{0x0000000700a58c40})}
+  0x000000011a79acec: 8b02 bcd2 | 0b31 96f2 | ac35 0011 | eac2 2d8b | eb0f 0b8b | bf02 0c6b | c35a 0054 | a201 80d2 
+  0x000000011a79ad0c: 4141 0091 | 6041 0091 
+
+  0x000000011a79ad14: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79ad14: f9e2 e297 | ca16 40b9 | 50f1 7dd3 
+
+  0x000000011a79ad20: ; implicit exception: dispatches to 0x000000011a79c44c
+  0x000000011a79ad20: 0a0e 40b9 | cd42 c039 | 4b29 cd1a | 9dc2 2bcb | eb03 1d2a | e803 60b2 | bf03 08eb | 8a3e 0054 
+  0x000000011a79ad40: 0042 0091 | 6d42 0035 | ecc2 2b8b | 6d01 0a0b | ab59 f837 | bf02 0d6b | 6359 0054 | 5f01 0071 
+  0x000000011a79ad60: 8900 0054 | 427d 4093 | 8141 0091 
+
+  0x000000011a79ad6c: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79ad6c: e3e2 e297 | edfe 43d3 | 5d3e 00b5 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb | 224a 0054 
+  0x000000011a79ad8c: ea03 40b2 | 8b87 00f9 | 0a00 00f9 
+
+  0x000000011a79ad98: ;   {metadata('java/lang/String')}
+  0x000000011a79ad98: 8a00 a0d2 | 0a79 83f2 | 0a7c 0129 | 70c1 80f9 | 1f08 00f9 | 0d14 00b9 | bf3b 03d5 | e01f 00f9 
+  0x000000011a79adb8: ea03 19aa | fd03 0aaa | ea07 40f9 | 6116 40b9 | f30f 00f9 | ea03 00f9 | e21f 40f9 
+
+  0x000000011a79add4: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop }
+                      ;*invokestatic reportStatusCode {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@115 (line 87)
+                      ;   {static_call}
+  0x000000011a79add4: 5f50 fb97 | e00f 40f9 | 29ff ff17 | 8a0e 40b9 | 4af1 7dd3 | 5f01 15eb | 4002 0054 | e1d7 00a9 
+  0x000000011a79adf4: fd03 0daa | f403 00f9 | e103 14aa | e203 0032 
+
+  0x000000011a79ae04: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop [24]=Oop }
+                      ;*invokevirtual acquire {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@9 (line 153)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {optimized virtual_call}
+  0x000000011a79ae04: 3f38 e397 | f3d7 40a9 | 4ffe ff17 | ed0f 00f9 | fd03 0a2a 
+
+  0x000000011a79ae18: ;   {metadata('java/lang/Integer')}
+  0x000000011a79ae18: 01ea 8cd2 | a100 a0f2 | 0101 c0f2 
+
+  0x000000011a79ae24: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.Integer::valueOf@23 (line 1081)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@4 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a79ae24: 873f e697 | ea03 1d2a | ed0f 40f9 | 84fe ff17 | 8a42 0091 | 4afd df88 | 5d05 0011 | dd7a f837 
+  0x000000011a79ae44: 8a42 0091 | 5dfd 9f88 | 3ffe ff17 | 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb | a24e 0054 
+  0x000000011a79ae64: ea03 40b2 | 8b87 00f9 
+
+  0x000000011a79ae6c: ;   {metadata('java/lang/String')}
+  0x000000011a79ae6c: 8c00 a0d2 | 0c79 83f2 | 0a00 00f9 | 0c7c 0129 | 70c1 80f9 | 1f10 00b9 
+
+  0x000000011a79ae84: ;   {oop([B{0x0000000700a58c40})}
+  0x000000011a79ae84: 8a02 bcd2 | 0a31 96f2 | 0a14 00b9 
+
+  0x000000011a79ae90: ;   {oop(" Apply Config"{0x0000000700a58c28})}
+  0x000000011a79ae90: 0a85 91d2 | aa14 a0f2 | ea00 c0f2 | 4b0d 40b9 | 0b0c 00b9 | bf3b 03d5 | e01f 00f9 | ea03 19aa 
+  0x000000011a79aeb0: c3ff ff17 | 2101 8012 | fd03 13aa | e203 00f9 | ed0f 00f9 
+
+  0x000000011a79aec4: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop }
+                      ;*invokevirtual lock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79aec4: 6f52 e397 | 2101 8012 | fd03 13aa 
+
+  0x000000011a79aed0: ; ImmutableOopMap {rfp=Oop [24]=Oop }
+                      ;*putfield serializedString {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@14 (line 71)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79aed0: 6c52 e397 | 2101 8012 | fd03 13aa | f703 00f9 | e20f 00f9 | e323 00b9 
+
+  0x000000011a79aee8: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop }
+                      ;*invokevirtual SetConfigs {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@40 (line 73)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79aee8: 6652 e397 | ea07 40f9 | eb27 40b9 | 2101 8012 | fd03 19aa | ea03 00f9 | eb13 00b9 | f513 00f9 
+  0x000000011a79af08: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [32]=Oop }
+                      ;*invokevirtual release {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79af08: 5e52 e397 | 2104 8012 | fd03 13aa | e203 00f9 | ed0f 00f9 
+
+  0x000000011a79af1c: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop }
+                      ;*invokeinterface lock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79af1c: 5952 e397 | fd2f 40a9 | f017 40fd | ec27 40b9 | 2104 8012 | eb03 00f9 | f007 00fd | ec13 00b9 
+  0x000000011a79af3c: ea1b 00b9 | ed03 02a9 
+
+  0x000000011a79af44: ; ImmutableOopMap {rfp=Oop [0]=Oop [32]=Oop [40]=Oop }
+                      ;*invokevirtual get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79af44: 4f52 e397 | ea07 40f9 | ea03 00f9 | ea27 40b9 | 2104 8012 | fd03 19aa | ea13 00b9 | f513 00f9 
+  0x000000011a79af64: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [32]=Oop }
+                      ;*invokeinterface unlock {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79af64: 4752 e397 | fd2f 40a9 | eb03 00f9 | f017 40fd | ec27 40b9 | eb33 40b9 | 4117 8012 | f007 00fd 
+  0x000000011a79af84: ec2f 0229 | ea1b 00b9 | ed03 03a9 | ef23 00f9 | ee4b 00b9 
+
+  0x000000011a79af98: ; ImmutableOopMap {rfp=Oop [0]=Oop [48]=Oop [56]=Oop [64]=Oop }
+                      ;*ifle {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@14 (line 567)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79af98: 3a52 e397 | e103 1caa | c900 0010 
+
+  0x000000011a79afa4: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a79afa4: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | e8fd ff17 | ea07 40f9 
+  0x000000011a79afc4: ea03 00f9 | f017 40fd | ea27 40b9 | eb33 40b9 | 4117 8012 | fd03 19aa | f007 00fd | ea2f 0229 
+  0x000000011a79afe4: f513 00f9 | f41b 00f9 | f33f 00b9 
+
+  0x000000011a79aff0: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [32]=Oop [48]=Oop }
+                      ;*ifne {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.ReentrantLock$Sync::tryRelease@26 (line 176)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@2 (line 1007)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79aff0: 2452 e397 | e103 1caa | c900 0010 
+
+  0x000000011a79affc: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a79affc: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | 8bfe ff17 | e103 1caa 
+  0x000000011a79b01c: c900 0010 
+
+  0x000000011a79b020: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a79b020: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | b6fd ff17 | eb07 40f9 
+  0x000000011a79b040: eb03 00f9 | f017 40fd | eb27 40b9 | ed33 40b9 | 4117 8012 | fd03 19aa | f007 00fd | eb37 0229 
+  0x000000011a79b060: f513 00f9 | f41b 00f9 | f33b 00b9 | ea33 04a9 
+
+  0x000000011a79b070: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [32]=Oop [48]=Oop [64]=Oop [72]=Oop }
+                      ;*if_acmpeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.ReentrantLock$Sync::tryRelease@14 (line 174)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@2 (line 1007)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b070: 0452 e397 | eb07 40f9 | eb03 00f9 | f017 40fd | ec27 40b9 | eb33 40b9 | 4117 8012 | fd03 19aa 
+  0x000000011a79b090: f007 00fd | ec2f 0229 | f553 02a9 | ea1f 00f9 
+
+  0x000000011a79b0a0: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [32]=Oop [40]=Oop [56]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.concurrent.locks.AbstractQueuedSynchronizer::signalNext@1 (line 609)
+                      ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::release@12 (line 1008)
+                      ; - java.util.concurrent.locks.ReentrantLock::unlock@5 (line 494)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@56 (line 82)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b0a0: f851 e397 | eb03 0a2a | 0400 0014 | eb03 0a2a | 0200 0014 | eb03 0a2a | fd2b 40a9 | 6101 8012 
+  0x000000011a79b0c0: ea03 00f9 | eb1b 00b9 
+
+  0x000000011a79b0c8: ; ImmutableOopMap {rfp=Oop [0]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@10 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b0c8: ee51 e397 | 4a04 8052 | 6a40 0039 | 6144 0039 | 4c00 0014 | 8ab2 4229 | 58f1 7dd3 | 970e 40b9 
+  0x000000011a79b0e8: 96f1 7dd3 
+
+  0x000000011a79b0ec: ; implicit exception: dispatches to 0x000000011a79c474
+  0x000000011a79b0ec: ca16 40b9 
+
+  0x000000011a79b0f0: ; implicit exception: dispatches to 0x000000011a79c494
+  0x000000011a79b0f0: 0c17 40b9 | 82f1 7dd3 
+
+  0x000000011a79b0f8: ; implicit exception: dispatches to 0x000000011a79c4b4
+  0x000000011a79b0f8: 4b0c 40b9 | 0e43 c039 | 6c29 ce1a | 8d7d 4093 | 4af1 7dd3 | af11 0091 | ec03 174b | df05 0071 
+  0x000000011a79b118: 605b 0054 | fd03 0f2a | 9d70 f837 | 7771 f837 | 9f29 0031 | 0d2a 0054 | f003 0032 | f0c1 308b 
+  0x000000011a79b138: fd03 102a | bd71 f837 
+
+  0x000000011a79b140: ; implicit exception: dispatches to 0x000000011a79c4d4
+  0x000000011a79b140: 4a0d 40b9 | c042 c039 | 4a29 c01a | 04c2 2a8b | 1f04 0071 | c059 0054 | 8108 0091 | 2afc 6093 
+  0x000000011a79b160: 4a1d 0013 | e003 042a | 3120 ca1a | 4071 f837 | 9173 f837 | 237e 4093 | 3f02 4471 | 2900 0054 
+  0x000000011a79b180: 3f02 4471 | 8858 0054 | 8687 40f9 | 635c 0091 | 63f0 7d92 | 858f 40f9 | c300 038b | 7f00 05eb 
+  0x000000011a79b1a0: a257 0054 | ea03 40b2 | 8387 00f9 | ca00 00f9 
+
+  0x000000011a79b1b0: ;   {metadata({type array byte})}
+  0x000000011a79b1b0: 8a00 a0d2 | 0afc 80f2 | 70c0 80f9 | ca08 00b9 | 7000 81f9 | d10c 00b9 | 7040 81f9 | bf3a 03d5 
+  0x000000011a79b1d0: 0a08 0011 | 2105 8052 | e803 60b2 | 9f00 08eb | 8a71 0054 | 3f02 0a6b | 6360 0054 | c3c0 208b 
+  0x000000011a79b1f0: 8d00 0dcb | 1f00 0071 | adf6 ff54 | 4a04 8052 | 6144 0039 | 6a40 0039 | e503 0d2a | e803 60b2 
+  0x000000011a79b210: bf01 08eb | 0a3d 0054 | 4040 0091 | 4e46 0035 | cec0 258b | aa00 0b0b | a564 f837 | 3f02 0a6b 
+  0x000000011a79b230: 6364 0054 | 7f01 0071 | c902 0054 | c141 0091 | e61f 00f9 | e40f 00f9 | f107 00b9 | f00b 00f9 
+  0x000000011a79b250: fd03 0faa | ed23 00f9 | ec03 00b9 | 627d 4093 
+
+  0x000000011a79b260: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79b260: a6e1 e297 | f503 14aa | f403 13aa | f303 14aa | fb03 16aa | f403 15aa | f603 1baa | ef03 1daa 
+  0x000000011a79b280: ec03 40b9 | f013 41a9 | f107 40b9 | e6b7 43a9 | a70d 00d1 | e003 072a | e803 60b2 | ff00 08eb 
+  0x000000011a79b2a0: ca3b 0054 | 817d 1f13 | 0a0c 0011 | c05b f837 | 3f02 0a6b | 835b 0054 | cec0 208b | e503 1b32 
+  0x000000011a79b2c0: 0a05 8052 | 1f00 0071 | 0c0d 0054 | c541 0039 | ca45 0039 | 4a04 8052 | ca49 0039 | 0b04 0051 
+  0x000000011a79b2e0: 9f91 0131 | cd21 0054 | e203 002a | 8d7d 4093 | eecc 8cd2 | cecc acf2 | ad7d 0e9b | ca16 40b9 
+  0x000000011a79b300: 43f1 7dd3 | aafd 6293 | 4e01 014b | ca71 1d53 | 4a05 0e0b | 4d01 0c4b | aac1 0011 | 7f01 116b 
+  0x000000011a79b320: a254 0054 | c1c0 2b8b | 2a40 0039 | 8e1e f837 | 6c7d 4093 | 8b05 00d1 | fd03 0b2a | a107 0011 
+  0x000000011a79b340: dd58 f837 | 3f02 016b | 8358 0054 | cac0 3d8b | 4541 0039 
+
+  0x000000011a79b354: ; implicit exception: dispatches to 0x000000011a79c4f8
+  0x000000011a79b354: 650c 40b9 | ca42 c039 | a128 ca1a | 8cc1 21cb | 8e05 00d1 | fd03 0e2a | 6040 0091 | 2a42 0035 
+  0x000000011a79b374: cac0 3d8b | a103 050b | dd5b f837 | 3f02 016b | 835b 0054 | bf00 0071 | 8902 0054 | e71f 00f9 
+  0x000000011a79b394: 4141 0091 | e41b 01a9 | f003 00f9 | fd03 0faa | eb3b 04a9 | a27c 4093 
+
+  0x000000011a79b3ac: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79b3ac: 53e1 e297 | f503 14aa | f403 13aa | f303 14aa | fb03 16aa | f403 15aa | f603 1baa | ef03 1daa 
+  0x000000011a79b3cc: f003 40f9 | e41b 41a9 | e7af 43a9 | ee27 40f9 | 8e55 00b5 | 9587 40f9 | 8a8f 40f9 | ac62 0091 
+  0x000000011a79b3ec: 9f01 0aeb | 8249 0054 | ea03 40b2 | 8c87 00f9 
+
+  0x000000011a79b3fc: ;   {metadata('java/lang/String')}
+  0x000000011a79b3fc: 8b00 a0d2 | 0b79 83f2 | aa02 00f9 | ab7e 0129 | 90c1 80f9 | bf0a 00f9 | cafc 43d3 | aa16 00b9 
+  0x000000011a79b41c: bf3b 03d5 | 8be3 c039 | 0b28 0035 | eb03 14aa | ea03 15aa | 4a01 0bca | adfe 43d3 | 4afd 55d3 
+  0x000000011a79b43c: 8d1e 00b9 | 0a01 00b4 | 6afd 49d3 | 0bc0 a0d2 | 2b00 c0f2 | 6001 0a8b | 0a00 c039 | 5f11 0071 
+  0x000000011a79b45c: a127 0054 | abfe 43d3 | f5fd ff17 | 4204 8052 | c249 0039 | ca45 0039 | c541 0039 | 99ff ff17 
+  0x000000011a79b47c: eb03 0a2a | 0eff ff17 | fd2f 40a9 | eb03 00f9 | f017 40fd | eb27 40b9 | ec33 40b9 | 4117 8012 
+  0x000000011a79b49c: f007 00fd | eb33 0229 | ea1b 00b9 | ed03 03a9 | ef0b 04a9 | f12b 00f9 | ee1f 00b9 | f05b 00b9 
+  0x000000011a79b4bc: ; ImmutableOopMap {rfp=Oop [0]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.HashMap::getNode@85 (line 573)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b4bc: f150 e397 | f723 00f9 | f523 00b9 | ee1f 00f9 | f653 01a9 | f303 00f9 | fd03 19aa 
+
+  0x000000011a79b4d8: ;   {oop(" Apply Config"{0x0000000700a58c28})}
+  0x000000011a79b4d8: 0185 91d2 | a114 a0f2 | e100 c0f2 | e203 17aa | e303 0d2a | e403 0032 
+
+  0x000000011a79b4f0: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop [64]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {optimized virtual_call}
+  0x000000011a79b4f0: 8436 e397 | f903 1daa | f303 40f9 | f653 41a9 | f523 40b9 | f723 40f9 | 04fe ff17 | f4df 03a9 
+  0x000000011a79b510: f35b 01a9 | f903 00f9 | e103 16aa | e203 17aa | e303 0b2a | e403 0032 
+
+  0x000000011a79b528: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop [64]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {optimized virtual_call}
+  0x000000011a79b528: 7636 e397 | f903 40f9 | f35b 41a9 | f723 40f9 | 0efe ff17 | e803 60b2 | bf03 08eb | 6158 0054 
+  0x000000011a79b548: 8087 40f9 | 8a8f 40f9 | 0b60 0091 | 7f01 0aeb | 8240 0054 | ea03 40b2 | 8b87 00f9 
+
+  0x000000011a79b564: ;   {metadata('java/lang/String')}
+  0x000000011a79b564: 8c00 a0d2 | 0c79 83f2 | 0a00 00f9 | 0c08 00b9 | 70c1 80f9 | 1f0c 00b9 | ea03 40b2 | 0a08 00f9 
+  0x000000011a79b584: 0d14 00b9 | bf3b 03d5 | 0afe ff17 | 6d79 1f53 | cd56 f837 | 4c79 1f53 | eec2 2d8b | af01 0c0b 
+  0x000000011a79b5a4: 4c56 f837 | bf02 0f6b | 0356 0054 | e203 0a2a | c141 0091 | 00e4 002f | 437c 0353 | e301 0035 
+  0x000000011a79b5c4: 5f10 0071 | 2b01 0054 | 0144 40bc | 2238 000e | 4210 0051 | 2284 00fc | 0204 0034 | 0314 4038 
+  0x000000011a79b5e4: 2324 0078 | 4204 0051 | a2ff ffb5 | 1b00 0014 
+
+  0x000000011a79b5f4: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79b5f4: 73ed e297 | f2ff ff17 | 0184 40fc | 4208 0012 | 7f28 00f1 | 6aff ff54 | 0200 0014 | 0184 40fc 
+  0x000000011a79b614: 6304 00f1 | 2001 0054 | 2138 004e | 0284 40fc | 2174 9f4c | 6304 00f1 | 4238 004e | 2274 9f4c 
+  0x000000011a79b634: e1fe ff54 | 0300 0014 | 2138 004e | 2174 9f4c | c200 00b4 | 0000 028b | 0280 5ffc | 2144 228b 
+  0x000000011a79b654: 4238 004e | 2200 9f3c | c5fd ff17 | 9402 60b2 | ed03 142a | 7ffd ff17 | f003 1f32 | 9f91 0131 
+  0x000000011a79b674: 0cd6 ff54 | 9fa1 0f31 | 6d09 0054 | 1006 0011 | acfe ff17 | f537 00b9 | f4bb 03a9 | ed23 00b9 
+  0x000000011a79b694: f35b 01a9 | f903 00f9 
+
+  0x000000011a79b69c: ;   {metadata({type array byte})}
+  0x000000011a79b69c: 01fc 80d2 | 8100 a0f2 | 0101 c0f2 | e203 152a 
+
+  0x000000011a79b6ac: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop }
+                      ;*invokevirtual allocateUninitializedArray0 {reexecute=0 rethrow=0 return_oop=1}
+                      ; - jdk.internal.misc.Unsafe::allocateUninitializedArray@51 (line 1375)
+                      ; - java.lang.StringConcatHelper::newArray@33 (line 497)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call _new_array_Java}
+  0x000000011a79b6ac: 253e e697 | f903 40f9 | f35b 41a9 | ed23 40b9 | f4bb 43a9 | f537 40b9 | f703 00aa | 85fd ff17 
+  0x000000011a79b6cc: ed23 00b9 | f71f 00f9 | f35b 01a9 | f903 00f9 
+
+  0x000000011a79b6dc: ;   {metadata('java/lang/String')}
+  0x000000011a79b6dc: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a79b6e8: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop [32]=NarrowOop [56]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@6 (line 387)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a79b6e8: 563d e697 | f903 40f9 | f30b 40f9 | ed23 40b9 | adfd ff17 | ea07 1c32 | 4b08 0051 | 4a01 0e4b 
+  0x000000011a79b708: 7f01 116b | 424c 0054 | ccc0 228b | 8a39 0039 | 06ff ff17 | 8a7d 4093 | eda3 90d2 | 6d3d aaf2 
+  0x000000011a79b728: 4a7d 0d9b | 4afd 6593 | 4a01 014b | 810c 8052 | 427d 011b | 4c00 0c4b | 9a7d 4093 
+
+  0x000000011a79b744: ;   {oop([B{0x0000000700602108})}
+  0x000000011a79b744: 0321 84d2 | 030c a0f2 | e300 c0f2 | 6200 1a8b | 9f91 0171 | e24b 0054 
+
+  0x000000011a79b75c: ;   {oop([B{0x0000000700602180})}
+  0x000000011a79b75c: 1530 84d2 | 150c a0f2 | f500 c0f2 | 4240 c039 | ba02 1a8b | 7f01 116b | 024d 0054 | c23d 0039 
+  0x000000011a79b77c: 0208 0051 | 4b43 c039 | 5f00 116b | 624e 0054 | cb39 0039 | 5f91 0131 | ed08 0054 | 4b04 0051 
+  0x000000011a79b79c: 417d 1f13 | ec03 0a2a | d2fe ff17 | f003 1e32 | e8e1 8412 | 9f01 086b | 0ccc ff54 | 082c 8f52 
+  0x000000011a79b7bc: c8ff bf72 | 9f01 086b | ecf5 ff54 | f007 1f32 | 08b8 9752 | 08fe bf72 | 9f01 086b | ecca ff54 
+  0x000000011a79b7dc: 0830 8d52 | e8ec bf72 | 9f01 086b | ccf4 ff54 | f003 1d32 | 08e0 8352 | 4841 bf72 | 9f01 086b 
+  0x000000011a79b7fc: ccc9 ff54 | 08c0 8652 | a88c b872 | 9f01 086b | acf3 ff54 | ea07 40f9 | ec37 00b9 | f6bf 04a9 
+  0x000000011a79b81c: f723 00b9 | f4e3 03a9 | 4117 8012 | fd03 19aa | ea03 00f9 
+
+  0x000000011a79b830: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::stringSize@19 (line 557)
+                      ; - java.lang.StringConcatHelper::mix@2 (line 112)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.DelegatingMethodHandle$Holder::reinvoke_L@16
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@65
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b830: 1450 e397 | f60b 00f9 | f303 00f9 | fd03 19aa 
+
+  0x000000011a79b840: ;   {metadata('java/lang/String')}
+  0x000000011a79b840: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a79b84c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::simpleConcat@17 (line 411)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a79b84c: fd3c e697 | f903 1daa | f303 40f9 | 8bfd ff17 | ea07 40f9 | eedf 04a9 | f423 00f9 | ed23 00b9 
+  0x000000011a79b86c: f61f 00f9 | 6106 8012 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79b880: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [80]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@71 (line 424)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b880: 0050 e397 | eb5b 00b9 | eb27 40b9 | ea37 00b9 | f7c3 04a9 | f6d3 03a9 | 6106 8012 | f903 00f9 
+  0x000000011a79b8a0: eb1b 00b9 | f313 00f9 
+
+  0x000000011a79b8a8: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [72]=Oop [80]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79b8a8: f64f e397 | ea03 0b2a | 4e7d 4093 | cb7d 0d9b | 6bfd 6593 | 6b7d 8a4b | 6c7d 011b | 9a7d 4093 
+  0x000000011a79b8c8: 5a03 0ecb | 8a01 0a4b | 6e00 1a8b | 4c04 0051 | 5f91 0171 | c245 0054 | ce41 c039 | ba02 1a8b 
+  0x000000011a79b8e8: 9f01 116b | a246 0054 | dbc0 228b | 6e3f 0039 | 4208 0051 | 4c43 c039 | 5f00 116b | 4247 0054 
+  0x000000011a79b908: 6c3b 0039 
+
+  0x000000011a79b90c: ; ImmutableOopMap {c_rarg3=Oop c_rarg6=Oop r19=Oop resp=Oop rdispatch=Oop rbcp=Oop rlocals=Oop rmonitors=Oop [8]=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::getChars@69 (line 516)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+  0x000000011a79b90c: 9aab 41f9 
+
+  0x000000011a79b910: ;   {poll}
+  0x000000011a79b910: 5f03 40b9 | 7f91 0131 | adfc ff54 | ea03 0b2a | 9eff ff17 | 8a1e 40b9 | 40f1 7dd3 | e0d7 ffb4 
+  0x000000011a79b930: 8a13 40f9 | 4a34 00b4 | 8b1b 40f9 | 4c21 00d1 | 6a01 0a8b | 4081 1ff8 | 8c13 00f9 | b7fe ff17 
+  0x000000011a79b950: 8a2b 40f9 | 8b23 40f9 | bf3b 03d5 | 0c00 c039 | 951e 40b9 | 0c02 0034 | 1f00 0039 | cb00 00b4 
+  0x000000011a79b970: 6c21 00d1 | 4a01 0b8b | 4081 1ff8 | 8c23 00f9 | 0900 0014 | e103 1caa | c900 0010 
+
+  0x000000011a79b98c: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_post_entry(unsigned char volatile*, JavaThread*)}
+  0x000000011a79b98c: 0880 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | bdf2 7dd3 | 9d43 00b4 
+  0x000000011a79b9ac: f503 1daa | acfe ff17 | e42b 00f9 | e637 06a9 | f15b 00b9 | f027 00f9 | ec37 00b9 | f6bf 03a9 
+  0x000000011a79b9cc: f723 00b9 | f463 01a9 | f303 00f9 | fd03 19aa | e103 18aa | e203 06aa | e303 052a | e403 0032 
+  0x000000011a79b9ec: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop [24]=Oop [56]=Oop [96]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 373)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@125
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {optimized virtual_call}
+  0x000000011a79b9ec: 4535 e397 | f903 1daa | f303 40f9 | f463 41a9 | f723 40b9 | f6bf 43a9 | ec37 40b9 | f093 44a9 
+  0x000000011a79ba0c: f15b 40b9 | e637 46a9 | 1ffe ff17 | eb03 60b2 | e437 00f9 | ed0b 00f9 | e63b 00f9 | efc3 05a9 
+  0x000000011a79ba2c: f62b 00f9 | f737 00b9 | f463 04a9 | f31f 00f9 | f903 00f9 
+
+  0x000000011a79ba40: ;   {oop(" (""{0x0000000700a4b140})}
+  0x000000011a79ba40: 0128 96d2 | 8114 a0f2 | e100 c0f2 | ff00 0beb | fd07 9f1a | bda7 9d5a | e73f 00f9 | e203 06aa 
+  0x000000011a79ba60: e303 002a | e403 0032 
+
+  0x000000011a79ba68: ; ImmutableOopMap {[0]=Oop [8]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [112]=Oop }
+                      ;*invokevirtual getBytes {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::prepend@32 (line 356)
+                      ; - java.lang.StringConcatHelper::prepend@16 (line 374)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@125
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {optimized virtual_call}
+  0x000000011a79ba68: 2635 e397 | ea27 40b9 | 4117 8012 | ea1b 00b9 
+
+  0x000000011a79ba78: ; ImmutableOopMap {[0]=Oop [8]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [112]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::prepend@5 (line 282)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79ba78: 824f e397 | ea07 40f9 | f423 00f9 | ed23 00b9 | f61f 00f9 | 4117 8012 | fd03 19aa | ea03 00f9 
+  0x000000011a79ba98: f30f 00f9 
+
+  0x000000011a79ba9c: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@46 (line 419)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79ba9c: 794f e397 | ea07 40f9 | ec23 00b9 | f43b 04a9 | f61f 00f9 | 4117 8012 | fd03 19aa | ea03 00f9 
+  0x000000011a79babc: f30f 00f9 
+
+  0x000000011a79bac0: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.StringConcatHelper::simpleConcat@54 (line 420)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bac0: 704f e397 | eb27 40b9 | f537 00b9 | f6bb 03a9 | 4117 8012 | f903 00f9 | eb1b 00b9 | f313 00f9 
+  0x000000011a79bae0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::newArray@13 (line 494)
+                      ; - java.lang.StringConcatHelper::simpleConcat@61 (line 421)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bae0: 684f e397 | aa78 1f53 | 4a3a f837 | 6179 1f53 | cec0 2a8b | 4a01 010b | c139 f837 | 3f02 0a6b 
+  0x000000011a79bb00: 8339 0054 | e203 0b2a | c141 0091 | 00e4 002f | 437c 0353 | e301 0035 | 5f10 0071 | 2b01 0054 
+  0x000000011a79bb20: 0144 40bc | 2238 000e | 4210 0051 | 2284 00fc | 0204 0034 | 0314 4038 | 2324 0078 | 4204 0051 
+  0x000000011a79bb40: a2ff ffb5 | 1b00 0014 
+
+  0x000000011a79bb48: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79bb48: 1eec e297 | f2ff ff17 | 0184 40fc | 4208 0012 | 7f28 00f1 | 6aff ff54 | 0200 0014 | 0184 40fc 
+  0x000000011a79bb68: 6304 00f1 | 2001 0054 | 2138 004e | 0284 40fc | 2174 9f4c | 6304 00f1 | 4238 004e | 2274 9f4c 
+  0x000000011a79bb88: e1fe ff54 | 0300 0014 | 2138 004e | 2174 9f4c | c200 00b4 | 0000 028b | 0280 5ffc | 2144 228b 
+  0x000000011a79bba8: 4238 004e | 2200 9f3c | b8fd ff17 | a17b 1f53 | aa78 1f53 | ccc0 218b | 2200 0a0b | 2135 f837 
+  0x000000011a79bbc8: 0a35 f837 | 3f02 026b | c334 0054 | e203 052a | 8141 0091 | 00e4 002f | 437c 0353 | e301 0035 
+  0x000000011a79bbe8: 5f10 0071 | 2b01 0054 | 0144 40bc | 2238 000e | 4210 0051 | 2284 00fc | 0204 0034 | 0314 4038 
+  0x000000011a79bc08: 2324 0078 | 4204 0051 | a2ff ffb5 | 1b00 0014 
+
+  0x000000011a79bc18: ;   {runtime_call StubRoutines (2)}
+  0x000000011a79bc18: eaeb e297 | f2ff ff17 | 0184 40fc | 4208 0012 | 7f28 00f1 | 6aff ff54 | 0200 0014 | 0184 40fc 
+  0x000000011a79bc38: 6304 00f1 | 2001 0054 | 2138 004e | 0284 40fc | 2174 9f4c | 6304 00f1 | 4238 004e | 2274 9f4c 
+  0x000000011a79bc58: e1fe ff54 | 0300 0014 | 2138 004e | 2174 9f4c | c200 00b4 | 0000 028b | 0280 5ffc | 2144 228b 
+  0x000000011a79bc78: 4238 004e | 2200 9f3c | d7fd ff17 | ef01 60b2 | 25fd ff17 | 8400 60b2 | 32fd ff17 | e137 00f9 
+  0x000000011a79bc98: e223 00f9 | ed43 00f9 | f183 0e29 | ea73 00b9 | f093 05a9 | ec4f 00b9 | ef2b 00f9 | ee4b 00b9 
+  0x000000011a79bcb8: eb37 00b9 | f61f 00f9 | f723 00b9 | f463 01a9 | f303 00f9 | fd03 19aa 
+
+  0x000000011a79bcd0: ;   {metadata({type array byte})}
+  0x000000011a79bcd0: 01fc 80d2 | 8100 a0f2 | 0101 c0f2 | e203 112a 
+
+  0x000000011a79bce0: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop [24]=Oop [56]=Oop [64]=Oop }
+                      ;*invokevirtual allocateUninitializedArray0 {reexecute=0 rethrow=0 return_oop=1}
+                      ; - jdk.internal.misc.Unsafe::allocateUninitializedArray@51 (line 1375)
+                      ; - java.lang.StringConcatHelper::newArray@33 (line 497)
+                      ; - java.lang.StringConcatHelper::newArrayWithSuffix@7 (line 475)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008d800::invoke@23
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@103
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call _new_array_Java}
+  0x000000011a79bce0: 983c e697 | ea03 00aa | f903 1daa | f303 40f9 | f463 41a9 | f723 40b9 | f68b 43a9 | eb37 40b9 
+  0x000000011a79bd00: ee4b 40b9 | ef2b 40f9 | ec4f 40b9 | f093 45a9 | f183 4e29 | e603 0aaa | ed43 40f9 | 2cfd ff17 
+  0x000000011a79bd20: ebbb 06a9 | e69f 05a9 | f093 04a9 | f6bf 03a9 | f723 00b9 | f463 01a9 | f303 00f9 | fd03 19aa 
+  0x000000011a79bd40: ;   {metadata('java/lang/String')}
+  0x000000011a79bd40: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a79bd4c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [16]=Oop [24]=Oop [56]=Oop [88]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@6 (line 387)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@188
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a79bd4c: bd3b e697 | f903 1daa | f303 40f9 | f40b 40f9 | e62f 40f9 | f503 00aa | acfd ff17 | ed23 00b9 
+  0x000000011a79bd6c: f71f 00f9 | f35b 01a9 | f903 00f9 
+
+  0x000000011a79bd78: ;   {metadata('java/lang/String')}
+  0x000000011a79bd78: 0179 83d2 | 8100 a0f2 | 0101 c0f2 
+
+  0x000000011a79bd84: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=Oop [24]=Oop [32]=NarrowOop [56]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=1}
+                      ; - java.lang.StringConcatHelper::newString@24 (line 389)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call _new_instance_Java}
+  0x000000011a79bd84: af3b e697 | f903 40f9 | f30b 40f9 | ed23 40b9 | fafd ff17 | e10f 1f32 | f30b 00a9 | e00b 00fd 
+  0x000000011a79bda4: e313 0329 | ed13 00f9 | f457 03a9 
+
+  0x000000011a79bdb0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [48]=Oop [56]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.util.concurrent.locks.ReentrantLock$NonfairSync::initialTryLock@39 (line 231)
+                      ; - java.util.concurrent.locks.ReentrantLock$Sync::lock@1 (line 152)
+                      ; - java.util.concurrent.locks.ReentrantLock::lock@4 (line 322)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@4 (line 68)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bdb0: b44e e397 | eb83 00b9 | eb27 40b9 | eeb7 1029 | e05f 00b9 | e61f 07a9 | f013 06a9 | ec5b 00b9 
+  0x000000011a79bdd0: f6bf 04a9 | f737 00b9 | f4e3 03a9 | 5d1d 0013 | 6103 8012 | f903 00f9 | eb1b 00b9 | f313 00f9 
+  0x000000011a79bdf0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [112]=Oop }
+                      ;*bastore {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::getChars@97 (line 522)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bdf0: a44e e397 | ea07 40f9 | e637 00f9 | e037 00b9 | f093 05a9 | f6bf 04a9 | f723 00b9 | f4e3 03a9 
+  0x000000011a79be10: 6106 8012 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79be20: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::newArrayWithSuffix@24 (line 477)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008d800::invoke@23
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@103
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79be20: 984e e397 | ea07 40f9 | e037 00b9 | ed1f 07a9 | e41b 06a9 | ef43 05a9 | f627 00f9 | f723 00b9 
+  0x000000011a79be40: f4e3 03a9 | 6106 8012 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79be54: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@16 (line 374)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@125
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79be54: 8b4e e397 | eb43 00f9 | eb27 40b9 | e733 07a9 | e41b 06a9 | ef43 05a9 | f627 00f9 | f737 00b9 
+  0x000000011a79be74: f4e3 03a9 | 6106 8012 | f903 00f9 | eb1b 00b9 | f313 00f9 
+
+  0x000000011a79be88: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@16 (line 302)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79be88: 7e4e e397 | ea07 40f9 | ebbb 07a9 | e69f 06a9 | f093 05a9 | f6bf 04a9 | f723 00b9 | f4e3 03a9 
+  0x000000011a79bea8: 610b 8052 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79beb8: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::newString@34 (line 391)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@188
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79beb8: 724e e397 | ea07 40f9 | e583 00b9 | e637 07a9 | f013 06a9 | ef2f 00f9 | eb37 00b9 | f68b 04a9 
+  0x000000011a79bed8: f723 00b9 | f4e3 03a9 | 6106 8012 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79bef0: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [112]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 373)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@125
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bef0: 644e e397 | eb43 00f9 | eb27 40b9 | ee4b 00f9 | e58b 00b9 | e70f 07a9 | e41b 06a9 | ef43 05a9 
+  0x000000011a79bf10: f627 00f9 | f737 00b9 | f4e3 03a9 | 6106 8012 | f903 00f9 | eb1b 00b9 | f313 00f9 
+
+  0x000000011a79bf2c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop [120]=Oop }
+                      ;*invokestatic arraycopy {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@22 (line 4459)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 373)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@168
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bf2c: 554e e397 | eb27 40b9 | f6bf 04a9 | f737 00b9 | f4e3 03a9 | 4117 8012 | eb1b 00b9 | f313 00f9 
+  0x000000011a79bf4c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800090400::invoke@23
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@46
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bf4c: 4d4e e397 | ea07 40f9 | f6bf 04a9 | f723 00b9 | f4e3 03a9 | 4117 8012 | fd03 19aa | ea03 00f9 
+  0x000000011a79bf6c: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Integer::stringSize@3 (line 552)
+                      ; - java.lang.StringConcatHelper::mix@2 (line 112)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.DelegatingMethodHandle$Holder::reinvoke_L@16
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@65
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bf6c: 454e e397 | ea27 40b9 | ef43 05a9 | f627 00f9 | f737 00b9 | f4e3 03a9 | 4117 8012 | ea1b 00b9 
+  0x000000011a79bf8c: f313 00f9 
+
+  0x000000011a79bf90: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@7 (line 112)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.DelegatingMethodHandle$Holder::reinvoke_L@16
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@65
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bf90: 3c4e e397 | ea07 40f9 | e037 00b9 | f093 05a9 | f6bf 04a9 | f723 00b9 | f4e3 03a9 | 4117 8012 
+  0x000000011a79bfb0: fd03 19aa | ea03 00f9 
+
+  0x000000011a79bfb8: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::checkOverflow@2 (line 54)
+                      ; - java.lang.StringConcatHelper::mix@23 (line 138)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.DelegatingMethodHandle$Holder::reinvoke_L@16
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@85
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79bfb8: 324e e397 | e103 1caa | c900 0010 
+
+  0x000000011a79bfc4: ;   {runtime_call G1BarrierSetRuntime::write_ref_field_pre_entry(oopDesc*, JavaThread*)}
+  0x000000011a79bfc4: 0879 91d2 | a846 a1f2 | 2800 c0f2 | ff27 bfa9 | 0001 3fd6 | ff43 0091 | 13fd ff17 | ea37 00b9 
+  0x000000011a79bfe4: e137 00f9 | ea07 40f9 | f173 00b9 | f093 05a9 | f6bf 04a9 | f723 00b9 | f4e3 03a9 | 4117 8012 
+  0x000000011a79c004: fd03 19aa | ea03 00f9 
+
+  0x000000011a79c00c: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::newArray@13 (line 494)
+                      ; - java.lang.StringConcatHelper::newArrayWithSuffix@7 (line 475)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008d800::invoke@23
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@103
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c00c: 1d4e e397 | ea03 60b2 | 9f00 0aeb | fd07 9f1a | bda7 9d5a | ea27 40b9 | e637 00f9 | ef43 05a9 
+  0x000000011a79c02c: f627 00f9 | f737 00b9 | f4e3 03a9 | e433 00f9 | 4117 8012 | f903 00f9 | ea1b 00b9 | f313 00f9 
+  0x000000011a79c04c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*ifge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::newArrayWithSuffix@16 (line 476)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@13
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008d800::invoke@23
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@103
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c04c: 0d4e e397 | eb27 40b9 | f6df 03a9 | 610b 8052 | f903 00f9 | eb1b 00b9 | f313 00f9 
+
+  0x000000011a79c068: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.StringConcatHelper::newString@34 (line 391)
+                      ; - java.lang.StringConcatHelper::simpleConcat@90 (line 426)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c068: 064e e397 | ea37 00b9 | ea27 40b9 | eb5b 00b9 | f7c3 04a9 | f6d3 03a9 | 2106 8012 | f903 00f9 
+  0x000000011a79c088: ea1b 00b9 | f313 00f9 
+
+  0x000000011a79c090: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [72]=Oop [80]=Oop }
+                      ;*invokestatic inflate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@40 (line 4461)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::simpleConcat@81 (line 425)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c090: fc4d e397 | 5d1d 0013 | ea27 40b9 | eeb7 1029 | eb83 00b9 | e05f 00b9 | e61f 07a9 | f013 06a9 
+  0x000000011a79c0b0: ec5b 00b9 | f6bf 04a9 | f737 00b9 | f4e3 03a9 | 6103 8012 | f903 00f9 | ea1b 00b9 | f313 00f9 
+  0x000000011a79c0d0: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [112]=Oop }
+                      ;*bastore {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::getChars@113 (line 526)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c0d0: ec4d e397 | ea23 00b9 | ed03 19aa | ee03 13aa | f4e3 03a9 | f737 00b9 | f6bf 04a9 | f093 05a9 
+  0x000000011a79c0f0: e69f 06a9 | e02f 0f29 | ec83 00b9 | ea07 40f9 | 6103 8012 | fd03 0daa | ea03 00f9 | ee0f 00f9 
+  0x000000011a79c110: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*baload {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::getChars@54 (line 515)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c110: dc4d e397 | ea23 00b9 | ed03 19aa | f103 13aa | f4e3 03a9 | f737 00b9 | f6bf 04a9 | f093 05a9 
+  0x000000011a79c130: e69f 06a9 | e02f 0f29 | ec0b 1029 | ea07 40f9 | 6103 8012 | fd03 0daa | ea03 00f9 | f10f 00f9 
+  0x000000011a79c150: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*bastore {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::getChars@55 (line 515)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c150: cc4d e397 | ea23 00b9 | ed03 19aa | ee03 13aa | f4e3 03a9 | f737 00b9 | f6bf 04a9 | f093 05a9 
+  0x000000011a79c170: e69f 06a9 | e033 0f29 | eb0b 1029 | ea07 40f9 | 6103 8012 | fd03 0daa | ea03 00f9 | ee0f 00f9 
+  0x000000011a79c190: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop }
+                      ;*bastore {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::getChars@68 (line 516)
+                      ; - java.lang.StringConcatHelper::prepend@12 (line 283)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 301)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800128400::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@146
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c190: bc4d e397 | ed03 19aa | ee03 13aa | f4e3 03a9 | f737 00b9 | f6bf 04a9 | f093 05a9 | e69f 06a9 
+  0x000000011a79c1b0: e033 0f29 | ea83 00b9 | eb23 00b9 | d0ff ff17 | ed03 19aa | f103 13aa | f4e3 03a9 | f737 00b9 
+  0x000000011a79c1d0: f6bf 04a9 | f093 05a9 | e69f 06a9 | e033 0f29 | ea3b 1029 | eb23 00b9 | d5ff ff17 | ed03 19aa 
+  0x000000011a79c1f0: ee03 13aa | f4e3 03a9 | f737 00b9 | f6bf 04a9 | f093 05a9 | e69f 06a9 | e02b 0f29 | ec0b 1029 
+  0x000000011a79c210: eb23 00b9 | daff ff17 | eb27 40b9 | 6114 8012 | f903 00f9 | eb1b 00b9 | f313 00f9 
+
+  0x000000011a79c22c: ; ImmutableOopMap {rfp=Oop [0]=Oop [8]=Oop [32]=Oop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.StringConcatHelper::stringOf@1 (line 453)
+                      ; - java.lang.StringConcatHelper::simpleConcat@1 (line 407)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@11
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800084400::invoke@21
+                      ; - java.lang.invoke.Invokers$Holder::linkToTargetMethod@5
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@101 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c22c: 954d e397 | ea07 40f9 | e583 00b9 | e637 07a9 | f013 06a9 | ef2f 00f9 | eb37 00b9 | f68b 04a9 
+  0x000000011a79c24c: f723 00b9 | f4e3 03a9 | 2106 8012 | fd03 19aa | ea03 00f9 | f30f 00f9 
+
+  0x000000011a79c264: ; ImmutableOopMap {rfp=Oop [0]=Oop [24]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [112]=Oop }
+                      ;*invokestatic inflate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@40 (line 4461)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 373)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@125
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c264: 874d e397 | ea27 40b9 | ee4b 00f9 | e58b 00b9 | e3af 07a9 | e69f 06a9 | f093 05a9 | f6bf 04a9 
+  0x000000011a79c284: f737 00b9 | f4e3 03a9 | 2106 8012 | f903 00f9 | ea1b 00b9 | f313 00f9 
+
+  0x000000011a79c29c: ; ImmutableOopMap {[0]=Oop [8]=Oop [32]=Oop [56]=Oop [64]=Oop [72]=Oop [104]=Oop [120]=Oop }
+                      ;*invokestatic inflate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.String::getBytes@40 (line 4461)
+                      ; - java.lang.StringConcatHelper::prepend@21 (line 354)
+                      ; - java.lang.StringConcatHelper::prepend@3 (line 373)
+                      ; - java.lang.invoke.DirectMethodHandle$Holder::invokeStatic@17
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080008cc00::invoke@28
+                      ; - java.lang.invoke.LambdaForm$MH/0x000000080023fc00::invoke@168
+                      ; - java.lang.invoke.LambdaForm$MH/0x0000000800240400::linkToTargetMethod@7
+                      ; - com.ctre.phoenix6.hardware.DeviceIdentifier::toString@20 (line 51)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@98 (line 86)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c29c: 794d e397 | fd2f 40a9 | ec37 00f9 | eb03 00f9 | f017 40fd | ec27 40b9 | eb33 40b9 | 2104 8012 
+  0x000000011a79c2bc: f007 00fd | ec2f 0229 | ea1b 00b9 | ed03 03a9 | ef0b 04a9 | f12b 00f9 | ee1f 00b9 | f05b 00b9 
+  0x000000011a79c2dc: e033 00f9 
+
+  0x000000011a79c2e0: ; ImmutableOopMap {rfp=Oop [0]=Oop [48]=Oop [56]=Oop [64]=Oop [72]=Oop [80]=Oop [96]=Oop [104]=Oop }
+                      ;*instanceof {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Integer::equals@1 (line 1235)
+                      ; - java.util.HashMap::getNode@128 (line 577)
+                      ; - java.util.HashMap::get@2 (line 556)
+                      ; - com.ctre.phoenix6.StatusCode::valueOf@7 (line 822)
+                      ; - com.ctre.phoenix6.configs.ParentConfigurator::setConfigsPrivate@43 (line 72)
+                      ;   {runtime_call UncommonTrapBlob}
+  0x000000011a79c2e0: 684d e397 | fd2f 40a9 | ec27 40b9 | 21

@@ -129,7 +129,10 @@ public class Elevator extends SubsystemBase {
     public void setPosition(Distance height) {
         lastDesiredPosition = height;
         m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
-        if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
+        if (height == CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4){
+            m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_2);
+        }
+        else if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
         }
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));

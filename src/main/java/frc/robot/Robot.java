@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     m_robotContainer.AddVisionMeasurement().schedule();
-    m_robotContainer.setMegaTag2(false);
+    m_robotContainer.setMegaTag2(true);
     if (!hasAutonomousRun) {
       // Manual Zero Command here
     }
@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     CONSTANTS_FIELD.ALLIANCE = DriverStation.getAlliance();
     SmartDashboard.putString("ALLIANCE", CONSTANTS_FIELD.ALLIANCE.toString());
     if (!hasAutonomousRun) {
-      // m_robotContainer.resetToAutoPose();
+      m_robotContainer.resetToAutoPose();
     }
   }
 

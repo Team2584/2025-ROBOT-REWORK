@@ -14,6 +14,7 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CANrangeConfiguration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -44,6 +45,7 @@ import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.units.measure.Mass;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.swerve.SwerveConstants;
@@ -280,9 +282,12 @@ public final class CONSTANTS {
                         CONSTANTS_PORTS.CAN_BUS_NAME),
         };
 
+        public static final double TOF_DISTANCE = 0.32;
+        public static final double TOF_SPEED = 0.45;
+
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem
-            public static final double AUTO_DRIVE_P = 11;
+            public static final double AUTO_DRIVE_P = 5;
             public static final double AUTO_DRIVE_I = 0;
             public static final double AUTO_DRIVE_D = 0;
             public static final PIDConstants AUTO_DRIVE_PID = new PIDConstants(
@@ -316,12 +321,11 @@ public final class CONSTANTS {
 
             public static final RobotConfig ROBOT_CONFIG = new RobotConfig(MASS.in(Kilograms), MOI, MODULE_CONFIG,
                     MODULE_OFFSETS);
-
         }
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 4.5);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -329,10 +333,10 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    1.8,
+                    1.2, // was 1.45
                     0,
                     0.0);
-            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.5);
+            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.2);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
                     3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
@@ -364,6 +368,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration ELEVATOR_CONFIG_0 = new TalonFXConfiguration();
         // Elevator DOWN
         public static TalonFXConfiguration ELEVATOR_CONFIG_1 = new TalonFXConfiguration();
+        // Elevator UP to L4
+        public static TalonFXConfiguration ELEVATOR_CONFIG_2 = new TalonFXConfiguration();
 
         static {
             ELEVATOR_CONFIG_0.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -371,6 +377,9 @@ public final class CONSTANTS {
 
             ELEVATOR_CONFIG_1.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             ELEVATOR_CONFIG_1.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            ELEVATOR_CONFIG_2.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ELEVATOR_CONFIG_2.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
@@ -384,12 +393,20 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
                     .in(Units.Inches);
 
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
+                    .in(Units.Inches);
+
             ELEVATOR_CONFIG_0.Slot0.GravityType = GravityTypeValue.Elevator_Static;
             ELEVATOR_CONFIG_1.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+            ELEVATOR_CONFIG_2.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
             // Elevator motors will provide feedback in INCHES the carriage has moved
             ELEVATOR_CONFIG_0.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
             ELEVATOR_CONFIG_1.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
+            ELEVATOR_CONFIG_2.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
             ELEVATOR_CONFIG_0.Slot0.kG = 0.0; // Volts to overcome gravity
             ELEVATOR_CONFIG_0.Slot0.kS = 0.3; // Volts to overcome static friction
@@ -407,6 +424,14 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_1.Slot0.kI = 0.0;
             ELEVATOR_CONFIG_1.Slot0.kD = 0.01;
 
+            ELEVATOR_CONFIG_2.Slot0.kG = 0.0; // Volts to overcome gravity
+            ELEVATOR_CONFIG_2.Slot0.kS = 0.3; // Volts to overcome static friction
+            ELEVATOR_CONFIG_2.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG_2.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG_2.Slot0.kP = 13;
+            ELEVATOR_CONFIG_2.Slot0.kI = 0.0;
+            ELEVATOR_CONFIG_2.Slot0.kD = 0.01;
+
             // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign =
             // StaticFeedforwardSignValue.UseClosedLoopSign;
 
@@ -418,6 +443,10 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 45;
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicExpo_kV = 0.12;
 
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 200;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 55;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicExpo_kV = 0.12;
+
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimitEnable = true;
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLowerLimit = 30;
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimit = 60;
@@ -427,6 +456,11 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLowerLimit = 30;
             ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLimit = 60;
             ELEVATOR_CONFIG_1.CurrentLimits.SupplyCurrentLowerTime = 1;
+
+            ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLowerLimit = 30;
+            ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLimit = 60;
+            ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLowerTime = 1;
 
         }
 
@@ -575,7 +609,7 @@ public final class CONSTANTS {
 
         public static final double CORAL_OUTTAKE_SPEED = 0.375;
 
-        public static final double CORAL_INTAKE_SPEED = 0.2;
+        public static final double CORAL_INTAKE_SPEED = 0.1;
     }
 
     public static class CONSTANTS_RAMP {
@@ -761,49 +795,53 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.14;
-            public static final double REEF_SCORE_Y_OFFSET = 0;
+            public static final double REEF_SCORE_X_OFFSET = -0.25;
+            public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.045;
+            public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.045;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
             public static final Pose2d REEF_B = getRelativePose(new Pose2d(3.171, 3.863, Rotation2d.fromDegrees(0)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
             public static final Pose2d REEF_C = getRelativePose(new Pose2d(3.688, 2.968, Rotation2d.fromDegrees(60)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
             public static final Pose2d REEF_D = getRelativePose(new Pose2d(3.975, 2.803, Rotation2d.fromDegrees(60)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
             public static final Pose2d REEF_E = getRelativePose(new Pose2d(5.001, 2.804, Rotation2d.fromDegrees(120)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
             public static final Pose2d REEF_F = getRelativePose(new Pose2d(5.285, 2.964, Rotation2d.fromDegrees(120)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
             public static final Pose2d REEF_G = getRelativePose(new Pose2d(5.805, 3.863, Rotation2d.fromDegrees(180)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
             public static final Pose2d REEF_H = getRelativePose(new Pose2d(5.805, 4.189, Rotation2d.fromDegrees(180)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
             public static final Pose2d REEF_I = getRelativePose(new Pose2d(5.288, 5.083, Rotation2d.fromDegrees(-120)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
             public static final Pose2d REEF_J = getRelativePose(new Pose2d(5.002, 5.248, Rotation2d.fromDegrees(-120)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
             public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_LEFT);
+            // public static final Pose2d REEF_K = getRelativePose(new Pose2d(3.972, 5.247, Rotation2d.fromDegrees(-60)),
+            //         REEF_SCORE_X_OFFSET,
+            //         REEF_SCORE_Y_OFFSET);
 
             // public static final Pose2d REEF_K = new Pose2d(3.972-0.5,
             // 5.247+.5*Math.sqrt(3), Rotation2d.fromDegrees(-60));
 
             public static final Pose2d REEF_L = getRelativePose(new Pose2d(3.693, 5.079, Rotation2d.fromDegrees(-60)),
                     REEF_SCORE_X_OFFSET,
-                    REEF_SCORE_Y_OFFSET);
+                    REEF_SCORE_Y_OFFSET_RIGHT);
 
             private static final List<Pose2d> BLUE_REEF_POSES = List.of(REEF_A, REEF_B, REEF_C, REEF_D, REEF_E,
                     REEF_F, REEF_G, REEF_H, REEF_I, REEF_J, REEF_K, REEF_L);

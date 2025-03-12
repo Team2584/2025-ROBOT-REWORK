@@ -27,7 +27,6 @@ public class PrepIntakeCoral extends SequentialCommandGroup {
         addCommands(
 
                 new ParallelCommandGroup(
-                        new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS)),
                         coral.intakeCoral(),
                         new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY)),
                         wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL)).until(() -> coral.coralLoaded())

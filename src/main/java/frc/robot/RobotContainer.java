@@ -6,7 +6,7 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-
+import com.pathplanner.lib.events.EventTrigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.epilogue.Logged;
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,6 +30,8 @@ import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralAlgaeState;
 import frc.robot.commands.NeutralState;
+import frc.robot.commands.NeutralStateHandler;
+import frc.robot.commands.TOFDrive;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Wrist;
 import frc.robot.subsystems.Algae;
@@ -40,7 +43,9 @@ import frc.robot.subsystems.State;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.DriverState;
+import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.Drivetrain;
+import frc.robot.subsystems.swerve.TunerConstants;
 import frc.robot.commands.prep_coral.*;
 import frc.robot.commands.prep_algae.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -54,6 +59,7 @@ public class RobotContainer {
 
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
+  private final CommandSwerveDrivetrain commandSwerveDrivetrain = TunerConstants.createDrivetrain();
   private final Elevator elevator = new Elevator();
   private final Climber climber = new Climber();
   private final Ramp ramp = new Ramp();
@@ -86,6 +92,10 @@ public class RobotContainer {
 
   public Drivetrain getDrivetrain() {
     return this.drivetrain;
+  }
+
+  public CommandSwerveDrivetrain getCommandSwerveDrivetrain() {
+    return this.commandSwerveDrivetrain;
   }
 
   public Elevator getElevator() {
@@ -171,33 +181,37 @@ public class RobotContainer {
     controller.x().onTrue(new PrepIntakeCoral(this));
     controller.a().whileTrue(coral.outtakeCoral());
     controller.y().whileTrue(algae.outtakeAlgae());
+
+    controller.b().whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
+    .andThen(Commands.runEnd(()->coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), ()->coral.setCoralMotor(0)))
+    .until(()->!coral.hasCoral()));
   }
 
   private void configureButtonBoard() {
 
     redL4.onTrue(new PrepCoralLvl4(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     redL3.onTrue(new PrepCoralLvl3(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     redL2.onTrue(new PrepCoralLvl2(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     redL1.onTrue(new PrepCoralLvl1(this))
-        .onFalse(new NeutralState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     blue4.onTrue(new PrepNetAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     blue3.onTrue(new PickupReefHighAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+        .onFalse(new NeutralStateHandler(this));
 
-    blue2.whileTrue(new PickupReefLowAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+    blue2.onTrue(new PickupReefLowAlgae(this))
+        .onFalse(new NeutralStateHandler(this));
 
-    blue1.whileTrue(new PickupAlgaeGround(this))
-        .onFalse(new NeutralAlgaeState(this));
+    blue1.onTrue(new PickupAlgaeGround(this))
+        .onFalse(new NeutralStateHandler(this));
   }
 
   /* AUTO STUFF */
@@ -245,6 +259,9 @@ public class RobotContainer {
             Commands.runOnce(() -> AUTO_PREP_NUM++) // Increment counter
         ).withName("PlaceSequence"));
 
+    NamedCommands.registerCommand("autoAlign",
+     driveAutoAlign.withTimeout(5));
+
     NamedCommands.registerCommand("PrepPlace",
         new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
             .asProxy().withName("PrepPlace"));
@@ -280,14 +297,17 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCoral", coral.intakeCoral());
 
-    // // -- Event Markers --
-    // EventTrigger prepPlace = new EventTrigger("PrepPlace");
-    // prepPlace
-    // .onTrue(new
-    // PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+    NamedCommands.registerCommand("TOFDrive&Score", new TOFDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
 
-    // EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
-    // getCoralStationPiece.onTrue(coral.intakeCoral());
+    // // -- Event Markers --
+    EventTrigger prepPlace = new EventTrigger("PrepPlace");
+    prepPlace.onTrue(new PrepCoralLvl4(this).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+
+    EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
+    getCoralStationPiece.onTrue(coral.intakeCoral());
+
+    EventTrigger neutral = new EventTrigger("neutral");
+    neutral.onTrue(new NeutralState(this).withTimeout(1));
   }
 
   private void selectAutoMap() {
@@ -306,6 +326,11 @@ public class RobotContainer {
         PIECE_L4_HIGH[2] = fieldPositions.get(11); // L
         PIECE_L4_HIGH[3] = fieldPositions.get(0); // A
         return PIECE_L4_HIGH;
+      case "CenterAuto":
+        Pose2d[] CenterAuto = new Pose2d[1];
+        CenterAuto[0] = fieldPositions.get(7); // H
+       
+        return CenterAuto;
       default:
         Pose2d[] noAutoSelected = new Pose2d[1];
         noAutoSelected[0] = new Pose2d();

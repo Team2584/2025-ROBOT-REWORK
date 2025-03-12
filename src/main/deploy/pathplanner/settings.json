@@ -3,10 +3,14 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
+    "Michael's BargeSideL4",
+    "CenterAuto",
     "ReefToTop",
     "TopToReef"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Michael's Autos"
+  ],
   "defaultMaxVel": 5.5,
   "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,

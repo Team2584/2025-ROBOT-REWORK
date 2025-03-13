@@ -59,7 +59,7 @@ public class RobotContainer {
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
   private final State state = new State(this);
-  private final Drivetrain drivetrain = new Drivetrain();
+  public Drivetrain drivetrain = new Drivetrain();
   @NotLogged
   private final CommandSwerveDrivetrain commandSwerveDrivetrain = TunerConstants.createDrivetrain();
   private final Elevator elevator = new Elevator();
@@ -165,6 +165,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
+    
 
     drivetrain
         .setDefaultCommand(

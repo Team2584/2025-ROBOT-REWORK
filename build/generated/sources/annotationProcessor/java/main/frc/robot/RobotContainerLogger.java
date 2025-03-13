@@ -50,8 +50,6 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
       Epilogue.wristLogger.tryUpdate(backend.getNested("wrist"), ((frc.robot.subsystems.Wrist) $wrist.get(object)), Epilogue.getConfig().errorHandler);
       Epilogue.algaeLogger.tryUpdate(backend.getNested("algae"), ((frc.robot.subsystems.Algae) $algae.get(object)), Epilogue.getConfig().errorHandler);
       Epilogue.visionLogger.tryUpdate(backend.getNested("vision"), ((frc.robot.subsystems.Vision) $vision.get(object)), Epilogue.getConfig().errorHandler);
-      backend.log("SELECTED_AUTO_PREP_MAP_NAME", object.SELECTED_AUTO_PREP_MAP_NAME);
-      backend.log("AUTO_PREP_NUM", object.AUTO_PREP_NUM);
       backend.log("slowModeTrigger", object.slowModeTrigger.getAsBoolean());
       backend.log("leftReefTrigger", object.leftReefTrigger.getAsBoolean());
       backend.log("rightReefTrigger", object.rightReefTrigger.getAsBoolean());

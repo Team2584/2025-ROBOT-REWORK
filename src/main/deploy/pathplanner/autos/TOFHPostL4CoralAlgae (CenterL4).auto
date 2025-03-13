@@ -25,7 +25,13 @@
         {
           "type": "named",
           "data": {
-            "name": "CTRETOFDriveScore"
+            "name": "CTRETOFDrive"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreCoral"
           }
         },
         {

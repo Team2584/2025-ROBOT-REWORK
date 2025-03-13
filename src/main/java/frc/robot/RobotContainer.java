@@ -302,7 +302,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("TOFDriveScore", new TOFDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
     
-    NamedCommands.registerCommand("CTRETOFDriveScore", new TOFCommandSwerveDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
+    NamedCommands.registerCommand("CTRETOFDrive", new TOFCommandSwerveDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE));
 
     // // -- Event Markers --
     EventTrigger prepPlace = new EventTrigger("PrepPlace");

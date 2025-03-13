@@ -9,23 +9,11 @@
           "data": {
             "pathName": "P-H"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoAlign"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TOFDrive&Score"
-          }
         }
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": null,
   "choreoAuto": false
 }

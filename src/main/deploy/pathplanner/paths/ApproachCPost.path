@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.319,
+        "y": 0.91
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.1550577017602286,
+        "y": 0.7212596417088761
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.688,
+        "y": 2.96652258220218
+      },
+      "prevControl": {
+        "x": 3.0652675115700463,
+        "y": 2.3822694078249067
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.99999999999999
+  },
+  "reversed": false,
+  "folder": "D&KPostsCoralAlgae",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 53.5
+  },
+  "useDefaultConstraints": true
+}

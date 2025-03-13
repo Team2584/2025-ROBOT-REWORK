@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_robotContainer.getCommandSwerveDrivetrain().close();
     m_robotContainer.setMegaTag2(true);
 
     if (m_autonomousCommand != null) {

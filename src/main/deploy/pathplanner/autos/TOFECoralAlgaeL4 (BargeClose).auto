@@ -1,0 +1,121 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartBargeCloseJ"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ApproachJCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "driveTOF"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.175
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreCoral"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "JCoraltoAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftHighAlgae"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RetrieveAlgaeBargeClose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BackupAlgaeBargeClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algaeNeutral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ScoreAlgaeBargeClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "netAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreNet"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "neutral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "CloseBargeSide",
+  "choreoAuto": false
+}

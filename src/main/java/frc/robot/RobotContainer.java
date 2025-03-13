@@ -31,6 +31,7 @@ import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralAlgaeState;
 import frc.robot.commands.NeutralState;
 import frc.robot.commands.NeutralStateHandler;
+import frc.robot.commands.TOFCommandSwerveDrive;
 import frc.robot.commands.TOFDrive;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Wrist;
@@ -59,6 +60,7 @@ public class RobotContainer {
 
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
+  @NotLogged
   private final CommandSwerveDrivetrain commandSwerveDrivetrain = TunerConstants.createDrivetrain();
   private final Elevator elevator = new Elevator();
   private final Climber climber = new Climber();
@@ -94,6 +96,7 @@ public class RobotContainer {
     return this.drivetrain;
   }
 
+  @NotLogged 
   public CommandSwerveDrivetrain getCommandSwerveDrivetrain() {
     return this.commandSwerveDrivetrain;
   }
@@ -297,7 +300,9 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeCoral", coral.intakeCoral());
 
-    NamedCommands.registerCommand("TOFDrive&Score", new TOFDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
+    NamedCommands.registerCommand("TOFDriveScore", new TOFDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
+    
+    NamedCommands.registerCommand("CTRETOFDriveScore", new TOFCommandSwerveDrive(this,CONSTANTS_DRIVETRAIN.TOF_SPEED ,CONSTANTS_DRIVETRAIN.TOF_DISTANCE).andThen(coral.outtakeCoral().withTimeout(0.125)));
 
     // // -- Event Markers --
     EventTrigger prepPlace = new EventTrigger("PrepPlace");

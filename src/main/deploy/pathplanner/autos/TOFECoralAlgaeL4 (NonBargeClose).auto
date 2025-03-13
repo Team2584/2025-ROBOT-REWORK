@@ -1,0 +1,127 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StartClosenonBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ApproachECoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "driveTOF"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.175
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreCoral"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.1
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ECoraltoAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftHighAlgae"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RetrieveAlgaeNonBargeClose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BackupAlgaeNonBargeClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algaeNeutral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ScoreAlgaeNonBargeClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "netAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreNet"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "neutral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GetOutofStart"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "CloseNonBargeSide",
+  "choreoAuto": false
+}

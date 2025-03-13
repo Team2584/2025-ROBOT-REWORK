@@ -1,0 +1,127 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MiddleStartCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftL3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "approachCoralScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "driveTOF"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.175
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreCoral"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CoralToAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "liftLowAlgae"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "retrieveAlgae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BackupAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wrist60Deg"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Score MidAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "netAlgae"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "scoreNet"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "neutral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ReturntoMid"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Center",
+  "choreoAuto": false
+}

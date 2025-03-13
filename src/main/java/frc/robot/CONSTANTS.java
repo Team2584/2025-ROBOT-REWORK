@@ -317,6 +317,7 @@ public final class CONSTANTS {
             public static final RobotConfig ROBOT_CONFIG = new RobotConfig(MASS.in(Kilograms), MOI, MODULE_CONFIG,
                     MODULE_OFFSETS);
 
+
         }
 
         public static class TELEOP_AUTO_ALIGN {

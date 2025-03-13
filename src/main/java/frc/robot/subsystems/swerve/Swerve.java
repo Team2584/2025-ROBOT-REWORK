@@ -7,10 +7,13 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.google.flatbuffers.Constants;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.util.DriveFeedforwards;
 
@@ -26,11 +29,15 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CONSTANTS;
+import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 
 public class Swerve extends SubsystemBase {
 	public Module[] modules;
@@ -182,8 +189,76 @@ public class Swerve extends SubsystemBase {
 		resetModulesToAbsolute();
 		configure();
 
-		AutoBuilder.configure(this::getPose, this::resetPoseToPose, this::getChassisSpeeds, this::driveAutonomous,
-				new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig, autoFlipPaths, this);
+		try {
+			RobotConfig config = RobotConfig.fromGUISettings();
+
+			// Configure AutoBuilder
+			AutoBuilder.configure(
+					this::getPose,
+					this::resetPoseToPose,
+					this::getChassisSpeeds,
+					this::driveAutonomous,
+					new PPHolonomicDriveController(
+							CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID,
+							new PIDConstants(5, 0, 0)),
+					config,
+					() -> {
+						// Boolean supplier that controls when the path will be mirrored for the red
+						// alliance
+						// This will flip the path being followed to the red side of the field.
+						// THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+						var alliance = DriverStation.getAlliance();
+						if (alliance.isPresent()) {
+							return alliance.get() == DriverStation.Alliance.Red;
+						}
+						return false;
+					},
+					this);
+		} catch (Exception e) {
+			DriverStation.reportError("Failed to load PathPlanner config and configure AutoBuilder", e.getStackTrace());
+		}
+
+		// AutoBuilder.configure(this::getPose, this::resetPoseToPose,
+		// this::getChassisSpeeds, this::driveAutonomous,
+		// new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig,
+		// autoFlipPaths, this);
+	}
+
+	public Command followPathCommand(String pathName) {
+		try {
+			PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+
+			return new FollowPathCommand(
+					path,
+					this::getPose, // Robot pose supplier
+					this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+					this::driveAutonomous, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds, AND
+									// feedforwards
+					new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller
+													// for holonomic drive trains
+							CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID, // Translation PID constants
+							new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+					),
+					CONSTANTS_DRIVETRAIN.AUTO.ROBOT_CONFIG, // The robot configuration
+					() -> {
+						// Boolean supplier that controls when the path will be mirrored for the red
+						// alliance
+						// This will flip the path being followed to the red side of the field.
+						// THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+						var alliance = DriverStation.getAlliance();
+						if (alliance.isPresent()) {
+							return alliance.get() == DriverStation.Alliance.Red;
+						}
+						return false;
+					},
+					this // Reference to this subsystem to set requirements
+			);
+		} catch (Exception e) {
+			DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+			return Commands.none();
+		}
 	}
 
 	public void configure() {
@@ -279,9 +354,18 @@ public class Swerve extends SubsystemBase {
 		SwerveDriveKinematics.desaturateWheelSpeeds(desiredModuleStates, swerveConstants.maxSpeedMeters);
 		lastDesiredStates = desiredModuleStates;
 
-		for (Module mod : modules) {
-			mod.setModuleState(desiredModuleStates[mod.moduleNumber], isOpenLoop, false);
+		for (int i = 0; i < modules.length; i++) {
+			modules[i].setModuleState(desiredModuleStates[i], isOpenLoop, false);
 		}
+	}
+
+	public void setStatesAuto(SwerveModuleState[] desiredModuleStates) {
+		SwerveDriveKinematics.desaturateWheelSpeeds(desiredModuleStates, swerveConstants.maxSpeedMeters);
+
+		for (int i = 0; i < modules.length; i++) {
+			modules[i].setTargetState(desiredModuleStates[i]);
+		}
+
 	}
 
 	/**
@@ -319,10 +403,12 @@ public class Swerve extends SubsystemBase {
 	 *                      Desired robot-relative chassis speeds
 	 *
 	 */
-	public void driveAutonomous(ChassisSpeeds chassisSpeeds, DriveFeedforwards feedforwards) {
-		SwerveModuleState[] desiredModuleStates = swerveKinematics
-				.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, timeFromLastUpdate));
-		setModuleStates(desiredModuleStates, false);
+	public void driveAutonomous(ChassisSpeeds chassisSpeeds) {
+		ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(chassisSpeeds, 0.02);
+
+		SwerveModuleState[] desiredModuleStates = swerveKinematics.toSwerveModuleStates(targetSpeeds);
+		setStatesAuto(desiredModuleStates);
+
 	}
 
 	/**

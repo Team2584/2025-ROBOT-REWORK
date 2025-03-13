@@ -287,4 +287,28 @@ public class Module extends SubsystemBase {
         steerMotorController.Position = rotation;
         steerMotor.setControl(steerMotorController);
     }
+
+    public void setTargetState(SwerveModuleState desiredState) {
+        SwerveModuleState state = CTREModuleState.optimize(desiredState, getActualModuleState().angle);
+        lastDesiredSwerveModuleState = state;
+        // -*- Setting the Drive Motor -*-
+
+        driveMotorControllerClosed.Velocity = SN_Math.metersToRotations(state.speedMetersPerSecond,
+                    wheelCircumference, 1);
+        driveMotor.setControl(driveMotorControllerClosed);
+
+        // -*- Setting the Steer Motor -*-
+
+        double rotation = state.angle.getRotations();
+
+        // If the requested speed is lower than a relevant steering speed,
+        // don't turn the motor. Set it to whatever it's previous angle was.
+        if (Math.abs(state.speedMetersPerSecond) < (minimumSteerSpeedPercent *
+                maxModuleSpeedMeters)) {
+            return;
+        }
+
+        steerMotorController.Position = rotation;
+        steerMotor.setControl(steerMotorController);
+    }
 }

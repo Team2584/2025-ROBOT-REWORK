@@ -22,7 +22,7 @@ public class AddVisionMeasurement extends Command {
     double drivetrainRotation = 0;
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     StructPublisher<Pose2d> posePublisher = nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
-            .getStructTopic("pose2d", Pose2d.struct).publish();
+            .getStructTopic("LL_FRONT_POSE2D", Pose2d.struct).publish();
 
     public AddVisionMeasurement(RobotContainer RC) {
         this.drivetrain = RC.getDrivetrain();
@@ -51,6 +51,8 @@ public class AddVisionMeasurement extends Command {
         AngularVelocity gyroRate = Units.DegreesPerSecond.of(drivetrain.getGyroRate());
 
         LimelightHelpers.SetIMUMode(CONSTANTS_VISION.LIMELIGHT_NAMES[0], 0);
+        LimelightHelpers.SetIMUMode(CONSTANTS_VISION.LIMELIGHT_NAMES[1], 0);
+
 
         var estimatedPose = vision.determinePoseEstimate(gyroRate);
         if (estimatedPose.isPresent()) {

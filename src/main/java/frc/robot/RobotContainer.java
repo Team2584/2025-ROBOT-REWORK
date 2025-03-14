@@ -68,6 +68,7 @@ public class RobotContainer {
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
+  @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
   
@@ -198,17 +199,17 @@ public class RobotContainer {
     redL1.onTrue(new PrepCoralLvl1(this))
         .onFalse(new NeutralStateHandler(this));
 
-    blue4.onTrue(new PrepNetAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+    blue4.whileTrue(new PrepNetAlgae(this))
+        .onFalse(new NeutralStateHandler(this));
 
-    blue3.onTrue(new PickupReefHighAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+    blue3.whileTrue(new PickupReefHighAlgae(this))
+        .onFalse(new NeutralStateHandler(this));
 
     blue2.whileTrue(new PickupReefLowAlgae(this))
-        .onFalse(new NeutralAlgaeState(this));
+        .onFalse(new NeutralStateHandler(this));
 
     blue1.whileTrue(new PickupAlgaeGround(this))
-        .onFalse(new NeutralAlgaeState(this));
+        .onFalse(new NeutralStateHandler(this));
   }
 
   /* AUTO STUFF */

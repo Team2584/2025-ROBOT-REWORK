@@ -15,7 +15,6 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 public class Algae extends SubsystemBase {
   private TalonFX m_algaeIntake;
 
-  public static boolean hasAlgaeOverride = false;
   public static boolean stateRun = false;
 
   public Algae() {
@@ -64,7 +63,7 @@ public class Algae extends SubsystemBase {
   public void periodic() {
     hasAlgae();
 
-    SmartDashboard.putBoolean("Algae/hasAlgaeOverride", hasAlgaeOverride);
+    SmartDashboard.putBoolean("Algae/hasAlgae", hasAlgae());
     SmartDashboard.putBoolean("Algae/stateRun", stateRun);
   }
 }

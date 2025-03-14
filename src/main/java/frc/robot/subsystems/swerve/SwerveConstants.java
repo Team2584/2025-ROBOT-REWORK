@@ -3,12 +3,12 @@ package frc.robot.subsystems.swerve;
 import edu.wpi.first.math.util.Units;
 
 public class SwerveConstants {
-    public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(2) * Math.PI;
+    public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(4) * Math.PI;
     public static final double STEER_GEAR_RATIO = 13.371428571428572;
     public double steerGearRatio = 13.371428571428572;
-    public double wheelCircumference = Units.inchesToMeters(2) * Math.PI;
+    public double wheelCircumference = Units.inchesToMeters(4) * Math.PI;
     public double driveGearRatio = 5.6;
-    public double maxSpeedMeters = 5.33;
+    public double maxSpeedMeters = 5.5;
 
     /**
      * A wrapper for Swerve Module constants.

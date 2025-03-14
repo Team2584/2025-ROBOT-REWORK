@@ -114,11 +114,11 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_DRIVETRAIN {
-        public static final double WHEEL_DIAMETER = Units.Inches.of(2).in(Units.Meters);
+        public static final double WHEEL_DIAMETER = Units.Inches.of(4).in(Units.Meters);
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(3.7);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -166,7 +166,7 @@ public final class CONSTANTS {
         public static final double WHEEL_DISTANCE_LENGTH = 0.58;
 
         // PID is set to each module INDIVIDUALLY
-        public static final double DRIVE_P = 0.2;
+        public static final double DRIVE_P = 0.08;
         public static final double DRIVE_I = 0.0;
         public static final double DRIVE_D = 0;
 
@@ -226,7 +226,7 @@ public final class CONSTANTS {
         }
 
         public static final double MIN_STEER_PERCENT = 0.01;
-        public static final double SLOW_MODE_GOVERNOR = 0.5; // slow mode speed limiter
+        public static final double SLOW_MODE_GOVERNOR = 0.25; // slow mode speed limiter
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
 
         // One spin per second (for teleop)
@@ -287,7 +287,7 @@ public final class CONSTANTS {
 
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem
-            public static final double AUTO_DRIVE_P = 1.5;
+            public static final double AUTO_DRIVE_P = 11;
             public static final double AUTO_DRIVE_I = 0;
             public static final double AUTO_DRIVE_D = 0;
             public static final PIDConstants AUTO_DRIVE_PID = new PIDConstants(
@@ -325,7 +325,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 2);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -333,10 +333,10 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    1.2, // was 1.45
+                    2,
                     0,
                     0.0);
-            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.2);
+            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.25);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
                     3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
@@ -582,8 +582,8 @@ public final class CONSTANTS {
             ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         }
 
-        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.25);
-        public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(18);
+        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.1);
+        public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(50);
     }
 
     public static class CONSTANTS_CORAL {
@@ -662,10 +662,10 @@ public final class CONSTANTS {
 
             CLIMBER_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
+            // CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
+            // CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
         }
     }
 

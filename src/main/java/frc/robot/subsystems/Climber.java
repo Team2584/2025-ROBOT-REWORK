@@ -11,6 +11,7 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_CLIMB;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
@@ -31,6 +32,19 @@ public class Climber extends SubsystemBase {
         m_climb.getConfigurator().apply(CONSTANTS_CLIMB.CLIMBER_CONFIG);
         // TODO: set climb position to zero at start of robot intialise (make that state
         // or whatever)
+    }
+
+    /**
+     * Sets the climb to lift the robot at a contant speed
+     */
+    public Command liftRobot() {
+        return runEnd(() -> setVoltage(9), () -> setVoltage(0));
+    }
+    /**
+     * Sets the climb to lower the robot at a contant speed
+     */
+    public Command lowerRobot() {
+        return runEnd(() -> setVoltage(-9), () -> setVoltage(0));
     }
 
     public void setClimberMotorVelocity(double velocity) {

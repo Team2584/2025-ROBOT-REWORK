@@ -9,6 +9,9 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.VecBuilder;
@@ -20,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,6 +43,7 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State;
+import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.State.DriverState;
@@ -64,6 +69,8 @@ public class RobotContainer {
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
   private final Autons autos;
+  private final USBCamera climbCamera = new USBCamera();
+  
 
   @NotLogged
   public CommandXboxController getController() {
@@ -110,6 +117,9 @@ public class RobotContainer {
   public Vision getVision() {
     return this.vision;
   }
+  public USBCamera getClimbCamera() {
+    return this.climbCamera;
+  }
 
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
@@ -154,7 +164,6 @@ public class RobotContainer {
                 () -> getController().getRightX(), slowModeTrigger, leftReefTrigger, rightReefTrigger,
                 leftCoralStationTrigger,
                 rightCoralStationTrigger, processorTrigger));
-
     autos = new Autons(this);
     configureController();
     configureButtonBoard();
@@ -169,6 +178,10 @@ public class RobotContainer {
         .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
             () -> coral.setCoralMotor(0)))
         .until(() -> !coral.hasCoral()));
+
+    controller.back().whileTrue(climber.liftRobot()); // Lift Robot (Winch in)
+    controller.start().whileTrue(new ParallelCommandGroup(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot())); // Ramp
+
   }
 
   private void configureButtonBoard() {

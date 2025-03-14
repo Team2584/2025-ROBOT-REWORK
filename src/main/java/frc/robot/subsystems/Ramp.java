@@ -31,6 +31,9 @@ public class Ramp extends SubsystemBase {
         m_ramp.getConfigurator().apply(CONSTANTS_RAMP.RAMP_CONFIG);
     }
 
+
+    
+
     public void setRampMotorVelocity(double velocity) {
         m_ramp.set(velocity);
     }

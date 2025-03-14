@@ -25,7 +25,7 @@ public class PickupReefLowAlgae extends ParallelCommandGroup {
         new InstantCommand(() -> wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_REEF))
             .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
         new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_LOW)),
-        algae.intakeAlgae());
+        new InstantCommand(() -> algae.setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED)));
 
   }
 

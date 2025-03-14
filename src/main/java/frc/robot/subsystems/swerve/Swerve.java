@@ -189,77 +189,56 @@ public class Swerve extends SubsystemBase {
 		resetModulesToAbsolute();
 		configure();
 
-		try {
-			RobotConfig config = RobotConfig.fromGUISettings();
-
-			// Configure AutoBuilder
-			AutoBuilder.configure(
-					this::getPose,
-					this::resetPoseToPose,
-					this::getChassisSpeeds,
-					this::driveAutonomous,
-					new PPHolonomicDriveController(
-							CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID,
-							new PIDConstants(5, 0, 0)),
-					config,
-					() -> {
-						// Boolean supplier that controls when the path will be mirrored for the red
-						// alliance
-						// This will flip the path being followed to the red side of the field.
-						// THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-						var alliance = DriverStation.getAlliance();
-						if (alliance.isPresent()) {
-							return alliance.get() == DriverStation.Alliance.Red;
-						}
-						return false;
-					},
-					this);
-		} catch (Exception e) {
-			DriverStation.reportError("Failed to load PathPlanner config and configure AutoBuilder", e.getStackTrace());
-		}
-
-		// AutoBuilder.configure(this::getPose, this::resetPoseToPose,
-		// this::getChassisSpeeds, this::driveAutonomous,
-		// new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig,
-		// autoFlipPaths, this);
+		AutoBuilder.configure(this::getPose, this::resetPoseToPose,
+				this::getChassisSpeeds, this::driveAutonomous,
+				new PPHolonomicDriveController(autoDrivePID, autoSteerPID), robotConfig,
+				autoFlipPaths, this);
 	}
 
-	public Command followPathCommand(String pathName) {
+	public Command runPathT(String pathName) {
 		try {
+			// Load the path you want to follow using its name in the GUI
 			PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
 
-			return new FollowPathCommand(
-					path,
-					this::getPose, // Robot pose supplier
-					this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-					this::driveAutonomous, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds, AND
-									// feedforwards
-					new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller
-													// for holonomic drive trains
-							CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID, // Translation PID constants
-							new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-					),
-					CONSTANTS_DRIVETRAIN.AUTO.ROBOT_CONFIG, // The robot configuration
-					() -> {
-						// Boolean supplier that controls when the path will be mirrored for the red
-						// alliance
-						// This will flip the path being followed to the red side of the field.
-						// THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-						var alliance = DriverStation.getAlliance();
-						if (alliance.isPresent()) {
-							return alliance.get() == DriverStation.Alliance.Red;
-						}
-						return false;
-					},
-					this // Reference to this subsystem to set requirements
-			);
+			// Create a path following command using AutoBuilder. This will also trigger
+			// event markers.
+			return AutoBuilder.followPath(path);
 		} catch (Exception e) {
 			DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
 			return Commands.none();
 		}
 	}
+
+	/*
+	 * public Command followPathCommand(String pathName) {
+	 * try {
+	 * PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+	 * 
+	 * return new FollowPathCommand(
+	 * path,
+	 * this::getPose, // Robot pose supplier
+	 * this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+	 * this::driveAutonomousFF, // Method that will drive the robot given ROBOT
+	 * RELATIVE ChassisSpeeds, AND
+	 * // feedforwards
+	 * new PPHolonomicDriveController(
+	 * CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_PID,
+	 * CONSTANTS_DRIVETRAIN.AUTO.AUTO_STEER_PID),
+	 * CONSTANTS_DRIVETRAIN.AUTO.ROBOT_CONFIG,
+	 * () -> {
+	 * var alliance = DriverStation.getAlliance();
+	 * if (alliance.isPresent()) {
+	 * return alliance.get() == DriverStation.Alliance.Red;
+	 * }
+	 * return false;
+	 * },
+	 * this);
+	 * } catch (Exception e) {
+	 * DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+	 * return Commands.none();
+	 * }
+	 * }
+	 */
 
 	public void configure() {
 		pigeon.setYaw(0);
@@ -407,7 +386,15 @@ public class Swerve extends SubsystemBase {
 		ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(chassisSpeeds, 0.02);
 
 		SwerveModuleState[] desiredModuleStates = swerveKinematics.toSwerveModuleStates(targetSpeeds);
-		setStatesAuto(desiredModuleStates);
+		setModuleStates(desiredModuleStates, true);
+
+	}
+
+	public void driveAutonomousFF(ChassisSpeeds chassisSpeeds, DriveFeedforwards ff) {
+		ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(chassisSpeeds, 0.02);
+
+		SwerveModuleState[] desiredModuleStates = swerveKinematics.toSwerveModuleStates(targetSpeeds);
+		setModuleStates(desiredModuleStates, false);
 
 	}
 

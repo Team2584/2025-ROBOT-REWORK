@@ -33,15 +33,15 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "PrepPlace",
-      "waypointRelativePos": 0.9057269287109373,
+      "name": "prepPlace",
+      "waypointRelativePos": 0.9,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -57,5 +57,5 @@
     "velocity": 0,
     "rotation": -55.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

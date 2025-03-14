@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.commands.FollowPathCommand;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,7 +31,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     m_robotContainer.AddVisionMeasurement().schedule();
-    m_robotContainer.setMegaTag2(false);
+    FollowPathCommand.warmupCommand().schedule();
+    m_robotContainer.setMegaTag2(true);
     if (!hasAutonomousRun) {
       // Manual Zero Command here
     }
@@ -53,7 +56,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.setMegaTag2(true);
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = Autons.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

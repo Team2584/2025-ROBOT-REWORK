@@ -2,6 +2,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.time.Instant;
 import java.util.List;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -26,10 +27,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.CONSTANTS.*;
 import frc.robot.commands.NeutralAlgaeState;
 import frc.robot.commands.NeutralState;
+import frc.robot.commands.NeutralStateHandler;
 import frc.robot.commands.TOFDrive;
 import frc.robot.commands.prep_algae.PickupReefHighAlgae;
 import frc.robot.commands.prep_algae.PickupReefLowAlgae;
@@ -44,15 +48,10 @@ import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.State.DriverState;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.Drivetrain;
-import frc.robot.subsystems.swerve.TunerConstants;
 
 public class Autons {
-    private static Pose2d[] SELECTED_AUTO_PREP_MAP;
-    private static String SELECTED_AUTO_PREP_MAP_NAME = "none";
-    private static int AUTO_PREP_NUM = 0;
-
+    private static SendableChooser<Command> autoChooser = new SendableChooser<>();
     private final RobotContainer RC;
 
     /*
@@ -65,86 +64,89 @@ public class Autons {
         configureAutoBindings();
     }
 
-    public Command followPathCommand(String pathName) {
-        try {
-            PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+    public static Command L4FourPieceHigh(RobotContainer RC) {
+        EventTrigger prepPlace = new EventTrigger("prepPlace");
+        prepPlace.onTrue(new ParallelCommandGroup(
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
+                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+                new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL)))
+                .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
-            return new FollowPathCommand(
-                    path,
-                    RC.getDrivetrain().getPose(), // Robot pose supplier
-                    RC.getDrivetrain().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-                    RC.getDrivetrain().driveAutonomous(null, null);, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds, AND
-                                 // feedforwards
-                    new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller
-                                                    // for holonomic drive trains
-                            new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                            new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-                    ),
-                    CONSTANTS_DRIVETRAIN.AUTO.ROBOT_CONFIG, // The robot configuration
-                    () -> {
-                        // Boolean supplier that controls when the path will be mirrored for the red
-                        // alliance
-                        // This will flip the path being followed to the red side of the field.
-                        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+        EventTrigger getCoralStationPiece = new EventTrigger("getCoralStationPiece");
+        getCoralStationPiece.onTrue(RC.getCoral().intakeCoral());
 
-                        var alliance = DriverStation.getAlliance();
-                        if (alliance.isPresent()) {
-                            return alliance.get() == DriverStation.Alliance.Red;
-                        }
-                        return false;
-                    },
-                    this // Reference to this subsystem to set requirements
-            );
-        } catch (Exception e) {
-            DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
-            return Commands.none();
-        }
-    }
+        EventTrigger neutral = new EventTrigger("neutral");
+        neutral.onTrue(new NeutralState(RC).withTimeout(1));
 
-    public static Command CenterAuto(RobotContainer RC) {
         return new SequentialCommandGroup(
-                resetSwerveAutoPose(RC, "P-H"),
-                followPathCommand("P-H"),
-                idleDrive,
-                driveAutoAlign(RC, 7),
+                resetToAutoPose(RC, "P-J"),
+                RC.getDrivetrain().runPathT("P-J"),
+                // PlaceL4Sequence(RC, 9, 0.3),
+                driveAutoAlign(RC, 9, 1),
+                GoL4(RC),
+                new WaitCommand(0.2),
+                TOFDriveScore(RC),
+                new WaitCommand(0.2),
+
+                RC.getDrivetrain().runPathT("J-TOP"),
+                GetCoralStationPiece(RC),
+                RC.getDrivetrain().runPathT("TOP-K"),
+                // PlaceL4Sequence(RC, 10, 0.3),
+                driveAutoAlign(RC, 10, 1),
+                GoL4(RC),
+                new WaitCommand(0.2),
+                TOFDriveScore(RC),
+                new WaitCommand(0.2),
+
+                RC.getDrivetrain().runPathT("K-TOP"),
+                GetCoralStationPiece(RC),
+                RC.getDrivetrain().runPathT("TOP-L"),
+                // PlaceL4Sequence(RC, 11, 0.3),
+                driveAutoAlign(RC, 11, 1),
+                GoL4(RC),
+                new WaitCommand(0.2),
+                TOFDriveScore(RC),
+                new WaitCommand(0.2),
+
+                RC.getDrivetrain().runPathT("L-TOP"),
+                GetCoralStationPiece(RC),
+                RC.getDrivetrain().runPathT("TOP-A"),
+                // PlaceL4Sequence(RC, 0, 0.3)
+                driveAutoAlign(RC, 0, 1),
+                GoL4(RC),
+                new WaitCommand(0.2),
                 TOFDriveScore(RC)
-
-        );
-
+                );
     }
 
-    public static Command followPathCommand(String fileName) {
-        try {
-            // Load the path you want to follow using its name in the GUI
-            PathPlannerPath path = PathPlannerPath.fromPathFile(fileName);
+    public static Command L4CenterAlgae(RobotContainer RC) {
+        EventTrigger pickupLowAlgae = new EventTrigger("pickupLowAlgae");
+        pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
-            // Create a path following command using AutoBuilder. This will also trigger
-            // event markers.
-            return AutoBuilder.followPath(PathPlannerPath.fromPathFile(fileName));
-        } catch (Exception e) {
-            DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
-            return Commands.none();
-        }
+        EventTrigger NeutralAlgaeState = new EventTrigger("NeutralAlgaeState");
+        NeutralAlgaeState.onTrue(new NeutralAlgaeState(RC));
+
+        EventTrigger PepareNetAlgae = new EventTrigger("PepareNetAlgae");
+        PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
+
+        return new SequentialCommandGroup(
+                resetToAutoPose(RC, "P-H"),
+                RC.getDrivetrain().runPathT("P-H"),
+                driveAutoAlign(RC, 7, 0.4),
+                GoL4(RC),
+                new WaitCommand(0.75),
+                TOFDriveScore(RC),
+                new WaitCommand(0.5),
+                RC.getDrivetrain().runPathT("CoralToAlgae"),
+                RC.getDrivetrain().runPathT("RetrieveAlgae"),
+                RC.getDrivetrain().runPathT("BackupAlgae"),
+                RC.getDrivetrain().runPathT("ScoreMidAlgae"),
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED))
+                        .withTimeout(0.15).andThen(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
+                RC.getDrivetrain().runPathT("Barge-Algae-I"));
     }
 
-    /*
-     * This will set the chassis to idle mode
-     */
-    public static void idleCommandSwerveDrivetrain() {
-        commandSwerveDrivetrain.setControl(new SwerveRequest.Idle());
-    }
-
-    /*
-     * This will destroy our "second chassis" (auton)
-     */
-    public static void closeCommandSwerveDrivetrain() {
-        // TODO: MICHAEL DO WE WANT A NULL HERE?? (think abt this for more than a sec
-        // though)
-        // commandSwerveDrivetrain = null;
-        commandSwerveDrivetrain.close();
-    }
-
-    public static Command resetSwerveAutoPose(RobotContainer RC, String nextPath) {
+    public static Command resetToAutoPose(RobotContainer RC, String nextPath) {
         Rotation2d desiredRotation = Rotation2d.kZero;
         Translation2d desiredPosition = Translation2d.kZero;
 
@@ -152,43 +154,52 @@ public class Autons {
             desiredRotation = PathPlannerPath.fromPathFile(nextPath)
                     .getIdealStartingState().rotation();
             desiredPosition = PathPlannerPath.fromPathFile(nextPath).getWaypoints().get(0).anchor();
-
             if (CONSTANTS_FIELD.isRedAlliance()) {
                 desiredRotation = desiredRotation.plus(Rotation2d.k180deg);
             }
         } catch (Exception e) {
         }
 
-        return AutoBuilder.resetOdom(new Pose2d(desiredPosition, desiredRotation));
+        RC.getDrivetrain().resetPoseToPose(new Pose2d(RC.getDrivetrain().getPose().getTranslation(), desiredRotation));
+        // RC.getDrivetrain().resetPoseToPose(new Pose2d(desiredPosition,
+        // desiredRotation));
+
+        return new InstantCommand();
     }
 
-    public static Command driveAutoAlign(RobotContainer RC) {
+    public static Command driveAutoAlign(RobotContainer RC, int reefIndex) {
         return Commands.runOnce(() -> RC.getDrivetrain().autoAlign(Meters.of(0),
-                SELECTED_AUTO_PREP_MAP[AUTO_PREP_NUM], MetersPerSecond.of(0),
-                MetersPerSecond.of(0), DegreesPerSecond.of(0), 1.0, false, Meters.of(1000),
+                CONSTANTS_FIELD.getReefPositions().get().get(reefIndex), MetersPerSecond.of(0),
+                MetersPerSecond.of(0), DegreesPerSecond.of(0), 1.0, true, Meters.of(1000),
                 DriverState.REEF_AUTO_DRIVING,
                 DriverState.REEF_AUTO_DRIVING, RC.getState())).repeatedly();
     }
 
-    public static Command driveAutoAlign(RobotContainer RC, int fieldPositionIndex) {
-        return Commands.runOnce(() -> RC.getDrivetrain().autoAlign(Meters.of(0),
-                CONSTANTS_FIELD.getReefPositions().get().get(fieldPositionIndex), MetersPerSecond.of(0),
-                MetersPerSecond.of(0), DegreesPerSecond.of(0), 1.0, false, Meters.of(1000),
-                DriverState.REEF_AUTO_DRIVING,
-                DriverState.REEF_AUTO_DRIVING, RC.getState())).repeatedly();
+    public static Command driveAutoAlign(RobotContainer RC, int reefIndex, double timeOut) {
+        return driveAutoAlign(RC, reefIndex).asProxy().withTimeout(timeOut);
     }
 
-    /*
-     * This will recreate our "second chassis" (auton)
-     */
-    public static void openCommandSwerveDrivetrain() {
-        commandSwerveDrivetrain = TunerConstants.createDrivetrain();
+    public static Command PlaceL4Sequence(RobotContainer RC, int reefIndex, double alignTimeout) {
+        return Commands.sequence(
+                driveAutoAlign(RC, reefIndex,alignTimeout),
+                new PrepCoralLvl4(RC).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+                new TOFDrive(RC, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
+                        .andThen(RC.getCoral().outtakeCoral().withTimeout(0.125)));
+    }
+
+    public static Command GetCoralStationPiece(RobotContainer RC) {
+        return RC.getCoral().intakeCoral().asProxy();
+    }
+
+    public static Command GoL4(RobotContainer RC) {
+        return new ParallelCommandGroup(
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
+                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+
+                new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL)));
     }
 
     // ---** COMMANDS **---
-
-    private static Command idleDrive = new InstantCommand(() -> idleCommandSwerveDrivetrain());
-    private static Command openDrive = new InstantCommand(() -> openCommandSwerveDrivetrain());
 
     private static Command TOFDriveScore(RobotContainer RC) {
         return new TOFDrive(RC, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
@@ -197,90 +208,10 @@ public class Autons {
 
     private void configureAutoBindings() {
 
-        autoChooser.addOption("IdleAuto", CenterAuto(RC));
+        autoChooser.addOption("L4FourPieceHigh", L4FourPieceHigh(RC));
+        autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
 
-        Command driveAutoAlign = Commands.runOnce(() -> RC.getDrivetrain().autoAlign(Meters.of(0),
-                SELECTED_AUTO_PREP_MAP[AUTO_PREP_NUM], MetersPerSecond.of(0),
-                MetersPerSecond.of(0), DegreesPerSecond.of(0), 1.0, false, Meters.of(1000),
-                DriverState.REEF_AUTO_DRIVING,
-                DriverState.REEF_AUTO_DRIVING, RC.getState())).repeatedly();
-
-        Command placeSequenceL4 = Commands.sequence(
-                driveAutoAlign.asProxy().withTimeout(1), // Attempt to align for up to 1 second
-                Commands.runOnce(() -> RC.getDrivetrain().drive(new ChassisSpeeds(), false)), // Stop driving
-                new PrepCoralLvl4(RC).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT), // Give it
-                                                                                                      // time to
-                // "prepare" without
-                // checking state
-                RC.getCoral().outtakeCoral().asProxy().withTimeout(0.25), // Give it time to "score" without
-                                                                          // checking state
-                Commands.runOnce(() -> AUTO_PREP_NUM++)); // Increment counter
-
-        NamedCommands.registerCommand("PlaceSequenceL4",
-                Commands.sequence(
-                        driveAutoAlign.asProxy().withTimeout(1), // Attempt to align for up to 1 second
-                        Commands.runOnce(() -> RC.getDrivetrain().drive(new ChassisSpeeds(), false)), // Stop driving
-                        new PrepCoralLvl4(RC).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT), // Give it
-                                                                                                              // time to
-                        // "prepare" without
-                        // checking state
-                        RC.getCoral().outtakeCoral().asProxy().withTimeout(0.25), // Give it time to "score" without
-                                                                                  // checking state
-                        Commands.runOnce(() -> AUTO_PREP_NUM++) // Increment counter
-                ).withName("PlaceSequence"));
-
-        NamedCommands.registerCommand("autoAlign", Commands.sequence(idleDrive,
-                driveAutoAlign.withTimeout(5)));
-
-        NamedCommands.registerCommand("PrepPlace",
-                new PrepCoralLvl4(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
-                        .asProxy().withName("PrepPlace"));
-
-        NamedCommands.registerCommand("GetCoralStationPiece",
-                RC.getCoral().intakeCoral().asProxy().until(() -> RC.getCoral().coralLoaded())
-                        .withName("GetCoralStationPiece"));
-
-        NamedCommands.registerCommand("prepNet", new PrepNetAlgae(RC).withTimeout(1));
-
-        NamedCommands.registerCommand("wrist60Deg",
-                RC.getWrist().setWristAngleCommand(CONSTANTS_WRIST.PIVOT_ALGAE_NEUTRAL)
-                        .withTimeout(0.3));
-
-        NamedCommands.registerCommand("shootAlgae", RC.getAlgae().outtakeAlgae());
-
-        NamedCommands.registerCommand("liftLowAlgae", new PickupReefLowAlgae(RC).withTimeout(1));
-
-        NamedCommands.registerCommand("algaeNeutral", new NeutralAlgaeState(RC).withTimeout(1));
-
-        NamedCommands.registerCommand("neutral", new NeutralState(RC).withTimeout(1));
-
-        NamedCommands.registerCommand("liftL4", new PrepCoralLvl4(RC).withTimeout(0.5));
-
-        NamedCommands.registerCommand("liftL3", new PrepCoralLvl3(RC).withTimeout(0.3));
-
-        NamedCommands.registerCommand("scoreCoral", RC.getCoral().outtakeCoral().withTimeout(0.125));
-
-        NamedCommands.registerCommand("liftHighAlgae", new PickupReefHighAlgae(RC).withTimeout(1.5));
-
-        NamedCommands.registerCommand("liftNet", new PrepNetAlgae(RC));
-
-        NamedCommands.registerCommand("scoreNet", RC.getAlgae().outtakeAlgae().withTimeout(0.3));
-
-        NamedCommands.registerCommand("intakeCoral", RC.getCoral().intakeCoral());
-
-        NamedCommands.registerCommand("TOFDrive&Score",
-                new TOFDrive(RC, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
-                        .andThen(RC.getCoral().outtakeCoral().withTimeout(0.125)));
-
-        // // -- Event Markers --
-        EventTrigger prepPlace = new EventTrigger("PrepPlace");
-        prepPlace.onTrue(new PrepCoralLvl4(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
-
-        EventTrigger getCoralStationPiece = new EventTrigger("GetCoralStationPiece");
-        getCoralStationPiece.onTrue(RC.getCoral().intakeCoral());
-
-        EventTrigger neutral = new EventTrigger("neutral");
-        neutral.onTrue(new NeutralState(RC).withTimeout(1));
+        // autoChooser.setDefaultOption("L4_4_HIGH", L4FourPieceHigh(RC));
     }
 
     public static void runAuton(String auto) { // Autons.runAuton(auto);
@@ -290,40 +221,11 @@ public class Autons {
     // ---** AUTON INSTANTIATING STUFF **---
 
     public static Command getAutonomousCommand() {
-        selectAutoMap();
         return autoChooser.getSelected();
     }
 
     private void configureAutoSelector() {
-        // TODO: MICHAEL JUST PUT THE EZ AUTON IN THE DEFAULT AUTO HERE
         autoChooser = AutoBuilder.buildAutoChooser("");
         SmartDashboard.putData(autoChooser);
-    }
-
-    private static void selectAutoMap() {
-        SELECTED_AUTO_PREP_MAP = configureAutoPrepMaps(autoChooser.getSelected().getName());
-        SELECTED_AUTO_PREP_MAP_NAME = autoChooser.getSelected().getName();
-    }
-
-    private static Pose2d[] configureAutoPrepMaps(String selectedAuto) {
-        List<Pose2d> fieldPositions = CONSTANTS_FIELD.getReefPositions().get();
-
-        switch (selectedAuto) {
-            case "4PIECE_L4_HIGH":
-                Pose2d[] PIECE_L4_HIGH = new Pose2d[4];
-                PIECE_L4_HIGH[0] = fieldPositions.get(9); // J
-                PIECE_L4_HIGH[1] = fieldPositions.get(10); // K
-                PIECE_L4_HIGH[2] = fieldPositions.get(11); // L
-                PIECE_L4_HIGH[3] = fieldPositions.get(0); // A
-                return PIECE_L4_HIGH;
-            case "IdleAuto":
-                Pose2d[] CenterAuto = new Pose2d[1];
-                CenterAuto[0] = fieldPositions.get(7); // H
-                return CenterAuto;
-            default:
-                Pose2d[] noAutoSelected = new Pose2d[1];
-                noAutoSelected[0] = new Pose2d();
-                return noAutoSelected;
-        }
     }
 }

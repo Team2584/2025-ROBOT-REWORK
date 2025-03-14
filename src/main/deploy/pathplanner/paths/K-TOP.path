@@ -34,20 +34,14 @@
   "eventMarkers": [
     {
       "name": "neutral",
-      "waypointRelativePos": 0.07991856852854326,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "GetCoralStationPiece",
-      "waypointRelativePos": 0.8703740638072098,
+      "waypointRelativePos": 0.028638531410530826,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -63,5 +57,5 @@
     "velocity": 0.0,
     "rotation": -59.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -193,6 +193,7 @@ public class RobotContainer {
     controller.back().whileTrue(climber.liftRobot()); // Lift Robot (Winch in)
     controller.start().whileTrue(new ParallelCommandGroup(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot())); // Ramp
 
+    controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight()).onTrue(new InstantCommand(()->MongolianSuperServerBailoutIMU()));
   }
 
   private void configureButtonBoard() {
@@ -222,6 +223,14 @@ public class RobotContainer {
         .onFalse(new NeutralStateHandler(this));
   }
 
+  public void MongolianSuperServerBailoutIMU(){
+    if (CONSTANTS_FIELD.isRedAlliance()) {
+      drivetrain.resetYaw(0);
+    } else if (!CONSTANTS_FIELD.isRedAlliance()) {
+      drivetrain.resetYaw(180);
+
+    }
+  }
   /* AUTO STUFF */
 
   public void setMegaTag2(boolean setMegaTag2) {

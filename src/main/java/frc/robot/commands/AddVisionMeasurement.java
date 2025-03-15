@@ -64,13 +64,13 @@ public class AddVisionMeasurement extends Command {
             // if (DriverStation.isDisabled()) {
             //     drivetrain.resetYaw(estimatedPose.get().pose.getRotation().getDegrees());
             // }
-            if (DriverStation.isDisabled() && CONSTANTS_FIELD.isRedAlliance()) {
-                drivetrain.resetYaw(0);
-            } else if (DriverStation.isDisabled() && !CONSTANTS_FIELD.isRedAlliance()){
-                drivetrain.resetYaw(180);
+            // if (DriverStation.isDisabled() && CONSTANTS_FIELD.isRedAlliance()) {
+            //     drivetrain.resetYaw(0);
+            // } else if (DriverStation.isDisabled() && !CONSTANTS_FIELD.isRedAlliance()){
+            //     drivetrain.resetYaw(180);
                 
                 
-            }
+            // }
         }
     }
 

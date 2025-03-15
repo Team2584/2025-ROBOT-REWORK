@@ -54,9 +54,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+
+    if (DriverStation.isDisabled() && CONSTANTS_FIELD.isRedAlliance()) {
+      m_robotContainer.getDrivetrain().resetYaw(0);
+    } else if (DriverStation.isDisabled() && !CONSTANTS_FIELD.isRedAlliance()) {
+      m_robotContainer.getDrivetrain().resetYaw(180);
+
+    }
     m_robotContainer.setMegaTag2(true);
 
     m_autonomousCommand = Autons.getAutonomousCommand();
+    
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

@@ -1,14 +1,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.CONSTANTS;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
+import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 import frc.robot.CONSTANTS.CONSTANTS_VISION;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.subsystems.Vision;
@@ -61,6 +64,13 @@ public class AddVisionMeasurement extends Command {
             // if (DriverStation.isDisabled()) {
             //     drivetrain.resetYaw(estimatedPose.get().pose.getRotation().getDegrees());
             // }
+            if (DriverStation.isDisabled() && CONSTANTS_FIELD.isRedAlliance()) {
+                drivetrain.resetYaw(0);
+            } else if (DriverStation.isDisabled() && !CONSTANTS_FIELD.isRedAlliance()){
+                drivetrain.resetYaw(180);
+                
+                
+            }
         }
     }
 

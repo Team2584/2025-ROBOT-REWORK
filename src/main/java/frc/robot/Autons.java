@@ -89,7 +89,6 @@ public class Autons {
                 new WaitCommand(0.2),
 
                 RC.getDrivetrain().runPathT("J-TOP"),
-                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-K"),
                 // PlaceL4Sequence(RC, 10, 0.3),
                 driveAutoAlign(RC, 10, 1),
@@ -99,7 +98,6 @@ public class Autons {
                 new WaitCommand(0.2),
 
                 RC.getDrivetrain().runPathT("K-TOP"),
-                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-L"),
                 // PlaceL4Sequence(RC, 11, 0.3),
                 driveAutoAlign(RC, 11, 1),
@@ -109,19 +107,20 @@ public class Autons {
                 new WaitCommand(0.2),
 
                 RC.getDrivetrain().runPathT("L-TOP"),
-                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-A"),
                 // PlaceL4Sequence(RC, 0, 0.3)
                 driveAutoAlign(RC, 0, 1),
                 GoL4(RC),
                 new WaitCommand(0.2),
-                TOFDriveScore(RC)
-                );
+                TOFDriveScore(RC));
     }
 
     public static Command L4CenterAlgae(RobotContainer RC) {
         EventTrigger pickupLowAlgae = new EventTrigger("pickupLowAlgae");
         pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+
+        EventTrigger pickupHighAlgae = new EventTrigger("pickupHighAlgae");
+        pickupLowAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
         EventTrigger NeutralAlgaeState = new EventTrigger("NeutralAlgaeState");
         NeutralAlgaeState.onTrue(new NeutralAlgaeState(RC));
@@ -132,19 +131,39 @@ public class Autons {
         return new SequentialCommandGroup(
                 resetToAutoPose(RC, "P-H"),
                 RC.getDrivetrain().runPathT("P-H"),
-                driveAutoAlign(RC, 7, 0.5),
+                driveAutoAlign(RC, 7, 1),
                 GoL4(RC),
                 new WaitCommand(0.75),
                 TOFDriveScore(RC),
                 new WaitCommand(0.5),
                 RC.getDrivetrain().runPathT("CoralToAlgae"),
                 new WaitCommand(1),
+                SetAlgaeLow(RC),
+                new WaitCommand(1),
                 RC.getDrivetrain().runPathT("RetrieveAlgae"),
                 RC.getDrivetrain().runPathT("BackupAlgae"),
                 RC.getDrivetrain().runPathT("ScoreMidAlgae"),
-                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED))
-                        .withTimeout(0.15).andThen(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
-                RC.getDrivetrain().runPathT("Barge-Algae-I"));
+                new WaitCommand(1.5),
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
+                new WaitCommand(0.5),
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
+                RC.getDrivetrain().runPathT("Barge-Algae-I")
+        // SetAlgaeHigh(RC),
+        // RC.getDrivetrain().runPathT("Algae-I-Backup")
+        );
+    }
+
+    public static Command L4OnePieceLow(RobotContainer RC) {
+
+        return new SequentialCommandGroup(
+            resetToAutoPose(RC, "P-E"),
+            RC.getDrivetrain().runPathT("P-E"),
+            driveAutoAlign(RC, 7, 1),
+            GoL4(RC),
+            new WaitCommand(0.75),
+            TOFDriveScore(RC),
+            new WaitCommand(0.5)
+        );
     }
 
     public static Command resetToAutoPose(RobotContainer RC, String nextPath) {
@@ -155,13 +174,15 @@ public class Autons {
             desiredRotation = PathPlannerPath.fromPathFile(nextPath)
                     .getIdealStartingState().rotation();
             desiredPosition = PathPlannerPath.fromPathFile(nextPath).getWaypoints().get(0).anchor();
-            if (CONSTANTS_FIELD.isRedAlliance()) {
-                desiredRotation = desiredRotation.plus(Rotation2d.k180deg);
-            }
+            // if (CONSTANTS_FIELD.isRedAlliance()) {
+            // // desiredRotation = desiredRotation.plus(Rotation2d.k180deg);
+            // }
         } catch (Exception e) {
         }
 
-        RC.getDrivetrain().resetPoseToPose(new Pose2d(RC.getDrivetrain().getPose().getTranslation(), desiredRotation));
+        // RC.getDrivetrain().resetYaw(desiredRotation.getDegrees());
+        // RC.getDrivetrain().resetPoseToPose(new
+        // Pose2d(RC.getDrivetrain().getPose().getTranslation(), desiredRotation));
         // RC.getDrivetrain().resetPoseToPose(new Pose2d(desiredPosition,
         // desiredRotation));
 
@@ -182,7 +203,7 @@ public class Autons {
 
     public static Command PlaceL4Sequence(RobotContainer RC, int reefIndex, double alignTimeout) {
         return Commands.sequence(
-                driveAutoAlign(RC, reefIndex,alignTimeout),
+                driveAutoAlign(RC, reefIndex, alignTimeout),
                 new PrepCoralLvl4(RC).asProxy().withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
                 new TOFDrive(RC, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
                         .andThen(RC.getCoral().outtakeCoral().withTimeout(0.125)));
@@ -198,6 +219,22 @@ public class Autons {
                         .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
 
                 new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_SCORE_CORAL)));
+    }
+
+    public static Command SetAlgaeLow(RobotContainer RC) {
+        return new ParallelCommandGroup(
+                new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_REEF))
+                        .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_LOW)),
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED)));
+    }
+
+    public static Command SetAlgaeHigh(RobotContainer RC) {
+        return new ParallelCommandGroup(
+                new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_REEF))
+                        .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_HIGH)),
+                RC.getAlgae().intakeAlgae());
     }
 
     // ---** COMMANDS **---

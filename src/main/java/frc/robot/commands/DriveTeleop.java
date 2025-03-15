@@ -94,7 +94,7 @@ public class DriveTeleop extends Command {
         1.0, CONSTANTS_DRIVETRAIN.MINIMUM_ELEVATOR_GOVERNOR);
 
     double transMultiplier = slowMultiplier
-        * CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(Units.MetersPerSecond) * elevatorHeightMultiplier;
+        * CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP.in(Units.MetersPerSecond) * elevatorHeightMultiplier;
 
     // -- Velocities --
     double LVxDouble = (Math.abs(xAxis.getAsDouble()) < CONSTANTS_CONTROLLER.CONTROLLER_DEADZONE)

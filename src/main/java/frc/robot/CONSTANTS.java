@@ -118,7 +118,9 @@ public final class CONSTANTS {
         public static final Distance WHEEL_RADIUS = Units.Meters.of(WHEEL_DIAMETER / 2);
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(3.7);
+        public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
+        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(2.0);
+
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -283,6 +285,7 @@ public final class CONSTANTS {
         };
 
         public static final double TOF_DISTANCE = 0.32;
+        public static final double TOF_DISTANCE_LOW = 0.28;
         public static final double TOF_SPEED = 0.45;
 
         public static class AUTO {
@@ -325,12 +328,12 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.5);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
             public static final Distance MAX_AUTO_DRIVE_PROCESSOR_DISTANCE = Units.Meters.of(8);
-            public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.div(10);
+            public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
                     2,
@@ -443,8 +446,8 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 45;
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicExpo_kV = 0.12;
 
-            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 200;
-            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 55;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 180;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 48;
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicExpo_kV = 0.12;
 
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -478,7 +481,7 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(23);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(25);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
@@ -919,7 +922,7 @@ public final class CONSTANTS {
          * @return An array of field element positions
          */
         public static Supplier<Pose2d[]> getFieldPositions() {
-            if (ALLIANCE.isPresent() && ALLIANCE.get().equals(Alliance.Red)) {
+            if (isRedAlliance()) {
                 return () -> POSES.RED_POSES;
 
             }
@@ -933,7 +936,7 @@ public final class CONSTANTS {
          * @return An array of the reef branches for your alliance
          */
         public static Supplier<List<Pose2d>> getReefPositions() {
-            if (ALLIANCE.isPresent() && ALLIANCE.get().equals(Alliance.Red)) {
+            if (isRedAlliance()) {
                 return () -> POSES.RED_REEF_POSES;
 
             }

@@ -175,7 +175,17 @@ public class RobotContainer {
     controller.a().whileTrue(coral.outtakeCoral());
     controller.y().whileTrue(algae.outtakeAlgae());
 
-    controller.b().whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
+    redL4.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
+        .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
+            () -> coral.setCoralMotor(0)))
+        .until(() -> !coral.hasCoral()));
+
+    redL3.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
+        .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
+            () -> coral.setCoralMotor(0)))
+        .until(() -> !coral.hasCoral()));
+
+    redL2.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
         .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
             () -> coral.setCoralMotor(0)))
         .until(() -> !coral.hasCoral()));

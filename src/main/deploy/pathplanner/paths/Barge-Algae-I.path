@@ -52,7 +52,7 @@
     "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "CustomL4CenterAlgaePaths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

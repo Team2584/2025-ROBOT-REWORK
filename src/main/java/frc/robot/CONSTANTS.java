@@ -228,7 +228,7 @@ public final class CONSTANTS {
         }
 
         public static final double MIN_STEER_PERCENT = 0.01;
-        public static final double SLOW_MODE_GOVERNOR = 0.25; // slow mode speed limiter
+        public static final double SLOW_MODE_GOVERNOR = 0.15; // slow mode speed limiter
         public static final double MINIMUM_ELEVATOR_GOVERNOR = 0.1; // elevator up drive speed limiter
 
         // One spin per second (for teleop)
@@ -328,7 +328,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.5);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.6);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -336,7 +336,7 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    2,
+                    2.2,
                     0,
                     0.0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.25);
@@ -799,8 +799,8 @@ public final class CONSTANTS {
             // BRANCH POSES
             // negative goes away from reef
             public static final double REEF_SCORE_X_OFFSET = -0.25;
-            public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.045;
-            public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.045;
+            public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.02; // was -0.045
+            public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.02; // was -0.045
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
                     REEF_SCORE_X_OFFSET,
@@ -944,7 +944,7 @@ public final class CONSTANTS {
         }
 
         public static Supplier<List<Pose2d>> getCoralStationPositions() {
-            if (ALLIANCE.isPresent() && ALLIANCE.get().equals(Alliance.Red)) {
+            if (isRedAlliance()) {
                 return () -> POSES.RED_CORAL_STATION_POSES;
             }
             return () -> POSES.BLUE_CORAL_STATION_POSES;

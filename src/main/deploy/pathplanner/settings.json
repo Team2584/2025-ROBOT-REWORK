@@ -3,7 +3,12 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
+    "AlgaeBackup",
+    "CustomL4CenterAlgaePaths",
+    "CustomL4OnePieceLowPaths",
+    "CustomL4OnePieceHighPaths",
     "ReefToTop",
+    "StartToReef",
     "TopToReef"
   ],
   "autoFolders": [],

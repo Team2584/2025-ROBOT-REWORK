@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.commands.FollowPathCommand;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousExit() {
+    m_robotContainer.getDrivetrain().drive(new ChassisSpeeds(0, 0, 0), false);
   }
 
   @Override

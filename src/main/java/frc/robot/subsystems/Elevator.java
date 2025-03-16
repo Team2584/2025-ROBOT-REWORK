@@ -97,7 +97,9 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean getZeroLimit() {
-        return !elevatorZeroLimit.get(); // returns true if the limit switch is touched
+        return !elevatorZeroLimit.get(); // returns true if the limit switch is touched HALLEFFECT sensor
+        //return !elevatorZeroLimit.get(); // returns true if the limit switch is touched HALLEFFECT sensor
+
     }
 
     public void homeElevator() {

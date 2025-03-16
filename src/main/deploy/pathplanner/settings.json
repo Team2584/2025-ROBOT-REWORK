@@ -5,8 +5,9 @@
   "pathFolders": [
     "AlgaeBackup",
     "CustomL4CenterAlgaePaths",
-    "CustomL4OnePieceLowPaths",
     "CustomL4OnePieceHighPaths",
+    "CustomL4OnePieceLowPaths",
+    "Tickles",
     "ReefToTop",
     "StartToReef",
     "TopToReef"

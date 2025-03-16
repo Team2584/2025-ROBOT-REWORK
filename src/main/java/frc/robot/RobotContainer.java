@@ -59,6 +59,8 @@ public class RobotContainer {
   @NotLogged
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
+  private static SendableChooser<Command> allianceChooser = new SendableChooser<>();
+
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
@@ -71,7 +73,6 @@ public class RobotContainer {
   @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
-  
 
   @NotLogged
   public CommandXboxController getController() {
@@ -118,13 +119,16 @@ public class RobotContainer {
   public Vision getVision() {
     return this.vision;
   }
+
   public USBCamera getClimbCamera() {
     return this.climbCamera;
   }
 
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
-      new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
+      // new
+      // Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
+      new NeutralStateHandler(this),
       new Zero_Wrist(this))
       .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).withName("ZeroSubsystems");
 
@@ -175,25 +179,38 @@ public class RobotContainer {
     controller.a().whileTrue(coral.outtakeCoral());
     controller.y().whileTrue(algae.outtakeAlgae());
 
-    redL4.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
-        .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-            () -> coral.setCoralMotor(0)))
-        .until(() -> !coral.hasCoral()));
+    redL4.and(controller.b())
+        .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
+            .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
+                () -> coral.setCoralMotor(0)))
+            .until(() -> !coral.hasCoral()));
 
-    redL3.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
-        .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-            () -> coral.setCoralMotor(0)))
-        .until(() -> !coral.hasCoral()));
+    redL3.and(controller.b())
+        .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
+            .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
+                () -> coral.setCoralMotor(0)))
+            .until(() -> !coral.hasCoral()));
 
-    redL2.and(controller.b()).whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
-        .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-            () -> coral.setCoralMotor(0)))
-        .until(() -> !coral.hasCoral()));
+    redL2.and(controller.b())
+        .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED, CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
+            .andThen(Commands.runEnd(() -> coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
+                () -> coral.setCoralMotor(0)))
+            .until(() -> !coral.hasCoral()));
 
-    controller.back().whileTrue(climber.liftRobot()); // Lift Robot (Winch in)
-    controller.start().whileTrue(new ParallelCommandGroup(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot())); // Ramp
+    controller.back().whileTrue(climber.liftRobot().until(()->climber.isClimbed())); // Lift Robot (Winch in)
+    controller.start()
+        .whileTrue(new ParallelCommandGroup(
+            new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
+        .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 5))); // Ramp
 
-    controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight()).onTrue(new InstantCommand(()->MongolianSuperServerBailoutIMU()));
+    controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight())
+        .onTrue(new InstantCommand(() -> MongolianSuperServerBailoutIMU()));
+
+    // allianceChooser.addOption("Red", new InstantCommand(() -> drivetrain.resetYaw(0)));
+    // allianceChooser.addOption("Blue", new InstantCommand(() -> drivetrain.resetYaw(180)));
+    
+
+    SmartDashboard.putData(allianceChooser);
   }
 
   private void configureButtonBoard() {
@@ -223,7 +240,7 @@ public class RobotContainer {
         .onFalse(new NeutralStateHandler(this));
   }
 
-  public void MongolianSuperServerBailoutIMU(){
+  public void MongolianSuperServerBailoutIMU() {
     if (CONSTANTS_FIELD.isRedAlliance()) {
       drivetrain.resetYaw(0);
     } else if (!CONSTANTS_FIELD.isRedAlliance()) {
@@ -258,5 +275,11 @@ public class RobotContainer {
     return new AddVisionMeasurement(this)
         .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).ignoringDisable(true);
   }
+
+  public Command getAllianceSelection() {
+    return allianceChooser.getSelected();
+  }
+
+
 
 }

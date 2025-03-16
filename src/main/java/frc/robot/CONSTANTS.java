@@ -284,7 +284,7 @@ public final class CONSTANTS {
                         CONSTANTS_PORTS.CAN_BUS_NAME),
         };
 
-        public static final double TOF_DISTANCE = 0.32;
+        public static final double TOF_DISTANCE = 0.305;
         public static final double TOF_DISTANCE_LOW = 0.28;
         public static final double TOF_SPEED = 0.45;
 
@@ -336,7 +336,7 @@ public final class CONSTANTS {
             public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP.div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    2.2,
+                    3.2,
                     0,
                     0.0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.25);
@@ -438,16 +438,20 @@ public final class CONSTANTS {
             // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign =
             // StaticFeedforwardSignValue.UseClosedLoopSign;
 
+            // Elevator up normal
             ELEVATOR_CONFIG_0.MotionMagic.MotionMagicCruiseVelocity = 100;
             ELEVATOR_CONFIG_0.MotionMagic.MotionMagicAcceleration = 65;
             ELEVATOR_CONFIG_0.MotionMagic.MotionMagicExpo_kV = 0.12;
 
-            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicCruiseVelocity = 200;
-            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 45;
+
+            // Elevator Down
+            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicCruiseVelocity = 150;
+            ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 35;
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicExpo_kV = 0.12;
 
-            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 180;
-            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 48;
+            // Elevator up L4
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 170;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 45;
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicExpo_kV = 0.12;
 
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -481,8 +485,8 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(25);
-        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(40);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
+        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
@@ -654,6 +658,8 @@ public final class CONSTANTS {
         public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
         public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
 
+        public static Angle CLIMBED_POS = Units.Rotations.of(33.65);
+
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(9);
 
         static {
@@ -774,9 +780,9 @@ public final class CONSTANTS {
             if (x.isPresent() && x.get() == DriverStation.Alliance.Red) {
                 return true;
             }
-            if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
-            }
+            // if (alliance.isPresent()) {
+            //     return alliance.get() == DriverStation.Alliance.Red;
+            // }
             return false;
         };
 

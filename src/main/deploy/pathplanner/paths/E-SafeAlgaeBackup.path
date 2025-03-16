@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.001786913190569,
-        "y": 1.5971776962280275
+        "x": 5.519844883604513,
+        "y": 2.274796686615326
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.505661318649565,
-        "y": 1.8383858608252968
+        "x": 5.700494841534782,
+        "y": 1.9172492932323564
       },
       "prevControl": {
-        "x": 6.098855202980991,
-        "y": 1.6847503223921456
+        "x": 5.485471663432291,
+        "y": 2.2588587967839517
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,25 +31,18 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "NeutralState",
-      "waypointRelativePos": 0.1462643139982877,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 300.0,
-    "maxAngularAcceleration": 250.0,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 80.0,
+    "maxAngularAcceleration": 80.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": "CustomL4OnePieceLowPaths",

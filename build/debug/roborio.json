@@ -1,0 +1,9 @@
+[
+  {
+    "type": "java",
+    "name": "frcJava",
+    "port": 8349,
+    "target": "roborio-2584-FRC.local",
+    "project": "2025-ROBOT-REWORK"
+  }
+]

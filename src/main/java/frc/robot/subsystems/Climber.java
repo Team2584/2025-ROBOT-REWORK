@@ -30,6 +30,7 @@ public class Climber extends SubsystemBase {
         m_climb = new TalonFX(CONSTANTS_PORTS.CLIMB_CAN);
 
         m_climb.getConfigurator().apply(CONSTANTS_CLIMB.CLIMBER_CONFIG);
+        m_climb.setPosition(0);
         // TODO: set climb position to zero at start of robot intialise (make that state
         // or whatever)
     }
@@ -78,6 +79,9 @@ public class Climber extends SubsystemBase {
 
     public boolean isClimbRetracted() {
         return getClimberPosition().lte(CONSTANTS_CLIMB.MIN_POSITION.plus(CONSTANTS_CLIMB.POSITION_TOLERANCE));
+    }
+    public boolean isClimbed() {
+        return getClimberPosition().gte(CONSTANTS_CLIMB.CLIMBED_POS);
     }
 
     public void setVoltage(double Volts) {

@@ -28,12 +28,11 @@ public class NeutralState extends ParallelCommandGroup {
 
                                 new InstantCommand(() -> ramp.setNeutral()),
 
-                                wrist.setWristAngleCommand(CONSTANTS_WRIST.PIVOT_DEFAULT)
-                                                .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
-
                                 new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.ZEROED_POS))
                                                 .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT)
-                                                .andThen(new InstantCommand(() -> elevator.homeElevator())));
+                                                .andThen(new InstantCommand(() -> elevator.homeElevator()).andThen(wrist
+                                                                .setWristAngleCommand(CONSTANTS_WRIST.PIVOT_DEFAULT)
+                                                                .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT))));
 
         }
 

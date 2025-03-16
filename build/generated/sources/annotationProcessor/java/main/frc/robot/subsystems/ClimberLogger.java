@@ -33,6 +33,7 @@ public class ClimberLogger extends ClassSpecificLogger<Climber> {
       backend.log("getClimberPosition", object.getClimberPosition());
       backend.log("isClimbDeployed", object.isClimbDeployed());
       backend.log("isClimbRetracted", object.isClimbRetracted());
+      backend.log("isClimbed", object.isClimbed());
     }
   }
 }

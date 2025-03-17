@@ -9,7 +9,7 @@
       "/SmartDashboard/SendableChooser[2]": "String Chooser"
     },
     "windows": {
-      "/SmartDashboard/SendableChooser[2]": {
+      "/SmartDashboard/SendableChooser[1]": {
         "window": {
           "visible": true
         }

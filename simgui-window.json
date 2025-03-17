@@ -11,14 +11,19 @@
       "style": "0",
       "userScale": "2",
       "width": "498",
-      "xpos": "867",
-      "ypos": "59"
+      "xpos": "979",
+      "ypos": "79"
     }
   },
   "Window": {
     "###/SmartDashboard/SendableChooser[1]": {
       "Collapsed": "0",
       "Pos": "10,191",
+      "Size": "284,54"
+    },
+    "###/SmartDashboard/SendableChooser[2]": {
+      "Collapsed": "0",
+      "Pos": "131,169",
       "Size": "284,54"
     },
     "###FMS": {
@@ -59,7 +64,7 @@
     "###Timing": {
       "Collapsed": "0",
       "Pos": "9,241",
-      "Size": "133,77"
+      "Size": "133,104"
     },
     "Debug##Default": {
       "Collapsed": "0",

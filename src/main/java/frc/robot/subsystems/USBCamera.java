@@ -49,14 +49,12 @@ public class USBCamera extends SubsystemBase {
     climbCamera = CameraServer.startAutomaticCapture(CONSTANTS_USBCAM.CAM02_ID);
     server = CameraServer.getServer();
 
-    
     camera1.setResolution(CONSTANTS_USBCAM.RES_WIDTH, CONSTANTS_USBCAM.RES_HEIGHT);
     camera1.setFPS(CONSTANTS_USBCAM.FPS);
-    
+
     climbCamera.setResolution(CONSTANTS_USBCAM.RES_WIDTH, CONSTANTS_USBCAM.RES_HEIGHT);
     climbCamera.setFPS(CONSTANTS_USBCAM.FPS);
     server.setSource(climbCamera);
   }
-
 
 }

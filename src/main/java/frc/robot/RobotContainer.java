@@ -59,8 +59,6 @@ public class RobotContainer {
   @NotLogged
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
-  private static SendableChooser<Command> allianceChooser = new SendableChooser<>();
-
   private final State state = new State(this);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Elevator elevator = new Elevator();
@@ -197,20 +195,15 @@ public class RobotContainer {
                 () -> coral.setCoralMotor(0)))
             .until(() -> !coral.hasCoral()));
 
-    controller.back().whileTrue(climber.liftRobot().until(()->climber.isClimbed())); // Lift Robot (Winch in)
+    controller.back().whileTrue(climber.liftRobot().until(() -> climber.isClimbed())); // Lift Robot (Winch in)
+
     controller.start()
         .whileTrue(new ParallelCommandGroup(
             new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
-        .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 5))); // Ramp
+        .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
 
     controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight())
         .onTrue(new InstantCommand(() -> MongolianSuperServerBailoutIMU()));
-
-    // allianceChooser.addOption("Red", new InstantCommand(() -> drivetrain.resetYaw(0)));
-    // allianceChooser.addOption("Blue", new InstantCommand(() -> drivetrain.resetYaw(180)));
-    
-
-    SmartDashboard.putData(allianceChooser);
   }
 
   private void configureButtonBoard() {
@@ -275,11 +268,4 @@ public class RobotContainer {
     return new AddVisionMeasurement(this)
         .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).ignoringDisable(true);
   }
-
-  public Command getAllianceSelection() {
-    return allianceChooser.getSelected();
-  }
-
-
-
 }

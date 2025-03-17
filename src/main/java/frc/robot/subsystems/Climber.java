@@ -41,6 +41,7 @@ public class Climber extends SubsystemBase {
     public Command liftRobot() {
         return runEnd(() -> setVoltage(9), () -> setVoltage(0));
     }
+
     /**
      * Sets the climb to lower the robot at a contant speed
      */
@@ -80,6 +81,7 @@ public class Climber extends SubsystemBase {
     public boolean isClimbRetracted() {
         return getClimberPosition().lte(CONSTANTS_CLIMB.MIN_POSITION.plus(CONSTANTS_CLIMB.POSITION_TOLERANCE));
     }
+
     public boolean isClimbed() {
         return getClimberPosition().gte(CONSTANTS_CLIMB.CLIMBED_POS);
     }

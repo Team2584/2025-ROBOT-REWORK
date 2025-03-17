@@ -12,26 +12,23 @@ import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Command m_allianceCommand;
   boolean hasAutonomousRun = false;
   boolean hasAlliance = false;
   boolean allianceSchedueled = false;
   private boolean bothSubsystemsZeroed = false;
-  
 
   private final RobotContainer m_robotContainer;
 
   public Robot() {
     // TODO: fix bind
     // Epilogue.bind(this);
-    
+
     m_robotContainer = new RobotContainer();
-  
+
   }
 
   @Override
   public void robotPeriodic() {
-    // m_robotContainer.AddVisionMeasurement().schedule();
     CommandScheduler.getInstance().run();
   }
 
@@ -51,16 +48,13 @@ public class Robot extends TimedRobot {
     CONSTANTS_FIELD.ALLIANCE = DriverStation.getAlliance();
     SmartDashboard.putString("ALLIANCE", CONSTANTS_FIELD.ALLIANCE.toString());
     if (!hasAutonomousRun) {
-      // m_robotContainer.resetToAutoPose();
-      m_robotContainer.getDrivetrain().resetYaw(0);
+      if (CONSTANTS_FIELD.isRedAlliance()) {
+        m_robotContainer.getDrivetrain().resetYaw(0);
+      } else {
+        m_robotContainer.getDrivetrain().resetYaw(180);
+      }
     }
-      m_allianceCommand = m_robotContainer.getAllianceSelection();
 
-    // if (m_allianceCommand != null && !allianceSchedueled) {
-    //   m_allianceCommand.schedule();
-    //   hasAlliance = true;
-    //   allianceSchedueled = true;
-    // }
   }
 
   @Override
@@ -70,16 +64,14 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    
     m_robotContainer.setMegaTag2(true);
 
     m_autonomousCommand = Autons.getAutonomousCommand();
-    
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    
+
     hasAutonomousRun = true;
   }
 

@@ -18,7 +18,6 @@ public class TOFDrive extends Command {
         this.drivetrain = RC.getDrivetrain();
         this.distance = distance;
         this.speed = speed;
-        
 
         this.TOFDriveSensor = new CANrange(CONSTANTS_PORTS.TOF_CAN);
 
@@ -27,12 +26,12 @@ public class TOFDrive extends Command {
 
     @Override
     public void execute() {
-        drivetrain.drive(new ChassisSpeeds(speed, 0, 0),true); // Move forward at set speed
+        drivetrain.drive(new ChassisSpeeds(speed, 0, 0), true); // Move forward at set speed
     }
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new ChassisSpeeds(0, 0, 0),true); // Stop movement
+        drivetrain.drive(new ChassisSpeeds(0, 0, 0), true); // Stop movement
     }
 
     @Override

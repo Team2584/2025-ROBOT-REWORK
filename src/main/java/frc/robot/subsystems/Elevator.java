@@ -98,8 +98,6 @@ public class Elevator extends SubsystemBase {
 
     public boolean getZeroLimit() {
         return !elevatorZeroLimit.get(); // returns true if the limit switch is touched HALLEFFECT sensor
-        //return !elevatorZeroLimit.get(); // returns true if the limit switch is touched HALLEFFECT sensor
-
     }
 
     public void homeElevator() {
@@ -129,9 +127,10 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setPosition(Distance height) {
+        // isZero = false; //
         lastDesiredPosition = height;
         m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
-        if (height == CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4) {
+        if (height == CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4 || height == CONSTANTS_ELEVATOR.HEIGHT_NET) {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_2);
 
         } else if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
@@ -178,7 +177,7 @@ public class Elevator extends SubsystemBase {
             isZero = true;
             resetSensorPosition(Units.Inches.of(0));
         }
-        SmartDashboard.putBoolean("Elevator/isZero", isZero);
+        SmartDashboard.putBoolean("Elevator/isZero", getZeroLimit());
         SmartDashboard.putNumber("Elevator/height (in)",
                 rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble()));
         SmartDashboard.putNumber("Elevator/target (in)", lastDesiredPosition.in(Units.Inches));

@@ -294,7 +294,7 @@ public class Module extends SubsystemBase {
         // -*- Setting the Drive Motor -*-
 
         driveMotorControllerClosed.Velocity = SN_Math.metersToRotations(state.speedMetersPerSecond,
-                    wheelCircumference, 1);
+                wheelCircumference, 1);
         driveMotor.setControl(driveMotorControllerClosed);
 
         // -*- Setting the Steer Motor -*-

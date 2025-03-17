@@ -119,8 +119,7 @@ public final class CONSTANTS {
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
-        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(2.0);
-
+        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(2.3);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -284,7 +283,8 @@ public final class CONSTANTS {
                         CONSTANTS_PORTS.CAN_BUS_NAME),
         };
 
-        public static final double TOF_DISTANCE = 0.305;
+        public static final double TOF_DISTANCE_AUTO = 0.285;
+        public static final double TOF_DISTANCE = 0.300;
         public static final double TOF_DISTANCE_LOW = 0.28;
         public static final double TOF_SPEED = 0.45;
 
@@ -333,7 +333,8 @@ public final class CONSTANTS {
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
             public static final Distance MAX_AUTO_DRIVE_PROCESSOR_DISTANCE = Units.Meters.of(8);
-            public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP.div(10);
+            public static final LinearVelocity MIN_DRIVER_OVERRIDE = CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED_TELEOP
+                    .div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
                     3.2,
@@ -367,6 +368,31 @@ public final class CONSTANTS {
         // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
         public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
+        // Preset Heights
+        public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
+        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
+        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54.5);
+
+        public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
+        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
+
+        public static final Distance HEIGHT_NET = Units.Inches.of(54);
+        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
+
+        // Physical Constants
+        public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
+        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(54.5);
+
+        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.2);
+        public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
+
+        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.4, Seconds);
+
+        public static final AngularVelocity MANUAL_ZEROING_START_VELOCITY = Units.RotationsPerSecond.of(5);
+        public static final AngularVelocity MANUAL_ZEROING_DELTA_VELOCITY = Units.RotationsPerSecond.of(5);
+
         // Elevator UP
         public static TalonFXConfiguration ELEVATOR_CONFIG_0 = new TalonFXConfiguration();
         // Elevator DOWN
@@ -385,22 +411,19 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_2.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ELEVATOR_MAX_HEIGHT.in(Units.Inches);
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
-                    .in(Units.Inches);
+            ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ELEVATOR_MIN_HEIGHT.in(Units.Inches);
 
             ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ELEVATOR_MAX_HEIGHT.in(Units.Inches);
             ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
-                    .in(Units.Inches);
+            ELEVATOR_CONFIG_1.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ELEVATOR_MIN_HEIGHT.in(Units.Inches);
 
             ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Units.Inches.of(54).in(Units.Inches);
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ELEVATOR_MAX_HEIGHT.in(Units.Inches);
             ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Units.Inches.of(0)
-                    .in(Units.Inches);
+            ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ELEVATOR_MIN_HEIGHT.in(Units.Inches);
 
             ELEVATOR_CONFIG_0.Slot0.GravityType = GravityTypeValue.Elevator_Static;
             ELEVATOR_CONFIG_1.Slot0.GravityType = GravityTypeValue.Elevator_Static;
@@ -443,14 +466,13 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_0.MotionMagic.MotionMagicAcceleration = 65;
             ELEVATOR_CONFIG_0.MotionMagic.MotionMagicExpo_kV = 0.12;
 
-
             // Elevator Down
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicCruiseVelocity = 150;
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicAcceleration = 35;
             ELEVATOR_CONFIG_1.MotionMagic.MotionMagicExpo_kV = 0.12;
 
             // Elevator up L4
-            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 170;
+            ELEVATOR_CONFIG_2.MotionMagic.MotionMagicCruiseVelocity = 100;
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 45;
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicExpo_kV = 0.12;
 
@@ -477,34 +499,6 @@ public final class CONSTANTS {
             COAST_MODE_CONFIGURATION.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         }
 
-        // TODO: Retune these numbers ~~~
-        // Preset Heights
-        public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
-        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
-        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54);
-
-        public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
-        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
-
-        public static final Distance HEIGHT_NET = Units.Inches.of(54);
-        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
-
-        // Physical Constants
-        public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
-        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(54);
-
-        public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.2);
-        public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
-
-        public static final Time ELEVATOR_MAX_TIMEOUT = Time.ofBaseUnits(0.4, Seconds);
-
-        // TODO: }] Tune End here~
-
-        public static final AngularVelocity MANUAL_ZEROING_START_VELOCITY = Units.RotationsPerSecond.of(5);
-        public static final AngularVelocity MANUAL_ZEROING_DELTA_VELOCITY = Units.RotationsPerSecond.of(5);
-
         /**
          * Voltage given to motor when it's zeroing
          */
@@ -527,7 +521,7 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_WRIST {
-        public static final double WRIST_GEAR_RATIO = 279.27;
+        public static final double WRIST_GEAR_RATIO = 85.33;
         public static final TalonFXConfiguration WRIST_CONFIG = new TalonFXConfiguration();
 
         public static final Angle MAX_POS = Units.Degrees.of(35);
@@ -545,13 +539,12 @@ public final class CONSTANTS {
             WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
             WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
             WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO;
-            // WRIST_CONFIG.Feedback.SensorToMechanismRatio = WRIST_GEAR_RATIO;
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             WRIST_CONFIG.Slot0.kS = 0.3; // Volts to overcome static friction
             WRIST_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
             WRIST_CONFIG.Slot0.kA = 0.01; // Volts for an acceleration of 1 rps/s
-            WRIST_CONFIG.Slot0.kP = 60;
+            WRIST_CONFIG.Slot0.kP = 35;
             WRIST_CONFIG.Slot0.kI = 0;
             WRIST_CONFIG.Slot0.kD = 0.8;
 
@@ -570,7 +563,6 @@ public final class CONSTANTS {
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(-60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
         public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-80);
-        // TODO: add processor scoring angle
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
         public static final Time WRIST_TIMEOUT = Time.ofRelativeUnits(0.6, Seconds);
@@ -580,7 +572,7 @@ public final class CONSTANTS {
         public static final double ALGAE_INTAKE_SPEED = 0.4;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
-        public static final double ALGAE_HOLD_SPEED = 0.25;
+        public static final double ALGAE_HOLD_SPEED = 0.3;
 
         public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();
 
@@ -597,7 +589,7 @@ public final class CONSTANTS {
         public static TalonFXConfiguration CORAL_CONFIG = new TalonFXConfiguration();
         static {
             CORAL_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             Slot0Configs slot0 = CORAL_CONFIG.Slot0;
             slot0.kS = 0;
@@ -626,7 +618,6 @@ public final class CONSTANTS {
         public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
-        // TODO: find the real numbers for these
         public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
         public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
 
@@ -658,7 +649,7 @@ public final class CONSTANTS {
         public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
         public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
 
-        public static Angle CLIMBED_POS = Units.Rotations.of(33.65);
+        public static Angle CLIMBED_POS = Units.Rotations.of(62.5);
 
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(9);
 
@@ -672,9 +663,11 @@ public final class CONSTANTS {
             CLIMBER_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
             CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-            // CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
+            // CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
+            // MAX_POSITION.in(Units.Rotations);
             CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-            // CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
+            // CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
+            // MIN_POSITION.in(Units.Rotations);
         }
     }
 
@@ -781,7 +774,7 @@ public final class CONSTANTS {
                 return true;
             }
             // if (alliance.isPresent()) {
-            //     return alliance.get() == DriverStation.Alliance.Red;
+            // return alliance.get() == DriverStation.Alliance.Red;
             // }
             return false;
         };

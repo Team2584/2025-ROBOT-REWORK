@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.8533534935542515,
-        "y": 5.482
+        "x": 7.39,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5719164105001013,
-        "y": 5.656677550155971
+        "x": 5.3621772378177965,
+        "y": 5.250511867717161
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.265,
-        "y": 7.056
+        "x": 2.177773271980932,
+        "y": 6.813520011255296
       },
       "prevControl": {
-        "x": 4.1918412227543,
-        "y": 5.283608579637851
+        "x": 2.5857608083951273,
+        "y": 6.323905918961864
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,24 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.6989609771573604,
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.3337860881979697,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 1.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.4193171002538071,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.33,
+        "maxAcceleration": 4.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -47,8 +60,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "neutral",
-      "waypointRelativePos": 0.03,
+      "name": "NeutralState",
+      "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -62,14 +75,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -55.0
   },
   "reversed": false,
-  "folder": "ReefToTop",
+  "folder": "CustomL4CenterAlgaePaths",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": -59.99999999999999
+    "velocity": 0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

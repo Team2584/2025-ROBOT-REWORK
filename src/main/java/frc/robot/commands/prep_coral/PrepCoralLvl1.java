@@ -17,8 +17,6 @@ public class PrepCoralLvl1 extends SequentialCommandGroup {
     wrist = RC.getWrist();
     coral = RC.getCoral();
 
-    addRequirements(elevator, wrist, coral);
-
     addCommands(
 
         new InstantCommand(() -> elevator.setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L1))

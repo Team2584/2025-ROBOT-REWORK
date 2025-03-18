@@ -1,6 +1,7 @@
 - Fix Algae neutral states
     - Ex; when going from ground algae intake (intaked already) into neutral, it drops the algae
 - Fix elevator zero
+- REDO command requirements
 - Add Coral elevator LOCK IN
     - Basically coral intake should intake coral, then stop as it does already, and backup the coral slowly until 
                                                                     it hits the other canRANGE (will be added soon)
@@ -20,9 +21,7 @@
 
 
 
-
-- Mount two LL2's in the front
-    - Calibrate both LL
+- Calibrate both LL
 - Mount one LL3G in the back (perpendicular to the top of the ramp frame)
 - Put the climb camera in the lower back
 - Hard fix the TOF (no more zip ties!!)

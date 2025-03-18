@@ -18,8 +18,6 @@ public class PickupReefLowAlgae extends ParallelCommandGroup {
     elevator = RC.getElevator();
     wrist = RC.getWrist();
 
-    addRequirements();
-
     addCommands(
 
         new InstantCommand(() -> wrist.setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_REEF))

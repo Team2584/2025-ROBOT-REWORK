@@ -127,12 +127,11 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setPosition(Distance height) {
-        // isZero = false; //
+        isZero = false;
         lastDesiredPosition = height;
         m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_0);
         if (height == CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4 || height == CONSTANTS_ELEVATOR.HEIGHT_NET) {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_2);
-
         } else if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
         }

@@ -283,9 +283,9 @@ public final class CONSTANTS {
                         CONSTANTS_PORTS.CAN_BUS_NAME),
         };
 
-        public static final double TOF_DISTANCE_AUTO = 0.285;
-        public static final double TOF_DISTANCE = 0.300;
-        public static final double TOF_DISTANCE_LOW = 0.28;
+        public static final double TOF_DISTANCE_AUTO = 0.185;
+        public static final double TOF_DISTANCE = 0.185;
+        public static final double TOF_DISTANCE_LOW = 0.185;
         public static final double TOF_SPEED = 0.45;
 
         public static class AUTO {
@@ -676,8 +676,9 @@ public final class CONSTANTS {
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
-        // TODO: change these names on limelight config :))) pls do or it wont work
-        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-front", "limelight-back" };
+        // // TODO: change these names on limelight config :))) pls do or it wont work
+        // public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-front", "limelight-back" };
+        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-left", "limelight-right" };
 
         /**
          * <p>
@@ -797,7 +798,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.25;
+            public static final double REEF_SCORE_X_OFFSET = -0.05;
             public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.02; // was -0.045
             public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.02; // was -0.045
 

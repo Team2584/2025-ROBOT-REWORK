@@ -65,6 +65,10 @@ public class Autons {
         configureAutoBindings();
     }
 
+    public static void configurePPCommands() {
+        NamedCommands.registerCommand("X", new InstantCommand());
+    }
+
     public static Command L4FourPieceHigh(RobotContainer RC) {
         EventTrigger neutral = new EventTrigger("neutral");
         neutral.onTrue(new NeutralStateHandler(RC));

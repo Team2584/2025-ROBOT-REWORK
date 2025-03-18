@@ -124,9 +124,7 @@ public class RobotContainer {
 
   // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
-      // new
-      // Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
-      new NeutralStateHandler(this),
+      new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
       new Zero_Wrist(this))
       .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).withName("ZeroSubsystems");
 
@@ -160,6 +158,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
+    Autons.configurePPCommands();
 
     drivetrain
         .setDefaultCommand(
@@ -233,6 +232,9 @@ public class RobotContainer {
         .onFalse(new NeutralStateHandler(this));
   }
 
+  /*
+   * Make sure the robot is facing YOU (THE DRIVER STATION; AWAY FROM OPPOSING ALLIANCE)
+   */
   public void MongolianSuperServerBailoutIMU() {
     if (CONSTANTS_FIELD.isRedAlliance()) {
       drivetrain.resetYaw(0);

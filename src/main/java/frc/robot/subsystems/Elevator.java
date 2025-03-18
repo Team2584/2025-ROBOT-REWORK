@@ -27,6 +27,7 @@ public class Elevator extends SubsystemBase {
     private TalonFX m_Follower_Left;
     private TalonFX m_Leader_Right;
     private DigitalInput elevatorZeroLimit;
+    private DigitalInput elevatorZeroLimitIR;
 
     private Distance lastDesiredPosition;
 
@@ -48,6 +49,7 @@ public class Elevator extends SubsystemBase {
         this.m_Leader_Right = new TalonFX(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN);
         this.m_Follower_Left = new TalonFX(CONSTANTS_PORTS.ELEVATOR_LEFT_CAN);
         this.elevatorZeroLimit = new DigitalInput(CONSTANTS_PORTS.ELEVATOR_LIMIT_CHANNEL);
+        this.elevatorZeroLimitIR = new DigitalInput(CONSTANTS_PORTS.ELEVATOR_LIMIT_IR_CHANNEL);
 
         lastDesiredPosition = Units.Inches.of(0);
         voltageRequest = new VoltageOut(0);
@@ -97,7 +99,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean getZeroLimit() {
-        return !elevatorZeroLimit.get(); // returns true if the limit switch is touched HALLEFFECT sensor
+        return !elevatorZeroLimit.get() && !elevatorZeroLimitIR.get();
+        // returns true if the limit switch is touched HALLEFFECT sensor
     }
 
     public void homeElevator() {

@@ -52,27 +52,9 @@ public class Zero_Elevator extends Command {
 
     @Override
     public boolean isFinished() {
-        if (isZero) {
+        if (elevator.getZeroLimit()) {
             return true;
         }
-
-        // If the current velocity is low enough to be considered as zeroed
-        if (elevator.getMotorVelocity().lt(CONSTANTS_ELEVATOR.ZEROED_VELOCITY)) {
-            // And this is the first loop it has happened, begin the timer
-            if (zeroingTimestamp.equals(Units.Seconds.zero())) {
-                zeroingTimestamp = Units.Seconds.of(Timer.getFPGATimestamp());
-                return false;
-            }
-
-            // If this isn't the first loop, return if it has been below the threshold for
-            // long enough
-            return (Units.Seconds.of(Timer.getFPGATimestamp()).minus(zeroingTimestamp)
-                    .gte(CONSTANTS_ELEVATOR.ZEROED_TIME));
-        }
-
-        // If the above wasn't true, we have gained too much velocity, so we aren't at 0
-        // & need to restart the timer
-        zeroingTimestamp = Units.Seconds.zero();
         return false;
     }
 }

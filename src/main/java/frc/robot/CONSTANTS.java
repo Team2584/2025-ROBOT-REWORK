@@ -88,6 +88,7 @@ public final class CONSTANTS {
         public static final int ELEVATOR_LEFT_CAN = 21;
         public static final int ELEVATOR_RIGHT_CAN = 20;
         public static final int ELEVATOR_LIMIT_CHANNEL = 9;
+        public static final int ELEVATOR_LIMIT_IR_CHANNEL = 8;
 
         // Wrist
         public static final int WRIST_CAN = 16;
@@ -502,7 +503,7 @@ public final class CONSTANTS {
         /**
          * Voltage given to motor when it's zeroing
          */
-        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-4);
+        public static final Voltage ZEROING_VOLTAGE = Units.Volts.of(-2);
 
         /**
          * Zero position (yk could slide around a bit~~~i pray it's zero)

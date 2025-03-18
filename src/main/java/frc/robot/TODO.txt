@@ -1,6 +1,3 @@
-- Fix Algae neutral states
-    - Ex; when going from ground algae intake (intaked already) into neutral, it drops the algae
-- Fix elevator zero
 - REDO command requirements
 - Add Coral elevator LOCK IN
     - Basically coral intake should intake coral, then stop as it does already, and backup the coral slowly until 

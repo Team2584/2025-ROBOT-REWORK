@@ -32,6 +32,7 @@ import frc.robot.CONSTANTS.*;
 import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralAlgaeState;
+import frc.robot.commands.NeutralState;
 import frc.robot.commands.NeutralStateHandler;
 import frc.robot.commands.TOFDrive;
 import frc.robot.commands.NeutralStateHandler;
@@ -122,11 +123,9 @@ public class RobotContainer {
     return this.climbCamera;
   }
 
-  // TODO: add other subsystems to this command
   Command zeroSubsystems = new ParallelCommandGroup(
-      new Zero_Elevator(this).withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds)),
-      new Zero_Wrist(this))
-      .withInterruptBehavior(Command.InterruptionBehavior.kCancelIncoming).withName("ZeroSubsystems");
+      new Zero_Elevator(this), //.withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds))
+      new Zero_Wrist(this));
 
   // Map buttons to trigger variables
   @NotLogged

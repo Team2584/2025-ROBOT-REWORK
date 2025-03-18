@@ -11,6 +11,7 @@ public class ElevatorLogger extends ClassSpecificLogger<Elevator> {
   private static final VarHandle $m_Follower_Left;
   private static final VarHandle $m_Leader_Right;
   private static final VarHandle $elevatorZeroLimit;
+  private static final VarHandle $elevatorZeroLimitIR;
   private static final VarHandle $lastDesiredPosition;
 
   static {
@@ -19,6 +20,7 @@ public class ElevatorLogger extends ClassSpecificLogger<Elevator> {
       $m_Follower_Left = lookup.findVarHandle(Elevator.class, "m_Follower_Left", com.ctre.phoenix6.hardware.TalonFX.class);
       $m_Leader_Right = lookup.findVarHandle(Elevator.class, "m_Leader_Right", com.ctre.phoenix6.hardware.TalonFX.class);
       $elevatorZeroLimit = lookup.findVarHandle(Elevator.class, "elevatorZeroLimit", edu.wpi.first.wpilibj.DigitalInput.class);
+      $elevatorZeroLimitIR = lookup.findVarHandle(Elevator.class, "elevatorZeroLimitIR", edu.wpi.first.wpilibj.DigitalInput.class);
       $lastDesiredPosition = lookup.findVarHandle(Elevator.class, "lastDesiredPosition", edu.wpi.first.units.measure.Distance.class);
     } catch (ReflectiveOperationException e) {
       throw new RuntimeException("[EPILOGUE] Could not load private fields for logging!", e);
@@ -35,6 +37,7 @@ public class ElevatorLogger extends ClassSpecificLogger<Elevator> {
       logSendable(backend.getNested("m_Follower_Left"), ((com.ctre.phoenix6.hardware.TalonFX) $m_Follower_Left.get(object)));
       logSendable(backend.getNested("m_Leader_Right"), ((com.ctre.phoenix6.hardware.TalonFX) $m_Leader_Right.get(object)));
       logSendable(backend.getNested("elevatorZeroLimit"), ((edu.wpi.first.wpilibj.DigitalInput) $elevatorZeroLimit.get(object)));
+      logSendable(backend.getNested("elevatorZeroLimitIR"), ((edu.wpi.first.wpilibj.DigitalInput) $elevatorZeroLimitIR.get(object)));
       backend.log("lastDesiredPosition", ((edu.wpi.first.units.measure.Distance) $lastDesiredPosition.get(object)));
       backend.log("currentLeftPosition", object.currentLeftPosition);
       backend.log("currentRightPosition", object.currentRightPosition);

@@ -15,7 +15,6 @@ public class Robot extends TimedRobot {
   boolean hasAutonomousRun = false;
   boolean hasAlliance = false;
   boolean allianceSchedueled = false;
-  private boolean bothSubsystemsZeroed = false;
 
   private final RobotContainer m_robotContainer;
 
@@ -92,9 +91,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    if (!hasAutonomousRun || !bothSubsystemsZeroed) {
-      m_robotContainer.zeroSubsystems.schedule();
-    }
+    m_robotContainer.zeroSubsystems.schedule();
   }
 
   @Override

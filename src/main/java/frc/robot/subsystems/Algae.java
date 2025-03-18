@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,6 +65,10 @@ public class Algae extends SubsystemBase {
     hasAlgae();
 
     SmartDashboard.putBoolean("Algae/hasAlgae", hasAlgae());
+    SmartDashboard.putNumber("Algae/intakeCurrent", m_algaeIntake.getStatorCurrent().getValue().in(Units.Amps));
+    SmartDashboard.putNumber("Algae/intakeVelocity", m_algaeIntake.getVelocity().getValue().in(Units.RotationsPerSecond));
+    SmartDashboard.putNumber("Algae/CONSTintakeCurrent", CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT.in(Units.Amps));
+    SmartDashboard.putNumber("Algae/CONSTintakeVelocity", CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY.in(Units.RotationsPerSecond));
     SmartDashboard.putBoolean("Algae/stateRun", stateRun);
   }
 }

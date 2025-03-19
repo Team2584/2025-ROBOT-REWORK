@@ -31,6 +31,6 @@ public class PrepCoralLock extends Command {
 
     @Override
     public boolean isFinished() {
-        return coral.coralLoaded() && coral.coralCleared();
+        return coral.coralCleared();
     }
 }

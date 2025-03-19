@@ -578,10 +578,14 @@ public final class CONSTANTS {
         static {
             ALGAE_INTAKE_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimit = 65;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 50;
         }
 
-        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.1);
-        public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(50);
+        public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.15);
+        public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(40);
     }
 
     public static class CONSTANTS_CORAL {

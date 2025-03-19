@@ -31,10 +31,6 @@ public class Autons {
     private static SendableChooser<Command> autoChooser = new SendableChooser<>();
     private final RobotContainer RC;
 
-    /*
-     * Not used because we are calling the class directly
-     * (pls only use static)
-     */
     public Autons(RobotContainer RC) {
         this.RC = RC;
         configureAutoSelector();
@@ -51,7 +47,6 @@ public class Autons {
         neutral.onTrue(new NeutralStateHandler(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "P-J"),
                 RC.getDrivetrain().runPathT("P-J"),
                 driveAutoAlign(RC, 9, 0.6),
                 GoL4(RC),
@@ -94,7 +89,6 @@ public class Autons {
         neutral.onTrue(new NeutralStateHandler(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "P-E"),
                 RC.getDrivetrain().runPathT("P-E"),
                 driveAutoAlign(RC, 4, 0.6),
                 GoL4(RC),
@@ -158,7 +152,6 @@ public class Autons {
         PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "P-H"),
                 RC.getDrivetrain().runPathT("P-H"),
                 driveAutoAlign(RC, 7, 1),
                 GoL4(RC),
@@ -199,7 +192,6 @@ public class Autons {
         PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "CenterTickle"),
                 RC.getDrivetrain().runPathT("CenterTickle"),
                 RC.getDrivetrain().runPathT("P-H"),
                 driveAutoAlign(RC, 7, 1),
@@ -236,7 +228,6 @@ public class Autons {
         NeutralState.onTrue(new NeutralStateHandler(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "P-E"),
                 RC.getDrivetrain().runPathT("P-E"),
                 driveAutoAlign(RC, 4, 1),
                 GoL4(RC),
@@ -264,7 +255,6 @@ public class Autons {
         PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
 
         return new SequentialCommandGroup(
-                resetToAutoPose(RC, "P-J"),
                 RC.getDrivetrain().runPathT("P-J"),
                 driveAutoAlign(RC, 9, 1),
                 GoL4(RC),
@@ -283,29 +273,6 @@ public class Autons {
                 new WaitCommand(0.5),
                 new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
                 RC.getDrivetrain().runPathT("SingleAlgaeHighBargeSafe"));
-    }
-
-    public static Command resetToAutoPose(RobotContainer RC, String nextPath) {
-        Rotation2d desiredRotation = Rotation2d.kZero;
-        Translation2d desiredPosition = Translation2d.kZero;
-
-        try {
-            desiredRotation = PathPlannerPath.fromPathFile(nextPath)
-                    .getIdealStartingState().rotation();
-            desiredPosition = PathPlannerPath.fromPathFile(nextPath).getWaypoints().get(0).anchor();
-            // if (CONSTANTS_FIELD.isRedAlliance()) {
-            // // desiredRotation = desiredRotation.plus(Rotation2d.k180deg);
-            // }
-        } catch (Exception e) {
-        }
-
-        // RC.getDrivetrain().resetYaw(desiredRotation.getDegrees());
-        // RC.getDrivetrain().resetPoseToPose(new
-        // Pose2d(RC.getDrivetrain().getPose().getTranslation(), desiredRotation));
-        // RC.getDrivetrain().resetPoseToPose(new Pose2d(desiredPosition,
-        // desiredRotation));
-
-        return new InstantCommand();
     }
 
     // ---** COMMANDS **---

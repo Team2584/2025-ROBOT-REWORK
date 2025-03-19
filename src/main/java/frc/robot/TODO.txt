@@ -1,17 +1,14 @@
+- WRIST: Flip encoder and redo all setpoints 
+- Tune Wrist PID 
 - REDO command requirements
 - Fix LL config in code
 - Add light bar
-
-
-- Tune Wrist PID
-- Tune Elevator
 
 
 - Look for Pathplanner event trigger fixes
     - Currently Pathplanner event triggers run the command, BUT stop the path.
 - Fix requirements on commands
 - Test Pathplanner GUI Autons (again)
-
 
 
 - Calibrate both LL2's

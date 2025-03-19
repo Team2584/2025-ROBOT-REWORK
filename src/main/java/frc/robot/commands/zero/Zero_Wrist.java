@@ -5,7 +5,6 @@ import frc.robot.CONSTANTS;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Wrist;
 
-// TODO
 public class Zero_Wrist extends Command {
     Wrist wrist;
 

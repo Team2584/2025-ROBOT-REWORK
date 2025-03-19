@@ -14,7 +14,6 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CANrangeConfiguration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -45,7 +44,6 @@ import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.units.measure.Mass;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.swerve.SwerveConstants;
@@ -99,8 +97,8 @@ public final class CONSTANTS {
 
         // Coral
         public static final int CORAL_CAN = 23;
-        public static final int CORAL_SENSOR_CAN = 26;
-        public static final int CORAL_ELEVATOR_SENSOR_CHANNEL = 0;
+        public static final int CORAL_SENSOR_MID_CAN = 26;
+        public static final int CORAL_SENSOR_TOP_CAN = 27;
 
         // Climb
         public static final int CLIMB_CAN = 15;
@@ -601,7 +599,8 @@ public final class CONSTANTS {
             slot0.kD = 0;
         }
 
-        public static CANrangeConfiguration CORAL_SENSOR_CONFIG = new CANrangeConfiguration();
+        public static CANrangeConfiguration CORAL_SENSOR_MID_CONFIG = new CANrangeConfiguration();
+        public static CANrangeConfiguration CORAL_SENSOR_TOP_CONFIG = new CANrangeConfiguration();
 
         public static final Distance INDEXED_CORAL_DISTANCE = Units.Inches.of(2);
 
@@ -609,7 +608,9 @@ public final class CONSTANTS {
 
         public static final double CORAL_OUTTAKE_SPEED = 0.375;
 
-        public static final double CORAL_INTAKE_SPEED = 0.1;
+        public static final double CORAL_INTAKE_SPEED = 0.15;
+        public static final double CORAL_REV_SPEED = -0.09;
+
     }
 
     public static class CONSTANTS_RAMP {
@@ -678,7 +679,8 @@ public final class CONSTANTS {
                 .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
         // // TODO: change these names on limelight config :))) pls do or it wont work
-        // public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-front", "limelight-back" };
+        // public static final String[] LIMELIGHT_NAMES = new String[] {
+        // "limelight-front", "limelight-back" };
         public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-left", "limelight-right" };
 
         /**
@@ -768,16 +770,11 @@ public final class CONSTANTS {
          *         is found
          */
         public static boolean isRedAlliance() {
-            var alliance = ALLIANCE;
+            var alliance = DriverStation.getAlliance();
 
-            var x = DriverStation.getAlliance();
-
-            if (x.isPresent() && x.get() == DriverStation.Alliance.Red) {
+            if (alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red) {
                 return true;
             }
-            // if (alliance.isPresent()) {
-            // return alliance.get() == DriverStation.Alliance.Red;
-            // }
             return false;
         };
 

@@ -1,26 +1,9 @@
 package frc.robot;
 
-import java.util.List;
-
-import static edu.wpi.first.units.Units.DegreesPerSecond;
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.MetersPerSecond;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -31,11 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CONSTANTS.*;
 import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
-import frc.robot.commands.NeutralAlgaeState;
-import frc.robot.commands.NeutralState;
 import frc.robot.commands.NeutralStateHandler;
 import frc.robot.commands.TOFDrive;
-import frc.robot.commands.NeutralStateHandler;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Wrist;
 import frc.robot.subsystems.Algae;
@@ -47,11 +27,9 @@ import frc.robot.subsystems.State;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.State.DriverState;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.commands.prep_coral.*;
 import frc.robot.commands.prep_algae.*;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 @Logged
 public class RobotContainer {
@@ -124,7 +102,7 @@ public class RobotContainer {
   }
 
   Command zeroSubsystems = new ParallelCommandGroup(
-      new Zero_Elevator(this), //.withTimeout(CONSTANTS_ELEVATOR.ZEROING_TIMEOUT.in(Units.Seconds))
+      new Zero_Elevator(this),
       new Zero_Wrist(this));
 
   // Map buttons to trigger variables
@@ -232,7 +210,8 @@ public class RobotContainer {
   }
 
   /*
-   * Make sure the robot is facing YOU (THE DRIVER STATION; AWAY FROM OPPOSING ALLIANCE)
+   * Make sure the robot is facing YOU (THE DRIVER STATION; AWAY FROM OPPOSING
+   * ALLIANCE)
    */
   public void MongolianSuperServerBailoutIMU() {
     if (CONSTANTS_FIELD.isRedAlliance()) {

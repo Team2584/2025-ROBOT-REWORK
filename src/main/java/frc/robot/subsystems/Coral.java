@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,17 +10,19 @@ import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
 public class Coral extends SubsystemBase {
-    TalonFX coralMotor;
-    CANrange coralSensor;
-    DigitalInput coralElevatorSensor;
+    TalonFX m_coral;
+    CANrange coralMidSensor;
+    CANrange coralTopSensor;
 
     public Coral() {
-        coralMotor = new TalonFX(CONSTANTS_PORTS.CORAL_CAN);
-        coralSensor = new CANrange(CONSTANTS_PORTS.CORAL_SENSOR_CAN);
-        coralElevatorSensor = new DigitalInput(CONSTANTS_PORTS.CORAL_ELEVATOR_SENSOR_CHANNEL);
+        m_coral = new TalonFX(CONSTANTS_PORTS.CORAL_CAN);
+        coralMidSensor = new CANrange(CONSTANTS_PORTS.CORAL_SENSOR_MID_CAN);
+        coralTopSensor = new CANrange(CONSTANTS_PORTS.CORAL_SENSOR_TOP_CAN);
 
-        coralMotor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_CONFIG, 0.25);
-        coralSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_CONFIG, 0.25);
+        m_coral.getConfigurator().apply(CONSTANTS_CORAL.CORAL_CONFIG, 0.25);
+        coralMidSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_MID_CONFIG, 0.25);
+        coralTopSensor.getConfigurator().apply(CONSTANTS_CORAL.CORAL_SENSOR_TOP_CONFIG, 0.25);
+
     }
 
     public Command intakeCoral() {
@@ -34,15 +35,15 @@ public class Coral extends SubsystemBase {
     }
 
     public void setCoralMotor(double speed) {
-        coralMotor.set(speed);
+        m_coral.set(speed);
     }
 
     public boolean hasCoral() {
-        return (coralSensor.getDistance().getValueAsDouble() < 0.1);
+        return (coralMidSensor.getDistance().getValueAsDouble() < 0.1);
     }
 
     public boolean coralCleared() {
-        return !coralElevatorSensor.get();
+        return (coralTopSensor.getDistance().getValueAsDouble() < 0.1);
     }
 
     public boolean coralLoaded() {

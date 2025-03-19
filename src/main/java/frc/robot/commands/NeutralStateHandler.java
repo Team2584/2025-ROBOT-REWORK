@@ -13,7 +13,6 @@ public class NeutralStateHandler extends InstantCommand {
             } else {
                 new NeutralState(RC).schedule();
             }
-
         });
     }
 }

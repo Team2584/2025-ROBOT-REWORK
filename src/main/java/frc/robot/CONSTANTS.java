@@ -523,12 +523,12 @@ public final class CONSTANTS {
         public static final double WRIST_GEAR_RATIO = 85.33;
         public static final TalonFXConfiguration WRIST_CONFIG = new TalonFXConfiguration();
 
-        public static final Angle MAX_POS = Units.Degrees.of(35);
-        public static final Angle MIN_POS = Units.Degrees.of(-80);
+        public static final Angle MAX_POS = Units.Degrees.of(80);
+        public static final Angle MIN_POS = Units.Degrees.of(-35);
 
         static {
             WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+            WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
             WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POS.in(Units.Rotations);
@@ -554,14 +554,14 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 100;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 20;
         }
-        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(-70);
-        public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(30);
-        public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(20);
-        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(-68);
-        public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(-60);
-        public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(-60);
-        public static final Angle PIVOT_CLIMB = Units.Degrees.of(-68);
-        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(-80);
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70);
+        public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
+        public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68);
+        public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
+        public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
+        public static final Angle PIVOT_CLIMB = Units.Degrees.of(68);
+        public static final Angle PIVOT_DEFAULT = Units.Degrees.of(80);
 
         public static final Angle DEADZONE_DISTANCE = Units.Degrees.of(1);
         public static final Time WRIST_TIMEOUT = Time.ofRelativeUnits(0.6, Seconds);
@@ -682,10 +682,7 @@ public final class CONSTANTS {
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
-        // // TODO: change these names on limelight config :))) pls do or it wont work
-        // public static final String[] LIMELIGHT_NAMES = new String[] {
-        // "limelight-front", "limelight-back" };
-        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-left", "limelight-right" };
+        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-right", "limelight-left" };
 
         /**
          * <p>
@@ -724,29 +721,6 @@ public final class CONSTANTS {
          * before being accepted
          */
         public static final double AREA_THRESHOLD = 0.05;
-
-        // TODO: get these numbers so it looks clean
-        // Position values of our limelights : THIS ISN'T USED IN CODE, ONLY IN THE
-        // LIMELIGHT CONFIG
-        public static class LIMELIGHT_FRONT {
-            public static final Distance LL_FORWARD = Units.Meters.of(0);
-            public static final Distance LL_RIGHT = Units.Meters.of(0);
-            public static final Distance LL_UP = Units.Meters.of(0);
-
-            public static final Angle LL_ROLL = Units.Degrees.of(0);
-            public static final Angle LL_PITCH = Units.Degrees.of(0);
-            public static final Angle LL_YAW = Units.Degrees.of(0);
-        }
-
-        public static class LIMELIGHT_BACK {
-            public static final Distance LL_FORWARD = Units.Meters.of(0);
-            public static final Distance LL_RIGHT = Units.Meters.of(0);
-            public static final Distance LL_UP = Units.Meters.of(0);
-
-            public static final Angle LL_ROLL = Units.Degrees.of(0);
-            public static final Angle LL_PITCH = Units.Degrees.of(0);
-            public static final Angle LL_YAW = Units.Degrees.of(0);
-        }
     }
 
     public static class CONSTANTS_USBCAM {

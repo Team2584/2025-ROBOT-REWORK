@@ -5,10 +5,7 @@ import static edu.wpi.first.units.Units.*;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -143,7 +140,7 @@ public class Autons {
         pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
         EventTrigger pickupHighAlgae = new EventTrigger("pickupHighAlgae");
-        pickupLowAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+        pickupHighAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
         EventTrigger NeutralState = new EventTrigger("NeutralState");
         NeutralState.onTrue(new NeutralStateHandler(RC));
@@ -183,7 +180,7 @@ public class Autons {
         pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
         EventTrigger pickupHighAlgae = new EventTrigger("pickupHighAlgae");
-        pickupLowAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
+        pickupHighAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
 
         EventTrigger NeutralState = new EventTrigger("NeutralState");
         NeutralState.onTrue(new NeutralStateHandler(RC));

@@ -150,7 +150,11 @@ public class RobotContainer {
 
   private void configureController() {
     controller.x().onTrue(new PrepIntakeCoral(this));
-    controller.a().whileTrue(coral.outtakeCoral());
+    controller.a().whileTrue(new InstantCommand (() -> {
+                            if (coral.coralLoaded()){
+                              new PrepCoralLock(this).schedule();
+                            }}).withTimeout(0.15).andThen(coral.outtakeCoral()));
+
     controller.y().whileTrue(algae.outtakeAlgae());
 
     redL4.and(controller.b())

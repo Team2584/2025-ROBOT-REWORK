@@ -21,6 +21,7 @@ import frc.robot.commands.TOFDrive;
 import frc.robot.commands.prep_algae.PickupReefHighAlgae;
 import frc.robot.commands.prep_algae.PickupReefLowAlgae;
 import frc.robot.commands.prep_algae.PrepNetAlgae;
+import frc.robot.commands.prep_coral.PrepCoralLock;
 import frc.robot.commands.prep_coral.PrepCoralLvl4;
 import frc.robot.subsystems.State.DriverState;
 
@@ -295,12 +296,14 @@ public class Autons {
     }
 
     public static Command GetCoralStationPiece(RobotContainer RC) {
-        return new ParallelCommandGroup(
-                RC.getCoral().intakeCoral(),
-                new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY)),
-                RC.getWrist().setWristAngleCommand(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL))
-                .until(() -> RC.getCoral().coralLoaded())
-                .andThen(new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(0)));
+        return new SequentialCommandGroup(new ParallelCommandGroup(
+            new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.ZEROED_POS)),
+            RC.getCoral().intakeCoral(),
+            new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY)),
+            RC.getWrist().setWristAngleCommand(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL)).until(() -> RC.getCoral().coralLoaded())
+            .andThen(new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(0))),
+
+            new InstantCommand(() -> new PrepCoralLock(RC).schedule()));
     }
 
     public static Command GoL4(RobotContainer RC) {

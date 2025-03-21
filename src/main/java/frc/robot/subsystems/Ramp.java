@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Rotations;
 
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -24,6 +25,9 @@ public class Ramp extends SubsystemBase {
     @NotLogged
     private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
+    @NotLogged
+    MotionMagicVoltage motionRequest = new MotionMagicVoltage(0);
+
     public Ramp() {
         lastTargetPosition = Units.Degrees.of(0);
         m_ramp = new TalonFX(CONSTANTS_PORTS.RAMP_CAN);
@@ -32,7 +36,7 @@ public class Ramp extends SubsystemBase {
     }
 
     public void setRampMotorVelocity(double velocity) {
-        m_ramp.set(velocity);
+        m_ramp.set(velocity*0.5);
     }
 
     public Angle getRampPosition() {
@@ -40,8 +44,9 @@ public class Ramp extends SubsystemBase {
     }
 
     public void setPosition(Angle angle) {
-        m_ramp.setControl(new PositionVoltage(angle.in(Units.Rotations)));
-        lastTargetPosition = angle;
+        m_ramp.setControl(new PositionVoltage(angle));
+        //m_ramp.setControl(new PositionVoltage(angle.in(Units.Rotations)));
+        //lastTargetPosition = angle;
     }
 
     public Angle getLastTargetPosition() {
@@ -53,19 +58,23 @@ public class Ramp extends SubsystemBase {
     }
 
     public void resetRampPosition(Angle setpoint) {
-        m_ramp.setPosition(setpoint.in(Rotations));
+        m_ramp.setPosition(setpoint);//.in(Rotations));
     }
 
     public boolean isRampDown() {
-        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION);//.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public boolean isRampUp() {
-        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION);//.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public void setVoltage(double Volts) {
         m_ramp.setControl(voltageRequest.withOutput(Volts));
+    }
+
+    public void setRampAngle(Angle setpoint) {
+        m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation)));
     }
 
     @Override

@@ -179,7 +179,7 @@ public class RobotContainer {
 
     controller.start()
         .whileTrue(new ParallelCommandGroup(
-            new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
+            new InstantCommand(() -> ramp.setRampAngle(CONSTANTS_RAMP.MIN_POSITION)), climber.lowerRobot()))
         .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
 
     controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight())

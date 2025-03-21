@@ -27,6 +27,7 @@ import frc.robot.subsystems.State;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.commands.prep_coral.*;
 import frc.robot.commands.prep_algae.*;
@@ -47,6 +48,7 @@ public class RobotContainer {
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
+  private final LED led = new LED(algae, coral); // Algae and Coral are passed to LED so their statuses can be accessed
   @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
@@ -95,6 +97,10 @@ public class RobotContainer {
 
   public Vision getVision() {
     return this.vision;
+  }
+
+  public LED getLED() {
+    return this.led;
   }
 
   public USBCamera getClimbCamera() {

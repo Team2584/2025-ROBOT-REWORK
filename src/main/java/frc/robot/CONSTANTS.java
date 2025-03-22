@@ -108,6 +108,9 @@ public final class CONSTANTS {
         // Ramp
         public static final int RAMP_CAN = 28;
         public static final int RAMP_ENCODER_CAN = 29;
+
+        // LED
+        public static final int CANDLE_CAN = 34;
     }
 
     public static class CONSTANTS_CONTROLLER {
@@ -141,6 +144,14 @@ public final class CONSTANTS {
 
         // Encoder offsets (check raw values when all wheel are aligned in the same
         // direction)
+
+        // Practice Bot
+        //public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.396240234375;
+        //public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = -0.329833984375;
+        //public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.189453125;
+        //public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.46630859375;
+
+        // Final
         public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.1389;
         public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = 0.4995;
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
@@ -368,6 +379,9 @@ public final class CONSTANTS {
     public static class CONSTANTS_ELEVATOR {
         public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
         // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
+        // Practice
+        //public static final double ELEVATOR_GEAR_RATIO = 8.571;
+        // Finale
         public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
         // Preset Heights
@@ -531,7 +545,6 @@ public final class CONSTANTS {
 
         static {
             WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            // WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // Practice Bot
             WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
@@ -541,8 +554,8 @@ public final class CONSTANTS {
 
             WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
             WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-            // WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice Bot
-            WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO;
+            //WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice Bot
+            WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO; // Final
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             WRIST_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
@@ -559,11 +572,13 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
         }
-        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(80);//70);
+        //public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70); // Practice
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
         public static final Angle PIVOT_ALGAE_PROCESSOR = Units.Degree.of(-10);
-        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80);//68);
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68); // Practice
+        //public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(68);
@@ -601,7 +616,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration CORAL_CONFIG = new TalonFXConfiguration();
         static {
             CORAL_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+            //CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // Practice
+            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; // Final
 
             Slot0Configs slot0 = CORAL_CONFIG.Slot0;
             slot0.kS = 0;

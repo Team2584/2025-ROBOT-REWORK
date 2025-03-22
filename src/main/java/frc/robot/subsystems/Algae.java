@@ -56,7 +56,9 @@ public class Algae extends SubsystemBase {
     // } else {
     //   return false;
     // }
-    /*
+    
+    // Practice
+    /* 
     if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
     && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
     return true;
@@ -64,6 +66,7 @@ public class Algae extends SubsystemBase {
     return false;
     }
     */
+    
     
     if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)){ 
     //&& (intakeVelocity.lte(intakeHasGamePieceVelocity))){

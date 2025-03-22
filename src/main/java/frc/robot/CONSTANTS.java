@@ -107,9 +107,6 @@ public final class CONSTANTS {
         // Ramp
         public static final int RAMP_CAN = 28;
         public static final int RAMP_ENCODER_CAN = 29;
-
-        // LED
-        public static final int CANDLE_CAN = 34;
     }
 
     public static class CONSTANTS_CONTROLLER {

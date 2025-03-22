@@ -56,22 +56,23 @@ public class Algae extends SubsystemBase {
     // } else {
     //   return false;
     // }
-    /* 
-    if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(20))
+    /*
+    if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
     && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
     return true;
     } else {
     return false;
     }
     */
-
-    if ((algaeSensor.getDistance().getValueAsDouble() < 0.1) 
-    && (intakeVelocity.lte(intakeHasGamePieceVelocity))){
+    
+    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)){ 
+    //&& (intakeVelocity.lte(intakeHasGamePieceVelocity))){
       return true;
     }
     else {
       return false;
     }
+      
   }
 
   public double getAlgaeIntakeVoltage() {

@@ -56,6 +56,7 @@ public final class CONSTANTS {
 
         // Controller
         public static final int CONTROLLER_PORT = 0;
+        public static final int CONTROLLER2_PORT = 1;
         public static final int BUTTON_BOARD_PORT = 2;
 
         // Module 0 -- Front Left
@@ -120,7 +121,7 @@ public final class CONSTANTS {
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
-        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(2.3);
+        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(5.7/2);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -373,14 +374,14 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
         public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
         public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54.5);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55.5);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
-        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
+        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(0);
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
@@ -530,6 +531,7 @@ public final class CONSTANTS {
 
         static {
             WRIST_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            // WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // Practice Bot
             WRIST_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             WRIST_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
@@ -539,6 +541,7 @@ public final class CONSTANTS {
 
             WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
             WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+            // WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice Bot
             WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO;
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
@@ -556,10 +559,11 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
         }
-        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70);
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(80);//70);
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
-        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68);
+        public static final Angle PIVOT_ALGAE_PROCESSOR = Units.Degree.of(-10);
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80);//68);
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(68);
@@ -570,10 +574,10 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 0.35;
+        public static final double ALGAE_INTAKE_SPEED = 0.4;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
-        public static final double ALGAE_HOLD_SPEED = 0.3;
+        public static final double ALGAE_HOLD_SPEED = 0.4;
 
         public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();
 
@@ -629,10 +633,10 @@ public final class CONSTANTS {
         public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
-        //public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
-        //public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
-        public static final Angle MAX_POSITION = Units.Degrees.of(-25);
-        public static final Angle MIN_POSITION = Units.Degrees.of(-90);
+        public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
+        public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
+        //public static final Angle MAX_POSITION = Units.Degrees.of(-25);
+        //public static final Angle MIN_POSITION = Units.Degrees.of(-90);
 
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.1);
 
@@ -643,8 +647,8 @@ public final class CONSTANTS {
 
             RAMP_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-            RAMP_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.RAMP_ENCODER_CAN;
-            RAMP_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+            //RAMP_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.RAMP_ENCODER_CAN;
+            //RAMP_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
 
             RAMP_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             RAMP_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction

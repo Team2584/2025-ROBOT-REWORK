@@ -44,9 +44,8 @@ public class Ramp extends SubsystemBase {
     }
 
     public void setPosition(Angle angle) {
-        m_ramp.setControl(new PositionVoltage(angle));
-        //m_ramp.setControl(new PositionVoltage(angle.in(Units.Rotations)));
-        //lastTargetPosition = angle;
+        m_ramp.setControl(new PositionVoltage(angle.in(Units.Rotations)));
+        lastTargetPosition = angle;
     }
 
     public Angle getLastTargetPosition() {
@@ -58,15 +57,15 @@ public class Ramp extends SubsystemBase {
     }
 
     public void resetRampPosition(Angle setpoint) {
-        m_ramp.setPosition(setpoint);//.in(Rotations));
+        m_ramp.setPosition(setpoint.in(Rotations));
     }
 
     public boolean isRampDown() {
-        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION);//.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public boolean isRampUp() {
-        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION);//.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public void setVoltage(double Volts) {

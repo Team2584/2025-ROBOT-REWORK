@@ -24,9 +24,9 @@ public class LED extends SubsystemBase {
 
     // private String currentColor;
 
-    public LED(Algae algae, Coral coral) {
-        m_algae = algae;
-        m_coral = coral;
+    public LED(RobotContainer RC) {
+        m_algae = RC.getAlgae();
+        m_coral = RC.getCoral();
 
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = true;

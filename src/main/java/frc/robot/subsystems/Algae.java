@@ -43,37 +43,11 @@ public class Algae extends SubsystemBase {
   }
 
   public boolean hasAlgae() {
-    Current intakeCurrent = m_algaeIntake.getStatorCurrent().getValue();
-
-    AngularVelocity intakeVelocity = m_algaeIntake.getVelocity().getValue();
-
-    Current intakeHasGamePieceCurrent = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT;
-    AngularVelocity intakeHasGamePieceVelocity = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY;
-
-    // if ((intakeCurrent.gte(intakeHasGamePieceCurrent))
-    // && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
-    // return true;
-    // } else {
-    // return false;
-    // }
-
-    // Practice
-    /*
-     * if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
-     * && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
-     * return true;
-     * } else {
-     * return false;
-     * }
-     */
-
     if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)) {
-      // && (intakeVelocity.lte(intakeHasGamePieceVelocity))){
       return true;
     } else {
       return false;
     }
-
   }
 
   public double getAlgaeIntakeVoltage() {

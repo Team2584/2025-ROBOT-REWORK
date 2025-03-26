@@ -350,10 +350,10 @@ public class Autons {
 
         autoChooser.addOption("L4FourPieceHigh", L4FourPieceHigh(RC));
         autoChooser.addOption("L4FourPieceLow", L4FourPieceLow(RC));
-        autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
+        // autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
         // autoChooser.addOption("L4CenterAlgaeTickle", L4CenterAlgaeTickle(RC));
-        autoChooser.addOption("L4OnePieceLow", L4OnePieceLow(RC));
-        autoChooser.addOption("L4OnePieceHigh", L4OnePieceHigh(RC));
+        // autoChooser.addOption("L4OnePieceLow", L4OnePieceLow(RC));
+        // autoChooser.addOption("L4OnePieceHigh", L4OnePieceHigh(RC));
         autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
 
         // autoChooser.setDefaultOption("L4_4_HIGH", L4FourPieceHigh(RC));

@@ -341,7 +341,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.6);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -350,17 +350,17 @@ public final class CONSTANTS {
                     .div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    3.2,
+                    3.25,
                     0,
                     0.0);
-            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.25);
+            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.2);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
                     3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
                             Math.pow(TURN_SPEED.in(Units.DegreesPerSecond), 2)));
             public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(3);
 
-            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.7);
+            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.2);
 
             static {
                 PID_TRANSLATION.setTolerance(AT_POINT_TOLERANCE.in(Units.Meters));
@@ -386,9 +386,9 @@ public final class CONSTANTS {
 
         // Preset Heights
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
-        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
-        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55.5);
+        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(16.5);
+        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(31.5);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
@@ -399,7 +399,7 @@ public final class CONSTANTS {
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
-        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(54.5);
+        public static final Distance ELEVATOR_MAX_HEIGHT = Units.Inches.of(55);
 
         public static final Distance DEADZONE_DISTANCE = Units.Inches.of(0.2);
         public static final Distance ZERO_DEADZONE_DISTANCE = Units.Inches.of(0.1);
@@ -579,7 +579,7 @@ public final class CONSTANTS {
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
         public static final Angle PIVOT_ALGAE_PROCESSOR = Units.Degree.of(-10);
-        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68); // Practice
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Practice
         // public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
@@ -638,8 +638,8 @@ public final class CONSTANTS {
 
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
-        public static final double CORAL_OUTTAKE_SPEED = 0.5;
-        public static final double CORAL_OUTTAKE_L4_SPEED = 0.375;
+        public static final double CORAL_OUTTAKE_SPEED = 0.4;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 1;
 
         public static final double CORAL_INTAKE_SPEED = 0.15;
         public static final double CORAL_REV_SPEED = -0.09;
@@ -653,12 +653,12 @@ public final class CONSTANTS {
         public static final double RAMP_INTAKE_VELOCITY = -0.1;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
-        public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
-        public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
-        // public static final Angle MAX_POSITION = Units.Degrees.of(-25);
-        // public static final Angle MIN_POSITION = Units.Degrees.of(-90);
+        // public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
+        // public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
+        public static final Angle MIN_POSITION = Units.Rotations.of(-0.05);
+        public static final Angle MAX_POSITION = Units.Rotations.of(-0.234);
 
-        public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.1);
+        public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.01);
 
         static {
             RAMP_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -667,18 +667,19 @@ public final class CONSTANTS {
 
             RAMP_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-            // RAMP_CONFIG.Feedback.FeedbackRemoteSensorID =
-            // CONSTANTS_PORTS.RAMP_ENCODER_CAN;
-            // RAMP_CONFIG.Feedback.FeedbackSensorSource =
-            // FeedbackSensorSourceValue.RemoteCANcoder;
+            RAMP_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.RAMP_ENCODER_CAN;
+            RAMP_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+            RAMP_CONFIG.Feedback.SensorToMechanismRatio = 1; // Final
 
             RAMP_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             RAMP_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
             RAMP_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
             RAMP_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            RAMP_CONFIG.Slot0.kP = 1;
+            RAMP_CONFIG.Slot0.kP = 48;
             RAMP_CONFIG.Slot0.kI = 0;
             RAMP_CONFIG.Slot0.kD = 0;
+
+
 
             RAMP_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
             // WRIST_CONFIG.Slot0.StaticFeedforwardSign =
@@ -823,9 +824,9 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.05;
-            public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.02; // was -0.045
-            public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.02; // was -0.045
+            public static final double REEF_SCORE_X_OFFSET = -0.056;
+            public static final double REEF_SCORE_Y_OFFSET_LEFT = 0.031;
+            public static final double REEF_SCORE_Y_OFFSET_RIGHT = 0.031;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
                     REEF_SCORE_X_OFFSET,

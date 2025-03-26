@@ -21,12 +21,14 @@ public class LED extends SubsystemBase {
 
     private final Algae m_algae;
     private final Coral m_coral;
+    private final int[] rgb;
 
     // private String currentColor;
 
     public LED(RobotContainer RC) {
         m_algae = RC.getAlgae();
         m_coral = RC.getCoral();
+        rgb = new int[3];
 
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = true;
@@ -70,6 +72,12 @@ public class LED extends SubsystemBase {
         m_candle.configStatusLedState(offWhenActive, 0);
     }
 
+    public void setColor(int r, int g, int b){
+       rgb[0] = r;
+       rgb[1] = g;
+       rgb[2] = b;
+    }
+
     // public void turnGreen() {
     // currentColor = "green";
     // }
@@ -96,15 +104,16 @@ public class LED extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (m_algae.hasAlgae() && m_coral.coralLoaded()) {
-            m_candle.setLEDs(0, 0, 255); // BLUE
-        } else if (m_algae.hasAlgae()) {
-            m_candle.setLEDs(0, 255, 0); // GREEN
-        } else if (m_coral.coralLoaded()) {
-            m_candle.setLEDs(255, 165, 0); // ORANGE
-        } else {
-            m_candle.setLEDs(0, 0, 0);
-        }
+        m_candle.setLEDs(rgb[0],rgb[1],rgb[2]);
+        // if (m_algae.hasAlgae() && m_coral.coralLoaded()) {
+        //     m_candle.setLEDs(0, 0, 255); // BLUE
+        // } else if (m_algae.hasAlgae()) {
+        //     m_candle.setLEDs(0, 255, 0); // GREEN
+        // } else if (m_coral.coralLoaded()) {
+        //     m_candle.setLEDs(255, 165, 0); // ORANGE
+        // } else {
+        //     m_candle.setLEDs(0, 0, 0);
+        // }
     }
 
     @Override

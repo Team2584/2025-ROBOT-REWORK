@@ -50,7 +50,7 @@ public class RobotContainer {
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
-  private final LED led = new LED(algae, coral);
+  private final LED led = new LED(this);
   @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
@@ -253,7 +253,7 @@ public class RobotContainer {
 
     controller.povDown()
         .whileTrue(new ParallelCommandGroup(
-            new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
+           ramp.setRampAngleCommand(CONSTANTS_RAMP.MAX_POSITION).until(()->ramp.isRampUp()), climber.lowerRobot()))
         .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
 
   }

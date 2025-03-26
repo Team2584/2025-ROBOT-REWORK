@@ -7,6 +7,7 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
@@ -23,8 +24,7 @@ public class Ramp extends SubsystemBase {
     private Angle lastTargetPosition;
 
     @NotLogged
-    private final VoltageOut voltageRequest = new VoltageOut(0.0);
-
+    VoltageOut voltageRequest = new VoltageOut(0);
     @NotLogged
     MotionMagicVoltage motionRequest = new MotionMagicVoltage(0);
 
@@ -61,11 +61,11 @@ public class Ramp extends SubsystemBase {
     }
 
     public boolean isRampDown() {
-        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().gte(CONSTANTS_RAMP.MIN_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public boolean isRampUp() {
-        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().lte(CONSTANTS_RAMP.MAX_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public void setVoltage(double Volts) {
@@ -74,6 +74,9 @@ public class Ramp extends SubsystemBase {
 
     public void setRampAngle(Angle setpoint) {
         m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation)));
+    }
+    public Command setRampAngleCommand(Angle setpoint) {
+        return runEnd(()-> m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation))), ()->m_ramp.setControl(new NeutralOut()));
     }
 
     @Override

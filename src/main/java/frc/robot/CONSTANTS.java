@@ -649,9 +649,6 @@ public final class CONSTANTS {
         public static final double CLIMBER_RETRACT_VELOCITY = -0.8;
 
         public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration();
-        // TODO: find the real numbers for these
-        // The climber is zero generally in the same spot when setup (allow for
-        // tolerance)
         public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
         public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
 
@@ -682,7 +679,7 @@ public final class CONSTANTS {
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
-        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-right", "limelight-left" };
+        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-right", "limelight-left", "limelight-back"};
 
         /**
          * <p>

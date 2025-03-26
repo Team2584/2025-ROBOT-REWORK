@@ -18,14 +18,19 @@ public class Vision extends SubsystemBase {
     PoseEstimate lastEstimateRight = new PoseEstimate();
     @NotLogged
     PoseEstimate lastEstimateLeft = new PoseEstimate();
+    @NotLogged
+    PoseEstimate lastEstimateBack = new PoseEstimate();
 
     @NotLogged
     boolean newRightEstimate = false;
     @NotLogged
     boolean newLeftEstimate = false;
+    @NotLogged
+    boolean newBackEstimate = false;
 
     Pose2d rightPose = new Pose2d();
     Pose2d leftPose = new Pose2d();
+    Pose2d backPose = new Pose2d();
 
     private boolean useMegaTag2 = true;
 
@@ -34,7 +39,7 @@ public class Vision extends SubsystemBase {
 
     @NotLogged
     public PoseEstimate[] getLastPoseEstimates() {
-        return new PoseEstimate[] { lastEstimateRight, lastEstimateLeft };
+        return new PoseEstimate[] { lastEstimateRight, lastEstimateLeft, lastEstimateBack };
     }
 
     public void setMegaTag2(boolean useMegaTag2) {
@@ -96,15 +101,20 @@ public class Vision extends SubsystemBase {
     public void setCurrentEstimates(AngularVelocity gyroRate) {
         PoseEstimate currentEstimateRight = new PoseEstimate();
         PoseEstimate currentEstimateLeft = new PoseEstimate();
+        PoseEstimate currentEstimateBack = new PoseEstimate();
 
         if (useMegaTag2) {
             currentEstimateRight = LimelightHelpers
                     .getBotPoseEstimate_wpiBlue_MegaTag2(CONSTANTS_VISION.LIMELIGHT_NAMES[0]);
             currentEstimateLeft = LimelightHelpers
                     .getBotPoseEstimate_wpiBlue_MegaTag2(CONSTANTS_VISION.LIMELIGHT_NAMES[1]);
+            currentEstimateBack = LimelightHelpers
+                    .getBotPoseEstimate_wpiBlue_MegaTag2(CONSTANTS_VISION.LIMELIGHT_NAMES[2]);
         } else {
             currentEstimateRight = LimelightHelpers.getBotPoseEstimate_wpiBlue(CONSTANTS_VISION.LIMELIGHT_NAMES[0]);
             currentEstimateLeft = LimelightHelpers.getBotPoseEstimate_wpiBlue(CONSTANTS_VISION.LIMELIGHT_NAMES[1]);
+            currentEstimateBack = LimelightHelpers.getBotPoseEstimate_wpiBlue(CONSTANTS_VISION.LIMELIGHT_NAMES[2]);
+
         }
 
         if (currentEstimateRight != null && !rejectUpdate(currentEstimateRight, gyroRate)) {
@@ -118,28 +128,39 @@ public class Vision extends SubsystemBase {
             leftPose = currentEstimateLeft.pose;
             newLeftEstimate = true;
         }
+        if (currentEstimateBack != null && !rejectUpdate(currentEstimateBack,
+                gyroRate)) {
+            lastEstimateBack = currentEstimateBack;
+            backPose = currentEstimateBack.pose;
+            newBackEstimate = true;
+        }
     }
 
     public Optional<PoseEstimate> determinePoseEstimate(AngularVelocity gyroRate) {
         setCurrentEstimates(gyroRate);
 
         // No valid pose estimates :(
-        if (!newRightEstimate && !newLeftEstimate) {
+        if (!newRightEstimate && !newLeftEstimate && !newBackEstimate) {
             return Optional.empty();
 
-        } else if (newRightEstimate && !newLeftEstimate) {
+        } else if (newRightEstimate && !newLeftEstimate && !newBackEstimate) {
             // One valid pose estimate (right)
             newRightEstimate = false;
             if (Optional.of(lastEstimateRight).isPresent()) {
             }
             return Optional.of(lastEstimateRight);
 
-        } else if (!newRightEstimate && newLeftEstimate) {
+        } else if (!newRightEstimate && newLeftEstimate && !newBackEstimate) {
             // One valid pose estimate (left)
             newLeftEstimate = false;
             return Optional.of(lastEstimateLeft);
 
+        } else if (newBackEstimate && !newRightEstimate && !newLeftEstimate) {
+            // One valid pose estimate (back)
+            newBackEstimate = false;
+            return Optional.of(lastEstimateBack);
         } else {
+            // Default use right LL (change if LL2 is too grim)
             return Optional.of(lastEstimateRight);
         }
     }

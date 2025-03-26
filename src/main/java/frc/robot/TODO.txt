@@ -1,5 +1,4 @@
 - REDO command requirements
-- Add LL back in code
 - Add light bar
 
 - Tune TOF Values again
@@ -10,5 +9,4 @@
 - Test Pathplanner GUI Autons (again)
 
 
-- Mount one LL3G in the back (perpendicular to the top of the ramp frame)
 - Mount climb camera on lower back

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.CONSTANTS.*;
 import frc.robot.commands.NeutralState;
 import frc.robot.commands.NeutralStateHandler;
@@ -38,6 +39,7 @@ public class Autons {
     // TODO: register commands
     public static void configurePPCommands() {
         NamedCommands.registerCommand("X", new InstantCommand());
+        new EventTrigger("X").onTrue(new InstantCommand());
     }
 
     public static Command L4FourPieceHigh(RobotContainer RC) {

@@ -341,7 +341,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.3);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -353,14 +353,14 @@ public final class CONSTANTS {
                     3.25,
                     0,
                     0.0);
-            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.2);
+            public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.22);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
                     3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
                             Math.pow(TURN_SPEED.in(Units.DegreesPerSecond), 2)));
             public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(3);
 
-            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.2);
+            public static final Distance AUTO_ALIGNMENT_TOLERANCE = Units.Inches.of(0.22);
 
             static {
                 PID_TRANSLATION.setTolerance(AT_POINT_TOLERANCE.in(Units.Meters));
@@ -824,7 +824,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.056;
+            public static final double REEF_SCORE_X_OFFSET = -0.05;
             public static final double REEF_SCORE_Y_OFFSET_LEFT = 0.031;
             public static final double REEF_SCORE_Y_OFFSET_RIGHT = 0.031;
 

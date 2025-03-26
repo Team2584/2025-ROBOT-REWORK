@@ -52,7 +52,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("J-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-K"),
                 driveAutoAlign(RC, 10, 0.4),
                 GoL4(RC),
@@ -62,7 +62,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("K-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-L"),
                 driveAutoAlign(RC, 11, 0.4),
                 GoL4(RC),
@@ -72,7 +72,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("L-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-A"),
                 driveAutoAlign(RC, 0, 0.4),
                 GoL4(RC),
@@ -94,7 +94,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("E-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-D"),
                 driveAutoAlign(RC, 3, 0.4),
                 GoL4(RC),
@@ -104,7 +104,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("D-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-C"),
                 driveAutoAlign(RC, 2, 0.4),
                 GoL4(RC),
@@ -114,7 +114,7 @@ public class Autons {
 
                 EnsureNeutralState(RC),
                 RC.getDrivetrain().runPathT("C-TOP"),
-                // GetCoralStationPiece(RC),
+                GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-B"),
                 driveAutoAlign(RC, 1, 0.4),
                 GoL4(RC),

@@ -252,7 +252,7 @@ public class RobotContainer {
 
     controller.povDown()
         .whileTrue(new ParallelCommandGroup(
-            new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
+           ramp.setRampAngleCommand(CONSTANTS_RAMP.MAX_POSITION).until(()->ramp.isRampUp()), climber.lowerRobot()))
         .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
 
   }

@@ -22,6 +22,7 @@ import frc.robot.CONSTANTS.CONSTANTS_DRIVETRAIN;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 import frc.robot.CONSTANTS.CONSTANTS_FIELD;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.State;
 import frc.robot.subsystems.State.DriverState;
 import frc.robot.subsystems.swerve.Drivetrain;
@@ -29,6 +30,7 @@ import frc.robot.subsystems.swerve.Drivetrain;
 public class DriveTeleop extends Command {
   State state;
   Drivetrain drivetrain;
+  LED led;
   DoubleSupplier xAxis, yAxis, rotationAxis;
   BooleanSupplier slowMode, leftReef, rightReef, coralStationLeft, coralStationRight, processor;
   Elevator elevator;
@@ -57,6 +59,7 @@ public class DriveTeleop extends Command {
       BooleanSupplier processorBtn) {
     this.state = RC.getState();
     this.drivetrain = RC.getDrivetrain();
+    this.led = RC.getLED();
     this.xAxis = xAxis;
     this.yAxis = yAxis;
     this.rotationAxis = rotationAxis;
@@ -124,6 +127,10 @@ public class DriveTeleop extends Command {
       Distance reefDistance = Units.Meters
           .of(drivetrain.getPose().getTranslation().getDistance(desiredReef.getTranslation()));
 
+          if (reefDistance.lte(CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.AT_POINT_TOLERANCE)){
+            led.setColor(0, 255, 0);
+                                
+          }
       // Begin reef auto align (rotationally, automatically driving, or w/ a driver
       // override)
       drivetrain.autoAlign(reefDistance, desiredReef, xVelocity, yVelocity, rVelocity, transMultiplier,
@@ -133,48 +140,53 @@ public class DriveTeleop extends Command {
 
     }
 
-    // -- Coral Station --
-    else if (coralStationRight.getAsBoolean()) {
-      Pose2d desiredCoralStation = CONSTANTS_FIELD.getCoralStationPositions().get().get(0);
-      Distance coralStationDistance = Units.Meters
-          .of(drivetrain.getPose().getTranslation().getDistance(desiredCoralStation.getTranslation()));
-      drivetrain.rotationalAutoAlign(coralStationDistance, desiredCoralStation, xVelocity, yVelocity, rVelocity,
-          transMultiplier, isOpenLoop,
-          CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE,
-          DriverState.CORAL_STATION_AUTO_DRIVING, DriverState.CORAL_STATION_ROTATION_SNAPPING, state);
-    }
+  // -- Coral Station --
+  else if(coralStationRight.getAsBoolean())
 
-    else if (coralStationLeft.getAsBoolean()) {
-      Pose2d desiredCoralStation = CONSTANTS_FIELD.getCoralStationPositions().get().get(2);
+  {
+    Pose2d desiredCoralStation = CONSTANTS_FIELD.getCoralStationPositions().get().get(0);
+    Distance coralStationDistance = Units.Meters
+        .of(drivetrain.getPose().getTranslation().getDistance(desiredCoralStation.getTranslation()));
+    drivetrain.rotationalAutoAlign(coralStationDistance, desiredCoralStation, xVelocity, yVelocity, rVelocity,
+        transMultiplier, isOpenLoop,
+        CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE,
+        DriverState.CORAL_STATION_AUTO_DRIVING, DriverState.CORAL_STATION_ROTATION_SNAPPING, state);
+  }
 
-      Distance coralStationDistance = Units.Meters
-          .of(drivetrain.getPose().getTranslation().getDistance(desiredCoralStation.getTranslation()));
-      drivetrain.rotationalAutoAlign(coralStationDistance, desiredCoralStation, xVelocity, yVelocity, rVelocity,
-          transMultiplier, isOpenLoop,
-          CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE,
-          DriverState.CORAL_STATION_AUTO_DRIVING, DriverState.CORAL_STATION_ROTATION_SNAPPING, state);
-    }
+  else if(coralStationLeft.getAsBoolean())
+  {
+    Pose2d desiredCoralStation = CONSTANTS_FIELD.getCoralStationPositions().get().get(2);
 
-    // -- Processors --
-    else if (processor.getAsBoolean()) {
-      Pose2d desiredProcessor = drivetrain.getDesiredProcessor();
-      Distance processorDistance = Units.Meters
-          .of(drivetrain.getPose().getTranslation().getDistance(desiredProcessor.getTranslation()));
+    Distance coralStationDistance = Units.Meters
+        .of(drivetrain.getPose().getTranslation().getDistance(desiredCoralStation.getTranslation()));
+    drivetrain.rotationalAutoAlign(coralStationDistance, desiredCoralStation, xVelocity, yVelocity, rVelocity,
+        transMultiplier, isOpenLoop,
+        CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE,
+        DriverState.CORAL_STATION_AUTO_DRIVING, DriverState.CORAL_STATION_ROTATION_SNAPPING, state);
+  }
 
-      drivetrain.rotationalAutoAlign(processorDistance, desiredProcessor, xVelocity, yVelocity, rVelocity,
-          transMultiplier,
-          isOpenLoop, CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_PROCESSOR_DISTANCE,
-          DriverState.PROCESSOR_AUTO_DRIVING, DriverState.PROCESSOR_ROTATION_SNAPPING, state);
-    }
+  // -- Processors --
+  else if(processor.getAsBoolean())
+  {
+    Pose2d desiredProcessor = drivetrain.getDesiredProcessor();
+    Distance processorDistance = Units.Meters
+        .of(drivetrain.getPose().getTranslation().getDistance(desiredProcessor.getTranslation()));
 
-    else {
-      // Regular driving
-      drivetrain.drive(
-          new Translation2d(xVelocity.times(redAllianceMultiplier).in(Units.MetersPerSecond),
-              yVelocity.times(redAllianceMultiplier).in(Units.MetersPerSecond)),
-          rVelocity.in(Units.RadiansPerSecond), isOpenLoop);
-      state.setDriverState(DriverState.MANUAL);
-    }
+    drivetrain.rotationalAutoAlign(processorDistance, desiredProcessor, xVelocity, yVelocity, rVelocity,
+        transMultiplier,
+        isOpenLoop, CONSTANTS.CONSTANTS_DRIVETRAIN.TELEOP_AUTO_ALIGN.MAX_AUTO_DRIVE_PROCESSOR_DISTANCE,
+        DriverState.PROCESSOR_AUTO_DRIVING, DriverState.PROCESSOR_ROTATION_SNAPPING, state);
+  }
+
+  else
+  {
+    // Regular driving
+    drivetrain.drive(
+        new Translation2d(xVelocity.times(redAllianceMultiplier).in(Units.MetersPerSecond),
+            yVelocity.times(redAllianceMultiplier).in(Units.MetersPerSecond)),
+        rVelocity.in(Units.RadiansPerSecond), isOpenLoop);
+    state.setDriverState(DriverState.MANUAL);
+  }
   }
 
   @Override

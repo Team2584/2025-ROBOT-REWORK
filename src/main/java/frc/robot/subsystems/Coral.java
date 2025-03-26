@@ -34,6 +34,10 @@ public class Coral extends SubsystemBase {
         return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0));
     }
 
+    public Command outtakeCoralL4() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0));
+    }
+
     public void setCoralMotor(double speed) {
         m_coral.set(speed);
     }
@@ -47,6 +51,7 @@ public class Coral extends SubsystemBase {
     }
 
     public boolean coralLoaded() {
+        //return (hasCoral() && !coralCleared()); // Practice
         return (hasCoral() && !coralCleared());
     }
 

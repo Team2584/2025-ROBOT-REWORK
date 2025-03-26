@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Rotations;
 
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -24,6 +25,9 @@ public class Ramp extends SubsystemBase {
     @NotLogged
     private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
+    @NotLogged
+    MotionMagicVoltage motionRequest = new MotionMagicVoltage(0);
+
     public Ramp() {
         lastTargetPosition = Units.Degrees.of(0);
         m_ramp = new TalonFX(CONSTANTS_PORTS.RAMP_CAN);
@@ -32,7 +36,7 @@ public class Ramp extends SubsystemBase {
     }
 
     public void setRampMotorVelocity(double velocity) {
-        m_ramp.set(velocity);
+        m_ramp.set(velocity*0.5);
     }
 
     public Angle getRampPosition() {
@@ -66,6 +70,10 @@ public class Ramp extends SubsystemBase {
 
     public void setVoltage(double Volts) {
         m_ramp.setControl(voltageRequest.withOutput(Volts));
+    }
+
+    public void setRampAngle(Angle setpoint) {
+        m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation)));
     }
 
     @Override

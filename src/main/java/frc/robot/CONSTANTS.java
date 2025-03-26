@@ -56,6 +56,7 @@ public final class CONSTANTS {
 
         // Controller
         public static final int CONTROLLER_PORT = 0;
+        public static final int CONTROLLER2_PORT = 1;
         public static final int BUTTON_BOARD_PORT = 2;
 
         // Module 0 -- Front Left
@@ -94,6 +95,7 @@ public final class CONSTANTS {
 
         // Algae
         public static final int ALGAE_CAN = 17;
+        public static final int ALGAE_SENSOR_CAN = 18;
 
         // Coral
         public static final int CORAL_CAN = 23;
@@ -105,6 +107,10 @@ public final class CONSTANTS {
 
         // Ramp
         public static final int RAMP_CAN = 28;
+        public static final int RAMP_ENCODER_CAN = 29;
+
+        // LED
+        public static final int CANDLE_CAN = 34;
     }
 
     public static class CONSTANTS_CONTROLLER {
@@ -118,7 +124,7 @@ public final class CONSTANTS {
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
-        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(2.3);
+        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(5.7/2);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -138,6 +144,14 @@ public final class CONSTANTS {
 
         // Encoder offsets (check raw values when all wheel are aligned in the same
         // direction)
+
+        // Practice Bot
+        //public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.396240234375;
+        //public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = -0.329833984375;
+        //public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.189453125;
+        //public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.46630859375;
+
+        // Final
         public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.1389;
         public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = 0.4995;
         public static final double BACK_LEFT_ABS_ENCODER_OFFSET = -0.2412;
@@ -365,20 +379,23 @@ public final class CONSTANTS {
     public static class CONSTANTS_ELEVATOR {
         public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
         // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
+        // Practice
+        //public static final double ELEVATOR_GEAR_RATIO = 8.571;
+        // Finale
         public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
         // Preset Heights
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
         public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(15);
         public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(30);
-        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(54.5);
+        public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55.5);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
-        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(1);
+        public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(0);
 
         // Physical Constants
         public static final Distance ELEVATOR_MIN_HEIGHT = Units.Inches.of(0);
@@ -537,7 +554,8 @@ public final class CONSTANTS {
 
             WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
             WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-            WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO;
+            //WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice Bot
+            WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO; // Final
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             WRIST_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
@@ -554,10 +572,13 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
         }
-        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70);
+        //public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70); // Practice
+        public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
-        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68);
+        public static final Angle PIVOT_ALGAE_PROCESSOR = Units.Degree.of(-10);
+        public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68); // Practice
+        //public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(68);
@@ -571,7 +592,7 @@ public final class CONSTANTS {
         public static final double ALGAE_INTAKE_SPEED = 0.4;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
-        public static final double ALGAE_HOLD_SPEED = 0.3;
+        public static final double ALGAE_HOLD_SPEED = 0.4;
 
         public static final TalonFXConfiguration ALGAE_INTAKE_CONFIG = new TalonFXConfiguration();
 
@@ -580,9 +601,12 @@ public final class CONSTANTS {
             ALGAE_INTAKE_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
             ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
-            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimit = 65;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimit = 70;
             ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 50;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.StatorCurrentLimit = 60;
         }
+
+        public static CANrangeConfiguration ALGAE_SENSOR_CONFIG = new CANrangeConfiguration();
 
         public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.15);
         public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(40);
@@ -592,7 +616,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration CORAL_CONFIG = new TalonFXConfiguration();
         static {
             CORAL_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+            //CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // Practice
+            CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; // Final
 
             Slot0Configs slot0 = CORAL_CONFIG.Slot0;
             slot0.kS = 0;
@@ -610,7 +635,8 @@ public final class CONSTANTS {
 
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
-        public static final double CORAL_OUTTAKE_SPEED = 0.375;
+        public static final double CORAL_OUTTAKE_SPEED = 0.5;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 0.375;
 
         public static final double CORAL_INTAKE_SPEED = 0.15;
         public static final double CORAL_REV_SPEED = -0.09;
@@ -626,6 +652,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
         public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
         public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
+        //public static final Angle MAX_POSITION = Units.Degrees.of(-25);
+        //public static final Angle MIN_POSITION = Units.Degrees.of(-90);
 
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.1);
 
@@ -635,6 +663,24 @@ public final class CONSTANTS {
             RAMP_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
 
             RAMP_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            //RAMP_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.RAMP_ENCODER_CAN;
+            //RAMP_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+
+            RAMP_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
+            RAMP_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
+            RAMP_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            RAMP_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            RAMP_CONFIG.Slot0.kP = 1;
+            RAMP_CONFIG.Slot0.kI = 0;
+            RAMP_CONFIG.Slot0.kD = 0;
+
+            RAMP_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+            // WRIST_CONFIG.Slot0.StaticFeedforwardSign =
+            // StaticFeedforwardSignValue.UseClosedLoopSign;
+
+            RAMP_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
+            RAMP_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
 
             RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
             RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);

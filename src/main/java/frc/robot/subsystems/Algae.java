@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.epilogue.Logged;
@@ -16,12 +17,17 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 public class Algae extends SubsystemBase {
   private TalonFX m_algaeIntake;
 
+  CANrange algaeSensor;
+
   public static boolean stateRun = false;
 
   public Algae() {
     m_algaeIntake = new TalonFX(CONSTANTS_PORTS.ALGAE_CAN);
+    algaeSensor = new CANrange(CONSTANTS_PORTS.ALGAE_SENSOR_CAN);
 
     m_algaeIntake.getConfigurator().apply(CONSTANTS_ALGAE.ALGAE_INTAKE_CONFIG);
+    algaeSensor.getConfigurator().apply(CONSTANTS_ALGAE.ALGAE_SENSOR_CONFIG);
+    
   }
 
   public Command intakeAlgae() {
@@ -44,12 +50,32 @@ public class Algae extends SubsystemBase {
     Current intakeHasGamePieceCurrent = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT;
     AngularVelocity intakeHasGamePieceVelocity = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY;
 
-    if ((intakeCurrent.gte(intakeHasGamePieceCurrent))
-        && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
-      return true;
+    // if ((intakeCurrent.gte(intakeHasGamePieceCurrent))
+    //     && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    
+    // Practice
+    /* 
+    if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
+    && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
+    return true;
     } else {
+    return false;
+    }
+    */
+    
+    
+    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)){ 
+    //&& (intakeVelocity.lte(intakeHasGamePieceVelocity))){
+      return true;
+    }
+    else {
       return false;
     }
+      
   }
 
   public double getAlgaeIntakeVoltage() {

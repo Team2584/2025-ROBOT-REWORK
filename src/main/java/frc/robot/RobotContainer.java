@@ -27,6 +27,7 @@ import frc.robot.subsystems.State;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.commands.prep_coral.*;
 import frc.robot.commands.prep_algae.*;
@@ -35,6 +36,8 @@ import frc.robot.commands.prep_algae.*;
 public class RobotContainer {
   @NotLogged
   private final CommandXboxController controller = new CommandXboxController(CONSTANTS_PORTS.CONTROLLER_PORT);
+  @NotLogged
+  private final CommandXboxController controller2 = new CommandXboxController(CONSTANTS_PORTS.CONTROLLER2_PORT);
   @NotLogged
   private final Joystick buttonBoard = new Joystick(CONSTANTS_PORTS.BUTTON_BOARD_PORT);
 
@@ -47,6 +50,7 @@ public class RobotContainer {
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
+  private final LED led = new LED(algae, coral);
   @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
@@ -97,6 +101,10 @@ public class RobotContainer {
     return this.vision;
   }
 
+  public LED getLED(){
+    return this.led;
+  }
+
   public USBCamera getClimbCamera() {
     return this.climbCamera;
   }
@@ -145,9 +153,12 @@ public class RobotContainer {
                 rightCoralStationTrigger, processorTrigger));
     autos = new Autons(this);
     configureController();
-    configureButtonBoard();
+    configureController2();
+    //configureButtonBoard();
   }
 
+// Button Board Controls
+/*
   private void configureController() {
     controller.x().onTrue(new PrepIntakeCoral(this));
     controller.a().whileTrue(new InstantCommand (() -> {
@@ -185,6 +196,8 @@ public class RobotContainer {
     controller.leftTrigger().and(controller.rightTrigger()).and(controller.povRight())
         .onTrue(new InstantCommand(() -> MongolianSuperServerBailoutIMU()));
   }
+  */
+
 
   private void configureButtonBoard() {
 
@@ -212,6 +225,64 @@ public class RobotContainer {
     blue1.whileTrue(new PickupAlgaeGround(this))
         .onFalse(new NeutralStateHandler(this));
   }
+
+  // Twin Xbox Controlls
+
+  private void configureController(){
+    controller.start().and(controller.back())
+    .onTrue(new InstantCommand(()-> MongolianSuperServerBailoutIMU()));
+
+    controller.rightTrigger().whileTrue(new PickupAlgaeGround(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller.b().whileTrue(new PrepProcessorAlgae(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller.povUp()
+    .whileTrue(climber.liftRobot().until(() -> climber.isClimbed())); // Lift Robot (Winch in)
+
+    controller.povDown()
+    .whileTrue(new ParallelCommandGroup(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)), climber.lowerRobot()))
+    .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
+
+  }
+
+  private void configureController2(){
+
+    controller2.leftBumper().whileTrue(new PrepNetAlgae(this))
+    .onFalse(new NeutralStateHandler(this));
+    
+    controller2.leftTrigger().whileTrue(algae.outtakeAlgae());
+
+    controller2.rightTrigger().whileTrue(new InstantCommand (() -> {
+      if (coral.coralLoaded()){
+        new PrepCoralLock(this).schedule();
+      }}).withTimeout(0.15).andThen(new Score_Coral(this)));
+
+    controller2.rightBumper().onTrue(new PrepIntakeCoral(this));
+
+
+    controller2.x().onTrue(new PrepCoralLvl1(this))
+    .onFalse(new NeutralStateHandler(this));
+    
+    controller2.y().onTrue(new PrepCoralLvl4(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller2.b().onTrue(new PrepCoralLvl3(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller2.a().onTrue(new PrepCoralLvl2(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller2.povUp().whileTrue(new PickupReefHighAlgae(this))
+    .onFalse(new NeutralStateHandler(this));
+
+    controller2.povDown().whileTrue(new PickupReefLowAlgae(this))
+    .onFalse(new NeutralStateHandler(this));
+
+
+  }
+  
 
   /*
    * Make sure the robot is facing YOU (THE DRIVER STATION; AWAY FROM OPPOSING

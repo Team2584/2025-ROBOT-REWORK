@@ -2,7 +2,6 @@ package frc.robot.commands.prep_coral;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
-import frc.robot.CONSTANTS.CONSTANTS_ALGAE;
 import frc.robot.CONSTANTS.CONSTANTS_ELEVATOR;
 
 public class Score_Coral extends InstantCommand {

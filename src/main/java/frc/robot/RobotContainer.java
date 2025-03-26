@@ -5,7 +5,6 @@ import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -50,7 +49,7 @@ public class RobotContainer {
   private final Algae algae = new Algae();
   private final Coral coral = new Coral();
   private final Vision vision = new Vision();
-  private final LED led = new LED(algae, coral);
+  private final LED led = new LED(this);
   @NotLogged
   private final Autons autos;
   private final USBCamera climbCamera = new USBCamera();
@@ -143,7 +142,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
-    Autons.configurePPCommands();
+    Autons.configurePPCommands(this);
 
     drivetrain
         .setDefaultCommand(

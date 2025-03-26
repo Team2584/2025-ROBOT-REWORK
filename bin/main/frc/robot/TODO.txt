@@ -1,5 +1,4 @@
 - REDO command requirements
-- Add light bar
 
 - Tune TOF Values again
 

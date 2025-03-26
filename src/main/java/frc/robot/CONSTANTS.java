@@ -124,7 +124,7 @@ public final class CONSTANTS {
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
         public static final LinearVelocity MAX_DRIVE_SPEED = Units.MetersPerSecond.of(5.7);
-        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(5.7/2);
+        public static final LinearVelocity MAX_DRIVE_SPEED_TELEOP = Units.MetersPerSecond.of(5.7 / 2);
 
         public static final double MaxAngularRate = RotationsPerSecond.of(1 * Math.PI).in(RadiansPerSecond);
 
@@ -146,10 +146,10 @@ public final class CONSTANTS {
         // direction)
 
         // Practice Bot
-        //public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.396240234375;
-        //public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = -0.329833984375;
-        //public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.189453125;
-        //public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.46630859375;
+        // public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.396240234375;
+        // public static final double FRONT_RIGHT_ABS_ENCODER_OFFSET = -0.329833984375;
+        // public static final double BACK_LEFT_ABS_ENCODER_OFFSET = 0.189453125;
+        // public static final double BACK_RIGHT_ABS_ENCODER_OFFSET = -0.46630859375;
 
         // Final
         public static final double FRONT_LEFT_ABS_ENCODER_OFFSET = -0.1389;
@@ -380,7 +380,7 @@ public final class CONSTANTS {
         public static final Distance ELEVATOR_PULLEY_PITCH_DIAMETER = Units.Inches.of(1.504);
         // /3.0 for modified elevator ratio (~1.0s -> ~0.3s elevator max extention time)
         // Practice
-        //public static final double ELEVATOR_GEAR_RATIO = 8.571;
+        // public static final double ELEVATOR_GEAR_RATIO = 8.571;
         // Finale
         public static final double ELEVATOR_GEAR_RATIO = 8.571 / 3.0;
 
@@ -554,7 +554,8 @@ public final class CONSTANTS {
 
             WRIST_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.WRIST_ENCODER_CAN;
             WRIST_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-            //WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice Bot
+            // WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO*3; // Practice
+            // Bot
             WRIST_CONFIG.Feedback.RotorToSensorRatio = WRIST_GEAR_RATIO; // Final
 
             WRIST_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
@@ -572,13 +573,14 @@ public final class CONSTANTS {
             WRIST_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
             WRIST_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
         }
-        //public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70); // Practice
+        // public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(70); //
+        // Practice
         public static final Angle PIVOT_INTAKE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_GROUND = Units.Degrees.of(-30);
         public static final Angle PIVOT_ALGAE_REEF = Units.Degrees.of(-20);
         public static final Angle PIVOT_ALGAE_PROCESSOR = Units.Degree.of(-10);
         public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(68); // Practice
-        //public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Final
+        // public static final Angle PIVOT_SCORE_CORAL = Units.Degrees.of(80); // Final
         public static final Angle PIVOT_ALGAE_NET = Units.Degrees.of(60);
         public static final Angle PIVOT_ALGAE_NEUTRAL = Units.Degrees.of(60);
         public static final Angle PIVOT_CLIMB = Units.Degrees.of(68);
@@ -616,7 +618,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration CORAL_CONFIG = new TalonFXConfiguration();
         static {
             CORAL_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            //CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // Practice
+            // CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //
+            // Practice
             CORAL_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; // Final
 
             Slot0Configs slot0 = CORAL_CONFIG.Slot0;
@@ -652,8 +655,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
         public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
         public static Angle MIN_POSITION = Units.Rotations.of((45.0 / 360.0) * 0.0);
-        //public static final Angle MAX_POSITION = Units.Degrees.of(-25);
-        //public static final Angle MIN_POSITION = Units.Degrees.of(-90);
+        // public static final Angle MAX_POSITION = Units.Degrees.of(-25);
+        // public static final Angle MIN_POSITION = Units.Degrees.of(-90);
 
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(0.1);
 
@@ -664,8 +667,10 @@ public final class CONSTANTS {
 
             RAMP_CONFIG.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-            //RAMP_CONFIG.Feedback.FeedbackRemoteSensorID = CONSTANTS_PORTS.RAMP_ENCODER_CAN;
-            //RAMP_CONFIG.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+            // RAMP_CONFIG.Feedback.FeedbackRemoteSensorID =
+            // CONSTANTS_PORTS.RAMP_ENCODER_CAN;
+            // RAMP_CONFIG.Feedback.FeedbackSensorSource =
+            // FeedbackSensorSourceValue.RemoteCANcoder;
 
             RAMP_CONFIG.Slot0.kG = 0.0; // Volts to overcome gravity
             RAMP_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
@@ -725,7 +730,8 @@ public final class CONSTANTS {
         public static AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
-        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-right", "limelight-left", "limelight-back"};
+        public static final String[] LIMELIGHT_NAMES = new String[] { "limelight-right", "limelight-left",
+                "limelight-back" };
 
         /**
          * <p>

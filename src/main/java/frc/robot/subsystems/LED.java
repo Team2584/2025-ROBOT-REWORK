@@ -18,7 +18,7 @@ import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
 public class LED extends SubsystemBase {
     private final CANdle m_candle = new CANdle(CONSTANTS_PORTS.CANDLE_CAN, "rio");
-    
+
     private final Algae m_algae;
     private final Coral m_coral;
 
@@ -38,43 +38,66 @@ public class LED extends SubsystemBase {
     }
 
     // Wrappers
-    public double getVbat() { return m_candle.getBusVoltage(); }
-    public double get5V() { return m_candle.get5VRailVoltage(); }
-    public double getCurrent() { return m_candle.getCurrent(); }
-    public double getTemperature() { return m_candle.getTemperature(); }
-    public void configBrightness(double percent) { m_candle.configBrightnessScalar(percent, 0); }
-    public void configLos(boolean disableWhenLos) { m_candle.configLOSBehavior(disableWhenLos, 0); }
-    public void configLedType(LEDStripType type) { m_candle.configLEDType(type, 0); }
-    public void configStatusLedBehavior(boolean offWhenActive) { m_candle.configStatusLedState(offWhenActive, 0); }
+    public double getVbat() {
+        return m_candle.getBusVoltage();
+    }
+
+    public double get5V() {
+        return m_candle.get5VRailVoltage();
+    }
+
+    public double getCurrent() {
+        return m_candle.getCurrent();
+    }
+
+    public double getTemperature() {
+        return m_candle.getTemperature();
+    }
+
+    public void configBrightness(double percent) {
+        m_candle.configBrightnessScalar(percent, 0);
+    }
+
+    public void configLos(boolean disableWhenLos) {
+        m_candle.configLOSBehavior(disableWhenLos, 0);
+    }
+
+    public void configLedType(LEDStripType type) {
+        m_candle.configLEDType(type, 0);
+    }
+
+    public void configStatusLedBehavior(boolean offWhenActive) {
+        m_candle.configStatusLedState(offWhenActive, 0);
+    }
 
     // public void turnGreen() {
-    //     currentColor = "green";
+    // currentColor = "green";
     // }
 
     // public Command turnGreenCommand() {
-    //     return runOnce(()->turnGreen());
+    // return runOnce(()->turnGreen());
     // }
-    
+
     // public void turnOrange() {
-    //     currentColor = "orange";
+    // currentColor = "orange";
     // }
 
     // public Command turnOrangeCommand() {
-    //     return runOnce(()->turnOrange());
+    // return runOnce(()->turnOrange());
     // }
 
     // public void turnOff() {
-    //     currentColor = null;
+    // currentColor = null;
     // }
 
     // public Command turnOffCommand() {
-    //     return runOnce(()->turnOff());
+    // return runOnce(()->turnOff());
     // }
 
     @Override
     public void periodic() {
         if (m_algae.hasAlgae() && m_coral.coralLoaded()) {
-            m_candle.setLEDs(0, 0,255); // BLUE
+            m_candle.setLEDs(0, 0, 255); // BLUE
         } else if (m_algae.hasAlgae()) {
             m_candle.setLEDs(0, 255, 0); // GREEN
         } else if (m_coral.coralLoaded()) {

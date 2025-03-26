@@ -299,13 +299,14 @@ public class Autons {
 
     public static Command GetCoralStationPiece(RobotContainer RC) {
         return new SequentialCommandGroup(new ParallelCommandGroup(
-            new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.ZEROED_POS)),
-            RC.getCoral().intakeCoral(),
-            new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY)),
-            RC.getWrist().setWristAngleCommand(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL)).until(() -> RC.getCoral().coralLoaded())
-            .andThen(new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(0))),
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.ZEROED_POS)),
+                RC.getCoral().intakeCoral(),
+                new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(CONSTANTS_RAMP.RAMP_INTAKE_VELOCITY)),
+                RC.getWrist().setWristAngleCommand(CONSTANTS_WRIST.PIVOT_INTAKE_CORAL))
+                .until(() -> RC.getCoral().coralLoaded())
+                .andThen(new InstantCommand(() -> RC.getRamp().setRampMotorVelocity(0))),
 
-            new InstantCommand(() -> new PrepCoralLock(RC).schedule()));
+                new InstantCommand(() -> new PrepCoralLock(RC).schedule()));
     }
 
     public static Command GoL4(RobotContainer RC) {

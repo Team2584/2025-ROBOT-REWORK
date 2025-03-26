@@ -28,6 +28,7 @@ public class VisionLogger extends ClassSpecificLogger<Vision> {
     if (Epilogue.shouldLog(Logged.Importance.DEBUG)) {
       backend.log("rightPose", object.rightPose, edu.wpi.first.math.geometry.Pose2d.struct);
       backend.log("leftPose", object.leftPose, edu.wpi.first.math.geometry.Pose2d.struct);
+      backend.log("backPose", object.backPose, edu.wpi.first.math.geometry.Pose2d.struct);
       backend.log("useMegaTag2", ((boolean) $useMegaTag2.get(object)));
     }
   }

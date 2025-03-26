@@ -99,7 +99,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean getZeroLimit() {
-        //return !elevatorZeroLimit.get(); // Practice Bot
+        // return !elevatorZeroLimit.get(); // Practice Bot
         return !elevatorZeroLimit.get() && !elevatorZeroLimitIR.get();
         // returns true if the limit switch is touched HALLEFFECT sensor
     }
@@ -140,7 +140,8 @@ public class Elevator extends SubsystemBase {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
         }
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
-        //m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false)); // practice bot
+        // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN,
+        // false)); // practice bot
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true)); // Final
     }
 
@@ -151,7 +152,8 @@ public class Elevator extends SubsystemBase {
 
     public void setVoltage(Voltage voltage) {
         m_Leader_Right.setControl(voltageRequest.withOutput(voltage));
-        //m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, false)); // practice bot
+        // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN,
+        // false)); // practice bot
         m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN, true)); // Final
     }
 

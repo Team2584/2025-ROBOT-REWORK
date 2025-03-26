@@ -17,6 +17,7 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
   private static final VarHandle $algae;
   private static final VarHandle $coral;
   private static final VarHandle $vision;
+  private static final VarHandle $led;
   private static final VarHandle $climbCamera;
 
   static {
@@ -31,6 +32,7 @@ public class RobotContainerLogger extends ClassSpecificLogger<RobotContainer> {
       $algae = lookup.findVarHandle(RobotContainer.class, "algae", frc.robot.subsystems.Algae.class);
       $coral = lookup.findVarHandle(RobotContainer.class, "coral", frc.robot.subsystems.Coral.class);
       $vision = lookup.findVarHandle(RobotContainer.class, "vision", frc.robot.subsystems.Vision.class);
+      $led = lookup.findVarHandle(RobotContainer.class, "led", frc.robot.subsystems.LED.class);
       $climbCamera = lookup.findVarHandle(RobotContainer.class, "climbCamera", frc.robot.subsystems.USBCamera.class);
     } catch (ReflectiveOperationException e) {
       throw new RuntimeException("[EPILOGUE] Could not load private fields for logging!", e);

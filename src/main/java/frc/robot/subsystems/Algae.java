@@ -27,7 +27,7 @@ public class Algae extends SubsystemBase {
 
     m_algaeIntake.getConfigurator().apply(CONSTANTS_ALGAE.ALGAE_INTAKE_CONFIG);
     algaeSensor.getConfigurator().apply(CONSTANTS_ALGAE.ALGAE_SENSOR_CONFIG);
-    
+
   }
 
   public Command intakeAlgae() {
@@ -51,31 +51,29 @@ public class Algae extends SubsystemBase {
     AngularVelocity intakeHasGamePieceVelocity = CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY;
 
     // if ((intakeCurrent.gte(intakeHasGamePieceCurrent))
-    //     && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
-    //   return true;
+    // && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
+    // return true;
     // } else {
-    //   return false;
+    // return false;
     // }
-    
+
     // Practice
-    /* 
-    if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
-    && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
-    return true;
-    } else {
-    return false;
-    }
-    */
-    
-    
-    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)){ 
-    //&& (intakeVelocity.lte(intakeHasGamePieceVelocity))){
+    /*
+     * if ((Math.abs(m_algaeIntake.getStatorCurrent().getValueAsDouble())>(40))
+     * && (intakeVelocity.lte(intakeHasGamePieceVelocity))) {
+     * return true;
+     * } else {
+     * return false;
+     * }
+     */
+
+    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)) {
+      // && (intakeVelocity.lte(intakeHasGamePieceVelocity))){
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-      
+
   }
 
   public double getAlgaeIntakeVoltage() {

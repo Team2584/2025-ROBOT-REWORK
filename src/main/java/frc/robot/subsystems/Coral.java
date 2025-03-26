@@ -51,7 +51,7 @@ public class Coral extends SubsystemBase {
     }
 
     public boolean coralLoaded() {
-        //return (hasCoral() && !coralCleared()); // Practice
+        // return (hasCoral() && !coralCleared()); // Practice
         return (hasCoral() && !coralCleared());
     }
 

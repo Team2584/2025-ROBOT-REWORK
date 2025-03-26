@@ -635,7 +635,8 @@ public final class CONSTANTS {
 
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
-        public static final double CORAL_OUTTAKE_SPEED = 0.375;
+        public static final double CORAL_OUTTAKE_SPEED = 0.5;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 0.375;
 
         public static final double CORAL_INTAKE_SPEED = 0.15;
         public static final double CORAL_REV_SPEED = -0.09;

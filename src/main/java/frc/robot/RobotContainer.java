@@ -257,7 +257,7 @@ public class RobotContainer {
     controller2.rightTrigger().whileTrue(new InstantCommand (() -> {
       if (coral.coralLoaded()){
         new PrepCoralLock(this).schedule();
-      }}).withTimeout(0.15).andThen(coral.outtakeCoral()));
+      }}).withTimeout(0.15).andThen(new Score_Coral(this)));
 
     controller2.rightBumper().onTrue(new PrepIntakeCoral(this));
 

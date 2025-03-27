@@ -61,11 +61,11 @@ public class Ramp extends SubsystemBase {
     }
 
     public boolean isRampDown() {
-        return getRampPosition().gte(CONSTANTS_RAMP.MIN_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().lte(CONSTANTS_RAMP.MIN_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public boolean isRampUp() {
-        return getRampPosition().lte(CONSTANTS_RAMP.MAX_POSITION.plus(CONSTANTS_RAMP.POSITION_TOLERANCE));
+        return getRampPosition().gte(CONSTANTS_RAMP.MAX_POSITION.minus(CONSTANTS_RAMP.POSITION_TOLERANCE));
     }
 
     public void setVoltage(double Volts) {

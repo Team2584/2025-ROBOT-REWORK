@@ -38,6 +38,10 @@ public class Coral extends SubsystemBase {
         return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0)).withTimeout(0.15);
     }
 
+    public Command outtakeCoralL4Auto() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0));
+    }
+
     public void setCoralMotor(double speed) {
         m_coral.set(speed);
     }
@@ -57,7 +61,8 @@ public class Coral extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Coral/Cleared", coralCleared());
+        SmartDashboard.putBoolean("Coral/Top", coralCleared());
+        SmartDashboard.putBoolean("Coral/Mid", hasCoral());
         SmartDashboard.putBoolean("Coral/Loaded", coralLoaded());
 
     }

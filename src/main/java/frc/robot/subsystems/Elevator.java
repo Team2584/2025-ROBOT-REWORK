@@ -16,6 +16,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS;
@@ -139,6 +140,15 @@ public class Elevator extends SubsystemBase {
         } else if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
             m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
         }
+
+        if (DriverStation.isAutonomousEnabled()){
+            if (height == CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4 || height == CONSTANTS_ELEVATOR.HEIGHT_NET) {
+                m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_2_AUTO);
+            } else if (height.in(Inches) < rotationsToInches(m_Leader_Right.getPosition().getValueAsDouble())) {
+                m_Leader_Right.getConfigurator().apply(CONSTANTS_ELEVATOR.ELEVATOR_CONFIG_1);
+            }
+        }
+        
         m_Leader_Right.setControl(motionRequest.withPosition(inchesToRotations(height.in(Units.Inches))));
         // m_Follower_Left.setControl(new Follower(CONSTANTS_PORTS.ELEVATOR_RIGHT_CAN,
         // false)); // practice bot

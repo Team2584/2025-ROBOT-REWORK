@@ -19,6 +19,7 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.ctre.phoenix6.signals.UpdateModeValue;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -392,7 +393,7 @@ public final class CONSTANTS {
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
         public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
-        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(39);
+        public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(41);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
         public static final Distance HEIGHT_PROCESSOR = Units.Inches.of(0);
@@ -415,6 +416,8 @@ public final class CONSTANTS {
         public static TalonFXConfiguration ELEVATOR_CONFIG_1 = new TalonFXConfiguration();
         // Elevator UP to L4
         public static TalonFXConfiguration ELEVATOR_CONFIG_2 = new TalonFXConfiguration();
+        // Elevator UP to L4 AUTO
+        public static TalonFXConfiguration ELEVATOR_CONFIG_2_AUTO = new TalonFXConfiguration();
 
         static {
             ELEVATOR_CONFIG_0.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -425,6 +428,9 @@ public final class CONSTANTS {
 
             ELEVATOR_CONFIG_2.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             ELEVATOR_CONFIG_2.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+            ELEVATOR_CONFIG_2_AUTO.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            ELEVATOR_CONFIG_2_AUTO.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
             ELEVATOR_CONFIG_0.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ELEVATOR_MAX_HEIGHT.in(Units.Inches);
@@ -441,14 +447,21 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
             ELEVATOR_CONFIG_2.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ELEVATOR_MIN_HEIGHT.in(Units.Inches);
 
+            ELEVATOR_CONFIG_2_AUTO.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            ELEVATOR_CONFIG_2_AUTO.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ELEVATOR_MAX_HEIGHT.in(Units.Inches);
+            ELEVATOR_CONFIG_2_AUTO.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            ELEVATOR_CONFIG_2_AUTO.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ELEVATOR_MIN_HEIGHT.in(Units.Inches);
+
             ELEVATOR_CONFIG_0.Slot0.GravityType = GravityTypeValue.Elevator_Static;
             ELEVATOR_CONFIG_1.Slot0.GravityType = GravityTypeValue.Elevator_Static;
             ELEVATOR_CONFIG_2.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+            ELEVATOR_CONFIG_2_AUTO.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
             // Elevator motors will provide feedback in INCHES the carriage has moved
             ELEVATOR_CONFIG_0.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
             ELEVATOR_CONFIG_1.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
             ELEVATOR_CONFIG_2.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
+            ELEVATOR_CONFIG_2_AUTO.Feedback.SensorToMechanismRatio = ELEVATOR_GEAR_RATIO;
 
             ELEVATOR_CONFIG_0.Slot0.kG = 0.0; // Volts to overcome gravity
             ELEVATOR_CONFIG_0.Slot0.kS = 0.3; // Volts to overcome static friction
@@ -474,6 +487,14 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_2.Slot0.kI = 0.0;
             ELEVATOR_CONFIG_2.Slot0.kD = 0.01;
 
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kG = 0.0; // Volts to overcome gravity
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kS = 0.3; // Volts to overcome static friction
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kP = 13;
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kI = 0.0;
+            ELEVATOR_CONFIG_2_AUTO.Slot0.kD = 0.01;
+
             // ELEVATOR_CONFIG.Slot0.StaticFeedforwardSign =
             // StaticFeedforwardSignValue.UseClosedLoopSign;
 
@@ -492,6 +513,11 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicAcceleration = 45;
             ELEVATOR_CONFIG_2.MotionMagic.MotionMagicExpo_kV = 0.12;
 
+            // Elevator up L4 AUTO
+            ELEVATOR_CONFIG_2_AUTO.MotionMagic.MotionMagicCruiseVelocity = 150;
+            ELEVATOR_CONFIG_2_AUTO.MotionMagic.MotionMagicAcceleration = 200;
+            ELEVATOR_CONFIG_2_AUTO.MotionMagic.MotionMagicExpo_kV = 0.12;
+
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimitEnable = true;
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLowerLimit = 30;
             ELEVATOR_CONFIG_0.CurrentLimits.SupplyCurrentLimit = 60;
@@ -507,6 +533,10 @@ public final class CONSTANTS {
             ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLimit = 60;
             ELEVATOR_CONFIG_2.CurrentLimits.SupplyCurrentLowerTime = 1;
 
+            ELEVATOR_CONFIG_2_AUTO.CurrentLimits.SupplyCurrentLimitEnable = true;
+            ELEVATOR_CONFIG_2_AUTO.CurrentLimits.SupplyCurrentLowerLimit = 30;
+            ELEVATOR_CONFIG_2_AUTO.CurrentLimits.SupplyCurrentLimit = 60;
+            ELEVATOR_CONFIG_2_AUTO.CurrentLimits.SupplyCurrentLowerTime = 1;
         }
 
         public static TalonFXConfiguration COAST_MODE_CONFIGURATION = new TalonFXConfiguration();
@@ -610,6 +640,10 @@ public final class CONSTANTS {
 
         public static CANrangeConfiguration ALGAE_SENSOR_CONFIG = new CANrangeConfiguration();
 
+        static {
+            ALGAE_SENSOR_CONFIG.ToFParams.UpdateMode = UpdateModeValue.LongRangeUserFreq;
+        }
+
         public static final AngularVelocity ALGAE_INTAKE_OCCUPIED_VELOCITY = Units.RotationsPerSecond.of(0.15);
         public static final Current ALGAE_INTAKE_OCCUPIED_CURRENT = Units.Amps.of(40);
     }
@@ -678,8 +712,6 @@ public final class CONSTANTS {
             RAMP_CONFIG.Slot0.kP = 48;
             RAMP_CONFIG.Slot0.kI = 0;
             RAMP_CONFIG.Slot0.kD = 0;
-
-
 
             RAMP_CONFIG.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
             // WRIST_CONFIG.Slot0.StaticFeedforwardSign =

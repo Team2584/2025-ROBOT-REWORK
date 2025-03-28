@@ -5,6 +5,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -41,7 +43,12 @@ public class Algae extends SubsystemBase {
   }
 
   public boolean hasAlgae() {
-    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09)) {
+    Current intakeCurrent = m_algaeIntake.getStatorCurrent().getValue();
+    AngularVelocity intakeVelocity = m_algaeIntake.getVelocity().getValue();
+
+    if ((algaeSensor.getDistance().getValueAsDouble() < 0.09) &&
+        (intakeCurrent.gte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT) &&
+            intakeVelocity.lte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY))) {
       return true;
     } else {
       return false;
@@ -68,5 +75,6 @@ public class Algae extends SubsystemBase {
     SmartDashboard.putNumber("Algae/CONSTintakeVelocity",
         CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY.in(Units.RotationsPerSecond));
     SmartDashboard.putBoolean("Algae/stateRun", stateRun);
+    SmartDashboard.putNumber("Algae/algaeSensor", algaeSensor.getDistance().getValueAsDouble());
   }
 }

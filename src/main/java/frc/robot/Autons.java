@@ -43,73 +43,63 @@ public class Autons {
     public static Command L4FourPieceHigh(RobotContainer RC) {
         return new SequentialCommandGroup(
                 RC.getDrivetrain().runPathT("P-J"),
-                driveAutoAlign(RC, 9, 0.6),
+                driveAutoAlign(RC, 9, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("J-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-K"),
-                driveAutoAlign(RC, 10, 0.6),
+                driveAutoAlign(RC, 10, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("K-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-L"),
-                driveAutoAlign(RC, 11, 0.6),
+                driveAutoAlign(RC, 11, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("L-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-A"),
-                driveAutoAlign(RC, 0, 0.6),
+                driveAutoAlign(RC, 0, 0.5),
                 GoL4Score(RC));
     }
 
     public static Command L4FourPieceLow(RobotContainer RC) {
         return new SequentialCommandGroup(
                 RC.getDrivetrain().runPathT("P-E"),
-                driveAutoAlign(RC, 4, 0.6),
+                driveAutoAlign(RC, 4, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("E-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-D"),
-                driveAutoAlign(RC, 3, 0.6),
+                driveAutoAlign(RC, 3, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("D-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-C"),
-                driveAutoAlign(RC, 2, 0.6),
+                driveAutoAlign(RC, 2, 0.5),
                 GoL4Score(RC),
 
                 EnsureNeutralState(RC),
-                new WaitCommand(0.5),
+                new WaitCommand(0.32),
                 RC.getDrivetrain().runPathT("C-TOP"),
                 GetCoralStationPiece(RC),
                 RC.getDrivetrain().runPathT("TOP-B"),
-                driveAutoAlign(RC, 1, 0.6),
+                driveAutoAlign(RC, 1, 0.5),
                 GoL4Score(RC));
-    }
-
-    public static Command L4OnePieceCenter(RobotContainer RC) {
-
-        return new SequentialCommandGroup(
-                RC.getDrivetrain().runPathT("P-H"),
-                driveAutoAlign(RC, 7, 0.4),
-                GoL4(RC),
-                new WaitCommand(0.1),
-                ScoreCoral(RC));
     }
 
     public static Command CoralStationTest(RobotContainer RC) {
@@ -118,32 +108,18 @@ public class Autons {
                 GoL4(RC));
     }
 
-    /*
-     * Scores L4 H Coral
-     * Picks up H Algae and scores into barge
-     * Resets pos
-     * TODO: Set Algae mech to be able to intake algae, drive in, drive out
-     */
+    public static Command L4ScoreTest(RobotContainer RC) {
+        return new SequentialCommandGroup(
+                GoL4Score(RC),
+                EnsureNeutralState(RC));
+    }
+
     public static Command L4CenterAlgae(RobotContainer RC) {
-        // EventTrigger pickupLowAlgae = new EventTrigger("pickupLowAlgae");
-        // pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
-
-        // EventTrigger pickupHighAlgae = new EventTrigger("pickupHighAlgae");
-        // pickupHighAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
-
-        // EventTrigger NeutralState = new EventTrigger("NeutralState");
-        // NeutralState.onTrue(new NeutralStateHandler(RC));
-
-        // EventTrigger PepareNetAlgae = new EventTrigger("PepareNetAlgae");
-        // PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
 
         return new SequentialCommandGroup(
                 RC.getDrivetrain().runPathT("P-H"),
-                driveAutoAlign(RC, 7, 0.4),
-                GoL4(RC),
-                new WaitCommand(0.1),
-                ScoreCoral(RC),
-                new WaitCommand(0.2),
+                driveAutoAlign(RC, 7, 0.5),
+                GoL4ScoreSteady(RC),
                 RC.getDrivetrain().runPathT("CoralToAlgae"),
                 new WaitCommand(0.2),
                 SetAlgaeLow(RC),
@@ -151,115 +127,28 @@ public class Autons {
                 RC.getDrivetrain().runPathT("RetrieveAlgae"),
                 RC.getDrivetrain().runPathT("BackupAlgae"),
                 RC.getDrivetrain().runPathT("ScoreMidAlgae"),
-                new WaitCommand(0.1),
                 SetAlgaeNet(RC),
-                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
-                new WaitCommand(0.5),
-                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
-                RC.getDrivetrain().runPathT("CenterBargeTop"));
+                ScoreAlgae(RC),
+                EnsureNeutralState(RC),
+                RC.getDrivetrain().runPathT("CenterBargeSafe"));
     }
 
-    /*
-     * Scores L4 H Coral
-     * Picks up H Algae and scores into barge
-     * Resets pos
-     * TODO: Set Algae mech to be able to intake algae, drive in, drive out
-     */
     public static Command L4CenterAlgaeTickle(RobotContainer RC) {
-        EventTrigger pickupLowAlgae = new EventTrigger("pickupLowAlgae");
-        pickupLowAlgae.onTrue(new PickupReefLowAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
-
-        EventTrigger pickupHighAlgae = new EventTrigger("pickupHighAlgae");
-        pickupHighAlgae.onTrue(new PickupReefHighAlgae(RC).withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT));
-
-        EventTrigger NeutralState = new EventTrigger("NeutralState");
-        NeutralState.onTrue(new NeutralStateHandler(RC));
-
-        EventTrigger PepareNetAlgae = new EventTrigger("PepareNetAlgae");
-        PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
-
         return new SequentialCommandGroup(
-                RC.getDrivetrain().runPathT("CenterTickle"),
                 RC.getDrivetrain().runPathT("P-H"),
-                driveAutoAlign(RC, 7, 1),
-                GoL4(RC),
-                new WaitCommand(0.75),
-                TOFDriveScore(RC),
-                new WaitCommand(0.5),
+                driveAutoAlign(RC, 7, 0.5),
+                GoL4ScoreSteady(RC),
                 RC.getDrivetrain().runPathT("CoralToAlgae"),
                 new WaitCommand(0.2),
                 SetAlgaeLow(RC),
                 new WaitCommand(0.5),
                 RC.getDrivetrain().runPathT("RetrieveAlgae"),
                 RC.getDrivetrain().runPathT("BackupAlgae"),
-                EnsureNeutralStateHandler(RC) //
-
-        // RC.getDrivetrain().runPathT("ScoreMidAlgae"),
-        // new WaitCommand(0.4),
-        // new InstantCommand(() ->
-        // RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
-        // new WaitCommand(0.5),
-        // new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
-        // RC.getDrivetrain().runPathT("Barge-Algae-Reset")
-        // SetAlgaeHigh(RC),
-        // RC.getDrivetrain().runPathT("I-Algae-Backup")
-        );
-    }
-
-    /*
-     * Scores L4 E Coral
-     * Picks up E Algae and holds
-     */
-    public static Command L4OnePieceLow(RobotContainer RC) {
-        EventTrigger NeutralState = new EventTrigger("NeutralState");
-        NeutralState.onTrue(new NeutralStateHandler(RC));
-
-        return new SequentialCommandGroup(
-                RC.getDrivetrain().runPathT("P-E"),
-                driveAutoAlign(RC, 4, 1),
-                GoL4(RC),
-                new WaitCommand(0.75),
-                TOFDriveScore(RC),
-                new WaitCommand(0.5),
-                RC.getDrivetrain().runPathT("E-CoralToAlgaeSetup"),
-                new WaitCommand(0.2),
-                SetAlgaeHigh(RC),
-                new WaitCommand(1),
-                RC.getDrivetrain().runPathT("E-AlgaeIntake"),
-                RC.getDrivetrain().runPathT("E-SafeAlgaeBackup"),
-                EnsureNeutralStateHandler(RC));
-    }
-
-    /*
-     * Scores L4 J Coral
-     * Picks up J Algae and scores in barge
-     */
-    public static Command L4OnePieceHigh(RobotContainer RC) {
-        EventTrigger NeutralState = new EventTrigger("NeutralState");
-        NeutralState.onTrue(new NeutralStateHandler(RC));
-
-        EventTrigger PepareNetAlgae = new EventTrigger("PepareNetAlgae");
-        PepareNetAlgae.onTrue(new PrepNetAlgae(RC));
-
-        return new SequentialCommandGroup(
-                RC.getDrivetrain().runPathT("P-J"),
-                driveAutoAlign(RC, 9, 1),
-                GoL4(RC),
-                new WaitCommand(0.75),
-                TOFDriveScore(RC),
-                new WaitCommand(0.5),
-                RC.getDrivetrain().runPathT("J-CoralToAlgaeSetup"),
-                new WaitCommand(0.2),
-                SetAlgaeHigh(RC),
-                new WaitCommand(1),
-                RC.getDrivetrain().runPathT("J-AlgaeIntake"),
-                RC.getDrivetrain().runPathT("J-AlgaeBackup"),
-                RC.getDrivetrain().runPathT("SingleAlgaeHighBarge"),
-                new WaitCommand(0.4),
-                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
-                new WaitCommand(0.5),
-                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)),
-                RC.getDrivetrain().runPathT("SingleAlgaeHighBargeSafe"));
+                RC.getDrivetrain().runPathT("ScoreMidAlgae"),
+                SetAlgaeNet(RC),
+                ScoreAlgae(RC),
+                EnsureNeutralState(RC),
+                RC.getDrivetrain().runPathT("CenterBargeSafe"));
     }
 
     // ---** COMMANDS **---
@@ -287,9 +176,20 @@ public class Autons {
 
     public static Command GoL4Score(RobotContainer RC) {
         return new SequentialCommandGroup(
-                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
-                        .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
-                new WaitCommand(0.9), RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15));
+                new ParallelCommandGroup(
+                        new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
+                                .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+                        new WaitCommand(0.75)),
+                RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15));
+    }
+
+    public static Command GoL4ScoreSteady(RobotContainer RC) {
+        return new SequentialCommandGroup(
+                new ParallelCommandGroup(
+                        new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
+                                .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
+                        new WaitCommand(0.95)),
+                RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15));
     }
 
     public static Command SetAlgaeLow(RobotContainer RC) {
@@ -307,11 +207,13 @@ public class Autons {
                 new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_ALGAE_HIGH)),
                 new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_INTAKE_SPEED)));
     }
+
     public static Command SetAlgaeNet(RobotContainer RC) {
         return new ParallelCommandGroup(
                 new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET))
                         .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
-                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_NET)));
+                new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_NET)),
+                new WaitCommand(0.8));
     }
 
     private static Command TOFDriveScore(RobotContainer RC) {
@@ -321,6 +223,13 @@ public class Autons {
 
     private static Command ScoreCoral(RobotContainer RC) {
         return new Score_Coral(RC);
+    }
+
+    private static Command ScoreAlgae(RobotContainer RC) {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
+                new WaitCommand(0.4),
+                new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)));
     }
 
     public static Command EnsureNeutralStateHandler(RobotContainer RC) {
@@ -335,13 +244,12 @@ public class Autons {
 
         autoChooser.addOption("L4FourPieceHigh", L4FourPieceHigh(RC));
         autoChooser.addOption("L4FourPieceLow", L4FourPieceLow(RC));
-        autoChooser.addOption("L4OnePieceCenter", L4OnePieceCenter(RC));
+
         autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
-        // autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
         // autoChooser.addOption("L4CenterAlgaeTickle", L4CenterAlgaeTickle(RC));
-        // autoChooser.addOption("L4OnePieceLow", L4OnePieceLow(RC));
-        // autoChooser.addOption("L4OnePieceHigh", L4OnePieceHigh(RC));
+
         autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
+        autoChooser.addOption("L4ScoreTest", L4ScoreTest(RC));
 
         // autoChooser.setDefaultOption("L4_4_HIGH", L4FourPieceHigh(RC));
     }

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3621772378177965,
-        "y": 5.250511867717161
+        "x": 6.190450981685093,
+        "y": 5.423946881294251
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.177773271980932,
-        "y": 6.813520011255296
+        "x": 5.848099156788416,
+        "y": 7.135990534509931
       },
       "prevControl": {
-        "x": 2.5857608083951273,
-        "y": 6.323905918961864
+        "x": 5.943822353226798,
+        "y": 6.395761142458234
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,21 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.2651494274400684,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
@@ -49,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -55.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "CustomL4CenterAlgaePaths",

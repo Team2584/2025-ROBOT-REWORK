@@ -251,9 +251,9 @@ public class RobotContainer {
         .whileTrue(climber.liftRobot().until(() -> climber.isClimbed())); // Lift Robot (Winch in)
 
     controller.povDown()
-        .whileTrue(new ParallelCommandGroup(
-           ramp.setRampAngleCommand(CONSTANTS_RAMP.MAX_POSITION).until(()->ramp.isRampUp()), climber.lowerRobot()))
-        .onFalse(new InstantCommand(() -> ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
+        .onTrue(new ParallelCommandGroup(
+           new InstantCommand(()->ramp.setVoltage(8)), climber.lowerRobot()))
+        .onFalse(new InstantCommand(() -> ramp.setVoltage(4))); // Ramp
 
   }
 

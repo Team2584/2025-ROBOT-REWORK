@@ -126,11 +126,14 @@ public class Autons {
                 new WaitCommand(0.5),
                 RC.getDrivetrain().runPathT("RetrieveAlgae"),
                 RC.getDrivetrain().runPathT("BackupAlgae"),
+                new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET))
+                        .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
                 RC.getDrivetrain().runPathT("ScoreMidAlgae"),
+                RC.getDrivetrain().runPathT("ScoreMidAlgaeSPIN"),
                 SetAlgaeNet(RC),
                 ScoreAlgae(RC),
-                EnsureNeutralState(RC),
-                RC.getDrivetrain().runPathT("CenterBargeSafe"));
+                RC.getDrivetrain().runPathT("BargeLittle2"),
+                EnsureNeutralState(RC));
     }
 
     public static Command L4CenterAlgaeTickle(RobotContainer RC) {
@@ -179,7 +182,7 @@ public class Autons {
                 new ParallelCommandGroup(
                         new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
                                 .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
-                        new WaitCommand(0.75)),
+                        new WaitCommand(0.95)),
                 RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15));
     }
 
@@ -188,7 +191,7 @@ public class Autons {
                 new ParallelCommandGroup(
                         new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
                                 .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT),
-                        new WaitCommand(0.95)),
+                        new WaitCommand(1.2)),
                 RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15));
     }
 
@@ -213,7 +216,7 @@ public class Autons {
                 new InstantCommand(() -> RC.getWrist().setWristAngle(CONSTANTS_WRIST.PIVOT_ALGAE_NET))
                         .withTimeout(CONSTANTS_WRIST.WRIST_TIMEOUT),
                 new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_NET)),
-                new WaitCommand(0.8));
+                new WaitCommand(1.1));
     }
 
     private static Command TOFDriveScore(RobotContainer RC) {
@@ -222,13 +225,13 @@ public class Autons {
     }
 
     private static Command ScoreCoral(RobotContainer RC) {
-        return new Score_Coral(RC);
+        return RC.getCoral().outtakeCoralL4Auto().withTimeout(0.15);
     }
 
     private static Command ScoreAlgae(RobotContainer RC) {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(CONSTANTS_ALGAE.ALGAE_OUTTAKE_SPEED)),
-                new WaitCommand(0.4),
+                new WaitCommand(0.5),
                 new InstantCommand(() -> RC.getAlgae().setAlgaeIntakeMotor(0)));
     }
 
@@ -244,12 +247,12 @@ public class Autons {
 
         autoChooser.addOption("L4FourPieceHigh", L4FourPieceHigh(RC));
         autoChooser.addOption("L4FourPieceLow", L4FourPieceLow(RC));
-
         autoChooser.addOption("L4CenterAlgae", L4CenterAlgae(RC));
+
         // autoChooser.addOption("L4CenterAlgaeTickle", L4CenterAlgaeTickle(RC));
 
-        autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
-        autoChooser.addOption("L4ScoreTest", L4ScoreTest(RC));
+        // autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
+        // autoChooser.addOption("L4ScoreTest", L4ScoreTest(RC));
 
         // autoChooser.setDefaultOption("L4_4_HIGH", L4FourPieceHigh(RC));
     }

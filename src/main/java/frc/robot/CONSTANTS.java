@@ -392,7 +392,7 @@ public final class CONSTANTS {
         public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24.75);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(41);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
@@ -673,9 +673,9 @@ public final class CONSTANTS {
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
         public static final double CORAL_OUTTAKE_SPEED = 0.4;
-        public static final double CORAL_OUTTAKE_L4_SPEED = 1;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 0.7;
 
-        public static final double CORAL_INTAKE_SPEED = 0.15;
+        public static final double CORAL_INTAKE_SPEED = 0.17;
         public static final double CORAL_REV_SPEED = -0.09;
 
     }
@@ -856,7 +856,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.05;
+            public static final double REEF_SCORE_X_OFFSET = -0.018;
             public static final double REEF_SCORE_Y_OFFSET_LEFT = 0.031;
             public static final double REEF_SCORE_Y_OFFSET_RIGHT = 0.031;
 

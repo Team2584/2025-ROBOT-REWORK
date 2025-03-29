@@ -62,6 +62,9 @@ public class Coral extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Coral/Top", coralCleared());
+        SmartDashboard.putNumber("Coral/TopDist", coralTopSensor.getDistance().getValueAsDouble());
+        SmartDashboard.putNumber("Coral/MidDist", coralMidSensor.getDistance().getValueAsDouble());
+
         SmartDashboard.putBoolean("Coral/Mid", hasCoral());
         SmartDashboard.putBoolean("Coral/Loaded", coralLoaded());
 

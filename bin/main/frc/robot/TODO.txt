@@ -1,0 +1,11 @@
+- REDO command requirements
+
+- Tune TOF Values again
+
+- Look for Pathplanner event trigger fixes
+    - Currently Pathplanner event triggers run the command, BUT stop the path.
+- Fix requirements on commands
+- Test Pathplanner GUI Autons (again)
+
+
+- Mount climb camera on lower back

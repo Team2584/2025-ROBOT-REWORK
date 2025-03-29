@@ -21,7 +21,7 @@ public class AddVisionMeasurement extends Command {
     double drivetrainRotation = 0;
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     StructPublisher<Pose2d> posePublisher = nt.getTable(CONSTANTS_VISION.LIMELIGHT_NAMES[0])
-            .getStructTopic("LL_FRONT_POSE2D", Pose2d.struct).publish();
+            .getStructTopic("LL_POSE2D", Pose2d.struct).publish();
 
     public AddVisionMeasurement(RobotContainer RC) {
         this.drivetrain = RC.getDrivetrain();

@@ -47,8 +47,8 @@ public class Algae extends SubsystemBase {
     AngularVelocity intakeVelocity = m_algaeIntake.getVelocity().getValue();
 
     if ((algaeSensor.getDistance().getValueAsDouble() < 0.09) &&
-        (intakeCurrent.gte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT) &&
-            intakeVelocity.lte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY))) {
+        intakeCurrent.gte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT) &&
+            intakeVelocity.lte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY)) {
       return true;
     } else {
       return false;

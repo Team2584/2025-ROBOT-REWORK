@@ -13,7 +13,6 @@ public class USBCamera extends SubsystemBase {
   private final VideoSink server;
 
   public USBCamera() {
-
     // Camera initialization
     camera1 = CameraServer.startAutomaticCapture(CONSTANTS_USBCAM.CAM01_ID);
     climbCamera = CameraServer.startAutomaticCapture(CONSTANTS_USBCAM.CAM02_ID);
@@ -24,7 +23,9 @@ public class USBCamera extends SubsystemBase {
 
     climbCamera.setResolution(CONSTANTS_USBCAM.RES_WIDTH, CONSTANTS_USBCAM.RES_HEIGHT);
     climbCamera.setFPS(CONSTANTS_USBCAM.FPS);
-    server.setSource(climbCamera);
   }
 
+  public void setCameraClimb() {
+    server.setSource(climbCamera);
+  }
 }

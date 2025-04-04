@@ -304,7 +304,7 @@ public final class CONSTANTS {
 
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem
-            public static final double AUTO_DRIVE_P = 11;
+            public static final double AUTO_DRIVE_P = 13;
             public static final double AUTO_DRIVE_I = 0;
             public static final double AUTO_DRIVE_D = 0;
             public static final PIDConstants AUTO_DRIVE_PID = new PIDConstants(
@@ -312,7 +312,7 @@ public final class CONSTANTS {
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_I,
                     CONSTANTS_DRIVETRAIN.AUTO.AUTO_DRIVE_D);
 
-            public static final double AUTO_STEER_P = 5.7;
+            public static final double AUTO_STEER_P = 6.4;
             public static final double AUTO_STEER_I = 0.0;
             public static final double AUTO_STEER_D = 0.0;
             public static final PIDConstants AUTO_STEER_PID = new PIDConstants(
@@ -342,7 +342,7 @@ public final class CONSTANTS {
 
         public static class TELEOP_AUTO_ALIGN {
             public static final LinearVelocity DESIRED_AUTO_ALIGN_SPEED = Units.MetersPerSecond
-                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3.3);
+                    .of(CONSTANTS_DRIVETRAIN.MAX_DRIVE_SPEED.in(MetersPerSecond) / 3);
 
             public static final Distance MAX_AUTO_DRIVE_CORAL_STATION_DISTANCE = Units.Meters.of(15);
             public static final Distance MAX_AUTO_DRIVE_REEF_DISTANCE = Units.Meters.of(3);
@@ -351,7 +351,7 @@ public final class CONSTANTS {
                     .div(10);
 
             public static final PIDController PID_TRANSLATION = new PIDController(
-                    3.25,
+                    4.5,
                     0,
                     0.0);
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.22);
@@ -621,7 +621,7 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 0.4;
+        public static final double ALGAE_INTAKE_SPEED = 0.65;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
         public static final double ALGAE_HOLD_SPEED = 0.4;
@@ -634,8 +634,8 @@ public final class CONSTANTS {
 
             ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimitEnable = true;
             ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLimit = 70;
-            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 50;
-            ALGAE_INTAKE_CONFIG.CurrentLimits.StatorCurrentLimit = 60;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.SupplyCurrentLowerLimit = 60;
+            ALGAE_INTAKE_CONFIG.CurrentLimits.StatorCurrentLimit = 70;
         }
 
         public static CANrangeConfiguration ALGAE_SENSOR_CONFIG = new CANrangeConfiguration();
@@ -672,8 +672,8 @@ public final class CONSTANTS {
 
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
-        public static final double CORAL_OUTTAKE_SPEED = 0.4;
-        public static final double CORAL_OUTTAKE_L4_SPEED = 0.7;
+        public static final double CORAL_OUTTAKE_SPEED = 0.45;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 0.53;
 
         public static final double CORAL_INTAKE_SPEED = 0.17;
         public static final double CORAL_REV_SPEED = -0.09;
@@ -684,7 +684,7 @@ public final class CONSTANTS {
         // 45:1 ratio
         public static final double RAMP_UP_VELOCITY = 1;
         public static final double RAMP_DOWN_VELOCITY = -1;
-        public static final double RAMP_INTAKE_VELOCITY = -0.1;
+        public static final double RAMP_INTAKE_VELOCITY = -0.10;
 
         public static TalonFXConfiguration RAMP_CONFIG = new TalonFXConfiguration();
         // public static Angle MAX_POSITION = Units.Rotations.of((45.0 / 360.0) * 49.0);
@@ -720,7 +720,7 @@ public final class CONSTANTS {
             RAMP_CONFIG.MotionMagic.MotionMagicCruiseVelocity = 10;
             RAMP_CONFIG.MotionMagic.MotionMagicAcceleration = 5;
 
-            RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
             RAMP_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
             RAMP_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
             RAMP_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
@@ -736,7 +736,7 @@ public final class CONSTANTS {
         public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
         public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
 
-        public static Angle CLIMBED_POS = Units.Rotations.of(62.5);
+        public static Angle CLIMBED_POS = Units.Rotations.of(45);
 
         public static Angle POSITION_TOLERANCE = Units.Rotations.of(9);
 
@@ -856,7 +856,7 @@ public final class CONSTANTS {
 
             // BRANCH POSES
             // negative goes away from reef
-            public static final double REEF_SCORE_X_OFFSET = -0.018;
+            public static final double REEF_SCORE_X_OFFSET = -0.0125;
             public static final double REEF_SCORE_Y_OFFSET_LEFT = 0.031;
             public static final double REEF_SCORE_Y_OFFSET_RIGHT = 0.031;
 

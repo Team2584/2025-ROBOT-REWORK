@@ -5,6 +5,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CONSTANTS.CONSTANTS_CORAL;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
@@ -30,12 +31,26 @@ public class Coral extends SubsystemBase {
                 .until(() -> coralLoaded());
     }
 
+    public Command intakeCoralSlow() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED/1.45), () -> setCoralMotor(0))
+                .until(() -> coralLoaded());
+    }
+
+    public Command intakeCoralMod() {
+        return new InstantCommand(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED))
+                .until(() -> coralCleared())
+                .andThen(runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED / 1.45), () -> setCoralMotor(0))
+                        .until(() -> hasCoral()));
+    }
+
     public Command outtakeCoral() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0)).withTimeout(0.15);
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0))
+                .withTimeout(0.15);
     }
 
     public Command outtakeCoralL4() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0)).withTimeout(0.15);
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0))
+                .withTimeout(0.15);
     }
 
     public Command outtakeCoralL4Auto() {

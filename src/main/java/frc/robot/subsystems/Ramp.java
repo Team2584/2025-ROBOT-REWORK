@@ -36,7 +36,7 @@ public class Ramp extends SubsystemBase {
     }
 
     public void setRampMotorVelocity(double velocity) {
-        m_ramp.set(velocity*0.5);
+        m_ramp.set(velocity * 0.5);
     }
 
     public Angle getRampPosition() {
@@ -75,8 +75,14 @@ public class Ramp extends SubsystemBase {
     public void setRampAngle(Angle setpoint) {
         m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation)));
     }
+
     public Command setRampAngleCommand(Angle setpoint) {
-        return runEnd(()-> m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation))), ()->m_ramp.setControl(new NeutralOut()));
+        return runEnd(() -> m_ramp.setControl(motionRequest.withPosition(setpoint.in(Units.Rotation))),
+                () -> m_ramp.setControl(new NeutralOut()));
+    }
+
+    public Command rampUpCMD() {
+        return runEnd(() -> setRampMotorVelocity(0.4), () -> setRampMotorVelocity(0));
     }
 
     @Override

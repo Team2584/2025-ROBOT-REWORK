@@ -22,6 +22,8 @@ import frc.robot.commands.prep_algae.PickupReefLowAlgae;
 import frc.robot.commands.prep_algae.PrepNetAlgae;
 import frc.robot.commands.prep_coral.PrepCoralLock;
 import frc.robot.commands.prep_coral.PrepIntakeCoral;
+import frc.robot.commands.prep_coral.PrepIntakeCoralAuto;
+import frc.robot.commands.prep_coral.PrepIntakeCoralMod;
 import frc.robot.commands.prep_coral.Score_Coral;
 import frc.robot.subsystems.State.DriverState;
 
@@ -105,7 +107,7 @@ public class Autons {
     public static Command CoralStationTest(RobotContainer RC) {
         return new SequentialCommandGroup(
                 GetCoralStationPiece(RC),
-                GoL4(RC));
+                GoL2(RC));
     }
 
     public static Command L4ScoreTest(RobotContainer RC) {
@@ -169,11 +171,16 @@ public class Autons {
     }
 
     public static Command GetCoralStationPiece(RobotContainer RC) {
-        return new SequentialCommandGroup(RC.getCoral().intakeCoral(), new PrepCoralLock(RC));
+        return new SequentialCommandGroup(new PrepIntakeCoralAuto(RC), new PrepCoralLock(RC));
     }
 
     public static Command GoL4(RobotContainer RC) {
         return new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L4))
+                .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT);
+    }
+
+    public static Command GoL2(RobotContainer RC) {
+        return new InstantCommand(() -> RC.getElevator().setPosition(CONSTANTS_ELEVATOR.HEIGHT_CORAL_L2))
                 .withTimeout(CONSTANTS_ELEVATOR.ELEVATOR_MAX_TIMEOUT);
     }
 
@@ -251,7 +258,7 @@ public class Autons {
 
         // autoChooser.addOption("L4CenterAlgaeTickle", L4CenterAlgaeTickle(RC));
 
-        // autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
+        autoChooser.addOption("CoralStationTest", CoralStationTest(RC));
         // autoChooser.addOption("L4ScoreTest", L4ScoreTest(RC));
 
         // autoChooser.setDefaultOption("L4_4_HIGH", L4FourPieceHigh(RC));

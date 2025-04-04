@@ -52,7 +52,7 @@ public class RobotContainer {
   private final LED led = new LED(this);
   @NotLogged
   private final Autons autos;
-  private final USBCamera climbCamera = new USBCamera();
+  private final USBCamera climbCamera;
 
   @NotLogged
   public CommandXboxController getController() {
@@ -143,96 +143,19 @@ public class RobotContainer {
   public RobotContainer() {
     zeroSubsystems.addRequirements(state);
     Autons.configurePPCommands(this);
+    autos = new Autons(this);
+    climbCamera = new USBCamera();
 
     drivetrain
         .setDefaultCommand(
             new DriveTeleop(this, () -> getController().getLeftY(), () -> getController().getLeftX(),
                 () -> getController().getRightX(), slowModeTrigger, leftReefTrigger, rightReefTrigger,
                 leftCoralStationTrigger,
-                rightCoralStationTrigger, processorTrigger));
-    autos = new Autons(this);
+                rightCoralStationTrigger, processorTrigger, controller, controller2));
+
+    climbCamera.setCameraClimb();
     configureController();
     configureController2();
-    // configureButtonBoard();
-  }
-
-  // Button Board Controls
-  /*
-   * private void configureController() {
-   * controller.x().onTrue(new PrepIntakeCoral(this));
-   * controller.a().whileTrue(new InstantCommand (() -> {
-   * if (coral.coralLoaded()){
-   * new PrepCoralLock(this).schedule();
-   * }}).withTimeout(0.15).andThen(coral.outtakeCoral()));
-   * 
-   * controller.y().whileTrue(algae.outtakeAlgae());
-   * 
-   * redL4.and(controller.b())
-   * .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED,
-   * CONSTANTS_DRIVETRAIN.TOF_DISTANCE)
-   * .andThen(Commands.runEnd(() ->
-   * coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-   * () -> coral.setCoralMotor(0)))
-   * .until(() -> !coral.hasCoral()));
-   * 
-   * redL3.and(controller.b())
-   * .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED,
-   * CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
-   * .andThen(Commands.runEnd(() ->
-   * coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-   * () -> coral.setCoralMotor(0)))
-   * .until(() -> !coral.hasCoral()));
-   * 
-   * redL2.and(controller.b())
-   * .whileTrue(new TOFDrive(this, CONSTANTS_DRIVETRAIN.TOF_SPEED,
-   * CONSTANTS_DRIVETRAIN.TOF_DISTANCE_LOW)
-   * .andThen(Commands.runEnd(() ->
-   * coral.setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED),
-   * () -> coral.setCoralMotor(0)))
-   * .until(() -> !coral.hasCoral()));
-   * 
-   * controller.back().whileTrue(climber.liftRobot().until(() ->
-   * climber.isClimbed())); // Lift Robot (Winch in)
-   * 
-   * controller.start()
-   * .whileTrue(new ParallelCommandGroup(
-   * new InstantCommand(() ->
-   * ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY)),
-   * climber.lowerRobot()))
-   * .onFalse(new InstantCommand(() ->
-   * ramp.setRampMotorVelocity(CONSTANTS_RAMP.RAMP_UP_VELOCITY / 2))); // Ramp
-   * 
-   * controller.leftTrigger().and(controller.rightTrigger()).and(controller.
-   * povRight())
-   * .onTrue(new InstantCommand(() -> MongolianSuperServerBailoutIMU()));
-   * }
-   */
-
-  private void configureButtonBoard() {
-
-    redL4.onTrue(new PrepCoralLvl4(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    redL3.onTrue(new PrepCoralLvl3(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    redL2.onTrue(new PrepCoralLvl2(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    redL1.onTrue(new PrepCoralLvl1(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    blue4.whileTrue(new PrepNetAlgae(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    blue3.whileTrue(new PickupReefHighAlgae(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    blue2.whileTrue(new PickupReefLowAlgae(this))
-        .onFalse(new NeutralStateHandler(this));
-
-    blue1.whileTrue(new PickupAlgaeGround(this))
-        .onFalse(new NeutralStateHandler(this));
   }
 
   // Twin Xbox Controlls
@@ -248,12 +171,12 @@ public class RobotContainer {
         .onFalse(new NeutralStateHandler(this));
 
     controller.povUp()
-        .whileTrue(climber.liftRobot().until(() -> climber.isClimbed())); // Lift Robot (Winch in)
+        .onTrue(new ParallelCommandGroup(ramp.rampUpCMD().until(() ->climber.isClimbed()),
+            climber.liftRobot().until(() ->climber.isClimbed()))); // Lift Robot (Winch in)
 
     controller.povDown()
-        .onTrue(new ParallelCommandGroup(
-           new InstantCommand(()->ramp.setVoltage(8)), climber.lowerRobot()))
-        .onFalse(new InstantCommand(() -> ramp.setVoltage(4))); // Ramp
+        .whileTrue(new ParallelCommandGroup(
+            ramp.rampUpCMD(), climber.lowerRobot())); // Lower Robot
 
   }
 
@@ -270,7 +193,7 @@ public class RobotContainer {
       }
     }).withTimeout(0.15).andThen(new Score_Coral(this)));
 
-    controller2.rightBumper().onTrue(new PrepIntakeCoral(this));
+    controller2.rightBumper().onTrue(new PrepIntakeCoralMod(this));
 
     controller2.x().onTrue(new PrepCoralLvl1(this))
         .onFalse(new NeutralStateHandler(this));

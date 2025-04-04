@@ -65,10 +65,10 @@ public class LED extends SubsystemBase {
         m_candle.configStatusLedState(offWhenActive, 0);
     }
 
-    public void setColor(int r, int g, int b){
-       rgb[0] = r;
-       rgb[1] = g;
-       rgb[2] = b;
+    public void setColor(int r, int g, int b) {
+        rgb[0] = r;
+        rgb[1] = g;
+        rgb[2] = b;
     }
 
     // public void turnGreen() {
@@ -97,15 +97,15 @@ public class LED extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_candle.setLEDs(rgb[0],rgb[1],rgb[2]);
+        m_candle.setLEDs(rgb[0], rgb[1], rgb[2]);
         // if (m_algae.hasAlgae() && m_coral.coralLoaded()) {
-        //     m_candle.setLEDs(0, 0, 255); // BLUE
+        // m_candle.setLEDs(0, 0, 255); // BLUE
         // } else if (m_algae.hasAlgae()) {
-        //     m_candle.setLEDs(0, 255, 0); // GREEN
+        // m_candle.setLEDs(0, 255, 0); // GREEN
         // } else if (m_coral.coralLoaded()) {
-        //     m_candle.setLEDs(255, 165, 0); // ORANGE
+        // m_candle.setLEDs(255, 165, 0); // ORANGE
         // } else {
-        //     m_candle.setLEDs(0, 0, 0);
+        // m_candle.setLEDs(0, 0, 0);
         // }
     }
 

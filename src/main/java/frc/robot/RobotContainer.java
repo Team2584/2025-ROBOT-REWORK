@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -14,7 +15,7 @@ import frc.robot.CONSTANTS.*;
 import frc.robot.commands.AddVisionMeasurement;
 import frc.robot.commands.DriveTeleop;
 import frc.robot.commands.NeutralStateHandler;
-import frc.robot.commands.TOFDrive;
+import frc.robot.commands.climbing.ClimberWinchIn;
 import frc.robot.commands.zero.Zero_Elevator;
 import frc.robot.commands.zero.Zero_Wrist;
 import frc.robot.subsystems.Algae;
@@ -171,13 +172,23 @@ public class RobotContainer {
         .onFalse(new NeutralStateHandler(this));
 
     controller.povUp()
-        .onTrue(new ParallelCommandGroup(ramp.rampUpCMD().until(() ->climber.isClimbed()),
-            climber.liftRobot().until(() ->climber.isClimbed()))); // Lift Robot (Winch in)
+        .onTrue(new InstantCommand(() -> {
+          if (climber.hasAttemptedDeploy()) {
+            new ClimberWinchIn(this).schedule();
+          } else {
+            led.setColor(255, 0, 0);
+          }
+        })); // Lift Robot (Winch in)
 
     controller.povDown()
         .whileTrue(new ParallelCommandGroup(
+            new InstantCommand(() -> {
+              led.setColor(0, 0, 0);
+              if (climber.isAtSpecificSetpoint(CONSTANTS.CONSTANTS_CLIMB.DEPLOY_POS)) {
+                climber.attemptedDeploy();
+              }
+            }),
             ramp.rampUpCMD(), climber.lowerRobot())); // Lower Robot
-
   }
 
   private void configureController2() {
@@ -191,7 +202,7 @@ public class RobotContainer {
       if (coral.coralLoaded()) {
         new PrepCoralLock(this).schedule();
       }
-    }).withTimeout(0.15).andThen(new Score_Coral(this)));
+    }).withTimeout(0.15).andThen(new ScoreCoral(this)));
 
     controller2.rightBumper().onTrue(new PrepIntakeCoralMod(this));
 

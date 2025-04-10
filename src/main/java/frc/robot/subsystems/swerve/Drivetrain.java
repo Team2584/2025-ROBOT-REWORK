@@ -257,7 +257,6 @@ public class Drivetrain extends Swerve {
                         subStateMachine.setDriverState(rotating);
                 } else {
 
-                        
                         // Full auto-align
                         ChassisSpeeds desiredChassisSpeeds = getAlignmentSpeeds(desiredTarget);
                         subStateMachine.setDriverState(driving);

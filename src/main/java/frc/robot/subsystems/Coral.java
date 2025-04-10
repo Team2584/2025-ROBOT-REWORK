@@ -32,7 +32,12 @@ public class Coral extends SubsystemBase {
     }
 
     public Command intakeCoralSlow() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED/1.45), () -> setCoralMotor(0))
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED / 1.45), () -> setCoralMotor(0))
+                .until(() -> coralLoaded());
+    }
+
+    public Command intakeCoralSlowSecondary() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED / 1.6), () -> setCoralMotor(0))
                 .until(() -> coralLoaded());
     }
 
@@ -43,8 +48,25 @@ public class Coral extends SubsystemBase {
                         .until(() -> hasCoral()));
     }
 
-    public Command outtakeCoral() {
-        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_SPEED), () -> setCoralMotor(0))
+    public Command intakeCoralModSecondary() {
+        return new InstantCommand(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED/1.6))
+                .until(() -> coralCleared())
+                .andThen(runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_INTAKE_SPEED / 1.6), () -> setCoralMotor(0))
+                        .until(() -> hasCoral()));
+    }
+
+    public Command outtakeCoralL1() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L1_SPEED), () -> setCoralMotor(0))
+                .withTimeout(0.15);
+    }
+
+    public Command outtakeCoralL2() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L2_SPEED), () -> setCoralMotor(0))
+                .withTimeout(0.15);
+    }
+
+    public Command outtakeCoralL3() {
+        return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L3_SPEED), () -> setCoralMotor(0))
                 .withTimeout(0.15);
     }
 
@@ -55,6 +77,10 @@ public class Coral extends SubsystemBase {
 
     public Command outtakeCoralL4Auto() {
         return runEnd(() -> setCoralMotor(CONSTANTS_CORAL.CORAL_OUTTAKE_L4_SPEED), () -> setCoralMotor(0));
+    }
+
+    public Command setOff() {
+        return new InstantCommand(() -> m_coral.set(0));
     }
 
     public void setCoralMotor(double speed) {

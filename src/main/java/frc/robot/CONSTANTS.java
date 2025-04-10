@@ -82,7 +82,6 @@ public final class CONSTANTS {
 
         // Other
         public static final int PIGEON_CAN = 6;
-        public static final int TOF_CAN = 30;
 
         // Elevator
         public static final int ELEVATOR_LEFT_CAN = 21;
@@ -297,11 +296,6 @@ public final class CONSTANTS {
                         CONSTANTS_PORTS.CAN_BUS_NAME),
         };
 
-        public static final double TOF_DISTANCE_AUTO = 0.185;
-        public static final double TOF_DISTANCE = 0.185;
-        public static final double TOF_DISTANCE_LOW = 0.185;
-        public static final double TOF_SPEED = 0.45;
-
         public static class AUTO {
             // This PID is implemented on the Drivetrain subsystem
             public static final double AUTO_DRIVE_P = 13;
@@ -357,7 +351,7 @@ public final class CONSTANTS {
             public static final Distance AT_POINT_TOLERANCE = Units.Inches.of(0.22);
 
             public static final ProfiledPIDController PID_ROTATIONAL = new ProfiledPIDController(
-                    3, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
+                    3.8, 0, 0, new TrapezoidProfile.Constraints(TURN_SPEED.in(Units.DegreesPerSecond),
                             Math.pow(TURN_SPEED.in(Units.DegreesPerSecond), 2)));
             public static final Angle AT_ROTATION_TOLERANCE = Units.Degrees.of(3);
 
@@ -387,12 +381,12 @@ public final class CONSTANTS {
 
         // Preset Heights
         public static final Distance HEIGHT_CORAL_L1 = Units.Inches.of(3.8);
-        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(16.5);
-        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(31.5);
+        public static final Distance HEIGHT_CORAL_L2 = Units.Inches.of(16.75);
+        public static final Distance HEIGHT_CORAL_L3 = Units.Inches.of(32);
         public static final Distance HEIGHT_CORAL_L4 = Units.Inches.of(55);
 
         public static final Distance HEIGHT_ALGAE_GROUND = Units.Inches.of(0);
-        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24.75);
+        public static final Distance HEIGHT_ALGAE_LOW = Units.Inches.of(24.5);
         public static final Distance HEIGHT_ALGAE_HIGH = Units.Inches.of(41);
 
         public static final Distance HEIGHT_NET = Units.Inches.of(54);
@@ -592,7 +586,7 @@ public final class CONSTANTS {
             WRIST_CONFIG.Slot0.kS = 0.2; // Volts to overcome static friction
             WRIST_CONFIG.Slot0.kV = 0.3; // Volts for a velocity target of 1 rps
             WRIST_CONFIG.Slot0.kA = 0.0; // Volts for an acceleration of 1 rps/s
-            WRIST_CONFIG.Slot0.kP = 48;
+            WRIST_CONFIG.Slot0.kP = 38;
             WRIST_CONFIG.Slot0.kI = 0;
             WRIST_CONFIG.Slot0.kD = 0;
 
@@ -621,7 +615,7 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_ALGAE {
-        public static final double ALGAE_INTAKE_SPEED = 0.65;
+        public static final double ALGAE_INTAKE_SPEED = 0.4;
         public static final double ALGAE_OUTTAKE_SPEED = -0.5;
         public static final double ALGAE_IDLE_SPEED = 0;
         public static final double ALGAE_HOLD_SPEED = 0.4;
@@ -672,8 +666,10 @@ public final class CONSTANTS {
 
         public static final Time CORAL_SCORE_TIME = Units.Second.of(0.5);
 
-        public static final double CORAL_OUTTAKE_SPEED = 0.45;
-        public static final double CORAL_OUTTAKE_L4_SPEED = 0.53;
+        public static final double CORAL_OUTTAKE_L1_SPEED = 0.35;
+        public static final double CORAL_OUTTAKE_L2_SPEED = 0.35;
+        public static final double CORAL_OUTTAKE_L3_SPEED = 0.40;
+        public static final double CORAL_OUTTAKE_L4_SPEED = 0.60;
 
         public static final double CORAL_INTAKE_SPEED = 0.17;
         public static final double CORAL_REV_SPEED = -0.09;
@@ -733,12 +729,13 @@ public final class CONSTANTS {
         public static final double CLIMBER_RETRACT_VELOCITY = -0.8;
 
         public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration();
-        public static Angle MAX_POSITION = Units.Rotations.of((75.0 / 360.0) * 80.0);
-        public static Angle MIN_POSITION = Units.Rotations.of((75.0 / 360.0) * -30.0);
+        public static Angle MAX_POSITION = Units.Rotations.of(52);
+        public static Angle MIN_POSITION = Units.Rotations.of(-52);
 
-        public static Angle CLIMBED_POS = Units.Rotations.of(45);
+        public static Angle CLIMBED_POS = Units.Rotations.of(48);
+        public static Angle DEPLOY_POS = Units.Rotations.of(-50);
 
-        public static Angle POSITION_TOLERANCE = Units.Rotations.of(9);
+        public static Angle POSITION_TOLERANCE = Units.Rotations.of(6);
 
         static {
             CLIMBER_CONFIG.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -749,12 +746,10 @@ public final class CONSTANTS {
 
             CLIMBER_CONFIG.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-            // CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold =
-            // MAX_POSITION.in(Units.Rotations);
-            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-            // CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold =
-            // MIN_POSITION.in(Units.Rotations);
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ForwardSoftLimitThreshold = MAX_POSITION.in(Units.Rotations);
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+            CLIMBER_CONFIG.SoftwareLimitSwitch.ReverseSoftLimitThreshold = MIN_POSITION.in(Units.Rotations);
         }
     }
 
@@ -772,7 +767,7 @@ public final class CONSTANTS {
          * <p>
          * <b>Units:</b> Meters
          */
-        public static final double MEGA_TAG2_STD_DEVS_POSITION = 0.7;
+        public static final double MEGA_TAG2_STD_DEVS_POSITION = 0.13;
 
         /**
          * <p>
@@ -780,7 +775,7 @@ public final class CONSTANTS {
          * </p>
          * <b>Units:</b> Radians
          */
-        public static final double MEGA_TAG2_STD_DEVS_HEADING = 9999999;
+        public static final double MEGA_TAG2_STD_DEVS_HEADING = 999999999;
 
         /**
          * <p>
@@ -806,8 +801,7 @@ public final class CONSTANTS {
     }
 
     public static class CONSTANTS_USBCAM {
-        public static final int CAM01_ID = 0;
-        public static final int CAM02_ID = 1;
+        public static final int CAMCLIMB_ID = 0;
 
         public static final int FPS = 15;
         public static final int RES_WIDTH = 640;
@@ -857,8 +851,9 @@ public final class CONSTANTS {
             // BRANCH POSES
             // negative goes away from reef
             public static final double REEF_SCORE_X_OFFSET = -0.0125;
-            public static final double REEF_SCORE_Y_OFFSET_LEFT = 0.031;
-            public static final double REEF_SCORE_Y_OFFSET_RIGHT = 0.031;
+            // negative goes right
+            public static final double REEF_SCORE_Y_OFFSET_LEFT = -0.013;
+            public static final double REEF_SCORE_Y_OFFSET_RIGHT = -0.051;
 
             public static final Pose2d REEF_A = getRelativePose(new Pose2d(3.171, 4.189, Rotation2d.fromDegrees(0)),
                     REEF_SCORE_X_OFFSET,

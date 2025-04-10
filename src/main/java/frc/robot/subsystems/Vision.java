@@ -161,7 +161,7 @@ public class Vision extends SubsystemBase {
             return Optional.of(lastEstimateBack);
         } else {
             // Default use right LL (change if LL2 is too grim)
-            return Optional.of(lastEstimateRight);
+            return Optional.of(lastEstimateLeft);
         }
     }
 

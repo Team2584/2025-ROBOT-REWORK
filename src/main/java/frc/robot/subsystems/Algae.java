@@ -48,7 +48,7 @@ public class Algae extends SubsystemBase {
 
     if ((algaeSensor.getDistance().getValueAsDouble() < 0.09) &&
         intakeCurrent.gte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_CURRENT) &&
-            intakeVelocity.lte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY)) {
+        intakeVelocity.lte(CONSTANTS_ALGAE.ALGAE_INTAKE_OCCUPIED_VELOCITY)) {
       return true;
     } else {
       return false;

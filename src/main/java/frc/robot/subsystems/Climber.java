@@ -13,6 +13,7 @@ import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CONSTANTS;
 import frc.robot.CONSTANTS.CONSTANTS_CLIMB;
 import frc.robot.CONSTANTS.CONSTANTS_PORTS;
 
@@ -24,6 +25,8 @@ public class Climber extends SubsystemBase {
 
     @NotLogged
     private final VoltageOut voltageRequest = new VoltageOut(0.0);
+    @NotLogged
+    private boolean hasAttemptedDeploy = false;
 
     public Climber() {
         lastTargetPosition = Units.Degrees.of(0);
@@ -66,6 +69,13 @@ public class Climber extends SubsystemBase {
         return lastTargetPosition;
     }
 
+    public boolean isAtSpecificSetpoint(Angle setpoint) {
+        Angle currentPosition = m_climb.getPosition().getValue();
+        Angle lowerBound = setpoint.minus(CONSTANTS.CONSTANTS_CLIMB.POSITION_TOLERANCE);
+        Angle upperBound = setpoint.plus(CONSTANTS.CONSTANTS_CLIMB.POSITION_TOLERANCE);
+        return currentPosition.compareTo(lowerBound) >= 0 && currentPosition.compareTo(upperBound) <= 0;
+    }
+
     public void setNeutral() {
         m_climb.setControl(new NeutralOut());
     }
@@ -84,6 +94,14 @@ public class Climber extends SubsystemBase {
 
     public boolean isClimbed() {
         return getClimberPosition().gte(CONSTANTS_CLIMB.CLIMBED_POS);
+    }
+
+    public boolean hasAttemptedDeploy() {
+        return hasAttemptedDeploy;
+    }
+
+    public void attemptedDeploy() {
+        hasAttemptedDeploy = true;
     }
 
     public void setVoltage(double Volts) {

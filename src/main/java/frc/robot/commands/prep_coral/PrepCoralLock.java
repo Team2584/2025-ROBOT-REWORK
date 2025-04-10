@@ -30,7 +30,7 @@ public class PrepCoralLock extends Command {
     @Override
     public void end(boolean interrupted) {
         coral.setCoralMotor(0);
-        if (!interrupted){
+        if (!interrupted) {
             led.setColor(204, 57, 123);
         }
     }
